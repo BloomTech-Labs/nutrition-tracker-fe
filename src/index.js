@@ -24,25 +24,25 @@ import App from "./App";
 // Save this puppy for later!
 import * as serviceWorker from "./serviceWorker";
 
-//------ Firebase Auth Init -----//
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-import * as firebase from "firebase/app";
+// //------ Firebase Auth Init -----//
+// // Firebase App (the core Firebase SDK) is always required and
+// // must be listed before other Firebase SDKs
+// import * as firebase from "firebase/app";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAzzEOtkO5T63y0skOtP_oO2D7ukxjNs-I",
-  authDomain: "getnutrijournal.firebaseapp.com",
-  databaseURL: "https://getnutrijournal.firebaseio.com",
-  projectId: "getnutrijournal",
-  storageBucket: "getnutrijournal.appspot.com",
-  messagingSenderId: "869823725802",
-  appId: "1:869823725802:web:86e08c0ec10aac24805793"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAzzEOtkO5T63y0skOtP_oO2D7ukxjNs-I",
+//   authDomain: "getnutrijournal.firebaseapp.com",
+//   databaseURL: "https://getnutrijournal.firebaseio.com",
+//   projectId: "getnutrijournal",
+//   storageBucket: "getnutrijournal.appspot.com",
+//   messagingSenderId: "869823725802",
+//   appId: "1:869823725802:web:86e08c0ec10aac24805793"
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
 
-//----- End Firebase Auth Init ----///
+// //----- End Firebase Auth Init ----///
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 

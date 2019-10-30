@@ -1,10 +1,13 @@
 const theme = {
-  g0: "#F1F2F1",
-  g1: "#E6E6E6",
-  g2: "#BFBFC0",
-  g3: "#808080",
-  g4: "#404040",
-  g5: "#191919"
+  primary: "#217aff",
+  secondary: "#6c757c",
+  success: "#34a745",
+  danger: "#dc3545",
+  warning: "#fbc10a",
+  info: "#31a2b8",
+  light: "#f8f9fa",
+  dark: "#343a40",
+  white: "#ffffff"
 };
 
 export default theme;

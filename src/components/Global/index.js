@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "./theme";
 import { Link } from "react-router-dom";
-import { Button, Form, Input } from "reactstrap";
+import { Button as Btn, Form as Frm, Input as Inp } from "reactstrap";
 
 export const AppWrapper = styled.div`
   min-height: 100vh;
@@ -10,6 +10,7 @@ export const AppWrapper = styled.div`
   margin: 0;
 `;
 
+// Linkton because it's a react router link that looks like a bootstrap button
 export const Linkton = styled(Link)`
   background: ${theme.secondary};
   color: ${theme.light};
@@ -22,7 +23,7 @@ export const Linkton = styled(Link)`
   }
 `;
 
-export const Btn = styled(Button)`
+export const Button = styled(Btn)`
   padding: 7px 15px;
   border-radius: 5px;
   &:hover {
@@ -30,9 +31,9 @@ export const Btn = styled(Button)`
   }
 `;
 
-export const Frm = styled(Form)``;
+export const Form = styled(Frm)``;
 
-export const Inp = styled(Input)``;
+export const Input = styled(Inp)``;
 
 export const ButtonWrapper = styled.div`
   display: flex;

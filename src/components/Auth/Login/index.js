@@ -5,31 +5,27 @@ import styled from "styled-components";
 import { Button, Form, Input, ButtonWrapper } from "../../Global";
 import { Linkton } from "../../Global";
 
-const Register = props => {
+const Login = props => {
   return (
-    <RegisterWrapper>
-      <h2>Register</h2>
+    <SignInWrapper>
+      <h2>Sign in</h2>
       <Form onSubmit={e => e.preventDefault() && false}>
-        <Input name="name" placeholder="Username" type="text" />
-
         <Input name="email" type="text" placeholder="Email" />
 
         <Input name="password" type="password" placeholder="Password" />
-
         <ButtonWrapper>
-          <Button>Register</Button>
-
-          <Linkton to="/">Go back to Login</Linkton>
+          <Button>Sign in</Button>
+          <Linkton to="/register">Register now!</Linkton>
         </ButtonWrapper>
       </Form>
-    </RegisterWrapper>
+    </SignInWrapper>
   );
 };
 
-const RegisterWrapper = styled.div`
+const SignInWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export default Register;
+export default Login;

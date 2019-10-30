@@ -1,4 +1,5 @@
 const theme = {
+  // basic bootstrap colors
   primary: "#217aff",
   secondary: "#6c757c",
   success: "#34a745",

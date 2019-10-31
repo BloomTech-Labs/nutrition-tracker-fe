@@ -1,22 +1,20 @@
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
+🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
 
 🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
-# 1️⃣ Title of project goes here
+# NutriJournal
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the deployed project at [getnutrijournal.com](http://www.getnutrijournal.com).
 
-## 4️⃣ Contributors
+# Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                       [Student 1](https://github.com/)                                        |                                       [Student 2](https://github.com/)                                        |                                       [Student 3](https://github.com/)                                        |                                       [Student 4](https://github.com/)                                        |                                       [Student 5](https://github.com/)                                        |
-| :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-|                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
-|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
+|                                         [Chaz Rowe](https://github.com/)                                          |                                        [Joseph Luna](https://github.com/)                                         |                                       [Jimmy McBride](https://github.com/)                                        |                                      [Alejandro Mejia](https://github.com/)                                       |                                        [Will Ediger](https://github.com/)                                         |                                        [Dave Vazquez](https://github.com/)                                        |                                    [Izzy Gonzalez-Brooks](https://github.com/)                                    |                                       [Paul Abernathy](https://github.com/)                                       |                                        [Randy Wilson](https://github.com/)                                        |
+| :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UG81USDEZ-032c4f65390f-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFPQNAWGM-f9eca12accb9-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFTKAJ542-10bd26e82a74-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UHP1KM82J-c62ca48d2cc2-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UD8J8BS1G-d88134753726-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UG7GF20RH-3a4e10af9adb-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFKPLSBA4-dbe33590e896-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UD3Q2AZMZ-9ccdd40ccae7-512" width = "200" />](https://github.com/) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-U805SN6TC-f579479336b7-512" width = "200" />](https://github.com/) |
+|           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/chazr88) chazr88            |         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/joeluna17) joeluna17          |      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JimmyMcBride) JimmyMcBride       |      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/aalejandromr) aalejandromr       |        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/willediger) willediger         |      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dave-vazquez) dave-vazquez       |   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/israelgonzalezb) israelgonzalezb    |    [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/paulabernathy7) paulabernathy7     |      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Phoenixrr2113) Phoenix2113       |
+|   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)   |
 
 <br>
 <br>
@@ -33,11 +31,13 @@
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+[Product Canvas](https://www.notion.so/Nutrition-Tracker-43bf4b85243d48aaa56c05ab6dbfdc23)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+[Figma Prototype - Canvas 1.0 - (bootstrap, no added styles)](https://www.figma.com/file/y1CHPrRYVXDkP2PRHMdGl9/NutraJournal?node-id=2%3A78)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+[DB Schema](https://dbdesigner.page.link/vdm7)
+
+[Trello Board](https://trello.com/c/xQH6Q8Iw/77-rc-1-technical-research)
 
 🚫 Replace lorem ipsum with a description of your project
 
@@ -45,27 +45,46 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-
 ### 4️⃣ Key Features
 
--    feature one
--    feature two
--    feature three
--    feature four
--    feature five
+- feature one
+- feature two
+- feature three
+- feature four
+- feature five
 
 ## 1️⃣ Tech Stack
 
 ### Front end built using:
 
+##### Styling:
+
+`yarn add bootstrap`
+`yarn add reactstrap`
+Installs bootstrap css file and reactstrap components
+
+`yarn add normalize.css`
+Installs normalize.css file to normalize css across browsers
+
+`yarn add styled-components`
+Installs styled components to customize our css
+
+##### Redux, middleware and router
+
+`yarn add redux react-redux redux-thunk redux-logger`
+Adding dependencies for redux and middleware
+
+`yarn add react-router react-router-dom`
+Adding react router to the game
+
 #### _Front end framework goes here_
 
 🚫 Why did you choose this framework?
 
--    point one
--    point two
--    point three
--    point four
+- point one
+- point two
+- point three
+- point four
 
 🚫List the rest of the front end features and libraries in the same format as the framework above.
 
@@ -75,9 +94,14 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 #### 🚫 back end framework goes here
 
--    point one
--    point two
--    point three
+- point one
+- point two
+- point three
+
+#### `yarn add firebase-tools`
+
+- Used to set up Firebase hosting and auth
+- Frontend will be hosted on Firebase
 
 🚫 List the rest of the back end end features and libraries in the same format as the framework above
 
@@ -163,12 +187,13 @@ When contributing to this repository, please first discuss the change you wish t
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
 
 ## Issue/Bug Request
-   
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -194,4 +219,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫_link to your backend readme here_) for details on the backend of our project.
+See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.

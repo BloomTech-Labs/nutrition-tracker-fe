@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { Button, Form, Input, ButtonWrapper } from "../../Global";
 import { Linkton } from "../../Global";
 
+import { withRouter } from "react-router-dom";
+
 // importing the firebase class I exported in src/firebase.js
 import firebase from "../../firebase";
 
@@ -18,7 +20,7 @@ const Login = props => {
     try {
       // firebase.login() is coming from the firebase class I created in src/firebase.js
       await firebase.login(email, password);
-      props.history.replace("/");
+      props.history.replace("/home");
     } catch (error) {
       alert(error.message);
     }
@@ -60,4 +62,4 @@ const SignInWrapper = styled.div`
   align-items: center;
 `;
 
-export default Login;
+export default withRouter(Login);

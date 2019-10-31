@@ -1,8 +1,8 @@
-import app from "firebase/app";
+import * as firebase from "firebase/app";
 import "firebase/auth";
 
 // firebase config variable
-const config = {
+const firebaseConfig = {
   apiKey: "AIzaSyAzzEOtkO5T63y0skOtP_oO2D7ukxjNs-I",
   authDomain: "getnutrijournal.firebaseapp.com",
   databaseURL: "https://getnutrijournal.firebaseio.com",
@@ -15,8 +15,8 @@ const config = {
 // created a class to create login/logout/register
 class Firebase {
   constructor() {
-    app.initializeApp(config);
-    this.auth = app.auth();
+    firebase.initializeApp(firebaseConfig);
+    this.auth = firebase.auth();
   }
 
   login(email, password) {

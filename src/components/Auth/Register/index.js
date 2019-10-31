@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { Button, Form, Input, ButtonWrapper } from "../../Global";
 import { Linkton } from "../../Global";
 
+import { withRouter } from "react-router-dom";
+
 // importing the firebase class I exported in src/firebase.js
 import firebase from "../../firebase";
 
@@ -19,7 +21,7 @@ const Register = props => {
     try {
       // firebase.register() is coming from the firebase class I created in src/firebase.js
       await firebase.register(name, email, password);
-      props.history.replace("/");
+      props.history.replace("/home");
     } catch (error) {
       alert(error.message);
     }
@@ -58,7 +60,7 @@ const Register = props => {
             Register
           </Button>
 
-          <Linkton to="/">Go back to Login</Linkton>
+          <Linkton to="/login">Sign in</Linkton>
         </ButtonWrapper>
       </Form>
     </RegisterWrapper>
@@ -71,4 +73,4 @@ const RegisterWrapper = styled.div`
   align-items: center;
 `;
 
-export default Register;
+export default withRouter(Register);

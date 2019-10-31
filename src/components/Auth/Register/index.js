@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import styled from "styled-components";
 
@@ -8,29 +8,37 @@ import { Linkton } from "../../Global";
 import { withRouter } from "react-router-dom";
 
 // importing the firebase class I exported in src/firebase.js
-import firebase from "../../firebase";
+import firebaseConfig from "../../firebase";
 
-const Register = props => {
+const Register = ({ history }) => {
   // Using use state to set state for username, email and password
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // Creating a register function to send creds to firebase
-  async function onRegister() {
-    try {
-      // firebase.register() is coming from the firebase class I created in src/firebase.js
-      await firebase.register(name, email, password);
-      props.history.replace("/home");
-    } catch (error) {
-      alert(error.message);
-    }
-  }
+  const handleSignUp = useCallback(
+    async event => {
+      event.preventDefault();
+      try {
+        await firebaseConfig
+          .auth()
+          .createUserWithEmailAndPassword(email, password);
+        firebaseConfig.auth().currentUser.updateProfile({
+          displayName: name
+        });
+        history.push("/home");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history, name, email, password]
+  );
 
   return (
     <RegisterWrapper>
       <h2>Register</h2>
-      <Form onSubmit={e => e.preventDefault() && false}>
+      <Form onSubmit={handleSignUp}>
         <Input
           name="name"
           placeholder="Username"
@@ -56,9 +64,7 @@ const Register = props => {
         />
 
         <ButtonWrapper>
-          <Button type="submit" onClick={onRegister}>
-            Register
-          </Button>
+          <Button type="submit">Register</Button>
 
           <Linkton to="/login">Sign in</Linkton>
         </ButtonWrapper>

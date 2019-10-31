@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // importing from global styles
 import { AppWrapper } from "./components/Global";
@@ -18,17 +18,8 @@ import PrivateRoute from "./components/PrivateRoute";
 //
 import { AuthProvider } from "./components/Auth";
 
-import firebase from "./components/firebase";
-
 function App() {
-  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
-
-  useEffect(() => {
-    firebase.isInitialized().then(bool => {
-      setFirebaseInitialized(bool);
-    });
-  });
-  return firebaseInitialized !== false ? (
+  return (
     // AuthProvider provides current user to all children of app
     // current user state needs to be added to redux instead
     <AuthProvider>
@@ -39,8 +30,6 @@ function App() {
         <Route path="/register" exact component={Register} />
       </AppWrapper>
     </AuthProvider>
-  ) : (
-    <div>Loading...</div>
   );
 }
 

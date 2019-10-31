@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import * as firebase from "firebase/app";
+import firebaseConfig from "../firebase";
+
+import { Redirect } from "react-router-dom";
 
 import styled from "styled-components";
 import { Button } from "../Global";
+
+// import { AuthContext } from "../Auth";
 
 const HomePage = () => {
   return (
     <HomeWrapper>
       <h1>Hello, world!</h1>
-      <Button onClick={() => firebase.auth().signOut()}>Sign out</Button>
+      <Button
+        onClick={() =>
+          firebaseConfig
+            .auth()
+            .signOut()
+            .then(() => <Redirect to="/" />)
+        }
+      >
+        Sign out
+      </Button>
     </HomeWrapper>
   );
 };

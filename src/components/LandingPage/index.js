@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Linkton } from "../Global";
 import styled from "styled-components";
 import theme from "../Global/theme";
+import { AuthContext } from "../Auth";
+import { Redirect } from "react-router-dom";
 
 const LandingPage = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/home" />;
+  }
   return (
     <LandingWrapper>
       <h1>NutraJournal</h1>

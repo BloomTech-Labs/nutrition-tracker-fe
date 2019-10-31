@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext } from "react";
 
 import styled from "styled-components";
 
 import { Button, Form, Input, ButtonWrapper } from "../../Global";
 import { Linkton } from "../../Global";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 // importing the firebase class I exported in src/firebase.js
-import firebase from "../../firebase";
+import firebaseConfig from "../../firebase";
 
-const Login = props => {
+import { AuthContext } from "../index";
+
+const Login = ({ history }) => {
   // creating state for email and password
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // creating login function to send creds to firebase and route to home upon success
-  async function login() {
-    try {
-      // firebase.login() is coming from the firebase class I created in src/firebase.js
-      await firebase.login(email, password);
-      props.history.replace("/home");
-    } catch (error) {
-      alert(error.message);
-    }
+  const handleLogin = useCallback(
+    async event => {
+      event.preventDefault();
+      try {
+        await firebaseConfig.auth().signInWithEmailAndPassword(email, password);
+        history.push("/home");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [history, email, password]
+  );
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/home" />;
   }
 
   return (
     <SignInWrapper>
       <h2>Sign in</h2>
-      <Form onSubmit={e => e.preventDefault() && false}>
+      <Form onSubmit={handleLogin}>
         <Input
           name="email"
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
@@ -46,9 +57,7 @@ const Login = props => {
           onChange={e => setPassword(e.target.value)}
         />
         <ButtonWrapper>
-          <Button type="submit" onClick={login}>
-            Sign in
-          </Button>
+          <Button type="submit">Sign in</Button>
           <Linkton to="/register">Register now!</Linkton>
         </ButtonWrapper>
       </Form>

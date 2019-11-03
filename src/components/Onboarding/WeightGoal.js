@@ -1,7 +1,7 @@
 import React from "react";
-import { InputGroup, InputGroupAddon, InputGroupText, Label } from "reactstrap";
 import { Row, Col, Header, Input, PillButton } from "./styles";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../assets/svg-icons";
+import InputGroupWithIcon from "./InputGroupWithIcon";
 
 const WeightGoal = () => {
   return (
@@ -14,27 +14,13 @@ const WeightGoal = () => {
       <Row>
         <Col direction="column" align="flex-start">
           <h3>Target Weight</h3>
-          <InputGroup style={{ marginBottom: "10px" }}>
-            <Input placeholder="lbs." bsSize="lg" />
-            <InputGroupAddon addonType="append">
-              <InputGroupText>
-                <ScaleSVG margin="3 0 0 0" />
-              </InputGroupText>
-            </InputGroupAddon>
-          </InputGroup>
+          <InputGroupWithIcon icon={ScaleSVG} placeholder="lbs." />
         </Col>
       </Row>
       <Row>
         <Col direction="column" align="flex-start">
           <h3>Target Date</h3>
-          <InputGroup style={{ marginBottom: "10px" }}>
-            <Input placeholder="MM/DD/YYYY" />
-            <InputGroupAddon addonType="append">
-              <InputGroupText>
-                <CalendarSVG width={23} height={23} />
-              </InputGroupText>
-            </InputGroupAddon>
-          </InputGroup>
+          <InputGroupWithIcon icon={CalendarSVG} placeholder="lbs." />
         </Col>
       </Row>
       <Row>

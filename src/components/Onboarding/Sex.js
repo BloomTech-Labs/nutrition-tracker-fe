@@ -1,8 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import { PillButton, Header, Row, Col } from "./styles";
 
-const Sex = () => {
+const Sex = ({ history, path }) => {
+  const handleClick = sex => {
+    // update sex
+    history.push(`${path}/activity-level`);
+  };
+
   return (
     <>
       <Row>
@@ -12,13 +16,13 @@ const Sex = () => {
       </Row>
       <Row>
         <Col>
-          <PillButton outline color="primary">
+          <PillButton onClick={() => handleClick("m")} outline color="primary">
             Male
           </PillButton>
         </Col>
         <div className="w-100"></div>
         <Col>
-          <PillButton outline color="primary">
+          <PillButton onClick={() => handleClick("f")} outline color="primary">
             Female
           </PillButton>
         </Col>

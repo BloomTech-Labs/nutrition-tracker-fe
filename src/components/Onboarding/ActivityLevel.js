@@ -1,27 +1,54 @@
 import React from "react";
-import { Button, Header } from "./styles";
+import { PillButton, Header, Row, Col } from "./styles";
 
-const ActivityLevel = props => {
+const ActivityLevel = ({ history, path }) => {
+  const handleClick = activityLevel => {
+    // update activityLevel
+    history.push(`${path}/basic-info`);
+  };
+
   return (
     <div>
       <Header>How active are you?</Header>
-      <>
-        <Button outline color="primary" width="80%">
-          Sedentary
-        </Button>
-        <Button outline color="primary">
-          Light
-        </Button>
-        <Button outline color="primary">
-          Moderate
-        </Button>
-        <Button outline color="primary">
-          Very
-        </Button>
-        <Button outline color="primary">
-          Extra
-        </Button>
-      </>
+      <Row>
+        <Col>
+          <PillButton onClick={() => handleClick(1.2)} outline color="primary">
+            Sedentary
+          </PillButton>
+        </Col>
+        <div className="w-100"></div>
+        <Col>
+          <PillButton
+            onClick={() => handleClick(1.375)}
+            outline
+            color="primary"
+          >
+            Light
+          </PillButton>
+        </Col>
+        <div className="w-100"></div>
+        <Col>
+          <PillButton onClick={() => handleClick(1.55)} outline color="primary">
+            Moderate
+          </PillButton>
+        </Col>
+        <div className="w-100"></div>
+        <Col>
+          <PillButton
+            onClick={() => handleClick(1.725)}
+            outline
+            color="primary"
+          >
+            Very
+          </PillButton>
+        </Col>
+        <div className="w-100"></div>
+        <Col>
+          <PillButton onClick={() => handleClick(1.9)} outline color="primary">
+            Extra
+          </PillButton>
+        </Col>
+      </Row>
     </div>
   );
 };

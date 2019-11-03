@@ -3,7 +3,12 @@ import InputGroupWithIcon from "./InputGroupWithIcon";
 import { Row, Col, Header, PillButton } from "./styles";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../assets/svg-icons";
 
-const BasicInfo = () => {
+const BasicInfo = ({ history, path }) => {
+  const handleClick = () => {
+    // update birth date
+    history.push(`${path}/weight-goal`);
+  };
+
   return (
     <>
       <Row>
@@ -34,7 +39,9 @@ const BasicInfo = () => {
       </Row>
       <Row>
         <Col>
-          <PillButton color="success">Next</PillButton>
+          <PillButton onClick={handleClick} color="success">
+            Next
+          </PillButton>
         </Col>
       </Row>
     </>

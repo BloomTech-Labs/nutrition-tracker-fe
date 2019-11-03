@@ -1,7 +1,12 @@
 import React from "react";
 import { PillButton, Header, Row, Col } from "./styles";
 
-const DietaryGoal = () => {
+const DietaryGoal = ({ history, path }) => {
+  const handleClick = goal => {
+    // update goal
+    history.push(`${path}/sex`);
+  };
+
   return (
     <>
       <Row>
@@ -11,21 +16,32 @@ const DietaryGoal = () => {
       </Row>
       <Row>
         <Col>
-          <PillButton outline color="primary">
+          <PillButton
+            onClick={() => handleClick("lose")}
+            outline
+            color="primary"
+          >
             Lose Weight
           </PillButton>
         </Col>
-      </Row>
-      <Row>
+        <div className="w-100"></div>
+
         <Col>
-          <PillButton outline color="primary">
+          <PillButton
+            onClick={() => handleClick("gain")}
+            outline
+            color="primary"
+          >
             Gain Weight
           </PillButton>
         </Col>
-      </Row>
-      <Row>
+        <div className="w-100"></div>
         <Col>
-          <PillButton outline color="primary">
+          <PillButton
+            onClick={() => handleClick("maintain")}
+            outline
+            color="primary"
+          >
             Eat Healthier
           </PillButton>
         </Col>

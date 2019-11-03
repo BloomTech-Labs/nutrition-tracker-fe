@@ -3,14 +3,23 @@ import styled from "styled-components";
 import { BackSVG } from "../../assets/svg-icons/index";
 import { Row, Col } from "./styles";
 
-function TopBar({ title = "" }) {
+function TopBar(props) {
+  const handleClick = () => {
+    props.history.goBack();
+  };
+
   return (
     <Row className="fixed-top" height="50px">
-      <Col justify="center" align="center" style={{ flex: "0 0 50px" }}>
+      <Col
+        justify="center"
+        align="center"
+        style={{ flex: "0 0 50px" }}
+        onClick={handleClick}
+      >
         <BackSVG />
       </Col>
       <Col justify="flex-start">
-        <PageTitle>{title}</PageTitle>
+        <PageTitle>{props.title}</PageTitle>
       </Col>
     </Row>
   );

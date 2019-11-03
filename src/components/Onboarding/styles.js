@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import theme from "../Global/theme";
 import {
   Button as BS_Button,
   Input as BS_Input,
@@ -34,34 +35,24 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Container = styled(BS_Container)`
-  display: flex;
-  flex-direction: ${({ direction }) => (direction ? direction : "row")};
-  justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
-  align-items: ${({ align }) => (align ? align : "stretch")};
-
+  ${props => theme.flex(props.direction, props.justify, props.align)}
   height: 100vh;
 
   /* border: 1px solid red; */
 `;
 
 export const Row = styled(BS_Row)`
-  display: flex;
-
-  flex-direction: ${({ direction }) => (direction ? direction : "row")};
-  justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
-  align-items: ${({ align }) => (align ? align : "stretch")};
-
+  ${props => theme.flex(props.direction, props.justify, props.align)}
   height: ${({ height }) => (height ? height : "auto")};
 
   /* border: 1px solid blue; */
 `;
 
 export const Col = styled(BS_Col)`
-  display: flex;
-
-  flex-direction: ${({ direction }) => (direction ? direction : "row")};
-  justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
-  align-items: ${({ align }) => (align ? align : "stretch")};
-
-  /* border: 1px solid green; */
+  ${props =>
+    theme.flex(
+      props.direction,
+      props.justify,
+      props.align
+    )} /* border: 1px solid green; */
 `;

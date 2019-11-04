@@ -1,31 +1,45 @@
-import React, { useContext } from "react";
+import React, { Component } from "react";
 
-import firebaseConfig from "../firebase";
+import defaultUserImage from "../../default-user-pic.jpeg";
 
+import { logout } from "../../actions/firebaseAuth";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import styled from "styled-components";
 import { Button } from "../Global";
 
-// import { AuthContext } from "../Auth";
+import Loading from "../Global/Loading";
 
-const HomePage = () => {
-  return (
-    <HomeWrapper>
-      <h1>Hello, world!</h1>
-      <Button
-        onClick={() =>
-          firebaseConfig
-            .auth()
-            .signOut()
-            .then(() => <Redirect to="/" />)
-        }
-      >
-        Sign out
-      </Button>
-    </HomeWrapper>
-  );
-};
+class HomePage extends Component {
+  handleLogout = e => {
+    e.preventDefault();
+    this.props.logout();
+    // this.props.history.push("/landing");
+  };
+
+  render() {
+    const { user, pictureURL, loading, token } = this.props;
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (!token) return <Redirect to="/landing" />;
+
+    return (
+      <HomeWrapper>
+        <h1>Hello, {user}!</h1>
+        <ProfilePic
+          src={pictureURL ? pictureURL : defaultUserImage}
+          alt="user pic"
+        />
+        <div>
+          <Button onClick={this.handleLogout}>Sign out</Button>
+        </div>
+      </HomeWrapper>
+    );
+  }
+}
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -36,9 +50,32 @@ const HomeWrapper = styled.div`
     margin-top: 0;
   }
 
-  button {
-    width: 40%;
-  }
+  // button {
+  //   width: 40%;
+  // }
 `;
 
-export default HomePage;
+const ProfilePic = styled.img`
+  width: 100px;
+  margin-bottom: 40px;
+  border-radius: 50px;
+`;
+
+const mapStateToProps = state => {
+  // console.log(state.firebase.auth);
+  return {
+    user: state.firebase.auth.displayName,
+    pictureURL: state.firebase.auth.photoURL,
+    loading: !state.firebase.auth.isLoaded,
+    // token: state.firebaseAuth.token
+    token:
+      state.firebase.auth &&
+      state.firebase.auth.stsTokenManager &&
+      state.firebase.auth.stsTokenManager.accessToken
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(HomePage);

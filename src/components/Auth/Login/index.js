@@ -1,74 +1,112 @@
-import React, { useState, useCallback, useContext } from "react";
+import React from "react";
 
+// pulling in styles
 import styled from "styled-components";
+import theme from "../../Global/theme";
+import { Button } from "../../Global";
 
-import { Button, Form, Input, ButtonWrapper } from "../../Global";
-import { Linkton } from "../../Global";
+import LoginForm from "./LoginForm";
 
-import { withRouter, Redirect } from "react-router-dom";
+// import firebase from "../../firebase";
+// import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-// importing the firebase class I exported in src/firebase.js
-import firebaseConfig from "../../firebase";
+// connecting redux state
+import {
+  login,
+  googleLogin,
+  facebookLogin
+} from "../../../actions/firebaseAuth";
+import { connect } from "react-redux";
 
-import { AuthContext } from "../index";
+class Login extends React.Component {
+  state = {
+    email: "",
+    password: "",
+    show: false
+  };
 
-const Login = ({ history }) => {
-  // creating state for email and password
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  showLogin = () => {
+    this.setState(pervState => ({
+      show: !pervState.show
+    }));
+  };
 
-  // creating login function to send creds to firebase and route to home upon success
-  const handleLogin = useCallback(
-    async event => {
-      event.preventDefault();
-      try {
-        await firebaseConfig.auth().signInWithEmailAndPassword(email, password);
-        history.push("/home");
-      } catch (error) {
-        alert(error);
-      }
-    },
-    [history, email, password]
-  );
+  handleGoogleAuth = e => {
+    e.preventDefault();
+    this.props.googleLogin();
+    // this.props.history.push("/");
+  };
 
-  const { currentUser } = useContext(AuthContext);
+  handleFacebookAuth = e => {
+    e.preventDefault();
+    this.props.facebookLogin();
+    // this.props.history.push("/");
+  };
 
-  if (currentUser) {
-    return <Redirect to="/home" />;
+  render() {
+    // once user logs in isLoggedIn will be true and route you to home page
+    const { isLoggedIn, history } = this.props;
+    if (isLoggedIn) {
+      history.push("/");
+    }
+    return (
+      <SignInWrapper>
+        <h1>Welcome to NutraJournal!</h1>
+        <SignInBtn onClick={this.handleGoogleAuth}>
+          Sign in with Google!
+        </SignInBtn>
+        <SignInBtn onClick={this.handleFacebookAuth}>
+          Sign in with Facebook!
+        </SignInBtn>
+        <SignInBtn onClick={this.showLogin}>Sign in with Email</SignInBtn>
+        {this.state.show && (
+          <div>
+            <LoginForm />
+          </div>
+        )}
+      </SignInWrapper>
+    );
   }
-
-  return (
-    <SignInWrapper>
-      <h2>Sign in</h2>
-      <Form onSubmit={handleLogin}>
-        <Input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <ButtonWrapper>
-          <Button type="submit">Sign in</Button>
-          <Linkton to="/register">Register now!</Linkton>
-        </ButtonWrapper>
-      </Form>
-    </SignInWrapper>
-  );
-};
+}
 
 const SignInWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  .submit {
+    background: ${theme.success};
+    border-color: ${theme.success};
+    &:hover {
+      background: ${theme.dark};
+      border-color: ${theme.dark};
+    }
+  }
+  .register {
+    background: ${theme.primary};
+    &:hover {
+      background: ${theme.dark};
+    }
+  }
 `;
 
-export default withRouter(Login);
+const SignInBtn = styled(Button)`
+  width: 204px;
+  border-radius: 0;
+  height: 40px;
+  background: ${theme.light};
+  color: ${theme.dark};
+  font-weight: bold;
+  font-size: 1.4rem;
+`;
+
+const mapStateToProps = state => {
+  return {
+    // when user is not logged in isEmpty is true so I use a ! to make isLoggedIn more readable
+    isLoggedIn: !state.firebase.auth.isEmpty
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { login, googleLogin, facebookLogin }
+)(Login);

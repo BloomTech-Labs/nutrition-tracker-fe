@@ -1,25 +1,34 @@
-// react hooks doc https://reactjs.org/docs/hooks-intro.html
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import * as firebase from "firebase/app";
+export default function(ComposedComponent) {
+  // If user not authenticated render out to root
 
-// creating and exporting AuthContext
-// react context doc https://reactjs.org/docs/context.html
-export const AuthContext = React.createContext();
+  class Authentication extends Component {
+    static contextTypes = {
+      router: React.PropTypes.object
+    };
 
-export const AuthProvider = ({ children }) => {
-  // sets state for current user once logged in
-  const [currentUser, setCurrentUser] = useState(null);
+    componentWillMount() {
+      if (!this.props.authenticated) {
+        this.context.router.push("/");
+      }
+    }
 
-  // (componentDidMount) mounts current user
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(setCurrentUser);
-  }, []);
+    componentWillUpdate(nextProps) {
+      if (!nextProps.authenticated) {
+        this.context.router.push("/");
+      }
+    }
 
-  return (
-    // creates context for current user and passes that state down to children components
-    <AuthContext.Provider value={{ currentUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+    render() {
+      return <ComposedComponent {...this.props} />;
+    }
+  }
+
+  function mapStateToProps(state) {
+    return { authenticated: state.authenticated };
+  }
+
+  return connect(mapStateToProps)(Authentication);
+}

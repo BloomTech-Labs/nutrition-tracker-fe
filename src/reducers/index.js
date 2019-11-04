@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import { loginReducer } from "./loginReducer"; // Example of reducer import
+import { firebaseAuth } from "./firebaseAuth"; // Example of reducer import
+import { firebaseReducer } from "react-redux-firebase";
 
 export default combineReducers({
-  loginReducer // Example of reducer
+  firebaseAuth,
+  firebase: firebaseReducer
 });

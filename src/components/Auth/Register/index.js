@@ -1,77 +1,70 @@
-import React, { useState, useCallback } from "react";
+import React, { Component } from "react";
 
 import styled from "styled-components";
 
 import { Button, Form, Input, ButtonWrapper } from "../../Global";
 import { Linkton } from "../../Global";
 
-import { withRouter } from "react-router-dom";
+import { register } from "../../../actions/firebaseAuth";
+import { connect } from "react-redux";
 
-// importing the firebase class I exported in src/firebase.js
-import firebaseConfig from "../../firebase";
+class Register extends Component {
+  state = {
+    username: "",
+    password: "",
+    email: ""
+  };
 
-const Register = ({ history }) => {
-  // Using use state to set state for username, email and password
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  handleInputChange = e => {
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  // Creating a register function to send creds to firebase
-  const handleSignUp = useCallback(
-    async event => {
-      event.preventDefault();
-      try {
-        await firebaseConfig
-          .auth()
-          .createUserWithEmailAndPassword(email, password);
-        firebaseConfig.auth().currentUser.updateProfile({
-          displayName: name
-        });
-        history.push("/home");
-      } catch (error) {
-        alert(error);
-      }
-    },
-    [history, name, email, password]
-  );
+  handleRegister = e => {
+    e.preventDefault();
+    this.props.register(this.state.name, this.state.email, this.state.password);
+  };
+  render() {
+    const { registerSuccess, history } = this.props;
+    if (registerSuccess) {
+      history.push("/home");
+    }
+    return (
+      <RegisterWrapper>
+        <h2>Register</h2>
+        <Form onSubmit={this.handleRegister}>
+          <Input
+            name="name"
+            placeholder="Username"
+            type="text"
+            onChange={this.handleInputChange}
+          />
 
-  return (
-    <RegisterWrapper>
-      <h2>Register</h2>
-      <Form onSubmit={handleSignUp}>
-        <Input
-          name="name"
-          placeholder="Username"
-          type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
+          <Input
+            name="email"
+            type="text"
+            placeholder="Email"
+            onChange={this.handleInputChange}
+          />
 
-        <Input
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={this.handleInputChange}
+          />
 
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-
-        <ButtonWrapper>
-          <Button type="submit">Register</Button>
-
-          <Linkton to="/login">Sign in</Linkton>
-        </ButtonWrapper>
-      </Form>
-    </RegisterWrapper>
-  );
-};
+          <ButtonWrapper>
+            <Button type="/home">Register</Button>
+            <Linkton to="/login">Sign in</Linkton>
+          </ButtonWrapper>
+        </Form>
+      </RegisterWrapper>
+    );
+  }
+}
 
 const RegisterWrapper = styled.div`
   display: flex;
@@ -79,4 +72,13 @@ const RegisterWrapper = styled.div`
   align-items: center;
 `;
 
-export default withRouter(Register);
+const mapStateToProps = state => {
+  return {
+    registerSuccess: !state.firebase.auth.isEmpty
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { register }
+)(Register);

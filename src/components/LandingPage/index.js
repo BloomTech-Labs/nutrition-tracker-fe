@@ -1,15 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Linkton } from "../Global";
 import styled from "styled-components";
 import theme from "../Global/theme";
-import { AuthContext } from "../Auth";
-import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-const LandingPage = () => {
-  const { currentUser } = useContext(AuthContext);
-
-  if (currentUser) {
-    return <Redirect to="/home" />;
+const LandingPage = ({ isLoggedIn, history }) => {
+  if (isLoggedIn) {
+    history.push("/");
   }
   return (
     <LandingWrapper>
@@ -37,4 +34,13 @@ const RegisterButton = styled(Linkton)`
   background: ${theme.success};
 `;
 
-export default LandingPage;
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.firebase.auth.uid
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(LandingPage);

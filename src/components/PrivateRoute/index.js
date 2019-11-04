@@ -1,20 +1,22 @@
 // hooks doc https://reactjs.org/docs/hooks-intro.html
-import React, { useContext } from "react";
+import React from "react";
+
+import { useSelector } from "react-redux";
 
 import { Route, Redirect } from "react-router-dom";
 
-import { AuthContext } from "../Auth";
-
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  // setting current user context (useContext for now, this needs to be moved to redux)
-  const { currentUser } = useContext(AuthContext);
-
-  console.log("Current user:", currentUser && currentUser.displayName);
+  const token = useSelector(
+    async state =>
+      (await state.firebase.auth.stsTokenManager) &&
+      state.firebase.auth.stsTokenManager.accessToken
+  );
+  console.log(token);
   return (
     <Route
       {...rest}
       render={routeProps =>
-        currentUser ? <RouteComponent {...routeProps} /> : <Redirect to="/" />
+        token ? <RouteComponent {...routeProps} /> : <Redirect to="/landing" />
       }
     />
   );

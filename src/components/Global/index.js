@@ -15,7 +15,7 @@ export const Linkton = styled(Link)`
   background: ${theme.secondary};
   color: ${theme.light};
   padding: 11px 15px;
-  border-radius: 5px;
+  border-radius: 25px;
   &:hover {
     background: ${theme.dark};
     text-decoration: none;
@@ -25,7 +25,7 @@ export const Linkton = styled(Link)`
 
 export const Button = styled(Btn)`
   padding: 7px 15px;
-  border-radius: 5px;
+  border-radius: 25px;
   &:hover {
     background: ${theme.dark};
   }
@@ -37,5 +37,9 @@ export const Input = styled(Inp)``;
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  button,
+  a {
+    margin: 10px 0;
+  }
 `;

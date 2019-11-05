@@ -24,6 +24,7 @@ export const register = (name, email, password) => dispatch => {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
+      console.log(name);
       return firebase.auth().currentUser.updateProfile({
         displayName: name
       });

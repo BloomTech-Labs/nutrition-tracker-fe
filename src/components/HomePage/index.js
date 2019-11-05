@@ -15,17 +15,14 @@ class HomePage extends Component {
   handleLogout = e => {
     e.preventDefault();
     this.props.logout();
-    // this.props.history.push("/landing");
   };
 
   render() {
     const { user, pictureURL, loading, token } = this.props;
-    if (loading) {
-      return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     if (!token) return <Redirect to="/landing" />;
-
+    console.log();
     return (
       <HomeWrapper>
         <h1>Hello, {user}!</h1>
@@ -49,10 +46,6 @@ const HomeWrapper = styled.div`
   h1 {
     margin-top: 0;
   }
-
-  // button {
-  //   width: 40%;
-  // }
 `;
 
 const ProfilePic = styled.img`
@@ -62,12 +55,10 @@ const ProfilePic = styled.img`
 `;
 
 const mapStateToProps = state => {
-  // console.log(state.firebase.auth);
   return {
     user: state.firebase.auth.displayName,
     pictureURL: state.firebase.auth.photoURL,
     loading: !state.firebase.auth.isLoaded,
-    // token: state.firebaseAuth.token
     token:
       state.firebase.auth &&
       state.firebase.auth.stsTokenManager &&

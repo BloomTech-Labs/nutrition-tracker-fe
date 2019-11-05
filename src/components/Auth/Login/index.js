@@ -1,78 +1,77 @@
-import React from "react";
+import React, { Component } from "react";
 
-// pulling in styles
+import { Button, Form, Input, ButtonWrapper, Linkton } from "../../Global";
 import styled from "styled-components";
 import theme from "../../Global/theme";
-import { Button } from "../../Global";
 
-import LoginForm from "./LoginForm";
-
-// import firebase from "../../firebase";
-// import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-
-// connecting redux state
-import {
-  login,
-  googleLogin,
-  facebookLogin
-} from "../../../actions/firebaseAuth";
+import { login } from "../../../actions/firebaseAuth";
 import { connect } from "react-redux";
 
-class Login extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    show: false
+import { Redirect } from "react-router-dom";
+
+class Login extends Component {
+  // sets the value of the input to it's corresponding piece of state
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
-  showLogin = () => {
-    this.setState(pervState => ({
-      show: !pervState.show
-    }));
-  };
-
-  handleGoogleAuth = e => {
+  // does the login thing, ya know?
+  handleSubmit = e => {
     e.preventDefault();
-    this.props.googleLogin();
-    // this.props.history.push("/");
+    this.props.login(this.state.email, this.state.password);
   };
-
-  handleFacebookAuth = e => {
-    e.preventDefault();
-    this.props.facebookLogin();
-    // this.props.history.push("/");
-  };
-
   render() {
     // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn, history } = this.props;
-    if (isLoggedIn) {
-      history.push("/");
-    }
+    const { isLoggedIn } = this.props;
+    if (isLoggedIn) return <Redirect to="/" />;
+
     return (
-      <SignInWrapper>
-        <h1>Welcome to NutraJournal!</h1>
-        <SignInBtn onClick={this.handleGoogleAuth}>
-          Sign in with Google!
-        </SignInBtn>
-        <SignInBtn onClick={this.handleFacebookAuth}>
-          Sign in with Facebook!
-        </SignInBtn>
-        <SignInBtn onClick={this.showLogin}>Sign in with Email</SignInBtn>
-        {this.state.show && (
-          <div>
-            <LoginForm />
-          </div>
-        )}
-      </SignInWrapper>
+      <LoginFormWrapper>
+        <h2>Sign in here!</h2>
+        <Form onSubmit={this.handleSubmit}>
+          <Input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={this.handleChange}
+          />
+
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={this.handleChange}
+          />
+          <ButtonWrapper>
+            <Button className="submit" type="submit">
+              Sign in
+            </Button>
+            <Linkton className="register" to="/register">
+              Register now!
+            </Linkton>
+          </ButtonWrapper>
+        </Form>
+      </LoginFormWrapper>
     );
   }
 }
 
-const SignInWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const LoginFormWrapper = styled.div`
+  margin: 0 auto;
+  width: 204px;
+  form {
+    input {
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 10px;
+    }
+    a {
+      margin-top: 10px;
+    }
+  }
   .submit {
     background: ${theme.success};
     border-color: ${theme.success};
@@ -89,16 +88,6 @@ const SignInWrapper = styled.div`
   }
 `;
 
-const SignInBtn = styled(Button)`
-  width: 204px;
-  border-radius: 0;
-  height: 40px;
-  background: ${theme.light};
-  color: ${theme.dark};
-  font-weight: bold;
-  font-size: 1.4rem;
-`;
-
 const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true so I use a ! to make isLoggedIn more readable
@@ -108,5 +97,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { login, googleLogin, facebookLogin }
+  { login }
 )(Login);

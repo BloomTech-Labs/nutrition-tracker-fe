@@ -11,12 +11,14 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import FoodItem from "./components/FoodItem";
+import Onboarding from "./components/Onboarding";
 
 function App() {
   return (
     <AppWrapper>
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />
+      <Route path="/onboarding" component={Onboarding} />
       <Route path="/register" exact component={Register} />
       <Route path="/search" exact component={FoodItem} />
     </AppWrapper>

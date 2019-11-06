@@ -18,9 +18,9 @@ function App() {
     <AppWrapper>
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />
-      <Route path="/onboarding" component={Onboarding} />
+      <Route path="/onboarding" exact component={Onboarding} />
       <Route path="/register" exact component={Register} />
-      <Route path="/search" exact component={FoodItem} />
+      <Route path="/food_item" component={FoodItem} />
     </AppWrapper>
   );
 }

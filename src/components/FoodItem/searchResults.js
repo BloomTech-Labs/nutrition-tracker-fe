@@ -3,11 +3,12 @@ import { getOneFoodItem } from '../../actions/foodItemAction';
 import { connect } from 'react-redux';
 
 class SearchResults extends React.Component {
+
   render(){
     return(
       this.props.items.map(foodItem => {
         return(
-          <tr onClick={e => this.props.getOneFoodItem(foodItem.food_id)}>
+          <tr onClick={() => this.props.handleGetFoodItem(foodItem.food_id)}>
             <th scope="row"> { foodItem.food_name } </th>
             <td>{ foodItem.standard_amount }</td>
             <td>{ foodItem.calories }</td>
@@ -24,4 +25,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getOneFoodItem })(SearchResults);
+export default connect(mapStateToProps, {})(SearchResults);

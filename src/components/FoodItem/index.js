@@ -1,43 +1,47 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { searchFoodItems } from '../../actions/foodItemAction'
-import { Col, Row, Table, Form, FormGroup, Label, Input } from 'reactstrap';
-import SearchForm from './searchForm';
-import SearchResults from './searchResults';
+import React from "react";
+import { connect } from "react-redux";
+import { searchFoodItems } from "../../actions/foodItemAction";
+import { Route } from "react-router-dom";
+import FoodDetails from "./foodDetails";
+import SearchPage from "./searchPage";
 
 class FoodItem extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchTerm: ''
-    }
+      searchTerm: ""
+    };
   }
 
   render() {
-    return(
+    const { path } = this.props.match;
+    return (
       <>
-        <SearchForm/>
-        <Table responsive>
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Serving</th>
-            <th>Calories</th>
-          </tr>
-          </thead>
-          <tbody>
-            <SearchResults/>
-          </tbody>
-        </Table>
+        <Route
+          path={`${path}/search`}
+          exact
+          render={props => (
+            <SearchPage {...props} path={path} />
+          )}
+        />
+
+        <Route
+          path={`${path}/view/:food_id`}
+          render={props => (
+          <FoodDetails {...props} />
+        )}/>
       </>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     items: state.foodItemsReducer.items
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, { searchFoodItems })(FoodItem);
+export default connect(
+  mapStateToProps,
+  { searchFoodItems }
+)(FoodItem);

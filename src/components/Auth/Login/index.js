@@ -2,8 +2,8 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { Button, Form, Input, ButtonWrapper } from "../../Global";
-import { Linkton } from "../../Global";
+import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
+import { Linkton } from "../../Global/styled";
 
 const Login = props => {
   return (

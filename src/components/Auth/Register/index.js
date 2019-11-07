@@ -2,10 +2,10 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { Button, Form, Input, ButtonWrapper } from "../../Global";
-import { Linkton } from "../../Global";
+import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
+import { Linkton } from "../../Global/styled";
 
-const Register = props => {
+const Register = () => {
   return (
     <RegisterWrapper>
       <h2>Register</h2>

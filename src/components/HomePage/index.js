@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import { Button } from "../Global";
+import { Button } from "../Global/styled";
 
 const HomePage = () => {
   return (

@@ -8,7 +8,7 @@ import theme from "../../Global/theme";
 import { register } from "../../../actions/firebaseAuth";
 import { connect } from "react-redux";
 
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 class Register extends Component {
   state = {
@@ -98,4 +98,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { register }
-)(Register);
+)(withRouter(Register));

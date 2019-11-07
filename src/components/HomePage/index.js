@@ -22,10 +22,9 @@ class HomePage extends Component {
     if (loading) return <Loading />;
 
     if (!token) return <Redirect to="/landing" />;
-    console.log();
     return (
       <HomeWrapper>
-        <h1>Hello, {user}!</h1>
+        {user ? <h2>Hello, {user}!</h2> : <h2>Welcome to NutriJournal</h2>}
         <ProfilePic
           src={pictureURL ? pictureURL : defaultUserImage}
           alt="user pic"
@@ -56,7 +55,7 @@ const ProfilePic = styled.img`
 
 const mapStateToProps = state => {
   return {
-    user: state.firebase.auth.displayName,
+    user: state.firebase.auth && state.firebase.auth.displayName,
     pictureURL: state.firebase.auth.photoURL,
     loading: !state.firebase.auth.isLoaded,
     token:

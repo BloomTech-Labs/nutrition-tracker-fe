@@ -6,12 +6,17 @@ import { AppWrapper } from "./components/Global";
 // Set up routes
 import { Route } from "react-router-dom";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 // importing component pages for routes
 import HomePage from "./components/HomePage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import FoodItem from "./components/FoodItem";
 import Onboarding from "./components/Onboarding";
+
+library.add(faSearch);
 
 function App() {
   return (

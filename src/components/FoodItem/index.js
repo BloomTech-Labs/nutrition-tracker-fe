@@ -20,16 +20,13 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/search`}
           exact
-          render={props => (
-            <SearchPage {...props} path={path} />
-          )}
+          render={props => <SearchPage {...props} path={path} />}
         />
 
         <Route
           path={`${path}/view/:food_id`}
-          render={props => (
-          <FoodDetails {...props} />
-        )}/>
+          render={props => <FoodDetails {...props} />}
+        />
       </>
     );
   }

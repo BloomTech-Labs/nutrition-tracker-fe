@@ -10,6 +10,7 @@ import { Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import Settings from "./components/Settings";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/settings" component={Settings} />
     </AppWrapper>
   );
 }

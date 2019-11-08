@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import defaultUserImage from "../../default-user-pic.jpeg";
 
-import { logout } from "../../actions/firebaseAuth";
+import { logout } from "../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 

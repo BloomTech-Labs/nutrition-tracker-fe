@@ -19,7 +19,7 @@ import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import firebase from "./components/firebase";
+import firebase from "./config/firebase";
 
 import App from "./App";
 

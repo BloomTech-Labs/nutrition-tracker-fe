@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 // Styled Components
->>>>>>> a363ca384e9c7c083a3bce78df42e80efda4d2d4
 export { default as AppWrapper } from "./components/AppWrapper";
 export { default as Linkton } from "./components/Linkton";
 export { default as Button } from "./components/Button";

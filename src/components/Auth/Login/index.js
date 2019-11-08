@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 
-import { Button, Form, Input, ButtonWrapper, Linkton } from "../../Global";
+import {
+  Button,
+  Form,
+  Input,
+  ButtonWrapper,
+  Linkton
+} from "../../Global/styled";
 import styled from "styled-components";
 import theme from "../../Global/theme";
 
-<<<<<<< HEAD
-import { login } from "../../../actions/firebaseAuth";
+import { login } from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
 
 import { Redirect } from "react-router-dom";
@@ -27,31 +32,10 @@ class Login extends Component {
     // once user logs in isLoggedIn will be true and route you to home page
     const { isLoggedIn } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
-=======
-import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
-import { Linkton } from "../../Global/styled";
-
-const Login = props => {
-  return (
-    <SignInWrapper>
-      <h2>Sign in</h2>
-      <Form onSubmit={e => e.preventDefault() && false}>
-        <Input name="email" type="text" placeholder="Email" />
-
-        <Input name="password" type="password" placeholder="Password" />
-        <ButtonWrapper>
-          <Button>Sign in</Button>
-          <Linkton to="/register">Register now!</Linkton>
-        </ButtonWrapper>
-      </Form>
-    </SignInWrapper>
-  );
-};
->>>>>>> a363ca384e9c7c083a3bce78df42e80efda4d2d4
 
     return (
       <LoginFormWrapper>
-        <h2>Sign in here!</h2>
+        <h2>Sign in here</h2>
         <Form onSubmit={this.handleSubmit}>
           <Input
             name="email"
@@ -71,7 +55,7 @@ const Login = props => {
               Sign in
             </Button>
             <Linkton className="register" to="/register">
-              Register now!
+              Register now
             </Linkton>
           </ButtonWrapper>
         </Form>
@@ -95,24 +79,24 @@ const LoginFormWrapper = styled.div`
     }
   }
   .submit {
-    background: ${theme.success};
-    border-color: ${theme.success};
+    background: ${theme.color.success};
+    border-color: ${theme.color.success};
     &:hover {
-      background: ${theme.dark};
-      border-color: ${theme.dark};
+      background: ${theme.color.dark};
+      border-color: ${theme.color.dark};
     }
   }
   .register {
-    background: ${theme.primary};
+    background: ${theme.color.primary};
     &:hover {
-      background: ${theme.dark};
+      background: ${theme.color.dark};
     }
   }
 `;
 
 const mapStateToProps = state => {
   return {
-    // when user is not logged in isEmpty is true so I use a ! to make isLoggedIn more readable
+    // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty
   };
 };

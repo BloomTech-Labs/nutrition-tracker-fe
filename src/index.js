@@ -15,7 +15,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 
 // Set up redux middleware and root reducer
-import rootReducer from "./reducers";
+import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 

@@ -2,11 +2,23 @@ import React, { Component } from "react";
 
 import styled from "styled-components";
 
+<<<<<<< HEAD
 import { Button, Form, Input, ButtonWrapper, Linkton } from "../../Global";
 import theme from "../../Global/theme";
 
 import { register } from "../../../actions/firebaseAuth";
 import { connect } from "react-redux";
+=======
+import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
+import { Linkton } from "../../Global/styled";
+
+const Register = () => {
+  return (
+    <RegisterWrapper>
+      <h2>Register</h2>
+      <Form onSubmit={e => e.preventDefault() && false}>
+        <Input name="name" placeholder="Username" type="text" />
+>>>>>>> a363ca384e9c7c083a3bce78df42e80efda4d2d4
 
 import { Redirect, withRouter } from "react-router-dom";
 

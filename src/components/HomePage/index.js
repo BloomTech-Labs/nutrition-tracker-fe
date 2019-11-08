@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import styled from "styled-components";
-import { Button } from "../Global";
+import { Button } from "../Global/styled";
 
 import Loading from "../Global/Loading";
 

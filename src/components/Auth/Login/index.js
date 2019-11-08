@@ -4,6 +4,7 @@ import { Button, Form, Input, ButtonWrapper, Linkton } from "../../Global";
 import styled from "styled-components";
 import theme from "../../Global/theme";
 
+<<<<<<< HEAD
 import { login } from "../../../actions/firebaseAuth";
 import { connect } from "react-redux";
 
@@ -26,6 +27,27 @@ class Login extends Component {
     // once user logs in isLoggedIn will be true and route you to home page
     const { isLoggedIn } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
+=======
+import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
+import { Linkton } from "../../Global/styled";
+
+const Login = props => {
+  return (
+    <SignInWrapper>
+      <h2>Sign in</h2>
+      <Form onSubmit={e => e.preventDefault() && false}>
+        <Input name="email" type="text" placeholder="Email" />
+
+        <Input name="password" type="password" placeholder="Password" />
+        <ButtonWrapper>
+          <Button>Sign in</Button>
+          <Linkton to="/register">Register now!</Linkton>
+        </ButtonWrapper>
+      </Form>
+    </SignInWrapper>
+  );
+};
+>>>>>>> a363ca384e9c7c083a3bce78df42e80efda4d2d4
 
     return (
       <LoginFormWrapper>

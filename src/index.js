@@ -16,7 +16,7 @@ import { createStore, applyMiddleware } from "redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
 // Set up redux middleware and root reducer
-import rootReducer from "./reducers";
+import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import firebase from "./components/firebase";

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { searchFoodItems } from "../../actions/foodItemAction";
 import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
 class SearchForm extends React.Component {
   constructor() {
@@ -27,25 +28,32 @@ class SearchForm extends React.Component {
     return (
       <Form>
         <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
-              <Input
-                value={this.state.searchTerm}
-                onChange={this.handleSearch}
-                type="text"
-                name="search_term"
-                id="search_term"
-                placeholder="Search food item"
-                bsSize="lg"
-              />
-            </FormGroup>
+          <Col xs={1}>
+            <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
+          </Col>
+          <Col xs={11}>
+            <Input
+              value={this.state.searchTerm}
+              onChange={this.handleSearch}
+              type="text"
+              name="search_term"
+              id="search_term"
+              placeholder="Search food item"
+              bsSize="lg"
+            />
           </Col>
         </Row>
       </Form>
     );
   }
 }
+
+const GraySearchBar = styled(Col)`
+  background-color: grey;
+  && {
+    margin-right: -5px;
+  }
+`;
 
 export default connect(
   null,

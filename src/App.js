@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage";
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import Onboarding from "./components/Onboarding";
 
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
@@ -20,10 +21,11 @@ class App extends Component {
   render() {
     return (
       <AppWrapper>
-        <Route path="/landing" exact component={LandingPage} />
         <PrivateRoute path="/" exact component={HomePage} />
+        <Route path="/landing" exact component={LandingPage} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
+        <Route path="/onboarding" exact component={Onboarding} />
       </AppWrapper>
     );
   }

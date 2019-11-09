@@ -5,25 +5,16 @@ import { Button } from "../Global";
 
 const HomePage = () => {
   return (
-    <HomeWrapper>
+    <Container direction="column">
+      <div style={{ height: "50px" }}></div>
       <h1>Hello, world!</h1>
       <Button>Sign out</Button>
-    </HomeWrapper>
+    </Container>
   );
 };
 
-const HomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h1 {
-    margin-top: 0;
-  }
-
-  button {
-    width: 40%;
-  }
+const Container = styled(BS_Container)`
+  height: 100vh;
 `;
 
 export default HomePage;

@@ -9,3 +9,9 @@ export default styled(BS_Button)`
     background: ${theme.color.dark};
   }
 `;
+
+/*
+  Docs:
+
+    https://reactstrap.github.io/components/buttons/
+*/

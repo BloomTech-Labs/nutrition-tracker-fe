@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import theme from "../../theme";
 
 import { Row as BS_Row } from "reactstrap";
 

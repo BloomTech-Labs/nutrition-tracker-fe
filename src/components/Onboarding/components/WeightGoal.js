@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Header, PillButton } from "../../Global/styled";
+import { Row, Col, H2, PillButton } from "../../Global/styled";
 import { CalendarSVG, ScaleSVG } from "../../../assets/svg-icons";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { updateWeightGoal } from "../../../store/actions/onboardingActions";
@@ -18,8 +18,8 @@ class WeightGoal extends React.Component {
     return (
       <>
         <Row>
-          <Col justify="center">
-            <Header>Let's set some goals!</Header>
+          <Col justify="center" align="center" height="80px">
+            <H2>Let's set some goals!</H2>
           </Col>
         </Row>
         <Row>
@@ -42,7 +42,7 @@ class WeightGoal extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="fixed-bottom">
           <Col>
             <PillButton onClick={this.handleClick} color="success">
               Next

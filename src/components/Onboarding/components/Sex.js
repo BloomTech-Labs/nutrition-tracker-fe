@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { PillButton, Row, Col, Header } from "../../Global/styled";
+import { PillButton, Row, Col, H2 } from "../../Global/styled";
 import { updateSex } from "../../../store/actions/onboardingActions";
 
 const Sex = props => {
@@ -14,8 +14,8 @@ const Sex = props => {
   return (
     <>
       <Row>
-        <Col>
-          <Header>Are you Male or Female?</Header>
+        <Col justify="center">
+          <H2>Are you Male or Female?</H2>
         </Col>
       </Row>
       <Row>
@@ -24,7 +24,8 @@ const Sex = props => {
             Male
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton onClick={() => handleClick("f")} outline color="primary">
             Female

@@ -1,5 +1,5 @@
 import React from "react";
-import { PillButton, Row, Col, Header } from "../../Global/styled";
+import { PillButton, Row, Col, H2 } from "../../Global/styled";
 
 const DietaryGoal = ({ history, path }) => {
   const handleClick = goal => {
@@ -9,8 +9,8 @@ const DietaryGoal = ({ history, path }) => {
   return (
     <>
       <Row>
-        <Col>
-          <Header>What's your dietary goal?</Header>
+        <Col justify="center" align="center" height="50px">
+          <H2>What's your dietary goal?</H2>
         </Col>
       </Row>
       <Row>
@@ -23,7 +23,8 @@ const DietaryGoal = ({ history, path }) => {
             Lose Weight
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton
             onClick={() => handleClick("gain")}
@@ -33,7 +34,8 @@ const DietaryGoal = ({ history, path }) => {
             Gain Weight
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton
             onClick={() => handleClick("maintain")}

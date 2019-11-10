@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { PillButton, Header, Row, Col } from "../../Global/styled";
+import { PillButton, H2, Row, Col } from "../../Global/styled";
 import { updateActivityLevel } from "../../../store/actions/onboardingActions";
 
 const ActivityLevel = props => {
@@ -12,15 +12,20 @@ const ActivityLevel = props => {
   };
 
   return (
-    <div>
-      <Header>How active are you?</Header>
+    <>
+      <Row>
+        <Col justify="center">
+          <H2>How active are you?</H2>
+        </Col>
+      </Row>
       <Row>
         <Col>
           <PillButton onClick={() => handleClick(1.2)} outline color="primary">
             Sedentary
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton
             onClick={() => handleClick(1.375)}
@@ -30,13 +35,15 @@ const ActivityLevel = props => {
             Light
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton onClick={() => handleClick(1.55)} outline color="primary">
             Moderate
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton
             onClick={() => handleClick(1.725)}
@@ -46,14 +53,15 @@ const ActivityLevel = props => {
             Very
           </PillButton>
         </Col>
-        <div className="w-100"></div>
+      </Row>
+      <Row>
         <Col>
           <PillButton onClick={() => handleClick(1.9)} outline color="primary">
             Extra
           </PillButton>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 

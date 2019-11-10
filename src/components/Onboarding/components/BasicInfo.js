@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import InputGroupWithIcon from "./InputGroupWithIcon";
-import { Row, Col, PillButton, Header } from "../../Global/styled";
+import { Row, Col, PillButton, H2 } from "../../Global/styled";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../../assets/svg-icons";
 import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 
@@ -38,8 +38,8 @@ class BasicInfo extends React.Component {
     return (
       <>
         <Row>
-          <Col justify="center">
-            <Header>Let's get some basic info!</Header>
+          <Col justify="center" align="center" height="80px">
+            <H2>Let's get some basic info!</H2>
           </Col>
         </Row>
         <Row>
@@ -91,7 +91,7 @@ class BasicInfo extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="fixed-bottom">
           <Col>
             <PillButton onClick={this.handleClick} color="success">
               Next

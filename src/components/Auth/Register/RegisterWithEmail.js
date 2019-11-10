@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import { Row, Col, Form, Input, Header, PillButton } from "../../Global/styled";
+import { Form } from "reactstrap";
+import { Row, Col, Input, H2, PillButton } from "../../Global/styled";
 import { EmailSVG } from "../../Global/icons";
 import { register } from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
@@ -23,16 +24,17 @@ class RegisterWithEmail extends Component {
     e.preventDefault();
     this.props.register(this.state.name, this.state.email, this.state.password);
   };
+
   render() {
     return (
       <>
-        <Header>
-          <EmailSVG width="38" height="38" margin="0 10px 0 0" />
+        <H2>
+          <EmailSVG width="38" height="38" margin="0 30px 4px 0" />
           Register with email
-        </Header>
+        </H2>
         <Form onSubmit={this.handleRegister}>
           <Row>
-            <Col>
+            <Col height="50px" align="center">
               <Input
                 name="name"
                 placeholder="Username"
@@ -42,7 +44,7 @@ class RegisterWithEmail extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col height="50px" align="center">
               <Input
                 name="email"
                 type="text"
@@ -52,7 +54,7 @@ class RegisterWithEmail extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col height="50px" align="center">
               <Input
                 name="password"
                 type="password"
@@ -61,24 +63,9 @@ class RegisterWithEmail extends Component {
               />
             </Col>
           </Row>
-          {/* <Row>
-            <Col>
-              <Input
-                name="password"
-                type="password"
-                placeholder="Password"
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </Row> */}
           <Row className="fixed-bottom">
-            <Col style={{ marginBottom: "30px" }}>
-              <PillButton
-                className="login"
-                type="submit"
-                color="success"
-                outline
-              >
+            <Col>
+              <PillButton className="login" type="submit" color="success">
                 Register
               </PillButton>
             </Col>

@@ -9,9 +9,10 @@ import RegisterWithEmail from "./RegisterWithEmail";
 class Register extends React.Component {
   render() {
     const { path } = this.props.match;
-    console.log("[Register index.js] this.state", this.state);
     const { isLoggedIn } = this.props;
+
     if (isLoggedIn) return <Redirect to="/" />;
+
     return (
       <Container justify="center" fluid={true}>
         <TopBar {...this.props} />

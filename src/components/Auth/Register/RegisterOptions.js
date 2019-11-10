@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import styled from "styled-components";
 
-import { PillButton, Row, Col } from "../../Global/styled";
+import { PillButton, Row, Col, H2 } from "../../Global/styled";
 
 import { GoogleSVG, FacebookSVG, EmailSVG } from "../../Global/icons";
 
@@ -26,30 +26,44 @@ class Register extends Component {
     this.props.facebookLogin();
   };
 
-  redirectToEmailRegister = () => {
-    this.props.push();
-  };
-
   render() {
     const { registerSuccess, path } = this.props;
     if (registerSuccess) return <Redirect to="/" />;
     return (
       <>
         <Row>
-          <Col justify="center">
-            <Header>Sign up and save your settings!</Header>
+          <Col justify="center" align="center" height="80px">
+            <H2>Sign up and save your settings!</H2>
           </Col>
         </Row>
         <Row>
           <Col>
-            <PillButton onClick={this.handleGoogleAuth} color="light">
-              <GoogleSVG /> <ButtonLabel>Sign up with Google</ButtonLabel>
+            <PillButton onClick={this.handleGoogleAuth} outline color="primary">
+              <Row align="center">
+                <Col xs="3">
+                  <GoogleSVG />
+                </Col>
+                <Col>
+                  <ButtonLabel>Sign up with Google</ButtonLabel>
+                </Col>
+              </Row>
             </PillButton>
           </Col>
           <div className="w-100"></div>
           <Col>
-            <PillButton onClick={this.handleFacebookAuth} color="light">
-              <FacebookSVG /> <ButtonLabel>Sign up with Facebook</ButtonLabel>
+            <PillButton
+              onClick={this.handleFacebookAuth}
+              outline
+              color="primary"
+            >
+              <Row align="center">
+                <Col xs="3">
+                  <FacebookSVG />
+                </Col>
+                <Col>
+                  <ButtonLabel>Sign up with Facebook</ButtonLabel>
+                </Col>
+              </Row>
             </PillButton>
           </Col>
           <div className="w-100"></div>
@@ -58,9 +72,17 @@ class Register extends Component {
           <Col>
             <PillButton
               onClick={() => this.props.history.push(`${path}/email`)}
-              color="light"
+              outline
+              color="primary"
             >
-              <EmailSVG /> <ButtonLabel>Sign up with Email</ButtonLabel>
+              <Row align="center">
+                <Col xs="3">
+                  <EmailSVG />
+                </Col>
+                <Col>
+                  <ButtonLabel>Sign up with Email</ButtonLabel>
+                </Col>
+              </Row>
             </PillButton>
           </Col>
         </Row>
@@ -69,8 +91,9 @@ class Register extends Component {
   }
 }
 
-const Header = styled.h1`
-  font-size: 2.8rem;
+const ButtonLabel = styled.div`
+  font-size: 1.6rem;
+  /* color: black; */
 `;
 
 const mapStateToProps = state => {
@@ -79,12 +102,6 @@ const mapStateToProps = state => {
     registerSuccess: !state.firebase.auth.isEmpty
   };
 };
-
-const ButtonLabel = styled.span`
-  font-size: 1.6rem;
-  margin-left: 20%;
-  text-align: center;
-`;
 
 export default connect(
   mapStateToProps,

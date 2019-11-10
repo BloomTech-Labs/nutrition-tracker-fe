@@ -21,7 +21,7 @@ StyledInput.propTypes = {
   CUSTOM PROP-TYPES:
 
     height:
-      100vh,          default height to fill the viewport height, can be over-ridden with any value
+      38px,          default height is 38px, can be over-written with any value
 
   DOCS:
     Reactstrap:

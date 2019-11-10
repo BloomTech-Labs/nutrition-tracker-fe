@@ -4,8 +4,9 @@ import theme from "../../theme";
 import { Col as BS_Col } from "reactstrap";
 
 export default styled(BS_Col)`
-  /* border: 1px solid green; */
+  border: 1px solid green;
   ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
+  height: ${props => (props.height ? props.height : "auto")};
 `;
 
 /*

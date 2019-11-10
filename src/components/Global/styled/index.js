@@ -8,3 +8,6 @@ export { default as ButtonWrapper } from "./components/ButtonWrapper";
 export { default as Container } from "./components/Container";
 export { default as Row } from "./components/Row";
 export { default as Col } from "./components/Col";
+export { default as PillButton } from "./components/PillButton";
+export { default as SignInButton } from "./components/SignInButton";
+export { default as Header } from "./components/Header";

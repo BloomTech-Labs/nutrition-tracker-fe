@@ -3,8 +3,12 @@ import styled from "styled-components";
 import { Container as BS_Container } from "reactstrap";
 
 export default styled(BS_Container)`
-  /* border: 1px solid red; */
-  height: ${props => (props.height ? props.height : "auto")};
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: ${props => (props.justify ? props.justify : "flex-start")}
+  align-items: ${props => (props.align ? props.align : "stretch")}
+  height: ${props => (props.height ? props.height : "100vh")};
 `;
 
 /*

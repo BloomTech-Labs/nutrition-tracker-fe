@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Row as BS_Row } from "reactstrap";
 
 export default styled(BS_Row)`
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
   height: ${props => (props.height ? props.height : "auto")};
 `;
 

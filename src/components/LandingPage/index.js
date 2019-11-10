@@ -3,7 +3,7 @@ import React from "react";
 // pulling in styles
 import styled from "styled-components";
 // import theme from "../Global/theme";
-import { Container, PillButton, Row, Col, Header } from "../Global/styled";
+import { Container, PillButton, Row, Col, H1 } from "../Global/styled";
 
 import { connect } from "react-redux";
 
@@ -24,10 +24,10 @@ class LandingPage extends React.Component {
     if (isLoggedIn) return <Redirect to="/" />;
 
     return (
-      <LandingPageWrapper fluid>
+      <Container fluid>
         <Row>
           <Col justify="center">
-            <Header>NutriJournal</Header>
+            <H1>NutriJournal</H1>
           </Col>
         </Row>
         {/* <Header>NutriJournal</Header> */}
@@ -49,19 +49,10 @@ class LandingPage extends React.Component {
             </PillButton>
           </Col>
         </Row>
-      </LandingPageWrapper>
+      </Container>
     );
   }
 }
-
-const LandingPageWrapper = styled(Container)`
-  .login {
-    margin-bottom: 50px;
-  }
-  .col {
-    padding: 0 3.5rem;
-  }
-`;
 
 const mapStateToProps = state => {
   return {

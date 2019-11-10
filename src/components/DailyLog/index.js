@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import styled from "styled-components";
-import { Button } from "../Global/styled";
+import { PillButton } from "../Global/styled";
 
 import Loading from "../Global/Loading";
 
@@ -30,7 +30,9 @@ class DailyLog extends Component {
           alt="user pic"
         />
         <div>
-          <Button onClick={this.handleLogout}>Sign out</Button>
+          <PillButton color="secondary" onClick={this.handleLogout}>
+            Sign out
+          </PillButton>
         </div>
       </HomeWrapper>
     );

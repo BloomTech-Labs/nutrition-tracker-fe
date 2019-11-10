@@ -1,107 +1,42 @@
-import React, { Component } from "react";
-
-import styled from "styled-components";
-
-import {
-  Button,
-  Form,
-  Input,
-  ButtonWrapper,
-  Linkton
-} from "../../Global/styled";
-import theme from "../../Global/theme";
-
-import { register } from "../../../store/actions/firebaseAuth";
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { Container } from "../../Global/styled";
+import TopBar from "../../Onboarding/TopBar";
+import RegisterOptions from "./RegisterOptions";
+import RegisterWithEmail from "./RegisterWithEmail";
 
-import { Redirect, withRouter } from "react-router-dom";
-
-class Register extends Component {
-  state = {
-    name: "",
-    password: "",
-    email: ""
-  };
-
-  handleInputChange = e => {
-    this.setState({
-      ...this.state,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  handleRegister = e => {
-    e.preventDefault();
-    this.props.register(this.state.name, this.state.email, this.state.password);
-  };
+class Register extends React.Component {
   render() {
-    const { registerSuccess } = this.props;
-    if (registerSuccess) return <Redirect to="/" />;
+    const { path } = this.props.match;
+    console.log("[Register index.js] this.state", this.state);
+    const { isLoggedIn } = this.props;
+    if (isLoggedIn) return <Redirect to="/" />;
     return (
-      <RegisterWrapper>
-        <h2>Register</h2>
-        <Form onSubmit={this.handleRegister}>
-          <Input
-            name="name"
-            placeholder="Username"
-            type="text"
-            onChange={this.handleInputChange}
-          />
-
-          <Input
-            name="email"
-            type="text"
-            placeholder="Email"
-            onChange={this.handleInputChange}
-          />
-
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={this.handleInputChange}
-          />
-
-          <ButtonWrapper>
-            <RegisterBtn type="submit">Register</RegisterBtn>
-            <SignInBtn to="/landing">Back to Login</SignInBtn>
-          </ButtonWrapper>
-        </Form>
-      </RegisterWrapper>
+      <Container justify="center" fluid={true}>
+        <TopBar {...this.props} />
+        <Route
+          exact
+          path={path}
+          render={props => <RegisterOptions {...props} path={path} />}
+        />
+        <Route
+          path={`${path}/email`}
+          render={props => <RegisterWithEmail {...props} path={path} />}
+        />
+      </Container>
     );
   }
 }
 
-const RegisterWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  input {
-    margin: 10px 0;
-  }
-`;
-
-const RegisterBtn = styled(Button)`
-  width: 200px;
-  border-radius: 25px;
-  background: ${theme.color.success};
-  border-color: ${theme.color.success};
-`;
-const SignInBtn = styled(Linkton)`
-  width: 200px;
-  border-radius: 25px;
-  background: ${theme.color.primary};
-  border-color: ${theme.color.primary};
-`;
-
 const mapStateToProps = state => {
-  console.log("username:", state.firebase.auth);
   return {
-    registerSuccess: !state.firebase.auth.isEmpty
+    // when user is not logged in isEmpty is true
+    isLoggedIn: !state.firebase.auth.isEmpty
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register }
-)(withRouter(Register));
+  {}
+)(Register);

@@ -16,7 +16,7 @@ export default ({
       style={{ margin: `${margin}`, padding: `${padding}` }}
       viewBox={viewBox}
     >
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M15 30.0001C23.8889 30.0001 30 24.4444 30 15.5556C30 7.77778 25.5556 0 15.5556 0C5.55555 0 0 6.61082 0 15.5556C0 24.5003 6.66667 30.0001 15 30.0001Z"
           fill="#395185"

@@ -27,20 +27,20 @@ export default ({
       <path
         d="M11 15L2 25"
         stroke="#FFB300"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M21 15L30 25"
         stroke="#FFB300"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M1 7L15.9789 19L31 7.0397"
         stroke="#FFB300"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         opacity="0.2"
@@ -56,8 +56,8 @@ export default ({
           y2="26.0825"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFC107" />
-          <stop offset="1" stop-color="#FFD54F" />
+          <stop stopColor="#FFC107" />
+          <stop offset="1" stopColor="#FFD54F" />
         </linearGradient>
         <linearGradient
           id="paint1_linear"
@@ -67,8 +67,8 @@ export default ({
           y2="18.0385"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFE082" />
-          <stop offset="0.993" stop-color="#FFCA28" />
+          <stop stopColor="#FFE082" />
+          <stop offset="0.993" stopColor="#FFCA28" />
         </linearGradient>
       </defs>
     </svg>

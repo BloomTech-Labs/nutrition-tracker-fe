@@ -1,14 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { Container } from "./styles";
+import { Container } from "../Global/styled";
 import TopBar from "./TopBar";
 import DietaryGoal from "./components/DietaryGoal";
 import Sex from "./components/Sex";
 import ActivityLevel from "./components/ActivityLevel";
 import BasicInfo from "./components/BasicInfo";
 import WeightGoal from "./components/WeightGoal";
-import RegistrationOptions from "./components/RegistrationOptions";
-import Register from "./components/Register";
 
 class Onboarding extends React.Component {
   render() {
@@ -16,7 +14,7 @@ class Onboarding extends React.Component {
     console.log("[Onboarding index.js] this.state", this.state);
 
     return (
-      <Container direction="column" justify="center" fluid={true}>
+      <Container justify="center" fluid={true}>
         <TopBar {...this.props} />
         <Route
           path={`${path}/dietary-goal`}
@@ -37,14 +35,6 @@ class Onboarding extends React.Component {
         <Route
           path={`${path}/weight-goal`}
           render={props => <WeightGoal {...props} path={path} />}
-        />
-        <Route
-          path={`${path}/registration-options`}
-          render={props => <RegistrationOptions {...props} path={path} />}
-        />
-        <Route
-          path={`${path}/register`}
-          render={props => <Register {...props} path={path} />}
         />
       </Container>
     );

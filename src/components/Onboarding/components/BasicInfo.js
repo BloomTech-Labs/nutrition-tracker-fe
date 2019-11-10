@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import InputGroupWithIcon from "./InputGroupWithIcon";
-import { Row, Col, Header, PillButton } from "../styles";
+import { Row, Col, PillButton, Header } from "../../Global/styled";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../../assets/svg-icons";
-import { updateBasicInfo } from "../../../actions/onboardingActions";
+import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 
 class BasicInfo extends React.Component {
   state = {
@@ -22,7 +22,7 @@ class BasicInfo extends React.Component {
       weight: weightToMetic(weight)
     });
 
-    //this.props.history.push(`${this.props.path}/weight-goal`);
+    this.props.history.push(`${this.props.path}/weight-goal`);
   };
 
   handleChange = e => {

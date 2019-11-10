@@ -1,18 +1,19 @@
 import React from "react";
-import { Row, Col, Header, PillButton } from "../styles";
+import { Row, Col, Header, PillButton } from "../../Global/styled";
 import { CalendarSVG, ScaleSVG } from "../../../assets/svg-icons";
 import InputGroupWithIcon from "./InputGroupWithIcon";
-import { updateWeightGoal } from "../../../actions/onboardingActions";
+import { updateWeightGoal } from "../../../store/actions/onboardingActions";
 
 class WeightGoal extends React.Component {
   handleClick = () => {
-    this.props.history.push(`${this.props.path}/registration-options`);
+    // this.props.history.push(`${this.props.path}/registration-options`);
+    this.props.history.push("/register");
   };
 
   handleChange = e => {};
 
   render() {
-    const { date_of_birth, height, weight } = this.state;
+    // const { date_of_birth, height, weight } = this.state;
 
     return (
       <>

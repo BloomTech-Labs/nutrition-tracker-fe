@@ -56,7 +56,7 @@ export const googleLogin = () => dispatch => {
   dispatch({ type: "GOOGLE_LOGIN_START" });
   firebase
     .auth()
-    .signInWithPopup(googleProvider)
+    .signInWithRedirect(googleProvider)
     .then(res => {
       // google login response
       console.log("Google response:", res);

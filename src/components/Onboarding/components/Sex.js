@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { PillButton, Header, Row, Col } from "../styles";
-import { updateSex } from "../../../actions/onboardingActions";
+import { PillButton, Row, Col, Header } from "../../Global/styled";
+import { updateSex } from "../../../store/actions/onboardingActions";
 
 const Sex = props => {
   const { history, path } = props;
@@ -14,7 +14,7 @@ const Sex = props => {
   return (
     <>
       <Row>
-        <Col justify="center">
+        <Col>
           <Header>Are you Male or Female?</Header>
         </Col>
       </Row>

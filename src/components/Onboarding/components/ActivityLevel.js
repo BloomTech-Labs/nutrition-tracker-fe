@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { PillButton, Header, Row, Col } from "../styles";
-import { updateActivityLevel } from "../../../actions/onboardingActions";
+import { PillButton, Header, Row, Col } from "../../Global/styled";
+import { updateActivityLevel } from "../../../store/actions/onboardingActions";
 
 const ActivityLevel = props => {
   const { history, path } = props;

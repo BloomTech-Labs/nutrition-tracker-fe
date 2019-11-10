@@ -1,5 +1,5 @@
 import React from "react";
-import { PillButton, Header, Row, Col } from "../styles";
+import { PillButton, Row, Col, Header } from "../../Global/styled";
 
 const DietaryGoal = ({ history, path }) => {
   const handleClick = goal => {
@@ -9,7 +9,7 @@ const DietaryGoal = ({ history, path }) => {
   return (
     <>
       <Row>
-        <Col justify="center">
+        <Col>
           <Header>What's your dietary goal?</Header>
         </Col>
       </Row>
@@ -24,7 +24,6 @@ const DietaryGoal = ({ history, path }) => {
           </PillButton>
         </Col>
         <div className="w-100"></div>
-
         <Col>
           <PillButton
             onClick={() => handleClick("gain")}

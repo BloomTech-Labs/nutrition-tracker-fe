@@ -15,6 +15,7 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import FoodItem from "./components/FoodItem";
 import Onboarding from "./components/Onboarding";
+import Loading from "./components/Global/Loading"; // DELETE ME WHEN THE LOADING HOC IS READY TO IMPLEMENT
 
 library.add(faSearch);
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/onboarding" exact component={Onboarding} />
       <Route path="/register" exact component={Register} />
       <Route path="/food_item" component={FoodItem} />
+      <Route path="/loading" component ={Loading}/> {/*DELETE ME WHEN THE LOADING HOC IS READY TO IMPLEMENT*/}
     </AppWrapper>
   );
 }

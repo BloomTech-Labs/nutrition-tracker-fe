@@ -27,6 +27,7 @@ class FoodItem extends React.Component {
           path={`${path}/view/:food_id`}
           render={props => <FoodDetails {...props} />}
         />
+        
       </>
     );
   }

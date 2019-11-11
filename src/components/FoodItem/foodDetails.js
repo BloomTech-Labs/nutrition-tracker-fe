@@ -9,7 +9,8 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Table
 } from "reactstrap";
 
 class FoodDetails extends React.Component {
@@ -18,7 +19,7 @@ class FoodDetails extends React.Component {
     this.state = {
       quantity: 1,
       dropdownOpen: false,
-      dropDownSelectionKey: ""
+      dropDownSelectionKey: false
     };
   }
 
@@ -37,6 +38,7 @@ class FoodDetails extends React.Component {
   };
 
   handleSelect = key => {
+    console.log(key);
     this.setState(function(prevState) {
       return {
         ...prevState,
@@ -52,7 +54,7 @@ class FoodDetails extends React.Component {
         {this.props.got ? (
           <>
             <Row>
-              <Col> {this.props.item.food_name} </Col>
+              <Col> Kale </Col>
               <Col> 33 Cal </Col>
             </Row>
             <Row>
@@ -71,9 +73,14 @@ class FoodDetails extends React.Component {
                   isOpen={this.state.dropdownOpen}
                   toggle={this.handleToggle}
                 >
-                  <DropdownToggle caret>Dropdown</DropdownToggle>
-                  <DropdownMenu onChange={e => console.log(e)}>
-                    {this.props.item.servings.serving.map((serving, key) => (
+                  <DropdownToggle caret>
+                    {this.state.dropDownSelectionKey
+                      ? this.props.item[this.state.dropDownSelectionKey]
+                          .measurement_description
+                      : "Select"}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {this.props.item.map((serving, key) => (
                       <DropdownItem
                         key={key}
                         onClick={() => this.handleSelect(key)}
@@ -88,16 +95,45 @@ class FoodDetails extends React.Component {
             </Row>
             <Row>
               <Col>
-                {" "}
-                Fats:{" "}
-                {this.state.dropDownSelectionKey &&
-                  this.props.item.servings.serving[
-                    this.state.dropDownSelectionKey
-                  ].fat * this.state.quantity}{" "}
-                {this.state.dropDownSelectionKey &&
-                  this.props.item.servings.serving[
-                    this.state.dropDownSelectionKey
-                  ].measurement_description}{" "}
+                {this.state.dropDownSelectionKey && (
+                  <Table borderless responsive>
+                    <tbody>
+                      <tr>
+                        <th scope="row"> Fats </th>
+                        <td>
+                          {this.props.item[this.state.dropDownSelectionKey]
+                            .fat * this.state.quantity}
+                          {
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .metric_serving_unit
+                          }
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row"> Cholesterol </th>
+                        <td>
+                          {this.props.item[this.state.dropDownSelectionKey]
+                            .cholesterol * this.state.quantity}
+                          {
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .metric_serving_unit
+                          }
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row"> Sodium </th>
+                        <td>
+                          {this.props.item[this.state.dropDownSelectionKey]
+                            .sodium * this.state.quantity}
+                          {
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .metric_serving_unit
+                          }
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                )}
               </Col>
             </Row>
           </>

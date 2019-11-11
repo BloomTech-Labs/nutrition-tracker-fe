@@ -1,8 +1,5 @@
 import styled from "styled-components";
-<<<<<<< HEAD
-=======
 import PropTypes from "prop-types";
->>>>>>> 41866f1ba3a662890a90cd1ff02cfc284fac356c
 
 import { Row } from "reactstrap";
 

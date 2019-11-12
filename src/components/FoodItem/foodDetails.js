@@ -13,6 +13,8 @@ import {
 import { DropdownToggle } from "../Global/styled";
 import { Doughnut } from "react-chartjs-2";
 import { Input } from "../Global/styled";
+import { TBody } from "../Global/styled/";
+import formatDecimal from "../Global/helpers/formatDecimals";
 
 class FoodDetails extends React.Component {
   constructor() {
@@ -73,7 +75,7 @@ class FoodDetails extends React.Component {
                   toggle={this.handleToggle}
                 >
                   <DropdownToggle caret>
-                    {this.state.dropDownSelectionKey
+                    {this.state.dropDownSelectionKey !== false
                       ? this.props.item[this.state.dropDownSelectionKey]
                           .measurement_description
                       : "Select"}
@@ -84,8 +86,7 @@ class FoodDetails extends React.Component {
                         key={key}
                         onClick={() => this.handleSelect(key)}
                       >
-                        {" "}
-                        {serving.measurement_description}{" "}
+                        {serving.measurement_description}
                       </DropdownItem>
                     ))}
                   </DropdownMenu>
@@ -93,29 +94,32 @@ class FoodDetails extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col xs={4}>
                 <Doughnut
-                  data={{
-                    datasets: [
-                      {
-                        data: [10, 20, 30]
-                      }
-                    ],
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: ["Red", "Yellow", "Blue"],
-                    backgroundColor: "rgba(255, 371, 0)"
-                  }}
+                  data={dataGenerator([1, 2, 3, 4], "red,green,blue,orange")}
+                />
+              </Col>
+              <Col xs={4}>
+                <Doughnut
+                  data={dataGenerator([3, 2, 3, 4], "red,green,blue,orange")}
+                />
+              </Col>
+              <Col xs={4}>
+                <Doughnut
+                  data={dataGenerator([11, 2, 9, 4], "red,green,blue,orange")}
                 />
               </Col>
               <Col>
-                {this.state.dropDownSelectionKey && (
+                {this.state.dropDownSelectionKey !== false && (
                   <Table borderless responsive>
-                    <tbody>
+                    <TBody>
                       <tr>
                         <th scope="row"> Fats </th>
                         <td>
-                          {this.props.item[this.state.dropDownSelectionKey]
-                            .fat * this.state.quantity}
+                          {formatDecimal(
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .fat * this.state.quantity
+                          )}
                           {
                             this.props.item[this.state.dropDownSelectionKey]
                               .metric_serving_unit
@@ -125,8 +129,10 @@ class FoodDetails extends React.Component {
                       <tr>
                         <th scope="row"> Cholesterol </th>
                         <td>
-                          {this.props.item[this.state.dropDownSelectionKey]
-                            .cholesterol * this.state.quantity}
+                          {formatDecimal(
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .cholesterol * this.state.quantity
+                          )}
                           {
                             this.props.item[this.state.dropDownSelectionKey]
                               .metric_serving_unit
@@ -136,15 +142,17 @@ class FoodDetails extends React.Component {
                       <tr>
                         <th scope="row"> Sodium </th>
                         <td>
-                          {this.props.item[this.state.dropDownSelectionKey]
-                            .sodium * this.state.quantity}
+                          {formatDecimal(
+                            this.props.item[this.state.dropDownSelectionKey]
+                              .sodium * this.state.quantity
+                          )}
                           {
                             this.props.item[this.state.dropDownSelectionKey]
                               .metric_serving_unit
                           }
                         </td>
                       </tr>
-                    </tbody>
+                    </TBody>
                   </Table>
                 )}
               </Col>
@@ -156,6 +164,20 @@ class FoodDetails extends React.Component {
       </Container>
     );
   }
+}
+
+// Turns the input strings into a charts.js dataset
+function dataGenerator(data, color) {
+  const dataset = {
+    // labels: color.split(","),
+    datasets: [
+      {
+        backgroundColor: color.split(","),
+        data: data
+      }
+    ]
+  };
+  return dataset;
 }
 
 const mapStateToProps = state => {

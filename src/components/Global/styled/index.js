@@ -8,3 +8,4 @@ export { default as PillButton } from "./components/PillButton";
 export { default as H1 } from "./components/H1";
 export { default as H2 } from "./components/H2";
 export { default as DropdownToggle } from "./components/DropdownToggle";
+export { default as TBody } from "./components/TableBody";

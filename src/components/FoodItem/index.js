@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { searchFoodItems } from "../../actions/foodItemAction";
+import { searchFoodItems } from "../../store/actions/foodItemAction";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";

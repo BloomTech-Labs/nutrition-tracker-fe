@@ -1,7 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { searchFoodItems } from "../../actions/foodItemAction";
-import { Col, Row, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { searchFoodItems } from "../../store/actions/foodItemAction";
+import {
+  Col,
+  Row,
+  InputGroupAddon,
+  Form,
+  InputGroup,
+  InputGroupText
+} from "reactstrap";
+import { Input } from "../Global/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
@@ -28,10 +36,12 @@ class SearchForm extends React.Component {
     return (
       <Form>
         <Row form>
-          <Col xs={1}>
-            <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
-          </Col>
-          <Col xs={11}>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
+              </InputGroupText>
+            </InputGroupAddon>
             <Input
               value={this.state.searchTerm}
               onChange={this.handleSearch}
@@ -41,7 +51,7 @@ class SearchForm extends React.Component {
               placeholder="Search food item"
               bsSize="lg"
             />
-          </Col>
+          </InputGroup>
         </Row>
       </Form>
     );

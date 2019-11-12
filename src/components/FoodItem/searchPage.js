@@ -2,7 +2,7 @@ import React from "react";
 import SearchForm from "./searchForm";
 import SearchResults from "./searchResults";
 import { connect } from "react-redux";
-import { getOneFoodItem } from "../../actions/foodItemAction";
+import { getOneFoodItem } from "../../store/actions/foodItemAction";
 import { Table, Container, Col, Row } from "reactstrap";
 import styled from "styled-components";
 

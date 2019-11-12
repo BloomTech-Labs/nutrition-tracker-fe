@@ -1,17 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getOneFoodItem } from "../../actions/foodItemAction";
+import { getOneFoodItem } from "../../store/actions/foodItemAction";
 import {
   Container,
   Row,
   Col,
-  Input,
   Dropdown,
-  DropdownToggle,
-  DropdownMenu,
   DropdownItem,
+  DropdownMenu,
   Table
 } from "reactstrap";
+import { DropdownToggle } from "../Global/styled";
+import { Doughnut } from "react-chartjs-2";
+import { Input } from "../Global/styled";
 
 class FoodDetails extends React.Component {
   constructor() {
@@ -38,14 +39,12 @@ class FoodDetails extends React.Component {
   };
 
   handleSelect = key => {
-    console.log(key);
     this.setState(function(prevState) {
       return {
         ...prevState,
         dropDownSelectionKey: key
       };
     });
-    // console.log(this.props.item.servings);
   };
 
   render() {
@@ -94,6 +93,20 @@ class FoodDetails extends React.Component {
               </Col>
             </Row>
             <Row>
+              <Col>
+                <Doughnut
+                  data={{
+                    datasets: [
+                      {
+                        data: [10, 20, 30]
+                      }
+                    ],
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: ["Red", "Yellow", "Blue"],
+                    backgroundColor: "rgba(255, 371, 0)"
+                  }}
+                />
+              </Col>
               <Col>
                 {this.state.dropDownSelectionKey && (
                   <Table borderless responsive>
@@ -153,7 +166,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { getOneFoodItem }
-)(FoodDetails);
+export default connect(mapStateToProps, { getOneFoodItem })(FoodDetails);

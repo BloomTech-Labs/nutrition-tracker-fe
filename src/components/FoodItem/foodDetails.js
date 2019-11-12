@@ -13,6 +13,7 @@ import {
   Table
 } from "reactstrap";
 
+
 class FoodDetails extends React.Component {
   constructor() {
     super();
@@ -48,10 +49,11 @@ class FoodDetails extends React.Component {
     // console.log(this.props.item.servings);
   };
 
-  render() {
+  render(){
+
     return (
+      
       <Container>
-        {this.props.got ? (
           <>
             <Row>
               <Col> Kale </Col>
@@ -137,23 +139,22 @@ class FoodDetails extends React.Component {
               </Col>
             </Row>
           </>
-        ) : (
-          <div> Getting... </div>
-        )}
       </Container>
     );
   }
 }
 
+
 const mapStateToProps = state => {
   return {
     item: state.foodItemsReducer.item,
     getting: state.foodItemsReducer.getting,
-    got: state.foodItemsReducer.got
+    got: state.foodItemsReducer.got 
   };
 };
 
 export default connect(
   mapStateToProps,
   { getOneFoodItem }
-)(FoodDetails);
+)(FoodDetails); 
+

@@ -21,6 +21,7 @@ export const searchFoodItems = search_term => dispatch => {
       })
       .catch(err => {
         console.error(err);
+        dispatch({type: FETCH_FAILURE, payload:err.response });
         return false;
       });
   } else {

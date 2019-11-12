@@ -1,41 +1,12 @@
-// import styled from "styled-components";
-// import theme from "../Global/theme";
-// import {
-//   Input as BS_Input,
-//   Container as BS_Container,
-//   Row as BS_Row,
-//   Col as BS_Col
-// } from "reactstrap";
+import styled from "styled-components";
 
-// export const Container = styled(BS_Container)`
-//   ${props => theme.flex(props.direction, props.justify, props.align)}
-//   height: 100vh;
+const ListStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  fontFamily: "Segoe UI",
+  color: "#212529",
+  fontSize: "16px",
+  lineHeight: "24px"
+};
 
-//   /* border: 1px solid red; */
-// `;
-
-// export const Row = styled(BS_Row)`
-//   ${props => theme.flex(props.direction, props.justify, props.align)}
-//   height: ${({ height }) => (height ? height : "auto")};
-
-//   /* border: 1px solid blue; */
-// `;
-
-// export const Col = styled(BS_Col)`
-//   ${props =>
-//     theme.flex(
-//       props.direction,
-//       props.justify,
-//       props.align
-//     )} /* border: 1px solid green; */
-// `;
-
-// export const Header = styled.h1`
-//   font-size: 2.8rem;
-// `;
-
-// export const Input = styled(BS_Input)`
-//   font-size: 1.6rem;
-//   height: ${({ height }) => (height ? height : "38px")};
-// `;
-
+export default ListStyle;

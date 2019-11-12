@@ -1,7 +1,7 @@
 import React from "react";
 
 // importing from global styles
-import { AppWrapper } from "./components/Global";
+import { AppWrapper } from "./components/Global/styled";
 
 // Set up routes
 import { Route } from "react-router-dom";

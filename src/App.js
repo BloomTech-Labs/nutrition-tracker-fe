@@ -16,6 +16,9 @@ import Register from "./components/Auth/Register";
 import FoodItem from "./components/FoodItem";
 import Onboarding from "./components/Onboarding";
 
+
+
+
 library.add(faSearch);
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
       <Route path="/onboarding" exact component={Onboarding} />
       <Route path="/register" exact component={Register} />
       <Route path="/food_item" component={FoodItem} />
+   
     </AppWrapper>
   );
 }

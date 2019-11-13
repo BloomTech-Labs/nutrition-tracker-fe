@@ -52,115 +52,111 @@ class FoodDetails extends React.Component {
   render() {
     return (
       <Container>
-        {this.props.got ? (
-          <>
-            <Row>
-              <Col> Kale </Col>
-              <Col> 33 Cal </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Input
-                  type="text"
-                  name="quantity"
-                  value={this.state.quantity}
-                  onChange={e => {
-                    this.setState({ quantity: e.target.value });
-                  }}
-                />
-              </Col>
-              <Col>
-                <Dropdown
-                  isOpen={this.state.dropdownOpen}
-                  toggle={this.handleToggle}
-                >
-                  <DropdownToggle caret>
-                    {this.state.dropDownSelectionKey !== false
-                      ? this.props.item[this.state.dropDownSelectionKey]
-                          .measurement_description
-                      : "Select"}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    {this.props.item.map((serving, key) => (
-                      <DropdownItem
-                        key={key}
-                        onClick={() => this.handleSelect(key)}
-                      >
-                        {serving.measurement_description}
-                      </DropdownItem>
-                    ))}
-                  </DropdownMenu>
-                </Dropdown>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={4}>
-                <Doughnut
-                  data={dataGenerator([1, 2, 3, 4], "red,green,blue,orange")}
-                />
-              </Col>
-              <Col xs={4}>
-                <Doughnut
-                  data={dataGenerator([3, 2, 3, 4], "red,green,blue,orange")}
-                />
-              </Col>
-              <Col xs={4}>
-                <Doughnut
-                  data={dataGenerator([11, 2, 9, 4], "red,green,blue,orange")}
-                />
-              </Col>
-              <Col>
-                {this.state.dropDownSelectionKey !== false && (
-                  <Table borderless responsive>
-                    <TBody>
-                      <tr>
-                        <th scope="row"> Fats </th>
-                        <td>
-                          {formatDecimal(
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .fat * this.state.quantity
-                          )}
-                          {
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .metric_serving_unit
-                          }
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"> Cholesterol </th>
-                        <td>
-                          {formatDecimal(
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .cholesterol * this.state.quantity
-                          )}
-                          {
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .metric_serving_unit
-                          }
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"> Sodium </th>
-                        <td>
-                          {formatDecimal(
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .sodium * this.state.quantity
-                          )}
-                          {
-                            this.props.item[this.state.dropDownSelectionKey]
-                              .metric_serving_unit
-                          }
-                        </td>
-                      </tr>
-                    </TBody>
-                  </Table>
-                )}
-              </Col>
-            </Row>
-          </>
-        ) : (
-          <div> Getting... </div>
-        )}
+        <>
+          <Row>
+            <Col> Kale </Col>
+            <Col> 33 Cal </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input
+                type="text"
+                name="quantity"
+                value={this.state.quantity}
+                onChange={e => {
+                  this.setState({ quantity: e.target.value });
+                }}
+              />
+            </Col>
+            <Col>
+              <Dropdown
+                isOpen={this.state.dropdownOpen}
+                toggle={this.handleToggle}
+              >
+                <DropdownToggle caret>
+                  {this.state.dropDownSelectionKey !== false
+                    ? this.props.item[this.state.dropDownSelectionKey]
+                        .measurement_description
+                    : "Select"}
+                </DropdownToggle>
+                <DropdownMenu>
+                  {this.props.item.map((serving, key) => (
+                    <DropdownItem
+                      key={key}
+                      onClick={() => this.handleSelect(key)}
+                    >
+                      {serving.measurement_description}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={4}>
+              <Doughnut
+                data={dataGenerator([1, 2, 3, 4], "red,green,blue,orange")}
+              />
+            </Col>
+            <Col xs={4}>
+              <Doughnut
+                data={dataGenerator([3, 2, 3, 4], "red,green,blue,orange")}
+              />
+            </Col>
+            <Col xs={4}>
+              <Doughnut
+                data={dataGenerator([11, 2, 9, 4], "red,green,blue,orange")}
+              />
+            </Col>
+            <Col>
+              {this.state.dropDownSelectionKey !== false && (
+                <Table borderless responsive>
+                  <TBody>
+                    <tr>
+                      <th scope="row"> Fats </th>
+                      <td>
+                        {formatDecimal(
+                          this.props.item[this.state.dropDownSelectionKey].fat *
+                            this.state.quantity
+                        )}
+                        {
+                          this.props.item[this.state.dropDownSelectionKey]
+                            .metric_serving_unit
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"> Cholesterol </th>
+                      <td>
+                        {formatDecimal(
+                          this.props.item[this.state.dropDownSelectionKey]
+                            .cholesterol * this.state.quantity
+                        )}
+                        {
+                          this.props.item[this.state.dropDownSelectionKey]
+                            .metric_serving_unit
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"> Sodium </th>
+                      <td>
+                        {formatDecimal(
+                          this.props.item[this.state.dropDownSelectionKey]
+                            .sodium * this.state.quantity
+                        )}
+                        {
+                          this.props.item[this.state.dropDownSelectionKey]
+                            .metric_serving_unit
+                        }
+                      </td>
+                    </tr>
+                  </TBody>
+                </Table>
+              )}
+            </Col>
+          </Row>
+        </>
       </Container>
     );
   }

@@ -4,6 +4,9 @@ import { searchFoodItems } from "../../store/actions/foodItemAction";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
+import { WithLoading } from "../Global/loading";
+
+const FoodDetailsWithLoading = WithLoading(FoodDetails);
 
 class FoodItem extends React.Component {
   constructor() {
@@ -20,13 +23,15 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/search`}
           exact
-          render={props => <SearchPage {...props} path={path} />}
+          render={props => <SearchPage {...props} />}
         />
 
         <Route
           path={`${path}/view/:food_id`}
           render={props => <FoodDetails {...props} />}
         />
+
+        {console.log("here is the getting:", this.props.getting)}
       </>
     );
   }
@@ -34,11 +39,9 @@ class FoodItem extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.foodItemsReducer.items
+    items: state.foodItemsReducer.items,
+    getting: state.foodItemsReducer.getting
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { searchFoodItems }
-)(FoodItem);
+export default connect(mapStateToProps, { searchFoodItems })(FoodItem);

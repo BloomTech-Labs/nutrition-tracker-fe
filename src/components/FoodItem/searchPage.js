@@ -4,6 +4,7 @@ import SearchResults from "./searchResults";
 import { connect } from "react-redux";
 import { getOneFoodItem } from "../../store/actions/foodItemAction";
 import { Table, Container, Col, Row } from "reactstrap";
+import { TBody } from "../Global/styled/";
 import styled from "styled-components";
 
 class SearchPage extends React.Component {
@@ -30,9 +31,9 @@ class SearchPage extends React.Component {
         <Row>
           <Col>
             <Table responsive hover size="lg">
-              <FirstChildBorderless>
+              <TBody>
                 <SearchResults handleGetFoodItem={this.handleGetFoodItem} />
-              </FirstChildBorderless>
+              </TBody>
             </Table>
           </Col>
         </Row>
@@ -41,13 +42,4 @@ class SearchPage extends React.Component {
   }
 }
 
-const FirstChildBorderless = styled.tbody`
-  &:first-child {
-    /* background-color: black; */
-  }
-`;
-
-export default connect(
-  null,
-  { getOneFoodItem }
-)(SearchPage);
+export default connect(null, { getOneFoodItem })(SearchPage);

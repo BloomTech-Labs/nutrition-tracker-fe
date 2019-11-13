@@ -4,11 +4,9 @@ import { searchFoodItems } from "../../actions/foodItemAction";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
-import WithLoading from '../Global/loading'; // JOE YOU MAY NEED TO DELETE ME 
+import { WithLoading } from "../Global/loading"; 
+const FoodDetailsWithLoading = WithLoading(FoodDetails);
 
-
-const FoodDetailsWithLoading = WithLoading(FoodDetails); // JOE YOU NEED TO DELETE ME
-const SearchPageWithLoading = WithLoading(SearchPage); // JOE YOU NEED TO DELETE ME
 
 class FoodItem extends React.Component {
   constructor() {
@@ -30,10 +28,10 @@ class FoodItem extends React.Component {
     
         <Route
           path={`${path}/view/:food_id`}
-          render={props => <FoodDetailsWithLoading isloading = {this.props.getting} {...props}/>}    // JOE YOU CHANGED THE FOODDETAILS COMPONENT TO THE WITH COMPONENT 
+          render={props => <FoodDetailsWithLoading isLoading = {this.props.getting} {...props}/>}    
       />
 
-      {console.log('here is the getting:', this.props.getting)} {/*DELETE ME TOO JOE*/}
+      {console.log('here is the getting:', this.props.getting)} 
       </>
     );
   }
@@ -42,7 +40,7 @@ class FoodItem extends React.Component {
 const mapStateToProps = state => {
   return {
     items: state.foodItemsReducer.items,
-    getting: state.foodItemsReducer.getting // JOE ADDED THIS TO HOOK FOR HOC
+    getting: state.foodItemsReducer.getting 
   };
 };
 

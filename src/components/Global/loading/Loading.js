@@ -17,7 +17,7 @@ class Loading extends React.Component {
                 color="#00BFFF"
                 height={175}
                 width={175}
-                timeout={5000} //5 secs
+                timeout={10000} //10 secs
               />
               </Wrapper>
          )

@@ -1,11 +1,10 @@
 import React from 'react';
 import Loading from './Loading';
 
-function withLoading(Component) {
-    return function withLoadingComponent({isloading, ...props}){
-        if(!isloading) return (<Component {...props} />) 
+export default (Component) => {
+    return function withLoadingComponent({isLoading, ...props}){
+        if(!isLoading) return (<Component {...props} />) 
           return (<Loading/>)
     };
-}
+};
 
-export default withLoading;

@@ -23,12 +23,17 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/search`}
           exact
-          render={props => <SearchPage {...props} />}
+          render={props => <SearchPage {...props} path={path} />}
         />
 
         <Route
           path={`${path}/view/:food_id`}
-          render={props => <FoodDetails {...props} />}
+          render={props => (
+            <FoodDetailsWithLoading
+              isLoading={this.props.isFetching}
+              {...props}
+            />
+          )}
         />
 
         {console.log("here is the getting:", this.props.getting)}

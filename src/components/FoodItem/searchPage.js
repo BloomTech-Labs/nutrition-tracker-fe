@@ -5,13 +5,8 @@ import { connect } from "react-redux";
 import { getOneFoodItem } from "../../store/actions/foodItemAction";
 import { Table, Container, Col, Row } from "reactstrap";
 import { TBody } from "../Global/styled/";
-import styled from "styled-components";
 
 class SearchPage extends React.Component {
-  handleClick = () => {
-    this.props.history.push(`${this.props.path}/`);
-  };
-
   handleGetFoodItem = food_id => {
     this.props.getOneFoodItem(food_id).then(response => {
       if (response) {

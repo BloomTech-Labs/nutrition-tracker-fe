@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { Row, Col, PillButton, H2, Form } from "../../Global/styled";
-import { CalendarSVG, RulerSVG, ScaleSVG } from "../../../assets/svg-icons";
+import { CalendarSVG, RulerSVG, ScaleSVG } from "../../Global/icons";
 import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 
 class BasicInfo extends React.Component {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, H2, PillButton, Form } from "../../Global/styled";
-import { CalendarSVG, ScaleSVG } from "../../../assets/svg-icons";
+import { CalendarSVG, ScaleSVG } from "../../Global/icons";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { connect } from "react-redux";
 import { updateWeightGoal } from "../../../store/actions/onboardingActions";

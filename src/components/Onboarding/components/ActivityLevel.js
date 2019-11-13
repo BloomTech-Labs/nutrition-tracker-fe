@@ -1,13 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
+
 import { PillButton, H2, Row, Col } from "../../Global/styled";
+
+import { useDispatch } from "react-redux";
 import { updateActivityLevel } from "../../../store/actions/onboardingActions";
 
 const ActivityLevel = props => {
+  const dispatch = useDispatch();
   const { history, path } = props;
 
   const handleClick = activityLevel => {
-    props.updateActivityLevel(activityLevel);
+    dispatch(updateActivityLevel(activityLevel));
     history.push(`${path}/basic-info`);
   };
 
@@ -65,7 +68,4 @@ const ActivityLevel = props => {
   );
 };
 
-export default connect(
-  null,
-  { updateActivityLevel }
-)(ActivityLevel);
+export default ActivityLevel;

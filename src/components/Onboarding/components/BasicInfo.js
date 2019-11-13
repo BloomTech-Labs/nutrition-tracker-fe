@@ -1,23 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import InputGroupWithIcon from "./InputGroupWithIcon";
-import { Row, Col, PillButton, H2 } from "../../Global/styled";
+import { Row, Col, PillButton, H2, Form } from "../../Global/styled";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../../assets/svg-icons";
 import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 
 class BasicInfo extends React.Component {
   state = {
-    dateOfBirth: "",
-    feet: "",
-    inches: "",
-    weight: ""
+    date_of_birth: "",
+    feet: 0,
+    inches: 0,
+    weight: 0
   };
 
-  handleClick = () => {
-    const { dateOfBirth, feet, inches, weight } = this.state;
+  handleSubmit = () => {
+    const { date_of_birth, feet, inches, weight } = this.state;
 
     this.props.updateBasicInfo({
-      dateOfBirth,
+      date_of_birth: date_of_birth,
       height: heightToMetric(feet, inches),
       weight: weightToMetic(weight)
     });
@@ -26,14 +26,12 @@ class BasicInfo extends React.Component {
   };
 
   handleChange = e => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
   render() {
-    const { dateOfBirth, feet, inches, weight } = this.state;
     console.log(this.state);
     return (
       <>
@@ -42,69 +40,69 @@ class BasicInfo extends React.Component {
             <H2>Let's get some basic info!</H2>
           </Col>
         </Row>
-        <Row>
-          <Col direction="column" align="flex-start">
-            <h3>Birth Date</h3>
-            <InputGroupWithIcon
-              type="date"
-              name="dateOfBirth"
-              icon={CalendarSVG}
-              value={dateOfBirth}
-              placeholder="MM/DD/YYYY"
-              handleChange={this.handleChange}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col direction="column" align="flex-start">
-            <h3>Height</h3>
-            <InputGroupWithIcon
-              type="number"
-              name="feet"
-              icon={RulerSVG}
-              value={feet}
-              placeholder="ft."
-              handleChange={this.handleChange}
-            />
-          </Col>
-          <Col direction="column" align="flex-start" justify="flex-end">
-            <InputGroupWithIcon
-              type="number"
-              name="inches"
-              icon={RulerSVG}
-              value={inches}
-              placeholder="in."
-              handleChange={this.handleChange}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col direction="column" align="flex-start">
-            <h3>Weight</h3>
-            <InputGroupWithIcon
-              type="number"
-              name="weight"
-              icon={ScaleSVG}
-              value={weight}
-              placeholder="lbs."
-              handleChange={this.handleChange}
-            />
-          </Col>
-        </Row>
-        <Row className="fixed-bottom">
-          <Col>
-            <PillButton onClick={this.handleClick} color="success">
-              Next
-            </PillButton>
-          </Col>
-        </Row>
+        <Form onSubmit={this.handleSubmit}>
+          <Row>
+            <Col direction="column" align="flex-start">
+              <h3>Birth Date</h3>
+              <InputGroupWithIcon
+                type="date"
+                name="date_of_birth"
+                icon={CalendarSVG}
+                placeholder="MM/DD/YYYY"
+                handleChange={this.handleChange}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col direction="column" align="flex-start">
+              <h3>Height</h3>
+              <InputGroupWithIcon
+                type="number"
+                name="feet"
+                icon={RulerSVG}
+                placeholder="ft."
+                handleChange={this.handleChange}
+              />
+            </Col>
+            <Col direction="column" align="flex-start" justify="flex-end">
+              <InputGroupWithIcon
+                type="number"
+                name="inches"
+                icon={RulerSVG}
+                placeholder="in."
+                handleChange={this.handleChange}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col direction="column" align="flex-start">
+              <h3>Weight</h3>
+              <InputGroupWithIcon
+                type="number"
+                name="weight"
+                icon={ScaleSVG}
+                placeholder="lbs."
+                handleChange={this.handleChange}
+              />
+            </Col>
+          </Row>
+          <Row className="fixed-bottom">
+            <Col>
+              <PillButton type="submit" color="success">
+                Next
+              </PillButton>
+            </Col>
+          </Row>
+        </Form>
       </>
     );
   }
 }
 
 function heightToMetric(feet, inches) {
-  return Math.round((feet / 12 + inches) * 2.54);
+  const feetInches = feet * 12;
+  const totalInches = feetInches + Number(inches);
+  return Math.round(totalInches * 2.54);
 }
 
 function weightToMetic(lbs) {

@@ -4,10 +4,14 @@ import { Form } from "reactstrap";
 import { Row, Col, Input, H2, PillButton } from "../../Global/styled";
 import { EmailSVG } from "../../Global/icons";
 
+import { login } from "../../../store/actions/firebaseAuth";
+import { connect } from "react-redux";
+
 class LoginWithEmail extends Component {
   state = {
-    password: "",
-    email: ""
+    name: "",
+    email: "",
+    password: ""
   };
 
   handleInputChange = e => {
@@ -15,6 +19,12 @@ class LoginWithEmail extends Component {
       ...this.state,
       [e.target.name]: e.target.value
     });
+  };
+
+  // does the login thing, ya know?
+  handleLogin = e => {
+    e.preventDefault();
+    this.props.login(this.state.email, this.state.password);
   };
 
   render() {
@@ -58,4 +68,7 @@ class LoginWithEmail extends Component {
   }
 }
 
-export default LoginWithEmail;
+export default connect(
+  null,
+  { login }
+)(LoginWithEmail);

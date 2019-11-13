@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
       (await state.firebase.auth.stsTokenManager) &&
       state.firebase.auth.stsTokenManager.accessToken
   );
-  console.log(token);
+
   return (
     <Route
       {...rest}

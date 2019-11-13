@@ -1,7 +1,5 @@
 import React from "react";
 
-// pulling in styles
-import styled from "styled-components";
 // import theme from "../Global/theme";
 import { Container, PillButton, Row, Col, H1 } from "../Global/styled";
 

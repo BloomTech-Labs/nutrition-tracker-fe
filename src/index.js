@@ -31,7 +31,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 const reactReduxFirebaseConfig = {
   userProfile: "users",
-  useFirestoreForProfile: true,
+  useFirestoreForProfile: false,
   attachAuthIsReady: true
 };
 

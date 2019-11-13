@@ -1,13 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
+
 import { PillButton, Row, Col, H2 } from "../../Global/styled";
+import { useDispatch } from "react-redux";
 import { updateSex } from "../../../store/actions/onboardingActions";
 
 const Sex = props => {
+  const dispatch = useDispatch();
   const { history, path } = props;
 
   const handleClick = sex => {
-    props.updateSex(sex);
+    dispatch(updateSex(sex));
     history.push(`${path}/activity-level`);
   };
 
@@ -36,7 +38,4 @@ const Sex = props => {
   );
 };
 
-export default connect(
-  null,
-  { updateSex }
-)(Sex);
+export default Sex;

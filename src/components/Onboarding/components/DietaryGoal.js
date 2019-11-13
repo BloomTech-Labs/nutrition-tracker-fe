@@ -1,8 +1,14 @@
 import React from "react";
+
 import { PillButton, Row, Col, H2 } from "../../Global/styled";
 
+import { useDispatch } from "react-redux";
+import { updateDailyGoal } from "../../../store/actions/onboardingActions";
+
 const DietaryGoal = ({ history, path }) => {
-  const handleClick = goal => {
+  const dispatch = useDispatch();
+  const handleClick = daily_goal => {
+    dispatch(updateDailyGoal(daily_goal));
     history.push(`${path}/sex`);
   };
 

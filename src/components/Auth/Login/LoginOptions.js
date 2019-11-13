@@ -6,10 +6,26 @@ import { PillButton, Row, Col, H2 } from "../../Global/styled";
 
 import { GoogleSVG, FacebookSVG, EmailSVG } from "../../Global/icons";
 
-class Login extends Component {
+import {
+  googleLogin,
+  facebookLogin
+} from "../../../store/actions/firebaseAuth";
+import { connect } from "react-redux";
+
+class LoginOptions extends Component {
+  // logs user in through google
+  handleGoogleAuth = e => {
+    e.preventDefault();
+    this.props.googleLogin();
+  };
+
+  // logs user in through facebook
+  handleFacebookAuth = e => {
+    e.preventDefault();
+    this.props.facebookLogin();
+  };
   render() {
     const { path } = this.props;
-
     return (
       <>
         <Row>
@@ -19,7 +35,7 @@ class Login extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton outline color="primary">
+            <PillButton onClick={this.handleGoogleAuth} outline color="primary">
               <Row align="center">
                 <Col xs="3">
                   <GoogleSVG />
@@ -33,7 +49,11 @@ class Login extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton outline color="primary">
+            <PillButton
+              onClick={this.handleFacebookAuth}
+              outline
+              color="primary"
+            >
               <Row align="center">
                 <Col xs="3">
                   <FacebookSVG />
@@ -72,4 +92,7 @@ const ButtonLabel = styled.div`
   font-size: 1.6rem;
 `;
 
-export default Login;
+export default connect(
+  null,
+  { googleLogin, facebookLogin }
+)(LoginOptions);

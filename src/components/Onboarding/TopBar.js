@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BackSVG } from "../../assets/svg-icons/index";
+import { BackSVG } from "../Global/icons";
 import { Row, Col } from "./styles";
 
 function TopBar(props) {

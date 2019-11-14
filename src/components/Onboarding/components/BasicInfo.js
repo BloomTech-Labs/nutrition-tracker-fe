@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { Row, Col, PillButton, H2, Form } from "../../Global/styled";
-import { CalendarSVG, RulerSVG, ScaleSVG } from "../../../assets/svg-icons";
+import { CalendarSVG, RulerSVG, ScaleSVG } from "../../Global/icons";
 import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 
 class BasicInfo extends React.Component {
@@ -109,7 +109,4 @@ function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }
 
-export default connect(
-  null,
-  { updateBasicInfo }
-)(BasicInfo);
+export default connect(null, { updateBasicInfo })(BasicInfo);

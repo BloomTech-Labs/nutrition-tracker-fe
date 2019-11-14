@@ -4,27 +4,41 @@ import styled from "styled-components";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
 import Dob from "./components/dob";
+import Gender from "./components/gender";
+import ActivityLevel from "./components/activity_level";
 import CurrentWeight from "./components/current_weight";
 import TopBar from "./TopBar";
 
 class Settings extends React.Component {
+  state = {
+    profile: 
+      {
+        user_id: 1,
+        height: {
+          feet: "6",
+          inches: "1"
+        },
+        weight: "180",
+        dob: "12/9/88",
+        gender: "Male",
+        activityLevel: "Sedentary"
+      },
+    nutrition:
+      {
+
+      }
+  }
   render() {
     return (
       <Container>
         <TopBar />
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
-          <Height />
-          <CurrentWeight />
-          <Dob />
-          <ListGroupItem style={ListStyle}>
-            <div>Gender</div>
-            <div>Male</div>
-          </ListGroupItem>
-          <ListGroupItem style={ListStyle}>
-            <div>Activity Level</div>
-            <div>Sedentary</div>
-          </ListGroupItem>
+          <Height data={this.state.profile.height}/>
+          <CurrentWeight data={this.state.profile.weight} />
+          <Dob data={this.state.profile.dob} />
+          <Gender data={this.state.profile.gender}/>
+          <ActivityLevel data={this.state.profile.activityLevel}/>
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <ListGroupItem style={ListStyle}>Macronutrient Targets</ListGroupItem>
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>

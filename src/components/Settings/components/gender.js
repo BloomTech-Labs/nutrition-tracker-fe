@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   ListGroupItem,
+  CustomInput,
   Form,
   FormGroup,
   Label,
@@ -14,33 +15,38 @@ import {
   FormText
 } from "reactstrap";
 
-const Weight = props => {
+const Gender = props => {
   const [modal, setModal] = useState(false);
 
-  const [weight, setWeight] = useState(props.data);
-
+  const [gender, setGender] = useState(props.data);
 
   const toggle = () => setModal(!modal);
 
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
-        <div>Weight</div>
-        <div>{weight}lbs</div>
+        <div>Gender</div>
+        <div>{gender}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Weight</ModalHeader>
+        <ModalHeader toggle={toggle}>Gender</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="weight">Current Weight</Label>
-              <Input
-                type="text"
-                name="weight"
-                id="weight"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
+              <Label for="gender">Gender</Label>
+              <Label for="exampleCustomSelect">Custom Select</Label>
+              <CustomInput
+                type="select"
+                id="exampleCustomSelect"
+                name="customSelect"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+              </CustomInput>
             </FormGroup>
           </Form>
         </ModalBody>
@@ -57,4 +63,4 @@ const Weight = props => {
   );
 };
 
-export default Weight;
+export default Gender;

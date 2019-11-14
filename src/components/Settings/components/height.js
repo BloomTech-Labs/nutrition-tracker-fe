@@ -6,12 +6,21 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ListGroupItem
+  ListGroupItem,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText
 } from "reactstrap";
 
 const Height = props => {
-
   const [modal, setModal] = useState(false);
+
+  const [feet, setFeet] = useState( props.data.feet);
+  const [inches, setInches] = useState(props.data.inches);
+
+  ///const updateFeet = () => setFeet({feet:value})
 
   const toggle = () => setModal(!modal);
 
@@ -19,18 +28,33 @@ const Height = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Height</div>
-        <div>6' 1''</div>
+        <div>{feet}'{inches}''</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Height</ModalHeader>
         <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est lborum.
+          <Form>
+            <FormGroup>
+              <Label for="feet">Feet</Label>
+              <Input
+                type="text"
+                name="feet"
+                id="feet"
+                value={feet}
+                onChange={(e) => setFeet(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="inches">Inches</Label>
+              <Input
+                type="text"
+                name="inches"
+                id="inches"
+                value={inches}
+                onChange={(e) => setInches(e.target.value)}
+              />
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>

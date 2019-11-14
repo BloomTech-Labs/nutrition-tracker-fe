@@ -6,12 +6,18 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ListGroupItem
+  ListGroupItem,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText
 } from "reactstrap";
 
 const Dob = props => {
-
   const [modal, setModal] = useState(false);
+
+  const [dob, setDob] = useState(props.data);
 
   const toggle = () => setModal(!modal);
 
@@ -19,22 +25,27 @@ const Dob = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
-        <div>12/09/1988</div>
+        <div>{dob}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>
         <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          <Form>
+            <FormGroup>
+              <Label for="dob">Date Of Birth</Label>
+              <Input
+                type="text"
+                name="dob"
+                id="dob"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+              />
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>
-          Update
+            Update
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancel
@@ -44,6 +55,5 @@ const Dob = props => {
     </div>
   );
 };
-
 
 export default Dob;

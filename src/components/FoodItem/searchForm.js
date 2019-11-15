@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ReactReduxContext } from "react-redux";
 import { searchFoodItems } from "../../store/actions/foodItemAction";
 import {
   Col,
@@ -34,26 +34,30 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <Form>
-        <Row form>
-          <InputGroup>
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>
-                <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
-              </InputGroupText>
-            </InputGroupAddon>
-            <Input
-              value={this.state.searchTerm}
-              onChange={this.handleSearch}
-              type="text"
-              name="search_term"
-              id="search_term"
-              placeholder="Search food item"
-              bsSize="lg"
-            />
-          </InputGroup>
-        </Row>
-      </Form>
+      <ReactReduxContext.Consumer>
+        {({store}) => (
+          <Form>
+            <Row form>
+              <InputGroup>
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>
+                    <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
+                  </InputGroupText>
+                </InputGroupAddon>
+                <Input
+                  value={this.state.searchTerm}
+                  onChange={this.handleSearch}
+                  type="text"
+                  name="search_term"
+                  id="search_term"
+                  placeholder="Search food item"
+                  bsSize="lg"
+                />
+              </InputGroup>
+            </Row>
+          </Form>
+        )}
+      </ReactReduxContext.Consumer>
     );
   }
 }
@@ -69,3 +73,5 @@ export default connect(
   null,
   { searchFoodItems }
 )(SearchForm);
+
+export { SearchForm };

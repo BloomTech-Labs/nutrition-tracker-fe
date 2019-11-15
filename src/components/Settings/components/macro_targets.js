@@ -14,11 +14,12 @@ import {
   FormText
 } from "reactstrap";
 
-const Height = props => {
+const Macros = props => {
   const [modal, setModal] = useState(false);
 
-  const [feet, setFeet] = useState( props.data.feet);
-  const [inches, setInches] = useState(props.data.inches);
+  const [fat, setFat] = useState( props.data.fat);
+  const [carbs, setCarbs] = useState(props.data.carbs);
+  const [protein, setProtein] = useState(props.data.protein);
 
 
   const toggle = () => setModal(!modal);
@@ -26,31 +27,40 @@ const Height = props => {
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
-        <div>Height</div>
-        <div>{props.data.feet}'{props.data.inches}''</div>
+        <div>Macronutrient Targets</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Height</ModalHeader>
+        <ModalHeader toggle={toggle}>Macros</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="feet">Feet</Label>
+              <Label for="fat">Fat</Label>
               <Input
                 type="text"
-                name="feet"
-                id="feet"
-                value={feet}
-                onChange={(e) => setFeet(e.target.value)}
+                name="fat"
+                id="fat"
+                value={fat}
+                onChange={(e) => setFat(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="inches">Inches</Label>
+              <Label for="carbs">Carbs</Label>
               <Input
                 type="text"
-                name="inches"
-                id="inches"
-                value={inches}
-                onChange={(e) => setInches(e.target.value)}
+                name="carbs"
+                id="carbs"
+                value={carbs}
+                onChange={(e) => setCarbs(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="protein">Protein</Label>
+              <Input
+                type="text"
+                name="protein"
+                id="protein"
+                value={protein}
+                onChange={(e) => setProtein(e.target.value)}
               />
             </FormGroup>
           </Form>
@@ -68,4 +78,4 @@ const Height = props => {
   );
 };
 
-export default Height;
+export default Macros;

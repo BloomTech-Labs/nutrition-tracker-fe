@@ -25,7 +25,7 @@ const Dob = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
-        <div>{dob}</div>
+        <div>{props.data}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>

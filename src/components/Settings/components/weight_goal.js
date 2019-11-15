@@ -14,11 +14,11 @@ import {
   FormText
 } from "reactstrap";
 
-const Height = props => {
+const WeightGoals = props => {
   const [modal, setModal] = useState(false);
 
-  const [feet, setFeet] = useState( props.data.feet);
-  const [inches, setInches] = useState(props.data.inches);
+  const [target_weight, setTargetWeight] = useState( props.data.target_weight);
+  const [target_date, setTargetDate] = useState(props.data.target_date);
 
 
   const toggle = () => setModal(!modal);
@@ -26,31 +26,30 @@ const Height = props => {
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
-        <div>Height</div>
-        <div>{props.data.feet}'{props.data.inches}''</div>
+        <div>Weight Goals</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Height</ModalHeader>
+        <ModalHeader toggle={toggle}>Weight Goals</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="feet">Feet</Label>
+              <Label for="target_weight">Target Weight</Label>
               <Input
                 type="text"
-                name="feet"
-                id="feet"
-                value={feet}
-                onChange={(e) => setFeet(e.target.value)}
+                name="target_weight"
+                id="target_weight"
+                value={target_weight}
+                onChange={(e) => setTargetWeight(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="inches">Inches</Label>
+              <Label for="target_date">Target Date</Label>
               <Input
                 type="text"
-                name="inches"
-                id="inches"
-                value={inches}
-                onChange={(e) => setInches(e.target.value)}
+                name="target_date"
+                id="target_date"
+                value={target_date}
+                onChange={(e) => setTargetDate(e.target.value)}
               />
             </FormGroup>
           </Form>
@@ -68,4 +67,4 @@ const Height = props => {
   );
 };
 
-export default Height;
+export default WeightGoals;

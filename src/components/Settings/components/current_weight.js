@@ -26,7 +26,7 @@ const Weight = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Weight</div>
-        <div>{weight}lbs</div>
+        <div>{props.data}lbs</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Weight</ModalHeader>

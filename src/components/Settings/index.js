@@ -1,9 +1,12 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import styled from "styled-components";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
+import Macros from "./components/macro_targets";
+import WeightGoal from "./components/weight_goal";
 import Dob from "./components/dob";
+import Email from "./components/email";
+import Password from "./components/password";
 import Gender from "./components/gender";
 import ActivityLevel from "./components/activity_level";
 import CurrentWeight from "./components/current_weight";
@@ -11,41 +14,51 @@ import TopBar from "./TopBar";
 
 class Settings extends React.Component {
   state = {
-    profile: 
-      {
-        user_id: 1,
-        height: {
-          feet: "6",
-          inches: "1"
-        },
-        weight: "180",
-        dob: "12/9/88",
-        gender: "Male",
-        activityLevel: "Sedentary"
+    user_id: 1,
+    profile: {
+      height: {
+        feet: "6",
+        inches: "1"
       },
-    nutrition:
-      {
-
+      weight: "180",
+      dob: "12/9/88",
+      gender: "Male",
+      activityLevel: "Sedentary"
+    },
+    nutrition: {
+      macro_targets: {
+        fat: "20",
+        carbs: "40",
+        protein: "40"
+      },
+      weight_goal: {
+        target_weight: "140",
+        target_date: "01/01/2020"
       }
-  }
+    },
+    account_settings: {
+      email: "email@email.com",
+      password: "Password123"
+    }
+  };
   render() {
     return (
       <Container>
         <TopBar />
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
-          <Height data={this.state.profile.height}/>
+          <Height data={this.state.profile.height} />
           <CurrentWeight data={this.state.profile.weight} />
           <Dob data={this.state.profile.dob} />
-          <Gender data={this.state.profile.gender}/>
-          <ActivityLevel data={this.state.profile.activityLevel}/>
+          <Gender data={this.state.profile.gender} />
+          <ActivityLevel data={this.state.profile.activityLevel} />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Macronutrient Targets</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
+          <Macros data={this.state.nutrition.macro_targets} />
+          <WeightGoal data={this.state.nutrition.weight_goal} />
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Email</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Password</ListGroupItem>
+          <Email data={this.state.account_settings.email}/>
+          <Password data={this.state.account_settings.password}/>
         </ListGroup>
       </Container>
     );

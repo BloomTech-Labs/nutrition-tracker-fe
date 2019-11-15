@@ -17,6 +17,8 @@ import Onboarding from "./components/Onboarding";
 import PrivateRoute from "./components/PrivateRoute";
 // import RequireAuth from "./components/Auth";
 
+import AppBar from "../src/components/Global/AppBar";
+
 class App extends Component {
   render() {
     return (
@@ -26,6 +28,7 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/onboarding" component={Onboarding} />
+        <AppBar />
       </AppWrapper>
     );
   }

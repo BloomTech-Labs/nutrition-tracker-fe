@@ -20,7 +20,7 @@ export const searchFoodItems = search_term => dispatch => {
         return true;
       })
       .catch(err => {
-        console.error(err);
+        //console.error(err);
         dispatch({type: FETCH_FAILURE, payload:err.response });
         return false;
       });
@@ -38,7 +38,7 @@ export const getOneFoodItem = food_id => dispatch => {
       return true;
     })
     .catch(error => {
-      console.log("catch error", error.response);
+      //console.log("catch error", error.response);
       dispatch({ type: FETCH_GET_ONE_FAILURE, payload: error.response });
       return false;
     });

@@ -1,40 +1,39 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import { Link } from "react-router-dom";
-import AppWrapper from "../../Global/styled/components/AppWrapper";
-import DailyLog from "../../DailyLog/index";
-import PrivateRoute from "../../PrivateRoute/index";
+import { Nav, NavItem, NavLink } from "reactstrap";
+import styled from "styled-components";
+import { DailyLogIcon } from "../../Global/icons/svg/DailyLogIcon";
 
 class AppBar extends Component {
   render() {
     return (
-      <div>
-        <div className="App">
-          <h1>React Router Mini</h1>
-          <div>
-            <Link to="/">
-              <a href="">DailyLog</a>
-            </Link>
-          </div>
-          <div>
-            <Link to="/recipies">
-              <a href="">recipies</a>
-            </Link>
-          </div>
-          <div>
-            <Link to="/Progress">
-              <a href="">Progress</a>
-            </Link>
-          </div>
-        </div>
-        <div>
-          <Link to="/Settings">
-            <img src="https://img.icons8.com/carbon-copy/100/000000/settings.png" />
-          </Link>
-        </div>
-      </div>
+      <Container>
+        <Nav>
+          <NavItem>
+            <DailyLogIcon />
+            <NavLink href="#">Daily Log</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#">Recipes</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#">Reports</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#">Settings</NavLink>
+          </NavItem>
+        </Nav>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+`;
 
 export default AppBar;

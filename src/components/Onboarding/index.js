@@ -15,7 +15,7 @@ class Onboarding extends React.Component {
 
     return (
       <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
+        {/* <TopBar {...this.props} /> */}
         <Route
           path={`${path}/dietary-goal`}
           render={props => <DietaryGoal {...props} path={path} />}

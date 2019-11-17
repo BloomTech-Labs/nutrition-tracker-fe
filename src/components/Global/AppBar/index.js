@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import styled from "styled-components";
-import { DailyLogIcon } from "../../Global/icons/svg/DailyLogIcon";
+import { DailyLogIcon } from "../../Global/icons";
 
 class AppBar extends Component {
   render() {
@@ -10,7 +10,7 @@ class AppBar extends Component {
         <Nav>
           <NavItem>
             <DailyLogIcon />
-            <NavLink href="#">Daily Log</NavLink>
+            <NavLink to="/daily-log">Daily Log</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="#">Recipes</NavLink>

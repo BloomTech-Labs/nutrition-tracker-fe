@@ -10,7 +10,6 @@ import styled from "styled-components";
 import { PillButton } from "../Global/styled";
 
 import Loading from "../Global/Loading";
-import AppBar from "../Global/AppBar";
 
 class DailyLog extends Component {
   handleLogout = e => {
@@ -35,7 +34,6 @@ class DailyLog extends Component {
             Sign out
           </PillButton>
         </div>
-        {/* <AppBar /> */}
       </HomeWrapper>
     );
   }
@@ -69,7 +67,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(DailyLog);
+export default connect(mapStateToProps, { logout })(DailyLog);

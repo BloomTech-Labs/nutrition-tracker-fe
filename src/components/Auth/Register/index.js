@@ -15,6 +15,7 @@ class Register extends React.Component {
 
     return (
       <Container justify="center" fluid={true}>
+        {console.log(new Date(this.props.date_of_birth))}
         <TopBar {...this.props} />
         <Route
           exact
@@ -33,11 +34,9 @@ class Register extends React.Component {
 const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
-    isLoggedIn: !state.firebase.auth.isEmpty
+    isLoggedIn: !state.firebase.auth.isEmpty,
+    date_of_birth: state.onboardingReducer.date_of_birth
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Register);
+export default connect(mapStateToProps, {})(Register);

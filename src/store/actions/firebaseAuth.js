@@ -1,4 +1,5 @@
 import firebase from "../../config/firebase";
+import axios from "axios";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -52,7 +53,7 @@ export const logout = () => dispatch => {
     });
 };
 
-export const googleLogin = () => dispatch => {
+export const googleLogin = onboardingInfo => dispatch => {
   dispatch({ type: "GOOGLE_LOGIN_START" });
   firebase
     .auth()
@@ -63,6 +64,23 @@ export const googleLogin = () => dispatch => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const token = res.credential.accessToken;
       console.log("Token:", token);
+      const auth = { Authorization: `Bearer: ${token}` };
+      const newUser = {
+        firebase_id: res.user.uid,
+        sex: onboardingInfo.sex,
+        activity_level: onboardingInfo.activity_level,
+        dob: onboardingInfo.dob,
+        weight_kg: onboardingInfo.weight_kg,
+        height_cm: onboardingInfo.height_cm,
+        weekly_goal_rate: onboardingInfo.weekly_goal_rate,
+        email: res.user.email
+      };
+      // a commit
+      console.log("New user info:", newUser);
+      axios
+        .post("http://localhost:4000/auth/register", newUser, { headers: auth })
+        .then(response => console.log("Response:", response))
+        .catch(err => console.log("Error:", err));
       // The signed-in user info.
       const user = res.user.displayName;
       const userPicture = res.additionalUserInfo.profile.picture;

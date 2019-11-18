@@ -8,3 +8,4 @@ export { default as PillButton } from "./components/PillButton";
 export { default as H1 } from "./components/H1";
 export { default as H2 } from "./components/H2";
 export { default as Form } from "./components/Form";
+export { default as SlideBar } from "./components/SlideBar";

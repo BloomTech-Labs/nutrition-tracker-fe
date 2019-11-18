@@ -1,5 +1,13 @@
 import React from "react";
-import { Row, Col, H2, PillButton, Form } from "../../Global/styled";
+import {
+  Row,
+  Col,
+  H2,
+  PillButton,
+  Form,
+  SlideBar,
+  Input
+} from "../../Global/styled";
 import { CalendarSVG, ScaleSVG } from "../../Global/icons";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { connect } from "react-redux";
@@ -8,13 +16,15 @@ import { updateWeightGoal } from "../../../store/actions/onboardingActions";
 class WeightGoal extends React.Component {
   state = {
     target_date: "",
+    target_rate: 0,
     target_weight: 0
   };
 
   handleSubmit = () => {
-    const { target_date, target_weight } = this.state;
+    const { target_date, target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
       target_weight_kg: weightToMetic(target_weight),
+      target_rate: Number(target_rate),
       target_date: target_date
     });
     this.props.history.push("/register");
@@ -48,6 +58,29 @@ class WeightGoal extends React.Component {
             </Col>
           </Row>
           <Row>
+            <Col>
+              <SlideBar>
+                <Input
+                  name="target_rate"
+                  type="range"
+                  min={-2}
+                  max={2}
+                  step={0.5}
+                  onChange={this.handleChange}
+                />
+                <div>
+                  {this.state.target_rate === 0
+                    ? "Maintain"
+                    : this.state.target_rate > 0
+                    ? `Gain ${this.state.target_rate} pounds per week`
+                    : this.state.target_rate < 0
+                    ? `Loose ${this.state.target_rate} pounds per week`
+                    : "Maintain"}
+                </div>
+              </SlideBar>
+            </Col>
+          </Row>
+          <Row>
             <Col direction="column" align="flex-start">
               <h3>Target Date</h3>
               <InputGroupWithIcon
@@ -75,4 +108,14 @@ function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }
 
-export default connect(null, { updateWeightGoal })(WeightGoal);
+function targetDate() {
+  return this.props;
+}
+
+const mapStateToProps = state => {
+  return {
+    weight_kg: state.onboardingReducer.weight_kg
+  };
+};
+
+export default connect(mapStateToProps, { updateWeightGoal })(WeightGoal);

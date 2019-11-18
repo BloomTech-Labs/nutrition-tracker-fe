@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { PillButton, Row, Col, H2 } from "../../Global/styled";
+import { PillButton, Row, Col, H2, Input } from "../../Global/styled";
 
 import { useDispatch } from "react-redux";
 import { updateDailyGoal } from "../../../store/actions/onboardingActions";
@@ -12,6 +12,8 @@ const DietaryGoal = ({ history, path }) => {
     history.push(`${path}/sex`);
   };
 
+  const [value, setValue] = useState(0);
+
   return (
     <>
       <Row>
@@ -19,6 +21,7 @@ const DietaryGoal = ({ history, path }) => {
           <H2>What's your dietary goal?</H2>
         </Col>
       </Row>
+
       <Row>
         <Col>
           <PillButton

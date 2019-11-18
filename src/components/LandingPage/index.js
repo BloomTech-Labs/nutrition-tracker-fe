@@ -9,7 +9,7 @@ import { Redirect, withRouter } from "react-router-dom";
 
 class LandingPage extends React.Component {
   redirectToOnboarding = () => {
-    this.props.history.push("/onboarding/dietary-goal");
+    this.props.history.push("/onboarding/sex");
   };
 
   redirectToLogin = () => {
@@ -59,7 +59,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {}
-)(withRouter(LandingPage));
+export default connect(mapStateToProps, {})(withRouter(LandingPage));

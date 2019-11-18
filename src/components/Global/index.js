@@ -5,7 +5,7 @@ import { Button as Btn, Form as Frm, Input as Inp } from "reactstrap";
 
 export const AppWrapper = styled.div`
   min-height: 100vh;
-  text-align: center;
+  text-align:center;
   background-color: ${theme.g0};
   margin: 0;
 `;

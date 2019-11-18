@@ -11,12 +11,19 @@ import HomePage from "./components/HomePage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 
+
+//Joes Imports
+  import Flywheel from "./components/Global/flywheel-menu/Flywheel";
+
+
 function App() {
   return (
     <AppWrapper>
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+
+      <Flywheel />
     </AppWrapper>
   );
 }

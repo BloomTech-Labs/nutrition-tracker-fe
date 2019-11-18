@@ -3,10 +3,16 @@ import styled from "styled-components";
 import {
   Navbar as BS_NavBar,
   NavbarBrand as BS_NavbarBrand,
-  Button as BS_Button
+  Button as BS_Button,
+  NavItem,
+  NavLink
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { BackSVG } from "../Global/icons";
+import { DailyLogIcon } from "../Global/icons";
+import { SettingsIcon } from "../Global/icons";
+import { RecipeIcon } from "../Global/icons";
+import { ProgressIcon } from "../Global/icons";
 import theme from "../Global/theme";
 
 function WithNavigation({ history, pageTitle, children }) {
@@ -19,7 +25,26 @@ function WithNavigation({ history, pageTitle, children }) {
         <NavbarBrand style={{ marginLeft: "10px" }}>{pageTitle}</NavbarBrand>
       </TopNavbar>
       <div>{children}</div>
-      <BottomNavBar className="fixed-bottom" bgColor="black"></BottomNavBar>
+      <BottomNavBar className="fixed-bottom" bgColor="black">
+        {" "}
+        <NavItem>
+          <DailyLogIcon />
+          <NavLink to="/daily-log"></NavLink>
+        </NavItem>
+        <NavItem>
+          <RecipeIcon />
+          <NavLink to="/recipes"></NavLink>
+        </NavItem>
+        <NavItem>
+          <ProgressIcon />
+
+          <NavLink to="/reports"></NavLink>
+        </NavItem>
+        <NavItem>
+          <SettingsIcon />
+          <NavLink to="/settings"></NavLink>
+        </NavItem>
+      </BottomNavBar>
     </div>
   );
 }

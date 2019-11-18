@@ -31,11 +31,18 @@ class App extends Component {
           path="/onboarding"
           render={props => (
             <WithNavigation pageTitle="On Boarding" {...props}>
+              <DailyLog {...props} />
+            </WithNavigation>
+          )}
+        />
+        <Route
+          path="/"
+          render={props => (
+            <WithNavigation pageTitle="Daily Log" {...props}>
               <Onboarding {...props} />
             </WithNavigation>
           )}
         />
-        {/* <AppBar /> */}
       </AppWrapper>
     );
   }

@@ -13,13 +13,13 @@ class AppBar extends Component {
             <NavLink to="/daily-log">Daily Log</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#">Recipes</NavLink>
+            <NavLink to="/Recipes">Recipes</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#">Reports</NavLink>
+            <NavLink to="/Reports">Reports</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#">Settings</NavLink>
+            <NavLink to="/Settings">Settings</NavLink>
           </NavItem>
         </Nav>
       </Container>

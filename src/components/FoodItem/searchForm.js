@@ -35,7 +35,7 @@ class SearchForm extends React.Component {
   render() {
     return (
       <ReactReduxContext.Consumer>
-        {({store}) => (
+        {({ store }) => (
           <Form>
             <Row form>
               <InputGroup>
@@ -69,9 +69,6 @@ const GraySearchBar = styled(Col)`
   }
 `;
 
-export default connect(
-  null,
-  { searchFoodItems }
-)(SearchForm);
+export default connect(null, { searchFoodItems })(SearchForm);
 
 export { SearchForm };

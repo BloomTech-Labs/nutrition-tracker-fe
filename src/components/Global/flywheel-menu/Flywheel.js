@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import FlywheelModal from "./modal/FlywheelModal";
 import { Motion, StaggeredMotion, spring } from "react-motion";
 import range from "lodash.range";
@@ -22,21 +23,21 @@ const MainButton = styled.div`
   border-radius: 100%;
   background-color: #28a745;
   cursor: pointer;
-  font-size:15px;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: lighter;
   border: 1px solid rgba(0, 0, 0, 0.1);
   z-index: 9999;
-`
+`;
 
 const ChildButton = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size:15px;
+  font-size: 15px;
   width: 50px;
   height: 50px;
   border-radius: 100%;
@@ -44,28 +45,18 @@ const ChildButton = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: rgba(170, 215, 210, 0.934) 0px 0px 50px 12px;
   z-index: 9999;
-  display: none; 
-`
+  display: none;
+`;
 
 const Title = styled.h6`
   color: black;
   position: fixed;
   top: -25px;
-`
+`;
 
-const faMBIconColor =  "white" ;
+const faMBIconColor = "white";
 
 const faChildIconColor = "#007bff";
-
-
-
-
-
-
-
-
-
-
 
 // Components
 
@@ -74,15 +65,22 @@ const faChildIconColor = "#007bff";
 // Names of icons for each button retreived from fontAwesome, we'll add a little extra just in case
 // the NUM_CHILDREN is changed to a bigger value
 
-var icon = {
-  icon: null,
-  name: ""
-};
+//var icon = {
+// icon: null,
+//  name: "",
+//  isaLink: Boolean,
+//  linkPath: ""
+//};
 
 let childButtonIcons = [
-  (icon = { icon: faAppleAlt, name: "Food" }),
-  (icon = { icon: faUtensils, name: "Recipe" }),
-  (icon = { icon: faWeight, name: "Weight" })
+  {
+    icon: faAppleAlt,
+    name: "Food",
+    isaLink: true,
+    linkPath: "/login"
+  },
+  { icon: faUtensils, name: "Recipe", isaLink: false },
+  { icon: faWeight, name: "Weight", isaLink: false }
 ];
 
 // Diameter of the main button in pixels
@@ -409,32 +407,57 @@ class Flywheel extends React.Component {
         {interpolatedStyles => (
           <div>
             {interpolatedStyles.map(
-              ({ height, left, rotate, scale, top, width }, index) => (
-                <ChildButton
-                  key={index}
-                  style={{
-                    left,
-                    height,
-                    top,
-                    transform: `rotate(${rotate}deg) scale(${scale})`,
-                    width,
-                    display: isOpen ? `flex` : `none`
-                  }}
-                >
-                  <Title>{childButtonIcons[index].name}</Title>
-                  <FontAwesomeIcon
-                    icon={childButtonIcons[index].icon}
-                    size="2x"
-                    color={faChildIconColor}
-                    onClick={() => {
-                      return (
-                        this.setState({ segue: childButtonIcons[index].name }),
-                        this.handleToggleClick()
-                      );
+              ({ height, left, rotate, scale, top, width }, index) =>
+                childButtonIcons[index].isaLink ? (
+                  <Link to={childButtonIcons[index].linkPath}>
+                    {" "}
+                    <ChildButton
+                      key={index}
+                      style={{
+                        left,
+                        height,
+                        top,
+                        transform: `rotate(${rotate}deg) scale(${scale})`,
+                        width,
+                        display: isOpen ? `flex` : `none`
+                      }}
+                    >
+                      <Title>{childButtonIcons[index].name}</Title>
+                      <FontAwesomeIcon
+                        icon={childButtonIcons[index].icon}
+                        size="2x"
+                        color={faChildIconColor}
+                      />
+                    </ChildButton>
+                  </Link>
+                ) : (
+                  <ChildButton
+                    key={index}
+                    style={{
+                      left,
+                      height,
+                      top,
+                      transform: `rotate(${rotate}deg) scale(${scale})`,
+                      width,
+                      display: isOpen ? `flex` : `none`
                     }}
-                  />
-                </ChildButton>
-              )
+                  >
+                    <Title>{childButtonIcons[index].name}</Title>
+                    <FontAwesomeIcon
+                      icon={childButtonIcons[index].icon}
+                      size="2x"
+                      color={faChildIconColor}
+                      onClick={() => {
+                        return (
+                          this.setState({
+                            segue: childButtonIcons[index].name
+                          }),
+                          this.handleToggleClick()
+                        );
+                      }}
+                    />
+                  </ChildButton>
+                )
             )}
           </div>
         )}
@@ -453,24 +476,27 @@ class Flywheel extends React.Component {
       ? { rotate: spring(0, { stiffness: 500, damping: 30 }) }
       : { rotate: spring(-135, { stiffness: 500, damping: 30 }) };
     return (
-        <>
-      <div>
-        {this.renderChildButtons()}
-        <Motion style={mainButtonRotation}>
-          {({ rotate }) => (
-            <MainButton
-              className="main-button"
-              style={{
-                ...this.mainButtonStyles(),
-                transform: `rotate(${rotate}deg)`,
-            
-              }}
-              onClick={this.toggleMenu}
-            >
-              <FontAwesomeIcon icon={faTimes} size="3x" color= {faMBIconColor} />
-            </MainButton>
-          )}
-        </Motion>
+      <>
+        <div>
+          {this.renderChildButtons()}
+          <Motion style={mainButtonRotation}>
+            {({ rotate }) => (
+              <MainButton
+                className="main-button"
+                style={{
+                  ...this.mainButtonStyles(),
+                  transform: `rotate(${rotate}deg)`
+                }}
+                onClick={this.toggleMenu}
+              >
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  size="3x"
+                  color={faMBIconColor}
+                />
+              </MainButton>
+            )}
+          </Motion>
         </div>
 
         <FlywheelModal
@@ -479,7 +505,7 @@ class Flywheel extends React.Component {
           segue={this.state.segue}
           weight={this.state.weight}
         />
-    </>
+      </>
     );
   }
 }

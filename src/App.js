@@ -28,18 +28,10 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route
-          path="/onboarding"
-          render={props => (
-            <WithNavigation pageTitle="On Boarding" {...props}>
-              <DailyLog {...props} />
-            </WithNavigation>
-          )}
-        />
-        <Route
           path="/"
           render={props => (
             <WithNavigation pageTitle="Daily Log" {...props}>
-              <Onboarding {...props} />
+              <DailyLog {...props} />
             </WithNavigation>
           )}
         />

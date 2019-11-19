@@ -33,6 +33,7 @@ function WithNavigation({ history, pageTitle, children }) {
         </NavItem>
         <NavItem>
           <RecipeIcon />
+
           <NavLink to="/recipes"></NavLink>
         </NavItem>
         <NavItem>

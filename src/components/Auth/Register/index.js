@@ -1,36 +1,43 @@
 import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Container } from "../../Global/styled";
+import TopBar from "../../Onboarding/TopBar";
+import RegisterOptions from "./RegisterOptions";
+import RegisterWithEmail from "./RegisterWithEmail";
 
-// import styled from "styled-components";
+class Register extends React.Component {
+  render() {
+    const { path } = this.props.match;
+    const { isLoggedIn, date_of_birth } = this.props;
 
-// import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
-// import { Linkton } from "../../Global/styled";
+    if (isLoggedIn) return <Redirect to="/" />;
+    if (!date_of_birth) return <Redirect to="/" />;
 
-const Register = () => {
-  return (
-    <h1>Register Page</h1>
-    // <RegisterWrapper>
-    //   <h2>Register</h2>
-    //   <Form onSubmit={e => e.preventDefault() && false}>
-    //     <Input name="name" placeholder="Username" type="text" />
+    return (
+      <Container justify="center" fluid={true}>
+        {console.log(new Date(this.props.date_of_birth))}
+        <TopBar {...this.props} />
+        <Route
+          exact
+          path={path}
+          render={props => <RegisterOptions {...props} path={path} />}
+        />
+        <Route
+          path={`${path}/email`}
+          render={props => <RegisterWithEmail {...props} path={path} />}
+        />
+      </Container>
+    );
+  }
+}
 
-    //     <Input name="email" type="text" placeholder="Email" />
-
-    //     <Input name="password" type="password" placeholder="Password" />
-
-    //     <ButtonWrapper>
-    //       <Button>Register</Button>
-
-    //       <Linkton to="/">Go back to Login</Linkton>
-    //     </ButtonWrapper>
-    //   </Form>
-    // </RegisterWrapper>
-  );
+const mapStateToProps = state => {
+  return {
+    // when user is not logged in isEmpty is true
+    isLoggedIn: !state.firebase.auth.isEmpty,
+    date_of_birth: state.onboardingReducer.date_of_birth
+  };
 };
 
-// const RegisterWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
-export default Register;
+export default connect(mapStateToProps, {})(Register);

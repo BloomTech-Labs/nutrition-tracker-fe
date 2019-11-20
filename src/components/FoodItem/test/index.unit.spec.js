@@ -17,24 +17,39 @@ function fetchData() {
 
 // TODO: DRY store so that we don't have to recreate this
 //mock store stuff on every tested component
-const initialState = {};
+/*const initialState = {};
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 let store;
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });*/
 
+
+
+function bigMocker(initialState, middlewares = []) {
+    initialState = {};
+    const mockStore = configureStore(middlewares);
+    let store;
+
+    configure({ adapter: new Adapter() });
+
+    return store = mockStore(initialState);
+
+}
+
+let store;
 describe("<SearchForm />", () => {
   beforeEach(() => {
-    store = mockStore(initialState);
-    store.dispatch(fetchData());
+      store = bigMocker({},[thunk]);
+    // store = mockStore(initialState);
+    // store.dispatch(fetchData());
   });
 
   test("simulate click event", async () => {
     // TODO: need to mock searchFoodItems module and pass it to searchFoodItems prop
     const wrapper = await mount(
       <Provider store={store}>
-        <SearchForm searchFoodItems={() => {}} />
+        <SearchForm  />
       </Provider>
     );
     

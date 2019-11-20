@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
-import Macros from "./components/macro_targets";
-import WeightGoal from "./components/weight_goal";
 import Dob from "./components/dob";
 import Email from "./components/email";
 import Password from "./components/password";
@@ -25,17 +23,6 @@ class Settings extends React.Component {
       gender: "Male",
       activityLevel: "Sedentary"
     },
-    nutrition: {
-      macro_targets: {
-        fat: "20",
-        carbs: "40",
-        protein: "40"
-      },
-      weight_goal: {
-        target_weight: "140",
-        target_date: "01/01/2020"
-      }
-    },
     account_settings: {
       email: "email@email.com",
       password: "Password123"
@@ -53,8 +40,8 @@ class Settings extends React.Component {
           <Gender data={this.state.profile.gender} />
           <ActivityLevel data={this.state.profile.activityLevel} />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <Macros data={this.state.nutrition.macro_targets} />
-          <WeightGoal data={this.state.nutrition.weight_goal} />
+          <ListGroupItem style={ListStyle}>MacroNutrient Targets </ListGroupItem>
+          <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
           <Email data={this.state.account_settings.email}/>

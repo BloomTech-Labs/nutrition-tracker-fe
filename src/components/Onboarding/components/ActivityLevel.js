@@ -17,7 +17,7 @@ const ActivityLevel = props => {
     history.push(`${path}/basic-info`);
   };
 
-  const sex = useSelector(state => state.onboardingReducer.sex);
+  const sex = useSelector(state => state.onboarding.sex);
 
   if (!sex) return <Redirect to="/landing" />;
 

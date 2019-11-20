@@ -36,7 +36,7 @@ const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
-    date_of_birth: state.onboardingReducer.date_of_birth
+    date_of_birth: state.onboarding.date_of_birth
   };
 };
 

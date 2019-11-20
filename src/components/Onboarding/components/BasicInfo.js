@@ -113,7 +113,7 @@ function weightToMetic(lbs) {
 
 const mapStateToProps = state => {
   return {
-    activityLevel: state.onboardingReducer.activityLevel
+    activityLevel: state.onboarding.activityLevel
   };
 };
 

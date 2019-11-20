@@ -117,9 +117,9 @@ function weightToMetic(lbs) {
 
 const mapStateToProps = state => {
   return {
-    weight_kg: state.onboardingReducer.weight_kg,
-    height_cm: state.onboardingReducer.height_cm,
-    date_of_birth: state.onboardingReducer.date_of_birth
+    weight_kg: state.onboarding.weight_kg,
+    height_cm: state.onboarding.height_cm,
+    date_of_birth: state.onboarding.date_of_birth
   };
 };
 

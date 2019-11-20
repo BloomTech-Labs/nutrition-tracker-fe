@@ -108,12 +108,12 @@ const ButtonLabel = styled.div`
 const mapStateToProps = state => {
   return {
     registerSuccess: !state.firebase.auth.isEmpty,
-    sex: state.onboardingReducer.sex,
-    activity_level: state.onboardingReducer.activityLevel,
-    dob: state.onboardingReducer.date_of_birth,
-    weight_kg: state.onboardingReducer.weight_kg,
-    height_cm: state.onboardingReducer.height_cm,
-    weekly_goal_rate: state.onboardingReducer.target_rate
+    sex: state.onboarding.sex,
+    activity_level: state.onboarding.activityLevel,
+    dob: state.onboarding.date_of_birth,
+    weight_kg: state.onboarding.weight_kg,
+    height_cm: state.onboarding.height_cm,
+    weekly_goal_rate: state.onboarding.target_rate
   };
 };
 

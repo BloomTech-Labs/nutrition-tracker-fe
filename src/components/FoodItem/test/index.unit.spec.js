@@ -2,7 +2,6 @@ import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import SearchForm from "../searchForm";
-<<<<<<< HEAD
 import Adapter from "enzyme-adapter-react-16";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -24,8 +23,6 @@ const mockStore = configureStore(middlewares);
 let store;
 
 configure({ adapter: new Adapter() });*/
-=======
->>>>>>> 2c567aef60383501b31aa8ed2f9611a5758705d0
 
 
 
@@ -42,7 +39,6 @@ function bigMocker(initialState, middlewares = []) {
 
 let store;
 describe("<SearchForm />", () => {
-<<<<<<< HEAD
   beforeEach(() => {
       store = bigMocker({},[thunk]);
     // store = mockStore(initialState);
@@ -54,13 +50,6 @@ describe("<SearchForm />", () => {
     const wrapper = await mount(
       <Provider store={store}>
         <SearchForm  />
-=======
-  test("simulate click event", async () => {
-    // TODO: need to mock searchFoodItems module and pass it to searchFoodItems prop
-    const wrapper = await mount(
-      <Provider store={_bigMockStore_()}>
-        <SearchForm />
->>>>>>> 2c567aef60383501b31aa8ed2f9611a5758705d0
       </Provider>
     );
 

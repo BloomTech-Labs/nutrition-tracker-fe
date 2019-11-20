@@ -4,6 +4,7 @@ import InputGroupWithIcon from "./InputGroupWithIcon";
 import { Row, Col, PillButton, H2, Form } from "../../Global/styled";
 import { CalendarSVG, RulerSVG, ScaleSVG } from "../../Global/icons";
 import { updateBasicInfo } from "../../../store/actions/onboardingActions";
+import { Redirect } from "react-router-dom";
 
 class BasicInfo extends React.Component {
   state = {
@@ -32,7 +33,8 @@ class BasicInfo extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+    if (!this.props.activityLevel) return <Redirect to="/landing" />;
+
     return (
       <>
         <Row>
@@ -109,4 +111,10 @@ function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }
 
-export default connect(null, { updateBasicInfo })(BasicInfo);
+const mapStateToProps = state => {
+  return {
+    activityLevel: state.onboardingReducer.activityLevel
+  };
+};
+
+export default connect(mapStateToProps, { updateBasicInfo })(BasicInfo);

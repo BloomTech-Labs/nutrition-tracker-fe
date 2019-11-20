@@ -2,17 +2,24 @@ import React from "react";
 
 import { PillButton, H2, Row, Col } from "../../Global/styled";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateActivityLevel } from "../../../store/actions/onboardingActions";
+
+import { Redirect } from "react-router-dom";
 
 const ActivityLevel = props => {
   const dispatch = useDispatch();
+
   const { history, path } = props;
 
   const handleClick = activityLevel => {
     dispatch(updateActivityLevel(activityLevel));
     history.push(`${path}/basic-info`);
   };
+
+  const sex = useSelector(state => state.onboardingReducer.sex);
+
+  if (!sex) return <Redirect to="/landing" />;
 
   return (
     <>

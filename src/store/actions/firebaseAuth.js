@@ -53,8 +53,53 @@ export const logout = () => dispatch => {
     });
 };
 
-export const googleLogin = onboardingInfo => dispatch => {
+export const googleLogin = () => dispatch => {
   dispatch({ type: "GOOGLE_LOGIN_START" });
+  firebase
+    .auth()
+    .signInWithPopup(googleProvider)
+    .then(res => {
+      // google login response
+      console.log("Google response:", res);
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const token = res.credential.accessToken;
+
+      console.log("Token:", token);
+
+      // The signed-in user info.
+      const user = res.user.displayName;
+      const userPicture = res.additionalUserInfo.profile.picture;
+
+      console.log("User:", user);
+      console.log("Picture:", userPicture);
+
+      // ...
+      dispatch({ type: "GOOGLE_LOGIN_SUCCESS", payload: token });
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      console.log("Error code:", errorCode);
+
+      const errorMessage = error.message;
+      console.log("Error message:", errorMessage);
+
+      // The email of the user's account used.
+      const email = error.email;
+      console.log("email:", email);
+
+      // The firebase.auth.AuthCredential type that was used.
+      const credential = error.credential;
+      console.log("Credential:", credential);
+
+      // ...
+      dispatch({ type: "GOOGLE_LOGIN_FAILURE" });
+    });
+};
+
+export const googleRegister = onboardingInfo => dispatch => {
+  dispatch({ type: "GOOGLE_REGISTER_START" });
   firebase
     .auth()
     .signInWithPopup(googleProvider)
@@ -64,7 +109,7 @@ export const googleLogin = onboardingInfo => dispatch => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const token = res.credential.accessToken;
       console.log("Token:", token);
-      const auth = { Authorization: `Bearer: ${token}` };
+      // const auth = { Authorization: `Bearer: ${token}` };
       const newUser = {
         firebase_id: res.user.uid,
         sex: onboardingInfo.sex,
@@ -78,7 +123,7 @@ export const googleLogin = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("http://localhost:4000/auth/register", newUser, { headers: auth })
+        .post("http://localhost:4000/auth/register", newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -87,7 +132,7 @@ export const googleLogin = onboardingInfo => dispatch => {
       console.log("User:", user);
       console.log("Picture:", userPicture);
       // ...
-      dispatch({ type: "GOOGLE_LOGIN_SUCCESS", payload: token });
+      dispatch({ type: "GOOGLE_REGISTER_SUCCESS" });
     })
     .catch(function(error) {
       // Handle Errors here.
@@ -102,7 +147,7 @@ export const googleLogin = onboardingInfo => dispatch => {
       const credential = error.credential;
       console.log("Credential:", credential);
       // ...
-      dispatch({ type: "GOOGLE_LOGIN_FAILURE" });
+      dispatch({ type: "GOOGLE_REGISTER_FAILURE" });
     });
 };
 

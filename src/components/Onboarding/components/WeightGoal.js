@@ -8,11 +8,11 @@ import {
   SlideBar,
   Input
 } from "../../Global/styled";
-import { CalendarSVG, ScaleSVG } from "../../Global/icons";
+import { ScaleSVG } from "../../Global/icons";
 import InputGroupWithIcon from "./InputGroupWithIcon";
 import { connect } from "react-redux";
 import { updateWeightGoal } from "../../../store/actions/onboardingActions";
-
+import { Redirect } from "react-router-dom";
 class WeightGoal extends React.Component {
   state = {
     target_date: "",
@@ -21,11 +21,10 @@ class WeightGoal extends React.Component {
   };
 
   handleSubmit = () => {
-    const { target_date, target_rate, target_weight } = this.state;
+    const { target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
       target_weight_kg: weightToMetic(target_weight),
-      target_rate: Number(target_rate),
-      target_date: target_date
+      target_rate: Number(target_rate)
     });
     this.props.history.push("/register");
   };
@@ -37,6 +36,10 @@ class WeightGoal extends React.Component {
   };
 
   render() {
+    const { weight_kg, height_cm, date_of_birth } = this.props;
+
+    if (!weight_kg || !height_cm || !date_of_birth)
+      return <Redirect to="/landing" />;
     return (
       <>
         <Row>
@@ -80,7 +83,7 @@ class WeightGoal extends React.Component {
               </SlideBar>
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col direction="column" align="flex-start">
               <h3>Target Date</h3>
               <InputGroupWithIcon
@@ -90,7 +93,7 @@ class WeightGoal extends React.Component {
                 handleChange={this.handleChange}
               />
             </Col>
-          </Row>
+          </Row> */}
           <Row className="fixed-bottom">
             <Col>
               <PillButton type="submit" color="success">
@@ -108,13 +111,15 @@ function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }
 
-function targetDate() {
-  return this.props;
-}
+// function targetDate() {
+//   return this.props;
+// }
 
 const mapStateToProps = state => {
   return {
-    weight_kg: state.onboardingReducer.weight_kg
+    weight_kg: state.onboardingReducer.weight_kg,
+    height_cm: state.onboardingReducer.height_cm,
+    date_of_birth: state.onboardingReducer.date_of_birth
   };
 };
 

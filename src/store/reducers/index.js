@@ -2,9 +2,11 @@ import { combineReducers } from "redux";
 import { firebaseAuth } from "./firebaseAuth"; // Example of reducer import
 import { firebaseReducer } from "react-redux-firebase";
 import { onboardingReducer } from "./onboardingReducer";
+import { updateUserSettings } from "./updateUserSettings";
 
 export default combineReducers({
-  firebaseAuth,
+  myCustomAuth: firebaseAuth,
   firebase: firebaseReducer,
-  onboardingReducer: onboardingReducer
+  onboarding: onboardingReducer,
+  updateSettings: updateUserSettings
 });

@@ -22,14 +22,22 @@ const Sex = props => {
       </Row>
       <Row>
         <Col>
-          <PillButton onClick={() => handleClick("m")} outline color="primary">
+          <PillButton
+            onClick={() => handleClick("male")}
+            outline
+            color="primary"
+          >
             Male
           </PillButton>
         </Col>
       </Row>
       <Row>
         <Col>
-          <PillButton onClick={() => handleClick("f")} outline color="primary">
+          <PillButton
+            onClick={() => handleClick("female")}
+            outline
+            color="primary"
+          >
             Female
           </PillButton>
         </Col>

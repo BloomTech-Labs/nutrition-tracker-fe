@@ -53,11 +53,8 @@ const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
-    loggingIn: state.firebaseAuth.loggingIn
+    loggingIn: state.myCustomAuth.loggingIn
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Login);
+export default connect(mapStateToProps, {})(Login);

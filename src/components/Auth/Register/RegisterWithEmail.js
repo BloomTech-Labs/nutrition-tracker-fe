@@ -76,11 +76,4 @@ class RegisterWithEmail extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  { register }
-)(RegisterWithEmail);
+export default connect(null, { register })(RegisterWithEmail);

@@ -1,16 +1,27 @@
 import React from "react";
-import { Container, Row, Col } from "../Global/styled";
+import { Container, Row, Col, H2 } from "../Global/styled";
 import { Progress } from "reactstrap";
+import CaloricBudget from "./components/CaloricBudget";
 
 function DailyLog() {
   return (
-    <Container>
-      <h1>Hey</h1>
-      <Progress style={{ height: "50px" }}>
-        <Progress bar color="success" value={1280} max={2140}>
-          1280 cal
-        </Progress>
-      </Progress>
+    <Container fluid>
+      <Row>
+        <Col height="100px" align="center">
+          <CaloricBudget consumed={1280} total={2140}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col justify="center">
+          <H2>Fats</H2>
+        </Col>
+        <Col justify="center">
+          <H2>Carbs</H2>
+        </Col>
+        <Col justify="center">
+          <H2>Protein</H2>
+        </Col>
+      </Row>
     </Container>
   );
 }

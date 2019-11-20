@@ -10,7 +10,7 @@ import { Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-
+import { ToastProvider } from "react-toast-notifications";
 
 //Joes Imports
   import Flywheel from "./components/Global/flywheel-menu/Flywheel";
@@ -18,6 +18,7 @@ import Register from "./components/Auth/Register";
 
 function App() {
   return (
+    <ToastProvider number="5000">
     <AppWrapper>
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />
@@ -25,6 +26,7 @@ function App() {
 
       <Flywheel />
     </AppWrapper>
+    </ToastProvider>
   );
 }
 

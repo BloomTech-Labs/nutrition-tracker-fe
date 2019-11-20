@@ -4,7 +4,10 @@ import RecordWeight from "./RecordWeight";
 import Recipe from "./Recipe";
 import DefaultView from "./DefaultView";
 import Button from "react-bootstrap/Button";
-import {
+import { connect } from 'react-redux';
+import { recordUserWeight } from "../../../../actions/flywheelAction"; 
+import { useToasts } from 'react-toast-notifications';
+import{
   faAppleAlt,
   faUtensils,
   faWeight
@@ -33,6 +36,10 @@ class PopModal extends React.Component {
 
   handleSaveRecipe = e => {
     //need to handle save for some data. Here we import actions and make use of them
+  };
+
+  handleRecordWeight = e =>{
+     this.props.recordUserWeight(1, this.state.weight);
   };
 
   handleClose = () => {
@@ -82,6 +89,7 @@ class PopModal extends React.Component {
           handleToggleClickProp={this.props.handleToggleClickProp}
           weight={this.state.weight}
           isEnabled={this.props.isEnabled}
+          handleRecordWeight={this.handleRecordWeight}
           handleInputChange={this.handleInputChange}
           handleClose={this.handleClose}
         />
@@ -97,4 +105,14 @@ class PopModal extends React.Component {
   }
 }
 
-export default PopModal;
+
+const mapStateToProps = state => {
+  return {
+        adding: state.adding,
+  }
+}
+
+
+export default connect(mapStateToProps, { recordUserWeight })(PopModal);
+
+

@@ -6,10 +6,13 @@ import Form  from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { faWeight } from "@fortawesome/free-solid-svg-icons";
+import { useToasts } from 'react-toast-notifications';
+
 
 const faIconColor = "#007bff";
 
  const RecordWeight = props => {
+  const { addToast } = useToasts();
     return(
     <>
     <Modal show={props.isEnabled} onHide={()=>{return ( props.handleClose(), props.handleToggleClickProp() )}} >
@@ -28,7 +31,8 @@ const faIconColor = "#007bff";
       <Button variant="secondary" onClick={()=>{return ( props.handleClose(), props.handleToggleClickProp() )}}>
         Close
       </Button>
-      <Button variant="primary" onClick={()=>{}}>
+      {/*JOE: !REMEMBER TO MAKE THIS WORK WITH THE TOAST COMPONENT WE NEED TO RETURN A SUCCESS OR ERROR WHEN THIS IS COMPLETE. */}
+      <Button variant="primary" onClick={()=>{return ( props.handleRecordWeight(),props.handleToggleClickProp(),props.handleClose(),addToast('Saved Successfully', { appearance: 'success', autoDismiss: true}) )}}>
         Save Changes
       </Button>
     </Modal.Footer>

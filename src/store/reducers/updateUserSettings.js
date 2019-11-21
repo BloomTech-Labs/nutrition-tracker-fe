@@ -1,26 +1,59 @@
 const initialState = {
-  height: "",
-  weight: ""
+  user_info: {
+    firebase_id: "",
+    email: "",
+    height_cm: "",
+    sex: "male",
+    dob: "",
+    height: {
+      feet: "",
+      inches: ""
+    }
+  }
 };
 
-export const updateUserSettings = (state = initialState, action) => {
+export const updateUserInfo = (state = initialState, action) => {
   switch (action.type) {
-    case "UPDATE_SETTINGS_START": {
+    case "UPDATE_INFO_START": {
       return {
         ...state
       };
     }
 
-    case "UPDATE_SETTINGS_SUCCESS": {
-      const { height, weight } = action.payload;
+    case "UPDATE_INFO_SUCCESS": {
       return {
         ...state,
-        height: height,
-        weight: weight
+        userInfo: action.payload
       };
     }
 
-    case "UPDATE_SETTINGS_FAILURE": {
+    case "UPDATE_INFO_FAILURE": {
+      return {
+        ...state
+      };
+    }
+
+    default:
+      return state;
+  }
+};
+
+export const getUserInfo = (state = initialState, action) => {
+  switch (action.type) {
+    case "GET_INFO_START": {
+      return {
+        ...state
+      };
+    }
+
+    case "GET_INFO_SUCCESS": {
+      return {
+        ...state,
+        userInfo: action.payload
+      };
+    }
+
+    case "GET_INFO_FAILURE": {
       return {
         ...state
       };

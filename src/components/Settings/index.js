@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import {getUserInfo} from "../../store/actions/updateUserSettings";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
 import Dob from "./components/dob";
@@ -12,40 +14,60 @@ import TopBar from "./TopBar";
 
 class Settings extends React.Component {
   state = {
-    user_id: 1,
-    profile: {
+    user_info: {
+      firebase_id: "",
+      email: "",
+      height_cm: "",
+      sex: "male",
+      dob: "",
       height: {
-        feet: "6",
-        inches: "1"
-      },
-      weight: "180",
-      dob: "12/9/88",
-      gender: "Male",
-      activityLevel: "Sedentary"
-    },
-    account_settings: {
-      email: "email@email.com",
-      password: "Password123"
+        feet: "",
+        inches: ""
+      }
     }
   };
+
+  componentDidMount() {
+    const id = 1;
+
+    const user = this.props.getUserInfo(id);
+    console.log(user)
+
+    this.setState({
+      user_info: {
+        firebase_id: user.firebase_id,
+        email: user.email,
+        height_cm: user.height_cm,
+        sex: user.sex,
+        dob: user.dob,
+        height: {
+          feet: user.height.feet,
+          inches: user.height.inches
+        }
+      }
+    });
+  }
+
   render() {
     return (
       <Container>
         <TopBar />
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
-          <Height data={this.state.profile.height} />
-          <CurrentWeight data={this.state.profile.weight} />
-          <Dob data={this.state.profile.dob} />
-          <Gender data={this.state.profile.gender} />
-          <ActivityLevel data={this.state.profile.activityLevel} />
+          <Height data={this.state.user_info.height} />
+          <CurrentWeight data={this.state.user_info.weight} />
+          <Dob data={this.state.user_info.dob} />
+          <Gender data={this.state.user_info.gender} />
+          <ActivityLevel  />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <ListGroupItem style={ListStyle}>MacroNutrient Targets </ListGroupItem>
+          <ListGroupItem style={ListStyle}>
+            MacroNutrient Targets{" "}
+          </ListGroupItem>
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
-          <Email data={this.state.account_settings.email}/>
-          <Password data={this.state.account_settings.password}/>
+          <Email data={this.state.user_info.email} />
+          <Password  />
         </ListGroup>
       </Container>
     );
@@ -77,4 +99,8 @@ const HeadingStyle = {
   fontWeight: "bold"
 };
 
-export default Settings;
+const mapStateToProps = state => ({
+  userInfo: state.userInfo
+});
+
+export default connect(mapStateToProps, { getUserInfo })(Settings);

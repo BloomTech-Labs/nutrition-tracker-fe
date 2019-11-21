@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 
 const Height = props => {
+  console.log(props.data)
   const [modal, setModal] = useState(false);
 
   const [feet, setFeet] = useState( props.data.feet);

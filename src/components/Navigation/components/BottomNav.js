@@ -5,7 +5,7 @@ import {
   NavItem as BS_NavItem,
   NavLink
 } from 'reactstrap';
-import { DailyLogIcon, RecipeIcon, ProgressIcon, SettingsIcon } from '../../Global/icons';
+import { DailyLogSVG, RecipeSVG, ProgressSVG, SettingsSVG } from '../../Global/icons';
 import theme from '../../Global/theme';
 
 const BottomNav = ({display}) => {
@@ -13,16 +13,16 @@ const BottomNav = ({display}) => {
     <NavContainer display={display}>
       <NavBar>
         <NavItem>
-          <NavLink href="/daily-log"><DailyLogIcon /></NavLink>
+          <NavLink href="/daily-log"><DailyLogSVG /></NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/recipes"><RecipeIcon /></NavLink>
+          <NavLink href="/recipes"><RecipeSVG /></NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/reports"><ProgressIcon /></NavLink>
+          <NavLink href="/reports"><ProgressSVG /></NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/settings"><SettingsIcon /></NavLink>
+          <NavLink href="/settings"><SettingsSVG /></NavLink>
         </NavItem>
       </NavBar>
     </NavContainer>
@@ -36,8 +36,8 @@ const NavContainer = styled.div`
 const NavBar = styled(BS_NavBar)`
   ${theme.mixin.flex("row", "space-between", "center")};
 
-  padding: 0;
   height: 50px;
+  padding: 0;
 
   background-color: black;
 `;

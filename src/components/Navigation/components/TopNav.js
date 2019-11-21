@@ -41,8 +41,8 @@ const NavContainer = styled.div`
 const Navbar = styled(BS_NavBar)`
   ${theme.mixin.flex("row", "flex-start", "center")};
 
-  padding: 0 3px;
   height: 50px;
+  padding: 0 3px;
 
   background-color: ${props => props.topNavColor};
 `;
@@ -53,8 +53,8 @@ const Button = styled(BS_Button)`
 `;
 
 const NavbarBrand = styled(BS_NavbarBrand)`
-  color: ${props => props.titleColor} !important;
   margin-left: 10px;
+  color: ${props => props.titleColor} !important;
   font-size: 1.6rem;
 `;
 

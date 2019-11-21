@@ -9,12 +9,10 @@ const StyledContainer = styled(Container)`
   justify-content: ${props => (props.justify ? props.justify : "flex-start")};
   align-items: ${props => (props.align ? props.align : "stretch")};
 
-  height: ${props => (props.height ? props.height : "100vh")};
+  height: ${props => props.height ? props.height : "calc(100vh - (100px))"};
 
   /* border: 1px solid red; */
 `;
-
-// test
 
 export default StyledContainer;
 

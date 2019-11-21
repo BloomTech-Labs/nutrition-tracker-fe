@@ -1,6 +1,5 @@
 import React from "react";
-import { Container, Row, Col, H2 } from "../Global/styled";
-import { Progress } from "reactstrap";
+import { Container, Row, Col, H2, H3 } from "../Global/styled";
 import CaloricBudget from "./components/CaloricBudget";
 
 function DailyLog() {
@@ -13,13 +12,13 @@ function DailyLog() {
       </Row>
       <Row>
         <Col justify="center">
-          <H2>Fats</H2>
+          <H3>Fats</H3>
         </Col>
         <Col justify="center">
-          <H2>Carbs</H2>
+          <H3>Carbs</H3>
         </Col>
         <Col justify="center">
-          <H2>Protein</H2>
+          <H3>Protein</H3>
         </Col>
       </Row>
     </Container>

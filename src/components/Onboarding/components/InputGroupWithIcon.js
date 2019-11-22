@@ -1,7 +1,9 @@
 import React from "react";
+
 import { InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 import { Input } from "../styles";
 
+// Reusable component for Input groups, just define props you need when you import and your good to go
 const InputGroupWithIcon = props => {
   const SVGIcon = props.icon;
   return (

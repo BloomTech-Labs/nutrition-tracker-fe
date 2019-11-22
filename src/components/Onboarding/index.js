@@ -1,7 +1,12 @@
 import React from "react";
+
 import { Route } from "react-router-dom";
+
 import { Container } from "../Global/styled";
+
 import TopBar from "../Global/TopBar";
+
+// Onboarding Routes:
 // import DietaryGoal from "./components/DietaryGoal";
 import Sex from "./components/Sex";
 import ActivityLevel from "./components/ActivityLevel";
@@ -10,6 +15,8 @@ import WeightGoal from "./components/WeightGoal";
 
 class Onboarding extends React.Component {
   render() {
+    // pulling the path from props.match and passing it to routes so we can use
+    // the path variable as we use props.history to navigate through the routes
     const { path } = this.props.match;
     console.log("[Onboarding index.js] this.state", this.state);
 

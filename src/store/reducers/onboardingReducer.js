@@ -14,7 +14,6 @@ const initialState = {
   date_of_birth: "",
   activityLevel: 0,
   target_weight_kg: 0,
-  target_date: "",
   target_rate: 0
 };
 

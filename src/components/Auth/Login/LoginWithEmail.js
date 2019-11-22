@@ -14,6 +14,7 @@ class LoginWithEmail extends Component {
     password: ""
   };
 
+  // Life is change, you need to know how to handle it
   handleInputChange = e => {
     this.setState({
       ...this.state,
@@ -68,7 +69,4 @@ class LoginWithEmail extends Component {
   }
 }
 
-export default connect(
-  null,
-  { login }
-)(LoginWithEmail);
+export default connect(null, { login })(LoginWithEmail);

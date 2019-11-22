@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Row,
   Col,
@@ -9,17 +10,21 @@ import {
   Input
 } from "../../Global/styled";
 import { ScaleSVG } from "../../Global/icons";
+
 import InputGroupWithIcon from "./InputGroupWithIcon";
+
 import { connect } from "react-redux";
 import { updateWeightGoal } from "../../../store/actions/onboardingActions";
+
 import { Redirect } from "react-router-dom";
+
 class WeightGoal extends React.Component {
   state = {
-    target_date: "",
     target_rate: 0,
     target_weight: 0
   };
 
+  // handles adding target rate and date to redux
   handleSubmit = () => {
     const { target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
@@ -29,6 +34,7 @@ class WeightGoal extends React.Component {
     this.props.history.push("/register");
   };
 
+  // This function can handle change, can you?
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -36,10 +42,14 @@ class WeightGoal extends React.Component {
   };
 
   render() {
+    // decon props
     const { weight_kg, height_cm, date_of_birth } = this.props;
 
+    // takes us back home if we are missing values for height, weight, and dob
+    // if they aren't present then it will route to landing so onboarding can be filled out properly
     if (!weight_kg || !height_cm || !date_of_birth)
       return <Redirect to="/landing" />;
+
     return (
       <>
         <Row>
@@ -83,17 +93,6 @@ class WeightGoal extends React.Component {
               </SlideBar>
             </Col>
           </Row>
-          {/* <Row>
-            <Col direction="column" align="flex-start">
-              <h3>Target Date</h3>
-              <InputGroupWithIcon
-                name="target_date"
-                type="date"
-                icon={CalendarSVG}
-                handleChange={this.handleChange}
-              />
-            </Col>
-          </Row> */}
           <Row className="fixed-bottom">
             <Col>
               <PillButton type="submit" color="success">
@@ -111,15 +110,11 @@ function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }
 
-// function targetDate() {
-//   return this.props;
-// }
-
 const mapStateToProps = state => {
   return {
-    weight_kg: state.onboardingReducer.weight_kg,
-    height_cm: state.onboardingReducer.height_cm,
-    date_of_birth: state.onboardingReducer.date_of_birth
+    weight_kg: state.onboarding.weight_kg,
+    height_cm: state.onboarding.height_cm,
+    date_of_birth: state.onboarding.date_of_birth
   };
 };
 

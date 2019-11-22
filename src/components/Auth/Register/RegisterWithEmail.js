@@ -13,6 +13,7 @@ class RegisterWithEmail extends Component {
     email: ""
   };
 
+  // Makes data fluid, like water. Data doesn't fill the input, it becomes the input
   handleInputChange = e => {
     this.setState({
       ...this.state,
@@ -20,9 +21,15 @@ class RegisterWithEmail extends Component {
     });
   };
 
+  // Handles email auth action and sends onboarding info to back end
   handleRegister = e => {
     e.preventDefault();
-    this.props.register(this.state.name, this.state.email, this.state.password);
+    this.props.register(
+      this.state.name,
+      this.state.email,
+      this.state.password,
+      this.props.onboardingInfo
+    );
   };
 
   render() {

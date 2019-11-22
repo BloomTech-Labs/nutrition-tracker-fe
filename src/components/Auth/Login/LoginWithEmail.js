@@ -69,4 +69,5 @@ class LoginWithEmail extends Component {
   }
 }
 
+export { LoginWithEmail };
 export default connect(null, { login })(LoginWithEmail);

@@ -12,37 +12,50 @@
 import React from "react";
 import { Login } from "../index";
 import { LoginOptions } from "../LoginOptions";
-
+import { LoginWithEmail } from "../LoginWithEmail";
 import { MemoryRouter } from "react-router";
-
+import { Provider } from "react-redux";
 import { mount, shallow, configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-configure({ adapter: new Adapter() });
+//configure({ adapter: new Adapter() });
 
 describe("<Login />", () => {
+  let store = global._bigMockStore_();
   test("Login component is rendered", () => {
     let wrapper = mount(
       <MemoryRouter initialEntries={["/login"]}>
-        <Login isLoggedIn match={{path: "/login"}}/>
+        <Provider store={store}>
+          <Login isLoggedIn match={{ path: "/login" }} />
+        </Provider>
       </MemoryRouter>
-		);
-		//console.log(wrapper.debug());
-		//wrapper.setProps({isLoggedIn: true});
-		console.log(wrapper.props());
-    console.log(wrapper.debug());
-		expect(wrapper.find("Redirect")).toHaveLength(1);
-		wrapper = mount(
+    );
+    //console.log(wrapper.debug());
+    //wrapper.setProps({isLoggedIn: true});
+    // console.log(wrapper.props());
+    // console.log(wrapper.debug());
+    expect(wrapper.find("Redirect")).toHaveLength(1);
+    wrapper = mount(
       <MemoryRouter initialEntries={["/login"]}>
-        <Login isLoggedIn={false} match={{path: "/login"}}/>
+        <Provider store={store}>
+          <Login isLoggedIn={false} match={{ path: "/login" }} />
+        </Provider>
       </MemoryRouter>
-		);
-		console.log(wrapper.debug());
-		expect(wrapper.find("Redirect")).toHaveLength(0);
-	});
+    );
+    
+		expect(wrapper.find(LoginOptions)).toHaveLength(1);
+		wrapper = mount(
+      <MemoryRouter initialEntries={["/login/email"]}>
+        <Provider store={store}>
+          <Login isLoggedIn={false} match={{ path: "/login" }} />
+        </Provider>
+      </MemoryRouter>
+    );
+		expect(wrapper.find(LoginWithEmail)).toHaveLength(1);
 
+  });
 
-	/*
+  /*
 	Render the loginoptions component
 	we can see the child nodes
 	what can we test here?
@@ -54,10 +67,8 @@ describe("<Login />", () => {
 	*/
 
   test("<LoginOptions />", () => {
-      let wrapper = shallow(
-          <LoginOptions />
-			)
-			console.log(wrapper.debug());
-      expect(wrapper.exists()).toBe(true);
-  })
+    let wrapper = shallow(<LoginOptions />);
+    console.log(wrapper.debug());
+    expect(wrapper.exists()).toBe(true);
+  });
 });

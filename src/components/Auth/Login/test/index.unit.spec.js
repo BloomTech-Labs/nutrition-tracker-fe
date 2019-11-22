@@ -16,26 +16,17 @@ import expectExport from 'expect';
 import { Route } from "react-router-dom";
 import { MemoryRouter } from 'react-router';
 import App from "../../../../App";
+import { shallow, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-test('Render Login component', () => {
-    const component = renderer.create(
-        <MemoryRouter initialEntries={['/login']}>
-            <App />
-        </MemoryRouter>
-    );
+configure({ adapter: new Adapter() })
 
-    let tree = component.toJSON();
-    expectExport(tree).toMatchSnapshot();
-});
+describe("<Login />", () => {
+    test("Login component is rendered", () => {
+        let wrapper = shallow(
+            <Login />
+        )
 
-/*
-test('Break the router', () => {
-    const component = renderer.create(
-        <MemoryRouter initialEntries={['/fakeRoute']}>
-            <App />
-        </MemoryRouter>
-    );
-
-    let tree = component.toJSON();
-    expectExport(tree).toMatchSnapshot();
-});*/
+        expect(wrapper.children()).to.have.lengthOf(1);
+    })
+})

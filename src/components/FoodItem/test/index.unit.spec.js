@@ -1,52 +1,22 @@
+// 1. import mount, provider, your component to test and your middlewares
+// make sure that you've exported your component, for example: export { SearchForm };
 import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import SearchForm from "../searchForm";
-import Adapter from "enzyme-adapter-react-16";
-import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
-// import your action
-import FETCH_SUCCESS from "../../../store/actions/foodItemAction";
-// function that emulates a successful response from the api
-function fetchData() {
-  return dispatch => {
-    return { type: FETCH_SUCCESS };
-  };
-}
-
-// TODO: DRY store so that we don't have to recreate this
-//mock store stuff on every tested component
-/*const initialState = {};
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
-let store;
-
-configure({ adapter: new Adapter() });*/
-
-
-
-function bigMocker(initialState, middlewares = []) {
-    initialState = {};
-    const mockStore = configureStore(middlewares);
-    let store;
-
-    configure({ adapter: new Adapter() });
-
-    return store = mockStore(initialState);
-
-}
-
+// 2. define a store variable in the global scope
 let store;
 describe("<SearchForm />", () => {
   beforeEach(() => {
-      store = bigMocker({},[thunk]);
-    // store = mockStore(initialState);
-    // store.dispatch(fetchData());
+      // 3. _bigMockStore_(initialState,middlewares) creates a mock store
+      store = global._bigMockStore_({},[thunk]);
   });
 
-  test("simulate click event", async () => {
+  test("simulate text input on search bar", async () => {
     // TODO: need to mock searchFoodItems module and pass it to searchFoodItems prop
+    // 4. mount your component, making sure you wrap it in a <Provider> to pass the mock store in
     const wrapper = await mount(
       <Provider store={store}>
         <SearchForm  />
@@ -55,11 +25,14 @@ describe("<SearchForm />", () => {
 
     // .simulate() gets given prop and calls it, for example onChange is being called here
     // the second arg to .simulate() is an event object that we want passed down!
+    // 5. Use .find() to select a specific child component within your component that you want to test
+    // In this case, we're selecting input with an id of 'search_term'
     await wrapper
       .find("input#search_term")
+      // 6. Simulate a click, change etc, and then pass an event object if necessary
       .simulate("change", { target: { value: "bacon" } });
 
-    // we'd be expecting the value prop to be "bacon" after we've simulated a change
+    // 7. Use expect() on the component you want to view props for
     expect(wrapper.find("input#search_term").prop("value")).toBe("bacon");
   });
 });

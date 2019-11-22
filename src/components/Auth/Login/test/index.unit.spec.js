@@ -31,7 +31,14 @@ describe("<Login />", () => {
 		//wrapper.setProps({isLoggedIn: true});
 		console.log(wrapper.props());
     console.log(wrapper.debug());
-    expect(wrapper.find(Login)).toHaveLength(1);
+		expect(wrapper.find("Redirect")).toHaveLength(1);
+		wrapper = mount(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Login isLoggedIn={false} match={{path: "/login"}}/>
+      </MemoryRouter>
+		);
+		console.log(wrapper.debug());
+		expect(wrapper.find("Redirect")).toHaveLength(0);
 	});
 
 

@@ -54,7 +54,7 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty

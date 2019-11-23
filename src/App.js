@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 // importing from global styles
 import { AppWrapper } from "./components/Global/styled";
@@ -7,20 +7,34 @@ import { AppWrapper } from "./components/Global/styled";
 import { Route } from "react-router-dom";
 
 // importing component pages for routes
-import HomePage from "./components/HomePage";
+import DailyLog from "./components/DailyLog";
+import LandingPage from "./components/LandingPage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import DailyLog from "./components/DailyLog";
+import Onboarding from "./components/Onboarding";
 
-function App() {
-  return (
-    <AppWrapper>
-      <Route path="/" exact component={HomePage} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/daily-log" exact component={DailyLog} />
-    </AppWrapper>
-  );
+// setting up private route to make sure only authenticated users are in our home page
+import PrivateRoute from "./components/PrivateRoute";
+// import RequireAuth from "./components/Auth";
+
+import withNavigation from "./components/Navigation/withNavigation";
+
+const DailyLogWithNav = withNavigation({
+  displayTop: false
+})(DailyLog);
+
+class App extends Component {
+  render() {
+    return (
+      <AppWrapper>
+        <PrivateRoute exact path="/" component={DailyLogWithNav} />
+        <Route path="/landing" component={LandingPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/onboarding" component={Onboarding} />
+      </AppWrapper>
+    );
+  }
 }
 
 export default App;

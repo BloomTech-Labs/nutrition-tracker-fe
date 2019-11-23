@@ -1,32 +1,64 @@
 import React from "react";
 
-// import styled from "styled-components";
+import { Route, Redirect } from "react-router-dom";
 
-// import { Button, Form, Input, ButtonWrapper } from "../../Global/styled";
-// import { Linkton } from "../../Global/styled";
+import TopBar from "../../Onboarding/TopBar";
+import { Container } from "../../Global/styled";
 
-const Login = props => {
-  return (
-    <h1>Login Page</h1>
-    // <SignInWrapper>
-    //   <h2>Sign in</h2>
-    //   <Form onSubmit={e => e.preventDefault() && false}>
-    //     <Input name="email" type="text" placeholder="Email" />
+// Routes
+import LoginWithEmail from "./LoginWithEmail";
+import LoginOptions from "./LoginOptions";
 
-    //     <Input name="password" type="password" placeholder="Password" />
-    //     <ButtonWrapper>
-    //       <Button>Sign in</Button>
-    //       <Linkton to="/register">Register now!</Linkton>
-    //     </ButtonWrapper>
-    //   </Form>
-    // </SignInWrapper>
-  );
+import { connect } from "react-redux";
+
+class Login extends React.Component {
+  render() {
+    // sets path variable
+    const { path } = this.props.match;
+
+    // once user logs in isLoggedIn will be true and route you to home page
+    const { isLoggedIn } = this.props;
+
+    // If user is logged in on login page redirects them to protected route
+    if (isLoggedIn) return <Redirect to="/" />;
+
+    // Sets up routes for Login pages
+    return (
+      <Container justify="center" fluid={true}>
+        <TopBar {...this.props} />
+
+        <Route
+          exact
+          path={path}
+          render={props => (
+            <LoginOptions
+              {...props}
+              path={path}
+              handleGoogleAuth={this.handleGoogleAuth}
+              handleFacebookAuth={this.handleFacebookAuth}
+            />
+          )}
+        />
+        <Route
+          path={`${path}/email`}
+          render={props => (
+            <LoginWithEmail
+              {...props}
+              path={path}
+              handleLogin={this.handleLogin}
+            />
+          )}
+        />
+      </Container>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    // when user is not logged in isEmpty is true
+    isLoggedIn: !state.firebase.auth.isEmpty
+  };
 };
 
-// const SignInWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
-export default Login;
+export default connect(mapStateToProps, {})(Login);

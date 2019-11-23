@@ -1,6 +1,6 @@
 // Initial state is in it's own file to be imported in reducer files
 const initialState = {
-  error: "",
+  error: [],
   items: [],
   item: [],
   getting: false,

@@ -70,13 +70,21 @@ describe("<Login />", () => {
   test("<LoginOptions />", () => {
     // init fake googleLogin and facebookLogin functions
     const mockGoogleLogin = sinon.spy(),
-      mockFacebookLogin = sinon.spy();
+			mockFacebookLogin = sinon.spy();
+			
+			// to test this emailAuth button we'll have to mock the history object
+		// first we init a new sinon spy
+		const mockPush = sinon.spy();
+		// then init a history object, with a push key that invokes the spy
+		const mockHistory = { push: mockPush };
 
-    // pass the mock login functions to our component
+    // pass the mock login functions and mock history object as props to our component
     let wrapper = shallow(
       <LoginOptions
         googleLogin={mockGoogleLogin}
-        facebookLogin={mockFacebookLogin}
+				facebookLogin={mockFacebookLogin}
+				history={mockHistory}
+				path={"login"}
       />
     );
 
@@ -90,10 +98,18 @@ describe("<Login />", () => {
     // now we'll check that our mock googleLogin was called as expected
     expect(mockGoogleLogin.called).toBe(true);
 
-
+		// same with the facebookLogin
     wrapper.find("#facebookAuth").simulate("click", { preventDefault() {} });
 		expect(mockFacebookLogin.called).toBe(true);
-		
+
+		// for the email button we expect the spy's push method to be invoked with an argument
 		wrapper.find("#emailAuth").simulate("click");
+		
+		console.log(mockHistory.push.lastCall.args);
+		console.log(wrapper.instance().props.path);
+
+		// on shallow rendered tests, we need to use instance().props to get props
+		// https://airbnb.io/enzyme/docs/api/ShallowWrapper/instance.html
+		expect(mockHistory.push.calledWith(`${wrapper.instance().props.path}/email`)).toBe(true);
   });
 });

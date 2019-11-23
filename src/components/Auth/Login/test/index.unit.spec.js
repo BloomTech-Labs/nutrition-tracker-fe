@@ -18,7 +18,7 @@ import { Provider } from "react-redux";
 import { mount, shallow, configure } from "enzyme";
 // sinon is a spy library that will help us track if simulated events are calling the functions we want
 // https://sinonjs.org/releases/v7.5.0/spies/
-import sinon from 'sinon';
+import sinon from "sinon";
 
 //configure({ adapter: new Adapter() });
 
@@ -44,17 +44,16 @@ describe("<Login />", () => {
         </Provider>
       </MemoryRouter>
     );
-    
-		expect(wrapper.find(LoginOptions)).toHaveLength(1);
-		wrapper = mount(
+
+    expect(wrapper.find(LoginOptions)).toHaveLength(1);
+    wrapper = mount(
       <MemoryRouter initialEntries={["/login/email"]}>
         <Provider store={store}>
           <Login isLoggedIn={false} match={{ path: "/login" }} />
         </Provider>
       </MemoryRouter>
     );
-		expect(wrapper.find(LoginWithEmail)).toHaveLength(1);
-
+    expect(wrapper.find(LoginWithEmail)).toHaveLength(1);
   });
 
   /*
@@ -69,18 +68,32 @@ describe("<Login />", () => {
 	*/
 
   test("<LoginOptions />", () => {
-		// init a fake googleLogin function
-		const mockGoogleLogin = sinon.spy();
-		// pass the fake googleLogin to our component
-    let wrapper = shallow(<LoginOptions googleLogin={mockGoogleLogin}/>);
-		
-		// check to see that <LoginOptions /> was rendered
-		expect(wrapper.exists()).toBe(true);
-		// need to pass prevenDefault(){} on the synthetic event to avoid `e.preventDefault is undefined` error
-		// https://github.com/airbnb/enzyme/issues/323
+    // init fake googleLogin and facebookLogin functions
+    const mockGoogleLogin = sinon.spy(),
+      mockFacebookLogin = sinon.spy();
+
+    // pass the mock login functions to our component
+    let wrapper = shallow(
+      <LoginOptions
+        googleLogin={mockGoogleLogin}
+        facebookLogin={mockFacebookLogin}
+      />
+    );
+
+    // check to see that <LoginOptions /> was rendered
+    expect(wrapper.exists()).toBe(true);
+
+    // need to pass prevenDefault(){} on the synthetic events to avoid `e.preventDefault is undefined` error
+    // https://github.com/airbnb/enzyme/issues/323
 		wrapper.find("#googleAuth").simulate("click", { preventDefault() {} });
-		// now we'll check that our mock googleLogin was called as expected
-		console.log(mockGoogleLogin);
-		expect(mockGoogleLogin.called).toBe(true);
+		
+    // now we'll check that our mock googleLogin was called as expected
+    expect(mockGoogleLogin.called).toBe(true);
+
+
+    wrapper.find("#facebookAuth").simulate("click", { preventDefault() {} });
+		expect(mockFacebookLogin.called).toBe(true);
+		
+		wrapper.find("#emailAuth").simulate("click");
   });
 });

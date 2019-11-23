@@ -35,7 +35,12 @@ class LoginOptions extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton onClick={this.handleGoogleAuth} outline color="primary" id="googleAuth">
+            <PillButton
+              onClick={this.handleGoogleAuth}
+              outline
+              color="primary"
+              id="googleAuth"
+            >
               <Row align="center">
                 <Col xs="3">
                   <GoogleSVG />
@@ -72,6 +77,7 @@ class LoginOptions extends Component {
               onClick={() => this.props.history.push(`${path}/email`)}
               outline
               color="primary"
+              id="emailAuth"
             >
               <Row align="center">
                 <Col xs="3">

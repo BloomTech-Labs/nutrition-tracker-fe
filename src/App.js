@@ -17,17 +17,11 @@ import Onboarding from "./components/Onboarding";
 import PrivateRoute from "./components/PrivateRoute";
 // import RequireAuth from "./components/Auth";
 
-import withNavigation from "./components/Navigation/withNavigation";
-
-const DailyLogWithNav = withNavigation({
-  displayTop: false
-})(DailyLog);
-
 class App extends Component {
   render() {
     return (
       <AppWrapper>
-        <PrivateRoute exact path="/" component={DailyLogWithNav} />
+        <PrivateRoute exact path="/" component={DailyLog} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

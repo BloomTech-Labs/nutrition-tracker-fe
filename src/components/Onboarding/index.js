@@ -4,6 +4,8 @@ import { Route } from "react-router-dom";
 
 import { Container } from "../Global/styled";
 
+import TopBar from "../Global/TopBar";
+
 // Onboarding Routes:
 // import DietaryGoal from "./components/DietaryGoal";
 import Sex from "./components/Sex";
@@ -20,6 +22,7 @@ class Onboarding extends React.Component {
 
     return (
       <Container justify="center" fluid={true}>
+        <TopBar {...this.props} />
         {/* <Route
           path={`${path}/dietary-goal`}
           render={props => <DietaryGoal {...props} path={path} />}

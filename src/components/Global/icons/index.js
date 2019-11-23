@@ -10,5 +10,3 @@ export { default as ProgressSVG } from "./svg/ProgressSVG";
 export { default as RecipeSVG } from "./svg/RecipeSVG";
 export { default as SettingsSVG } from "./svg/SettingsSVG";
 export { default as DailyLogSVG } from "./svg/DailyLogSVG";
-export { default as LeftCarotSVG } from "./svg/LeftCarotSVG";
-export { default as RightCarotSVG } from "./svg/RightCarotSVG";

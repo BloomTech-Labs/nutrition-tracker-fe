@@ -10,10 +10,10 @@ export const INSERT_WEIGHT_FAILURE = "INSERT_WEIGHT_FAILURE";
 export const recordUserWeight = record => dispatch =>  {
     dispatch({ type: START_INSERT_WEIGHT });
         return axios
-            .post(`http://localhost:5000/user/recordWeight`, record )
+            .post(`http://localhost:5000/user/record-weight`, record )
             .then( res => dispatch({ type: INSERT_WEIGHT_SUCCESS, payload:res.data}))
             .catch( error => dispatch({ type:INSERT_WEIGHT_FAILURE, payload: {error} }));
             
 };
 
- // Here I would like to add notifications from https://www.npmjs.com/package/react-notifications || https://jossmac.github.io/react-toast-notifications/
+ 

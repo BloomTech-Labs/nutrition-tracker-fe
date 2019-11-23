@@ -60,11 +60,6 @@ const faChildIconColor = "#007bff";
 
 // Components
 
-//Constants
-
-// Names of icons for each button retreived from fontAwesome, we'll add a little extra just in case
-// the NUM_CHILDREN is changed to a bigger value
-
 //var icon = {
 // icon: null,
 //  name: "",
@@ -141,7 +136,6 @@ class Flywheel extends React.Component {
     this.setState({
       M: { x: M.x + this.state.m_btn_w, y: M.y + this.state.m_btn_h }
     });
-    console.log("you have fired the update main btn pos");
   }
 
   checkIfNum = str => {
@@ -173,7 +167,6 @@ class Flywheel extends React.Component {
       m_btn_h: mbeH / 2 + 8,
       m_btn_w: mbeW / 2 + 8
     });
-    console.log("you invoked gethalfmainbtnsize");
   };
 
   onLoad = async () => {
@@ -283,7 +276,6 @@ class Flywheel extends React.Component {
   }
 
   toggleMenu(e) {
-    //Joe need to toggle overlay, but this violates single resoponsability for this function we need to refactor this
     // this.addOverlay();   //turn this on if you are wanting to use a aboslute link or router link. otherwise leave off as this will duplicate the default overlay provided by boostraps modal
     e.stopPropagation();
     let { isOpen } = this.state;

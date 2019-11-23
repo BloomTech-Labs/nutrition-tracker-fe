@@ -145,7 +145,6 @@ class Flywheel extends React.Component {
   }
 
   checkIfNum = str => {
-    //JOE
     const stringArray = Array.from(str);
     const returnedNum = stringArray.map(e => {
       if (

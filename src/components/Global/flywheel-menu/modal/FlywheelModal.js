@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import RecordWeight from "./RecordWeight";
 import Recipe from "./Recipe";
@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { connect } from 'react-redux';
 import { recordUserWeight } from "../../../../actions/flywheelAction"; 
 import { useToasts } from 'react-toast-notifications';
+
 import{
   faAppleAlt,
   faUtensils,
@@ -24,7 +25,8 @@ class PopModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      weight: ""
+      weight: null,
+      user_id: 2
     };
   }
 
@@ -38,10 +40,17 @@ class PopModal extends React.Component {
     //need to handle save for some data. Here we import actions and make use of them
   };
 
-  handleRecordWeight = e =>{
-     this.props.recordUserWeight(1, this.state.weight);
-  };
+  handleRecordWeight =  async ()  => {
+    const newRecord = {
+        user_id: this.state.user_id,
+        weight_kg:this.state.weight
+    };
 
+   const payload  = await this.props.recordUserWeight(newRecord);
+    return payload ;
+
+  };
+ 
   handleClose = () => {
     this.setState({
       weight: ""
@@ -109,9 +118,10 @@ class PopModal extends React.Component {
 const mapStateToProps = state => {
   return {
         adding: state.adding,
+        added: state.error,
+        error: state.error
+    }
   }
-}
-
 
 export default connect(mapStateToProps, { recordUserWeight })(PopModal);
 

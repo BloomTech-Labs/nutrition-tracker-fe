@@ -15,25 +15,28 @@ const flyWheelReducer = ( state = initialState, action ) => {
                         ...state,
                         adding: true,
                         error: "",
-                }
+                        added:false,
+                };
 
         case INSERT_WEIGHT_SUCCESS:
                 return {
                         ...state,
                         adding: false,
-                        error: ""
-                }
+                        error: "",
+                        added:true
+                };
               
         case INSERT_WEIGHT_FAILURE:
                 return {
                         ...state,
                         adding: false,  
-                        error: action.payload
-                }       
+                        error: action.payload,
+                        added:false
+                };     
 
         default:
                 return state;
-    };
+    }
 
 } ;
 

@@ -7,12 +7,12 @@ export const INSERT_WEIGHT_FAILURE = "INSERT_WEIGHT_FAILURE";
 
 
 
-export const recordUserWeight = (user_id, user_weight) => dispatch =>  {
+export const recordUserWeight = record => dispatch =>  {
     dispatch({ type: START_INSERT_WEIGHT });
         return axios
-            .post(`http://localhost:4000/${user_id}/recordWeight`, user_weight)
+            .post(`http://localhost:5000/user/recordWeight`, record )
             .then( res => dispatch({ type: INSERT_WEIGHT_SUCCESS, payload:res.data}))
-            .catch( err => dispatch({ type:INSERT_WEIGHT_FAILURE, payload: err }));
+            .catch( error => dispatch({ type:INSERT_WEIGHT_FAILURE, payload: {error} }));
             
 };
 

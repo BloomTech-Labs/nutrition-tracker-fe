@@ -35,7 +35,7 @@ class LoginOptions extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton onClick={this.handleGoogleAuth} outline color="primary">
+            <PillButton onClick={this.handleGoogleAuth} outline color="primary" id="googleAuth">
               <Row align="center">
                 <Col xs="3">
                   <GoogleSVG />
@@ -53,6 +53,7 @@ class LoginOptions extends Component {
               onClick={this.handleFacebookAuth}
               outline
               color="primary"
+              id="facebookAuth"
             >
               <Row align="center">
                 <Col xs="3">

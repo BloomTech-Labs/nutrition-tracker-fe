@@ -35,7 +35,7 @@ class LoginWithEmail extends Component {
           <EmailSVG width="38" height="38" margin="0 20px 4px 0" />
           Login with email
         </H2>
-        <Form onSubmit={this.handleLogin}>
+        <Form onSubmit={this.handleLogin} id="loginForm">
           <Row>
             <Col height="50px" align="center">
               <Input
@@ -43,6 +43,7 @@ class LoginWithEmail extends Component {
                 type="text"
                 placeholder="Email"
                 onChange={this.handleInputChange}
+                id="emailInput"
               />
             </Col>
           </Row>
@@ -53,6 +54,7 @@ class LoginWithEmail extends Component {
                 type="password"
                 placeholder="Password"
                 onChange={this.handleInputChange}
+                id="passwordInput"
               />
             </Col>
           </Row>

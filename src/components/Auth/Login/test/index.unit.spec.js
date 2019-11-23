@@ -23,12 +23,15 @@ import sinon from "sinon";
 //configure({ adapter: new Adapter() });
 
 describe("<Login />", () => {
-  let store = global._bigMockStore_();
+	// init our mock store with a farebase.auth.isEmpty key because mapStateToProps is expecting it
+	// when isEmpty is true, isLoggedIn is set to false
+  let store = global._bigMockStore_({firebase: {auth: {isEmpty: true }}});
   test("Login component is rendered", () => {
     let wrapper = mount(
       <MemoryRouter initialEntries={["/login"]}>
         <Provider store={store}>
-          <Login isLoggedIn match={{ path: "/login" }} />
+					{/* we override the isLoggedIn with true to test this condition */}
+          <Login isLoggedIn={true} match={{ path: "/login" }} />
         </Provider>
       </MemoryRouter>
     );
@@ -40,7 +43,7 @@ describe("<Login />", () => {
     wrapper = mount(
       <MemoryRouter initialEntries={["/login"]}>
         <Provider store={store}>
-          <Login isLoggedIn={false} match={{ path: "/login" }} />
+          <Login match={{ path: "/login" }} />
         </Provider>
       </MemoryRouter>
     );
@@ -111,5 +114,23 @@ describe("<Login />", () => {
 		// on shallow rendered tests, we need to use instance().props to get props
 		// https://airbnb.io/enzyme/docs/api/ShallowWrapper/instance.html
 		expect(mockHistory.push.calledWith(`${wrapper.instance().props.path}/email`)).toBe(true);
-  });
+	});
+	
+	test("<LoginWithEmail />", () => {
+		let mockLogin = sinon.spy();
+		let wrapper = shallow(
+			<LoginWithEmail login={mockLogin}/>
+		)
+
+		expect(wrapper.find("#emailInput").exists()).toBe(true);
+		wrapper.find("#emailInput").simulate("change", {target: {name: "email", value: "fake@email.com"}});
+		wrapper.find("#passwordInput").simulate("change", {target: {name: "password", value: "fakePassword"}});
+		
+		expect(wrapper.state("email")).toBe("fake@email.com");
+		expect(wrapper.state("password")).toBe("fakePassword");
+
+		wrapper.find("#loginForm").simulate("submit", { preventDefault() {} });
+		expect(mockLogin.calledWith("fake@email.com","fakePassword")).toBe(true);
+
+	})
 });

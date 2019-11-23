@@ -1,19 +1,27 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
-import theme from '../../Global/theme';
-import { H2 } from '../../Global/styled';
+import theme from "../../Global/theme";
+import { Row, Col, H2 } from "../../Global/styled";
 
 const CaloricBudget = props => {
-  const percentBudget = Math.round(props.consumed/props.total * 100);
+  const percentBudget = Math.round(props.consumed / props.total * 100);
   return (
-    <Total>
-      <Consumed percentBudget={percentBudget}>
-        <ConsumedCalories>{props.consumed} cal</ConsumedCalories>
-      </Consumed>
-      <TotalCalories>{props.total} cal</TotalCalories>
-    </Total>
-  )
-}
+    <Row>
+      <Col height="100px" align="center">
+        <Total>
+          <Consumed percentBudget={percentBudget}>
+            <ConsumedCalories>
+              {props.consumed} cal
+            </ConsumedCalories>
+          </Consumed>
+          <TotalCalories>
+            {props.total} cal
+          </TotalCalories>
+        </Total>
+      </Col>
+    </Row>
+  );
+};
 
 const Total = styled.div`
   display: flex;
@@ -24,7 +32,7 @@ const Total = styled.div`
   height: 50px;
   border-radius: 10px;
 
-  background-color: #D0D4D9;
+  background-color: #d0d4d9;
 `;
 
 const Consumed = styled.div`

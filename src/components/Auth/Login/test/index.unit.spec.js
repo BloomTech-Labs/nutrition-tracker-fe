@@ -15,7 +15,7 @@ import { LoginOptions } from "../LoginOptions";
 import { LoginWithEmail } from "../LoginWithEmail";
 import { MemoryRouter } from "react-router";
 import { Provider } from "react-redux";
-import { mount, shallow, configure } from "enzyme";
+import { mount, shallow } from "enzyme";
 // sinon is a spy library that will help us track if simulated events are calling the functions we want
 // https://sinonjs.org/releases/v7.5.0/spies/
 import sinon from "sinon";
@@ -105,8 +105,8 @@ describe("<Login />", () => {
 		// for the email button we expect the spy's push method to be invoked with an argument
 		wrapper.find("#emailAuth").simulate("click");
 		
-		console.log(mockHistory.push.lastCall.args);
-		console.log(wrapper.instance().props.path);
+		// console.log(mockHistory.push.lastCall.args);
+		// console.log(wrapper.instance().props.path);
 
 		// on shallow rendered tests, we need to use instance().props to get props
 		// https://airbnb.io/enzyme/docs/api/ShallowWrapper/instance.html

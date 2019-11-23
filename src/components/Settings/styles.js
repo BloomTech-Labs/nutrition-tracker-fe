@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const ListStyle = {
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
+export const ListStyle = {
   display: "flex",
   justifyContent: "space-between",
   fontFamily: "Segoe UI",
@@ -8,5 +14,13 @@ const ListStyle = {
   fontSize: "16px",
   lineHeight: "24px"
 };
-
-export default ListStyle;
+export const HeadingStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  fontFamily: "Segoe UI",
+  color: "#000000",
+  fontSize: "16px",
+  background: "rgba(0, 0, 0, 0.03)",
+  border: "1px solid rgba(0, 0, 0, 0.125)",
+  fontWeight: "bold"
+};

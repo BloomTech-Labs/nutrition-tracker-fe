@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListStyle from "../styles";
+import {ListStyle} from "../styles";
 import {
   Button,
   Modal,
@@ -11,14 +11,12 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText
 } from "reactstrap";
 
 const ActivityLevel = props => {
   const [modal, setModal] = useState(false);
 
-  const [activityLevel, setActivityLevel] = useState(props.data);
+  // const [activityLevel, setActivityLevel] = useState(props.data.activityLevel);
 
   const toggle = () => setModal(!modal);
 
@@ -26,7 +24,7 @@ const ActivityLevel = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Activity Level</div>
-        <div>{props.data}</div>
+      {/* <div>{props.data.activityLevel}</div> */}
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Activity Level</ModalHeader>
@@ -39,8 +37,8 @@ const ActivityLevel = props => {
                 type="select"
                 id="activityLevel"
                 name="activityLevel"
-                value={activityLevel}
-                onChange={(e) => setActivityLevel(e.target.value)}
+                // value={activityLevel}
+                // onChange={(e) => setActivityLevel(e.target.value)}
               >
                 <option value="">Select</option>
                 <option value="Sedentary">Sedentary</option>

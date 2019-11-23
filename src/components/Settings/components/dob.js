@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListStyle from "../styles";
+import {ListStyle} from "../styles";
 import {
   Button,
   Modal,
@@ -17,7 +17,7 @@ import {
 const Dob = props => {
   const [modal, setModal] = useState(false);
 
-  const [dob, setDob] = useState(props.data);
+  const [dob, setDob] = useState(props.data.dob);
 
   const toggle = () => setModal(!modal);
 
@@ -25,7 +25,7 @@ const Dob = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
-        <div>{props.data}</div>
+        <div>{props.data.dob}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListStyle from "../styles";
+import {ListStyle} from "../styles";
 import {
   Button,
   Modal,
@@ -15,11 +15,10 @@ import {
 } from "reactstrap";
 
 const Height = props => {
-  console.log(props.data)
   const [modal, setModal] = useState(false);
 
-  const [feet, setFeet] = useState( props.data.feet);
-  const [inches, setInches] = useState(props.data.inches);
+  const [feet, setFeet] = useState( props.data.height.feet);
+  const [inches, setInches] = useState(props.data.height.inches);
 
 
   const toggle = () => setModal(!modal);
@@ -28,7 +27,7 @@ const Height = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Height</div>
-        <div>{props.data.feet}'{props.data.inches}''</div>
+        <div>{props.data.height.feet}'{props.data.height.inches}''</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Height</ModalHeader>

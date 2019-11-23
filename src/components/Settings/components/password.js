@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListStyle from "../styles";
+import {ListStyle} from "../styles";
 import {
   Button,
   Modal,
@@ -11,13 +11,12 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
 } from "reactstrap";
 
 const Password = props => {
   const [modal, setModal] = useState(false);
 
-  const [password, setPassword] = useState(props.data);
+  // const [password, setPassword] = useState(props.data.password);
 
   const toggle = () => setModal(!modal);
 
@@ -25,7 +24,6 @@ const Password = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Password</div>
-        <div>{props.data}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Password</ModalHeader>
@@ -37,8 +35,8 @@ const Password = props => {
                 type="text"
                 name="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                // value={password}
+                // onChange={(e) => setPassword(e.target.value)}
               />
             </FormGroup>
           </Form>

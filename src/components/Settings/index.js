@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import {getUserInfo} from "../../store/actions/updateUserSettings";
+import {ListStyle, HeadingStyle, Container} from "./styles";
+import {getUserInfo, updateUserInfo} from "../../store/actions/updateUserSettings";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
 import Dob from "./components/dob";
@@ -13,51 +13,30 @@ import CurrentWeight from "./components/current_weight";
 import TopBar from "./TopBar";
 
 class Settings extends React.Component {
-  state = {
-    user_info: {
-      firebase_id: "",
-      email: "",
-      height_cm: "",
-      sex: "male",
-      dob: "",
-      height: {
-        feet: "",
-        inches: ""
-      }
-    }
-  };
+
 
   componentDidMount() {
-    const id = 1;
+    const id = 1
 
-    const user = this.props.getUserInfo(id);
-    console.log(user)
-
-    this.setState({
-      user_info: {
-        firebase_id: user.firebase_id,
-        email: user.email,
-        height_cm: user.height_cm,
-        sex: user.sex,
-        dob: user.dob,
-        height: {
-          feet: user.height.feet,
-          inches: user.height.inches
-        }
-      }
-    });
+    //Calls action to get specific user
+    this.props.getUserInfo(id);
   }
 
+  updateUser = (update) => {
+    this.props.updateUserInfo(update)
+  } 
+
   render() {
+    console.log(this.props.user_info)
     return (
       <Container>
         <TopBar />
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
-          <Height data={this.state.user_info.height} />
-          <CurrentWeight data={this.state.user_info.weight} />
-          <Dob data={this.state.user_info.dob} />
-          <Gender data={this.state.user_info.gender} />
+          {/* <Height data={this.props.userInfo} /> */}
+          <CurrentWeight data={this.props.userInfo} />
+          <Dob data={this.props.userInfo} />
+          <Gender data={this.props.userInfo} />
           <ActivityLevel  />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <ListGroupItem style={ListStyle}>
@@ -66,7 +45,7 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
-          <Email data={this.state.user_info.email} />
+          <Email updateUser={this.updateUser} data={this.props.userInfo} />
           <Password  />
         </ListGroup>
       </Container>
@@ -74,33 +53,11 @@ class Settings extends React.Component {
   }
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-`;
 
-const ListStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  fontFamily: "Segoe UI",
-  color: "#212529",
-  fontSize: "16px",
-  lineHeight: "24px"
-};
-const HeadingStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  fontFamily: "Segoe UI",
-  color: "#000000",
-  fontSize: "16px",
-  background: "rgba(0, 0, 0, 0.03)",
-  border: "1px solid rgba(0, 0, 0, 0.125)",
-  fontWeight: "bold"
+const mapStateToProps = state => {
+  return{
+    userInfo: state.getUserInfo
+  }
 };
 
-const mapStateToProps = state => ({
-  userInfo: state.userInfo
-});
-
-export default connect(mapStateToProps, { getUserInfo })(Settings);
+export default connect(mapStateToProps, { getUserInfo, updateUserInfo })(Settings);

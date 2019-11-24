@@ -1,15 +1,20 @@
 import React from "react";
 
 import { PillButton, Row, Col, H2 } from "../../Global/styled";
+
 import { useDispatch } from "react-redux";
 import { updateSex } from "../../../store/actions/onboardingActions";
 
 const Sex = props => {
+  // setting up useDispatch
   const dispatch = useDispatch();
   const { history, path } = props;
 
   const handleClick = sex => {
+    // using dispatch to run our action
     dispatch(updateSex(sex));
+
+    // pushing to next route once action has been dispatched
     history.push(`${path}/activity-level`);
   };
 

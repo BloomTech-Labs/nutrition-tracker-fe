@@ -44,6 +44,7 @@ const reactReduxFirebaseProps = {
 
 // wrap app with router and redux provider
 ReactDOM.render(
+  // our redux provider wraps our firebase's react-redux provide which wraps our Router and then App
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
       <Router>

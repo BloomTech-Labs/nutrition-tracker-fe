@@ -7,32 +7,24 @@ import { PillButton, Row, Col, H2 } from "../../Global/styled";
 import { GoogleSVG, FacebookSVG, EmailSVG } from "../../Global/icons";
 
 import {
-  register,
-  googleLogin,
-  facebookLogin
+  googleRegister,
+  facebookRegister
 } from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
 
 import { Redirect, withRouter } from "react-router-dom";
 
 class Register extends Component {
+  // Handles google auth action and sends onboarding info to back end
   handleGoogleAuth = e => {
     e.preventDefault();
-    const onboardingInfo = {
-      sex: this.props.sex,
-      activity_level: this.props.activity_level,
-      dob: this.props.dob,
-      weight_kg: this.props.weight_kg,
-      height_cm: this.props.height_cm,
-      weekly_goal_rate: this.props.weekly_goal_rate
-    };
-    console.log("Onboarding info:", onboardingInfo);
-    this.props.googleLogin(onboardingInfo);
+    this.props.googleRegister(this.props.onboardingInfo);
   };
 
+  // Handles facebook auth action and sends onboarding info to back end
   handleFacebookAuth = e => {
     e.preventDefault();
-    this.props.facebookLogin();
+    this.props.facebookRegister(this.props.onboardingInfo);
   };
 
   render() {
@@ -107,18 +99,11 @@ const ButtonLabel = styled.div`
 
 const mapStateToProps = state => {
   return {
-    registerSuccess: !state.firebase.auth.isEmpty,
-    sex: state.onboarding.sex,
-    activity_level: state.onboarding.activityLevel,
-    dob: state.onboarding.date_of_birth,
-    weight_kg: state.onboarding.weight_kg,
-    height_cm: state.onboarding.height_cm,
-    weekly_goal_rate: state.onboarding.target_rate
+    registerSuccess: !state.firebase.auth.isEmpty
   };
 };
 
 export default connect(mapStateToProps, {
-  register,
-  googleLogin,
-  facebookLogin
+  googleRegister,
+  facebookRegister
 })(withRouter(Register));

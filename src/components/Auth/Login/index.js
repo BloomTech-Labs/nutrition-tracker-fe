@@ -1,10 +1,14 @@
 import React from "react";
+
 import { Route, Redirect } from "react-router-dom";
-import { Container } from "../../Global/styled";
-import Loading from "../../Global/Loading";
+
 import TopBar from "../../Onboarding/TopBar";
+import { Container } from "../../Global/styled";
+
+// Routes
 import LoginWithEmail from "./LoginWithEmail";
 import LoginOptions from "./LoginOptions";
+
 import { connect } from "react-redux";
 
 class Login extends React.Component {
@@ -13,9 +17,10 @@ class Login extends React.Component {
     const { path } = this.props.match;
 
     // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn, loggingIn } = this.props;
+    const { isLoggedIn } = this.props;
+
+    // If user is logged in on login page redirects them to protected route
     if (isLoggedIn) return <Redirect to="/" />;
-    if (loggingIn) return <Loading />;
 
     // Sets up routes for Login pages
     return (
@@ -52,8 +57,7 @@ class Login extends React.Component {
 const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
-    isLoggedIn: !state.firebase.auth.isEmpty,
-    loggingIn: state.myCustomAuth.loggingIn
+    isLoggedIn: !state.firebase.auth.isEmpty
   };
 };
 

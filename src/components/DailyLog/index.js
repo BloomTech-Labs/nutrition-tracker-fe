@@ -12,16 +12,23 @@ import { PillButton } from "../Global/styled";
 import Loading from "../Global/Loading";
 
 class DailyLog extends Component {
+  // Offers the user a way out, a chance at a better life
   handleLogout = e => {
     e.preventDefault();
     this.props.logout();
   };
 
   render() {
+    // Destructing props like a karate chop
     const { user, pictureURL, loading, token } = this.props;
+
+    // If data is not there but user is logged in, returns a loading screen
     if (loading) return <Loading />;
 
+    // If token isn't there then the user isn't logged in and send them back to wince they came
     if (!token) return <Redirect to="/landing" />;
+
+    // This is just placeholder till Daily log gets built out
     return (
       <HomeWrapper>
         {user ? <h2>Hello, {user}!</h2> : <h2>Welcome to NutriJournal</h2>}
@@ -67,7 +74,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(DailyLog);
+export default connect(mapStateToProps, { logout })(DailyLog);

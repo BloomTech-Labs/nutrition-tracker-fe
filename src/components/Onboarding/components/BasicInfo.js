@@ -14,15 +14,18 @@ class BasicInfo extends React.Component {
     weight: 0
   };
 
+  // Handles basic info to onboarding reducer state
   handleSubmit = () => {
     const { date_of_birth, feet, inches, weight } = this.state;
 
+    // Action to add basic info to onboarding reducer
     this.props.updateBasicInfo({
       date_of_birth: date_of_birth,
       height: heightToMetric(feet, inches),
       weight: weightToMetic(weight)
     });
 
+    // pushes us to next route after basic info was updated
     this.props.history.push(`${this.props.path}/weight-goal`);
   };
 
@@ -33,6 +36,7 @@ class BasicInfo extends React.Component {
   };
 
   render() {
+    // If no data from previous route, sends you back to landing
     if (!this.props.activityLevel) return <Redirect to="/landing" />;
 
     return (
@@ -101,12 +105,14 @@ class BasicInfo extends React.Component {
   }
 }
 
+// Converts height to centimeters
 function heightToMetric(feet, inches) {
   const feetInches = feet * 12;
   const totalInches = feetInches + Number(inches);
   return Math.round(totalInches * 2.54);
 }
 
+// Converts weight to kilograms
 function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
 }

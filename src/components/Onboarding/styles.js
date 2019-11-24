@@ -11,24 +11,15 @@ import {
 export const Container = styled(BS_Container)`
   ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
   height: 100vh;
-
-  /* border: 1px solid red; */
 `;
 
 export const Row = styled(BS_Row)`
   ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
   height: ${({ height }) => (height ? height : "auto")};
-
-  /* border: 1px solid blue; */
 `;
 
 export const Col = styled(BS_Col)`
-  ${props =>
-    theme.mixin.flex(
-      props.direction,
-      props.justify,
-      props.align
-    )} /* border: 1px solid green; */
+  ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
 `;
 
 export const Input = styled(BS_Input)`

@@ -92,7 +92,4 @@ const ButtonLabel = styled.div`
   font-size: 1.6rem;
 `;
 
-export default connect(
-  null,
-  { googleLogin, facebookLogin }
-)(LoginOptions);
+export default connect(null, { googleLogin, facebookLogin })(LoginOptions);

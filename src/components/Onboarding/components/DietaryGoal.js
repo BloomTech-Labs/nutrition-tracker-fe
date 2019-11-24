@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { PillButton, Row, Col, H2, Input } from "../../Global/styled";
+import { PillButton, Row, Col, H2 } from "../../Global/styled";
 
 import { useDispatch } from "react-redux";
 import { updateDailyGoal } from "../../../store/actions/onboardingActions";
 
+// This component has been disabled!!!!
 const DietaryGoal = ({ history, path }) => {
+  // this is a functional component so we are going to set useDispatch up
   const dispatch = useDispatch();
+
   const handleClick = daily_goal => {
+    // using dispatch to run our action
     dispatch(updateDailyGoal(daily_goal));
     history.push(`${path}/sex`);
   };
-
-  const [value, setValue] = useState(0);
 
   return (
     <>

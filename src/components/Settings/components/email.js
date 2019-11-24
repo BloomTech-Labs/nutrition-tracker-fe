@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {ListStyle} from "../styles";
-import {getUserInfo, updateUserInfo} from "../../../store/actions/updateUserSettings";
+import { ListStyle } from "../styles";
+import {
+  getUserInfo,
+} from "../../../store/actions/updateUserSettings";
 import { connect } from "react-redux";
 import {
   Button,
@@ -12,30 +14,21 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  FormText
+  Input
 } from "reactstrap";
 
 const Email = props => {
   const [modal, setModal] = useState(false);
-  
 
-  const [state, changeState] = useState(props.data)
-  //const [email, setEmail] = useState(props.userInfo.email);
+  const [email, setEmail] = useState("");
 
-  // useEffect(() => {
-  //   const id = 1
-
-  //   //Calls action to get specific user
-  //   props.getUserInfo(id);
-    
-  // });
+  useEffect(()=> {
+    setEmail(props.data.email);
+  }, [props.data.email])
 
   const toggle = () => setModal(!modal);
-  
-  console.log(props.userInfo)
+  //console.log(newstate);
   return (
-    
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Email</div>
@@ -51,17 +44,20 @@ const Email = props => {
                 type="text"
                 name="email"
                 id="email"
-                value={state.email}
-                onChange={(e) => changeState({email:e.target.value})}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
-            </FormGroup>  
+            </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => {
-          toggle();
-          props.updateUser(state);
-        }}>
+          <Button
+            color="primary"
+            onClick={() => {
+              toggle();
+              props.updateUser({email});
+            }}
+          >
             Update
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
@@ -73,10 +69,10 @@ const Email = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return{
-    userInfo: state.getUserInfo
-  }
-};
+// const mapStateToProps = state => {
+//   return {
+//     userInfo: state.getUserInfo
+//   };
+// };
 
-export default connect(mapStateToProps, { getUserInfo, updateUserInfo })(Email);
+export default Email;

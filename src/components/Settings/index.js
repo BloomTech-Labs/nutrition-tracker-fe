@@ -17,7 +17,6 @@ class Settings extends React.Component {
 
   componentDidMount() {
     const id = 1
-
     //Calls action to get specific user
     this.props.getUserInfo(id);
   }
@@ -27,7 +26,7 @@ class Settings extends React.Component {
   } 
 
   render() {
-    console.log(this.props.user_info)
+    console.log(this.user)
     return (
       <Container>
         <TopBar />
@@ -36,11 +35,11 @@ class Settings extends React.Component {
           {/* <Height data={this.props.userInfo} /> */}
           <CurrentWeight data={this.props.userInfo} />
           <Dob data={this.props.userInfo} />
-          <Gender data={this.props.userInfo} />
+          <Gender updateUser={this.updateUser} data={this.props.userInfo} />
           <ActivityLevel  />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <ListGroupItem style={ListStyle}>
-            MacroNutrient Targets{" "}
+            MacroNutrient Targets
           </ListGroupItem>
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
@@ -53,10 +52,9 @@ class Settings extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return{
-    userInfo: state.getUserInfo
+    userInfo: state.updateUserInfo // ?????
   }
 };
 

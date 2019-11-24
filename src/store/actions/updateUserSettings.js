@@ -1,22 +1,5 @@
 import axios from "axios";
 
-//Updates user
-export const updateUserInfo = infoObj => dispatch => {
-  console.log(infoObj)
-  dispatch({ type: "UPDATE_INFO_START" });
-  axios
-    .put(`http://localhost:4000/user/1`, infoObj)
-    .then(res => {
-      dispatch({
-        type: "UPDATE_INFO_SUCCESS",
-        payload: res.data
-      });
-    })
-    .catch(err =>
-      dispatch({ type: "UPDATE_INFO_FAILURE", payload: err.message })
-    );
-};
-
 //Gets specific user
 export const getUserInfo = (id) => dispatch => {
   dispatch({ type: "GET_INFO_START" });
@@ -42,5 +25,22 @@ export const getUserInfo = (id) => dispatch => {
     })
     .catch(err =>
       dispatch({ type: "GET_INFO_FAILURE", payload: err.message })
+    );
+};
+
+//Updates user
+export const updateUserInfo = infoObj => dispatch => {
+  console.log(infoObj)
+  dispatch({ type: "UPDATE_INFO_START" });
+  axios
+    .put(`http://localhost:4000/user/1`, infoObj)
+    .then(res => {
+      dispatch({
+        type: "UPDATE_INFO_SUCCESS",
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "UPDATE_INFO_FAILURE", payload: err.message })
     );
 };

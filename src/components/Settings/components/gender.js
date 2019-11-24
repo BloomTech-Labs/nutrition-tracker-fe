@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import {ListStyle} from "../styles";
+import React, { useState, useEffect } from "react";
+import { ListStyle } from "../styles";
+import {
+  getUserInfo,
+} from "../../../store/actions/updateUserSettings";
+import { connect } from "react-redux";
 import {
   Button,
   Modal,
@@ -8,50 +12,67 @@ import {
   ModalFooter,
   ListGroupItem,
   CustomInput,
+  Input,
   Form,
   FormGroup,
-  Label,
-  Input,
-  FormText
+  Label
 } from "reactstrap";
 
 const Gender = props => {
   const [modal, setModal] = useState(false);
-
-  const [gender, setGender] = useState(props.data.gender);
-
   const toggle = () => setModal(!modal);
+
+  const [sex, setSex] = useState("");
+
+  console.log("SEX", sex);
+  console.log("props.data.sex", props.data.sex);
+
+  useEffect(()=> {
+    setSex(props.data.sex);
+  }, [props.data.sex])
 
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Gender</div>
-        <div>{props.data.gender}</div>
+        <div>{sex}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Gender</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="gender">Gender</Label>
-              <Label for="exampleCustomSelect">Custom Select</Label>
-              <CustomInput
+              <Label for="sex">Gender</Label>
+              {/* <CustomInput
                 type="select"
-                id="exampleCustomSelect"
-                name="customSelect"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                id="sex"
+                name="sex"
+                value={state.sex}
+                onChange={e => changeState({ sex: e.target.value })}
               >
                 <option value="">Select</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
                 <option value="Other">Other</option>
-              </CustomInput>
+              </CustomInput> */}
+              <Input
+                type="text"
+                name="sex"
+                id="sex"
+                value={sex}
+                onChange={e => setSex(e.target.value)}
+              />
             </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
+          <Button
+            color="primary"
+            onClick={() => {
+              toggle();
+              props.updateUser(sex);
+            }}
+          >
             Update
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
@@ -63,4 +84,14 @@ const Gender = props => {
   );
 };
 
-export default Gender;
+// const mapStateToProps = state => {
+//   return {
+//     userInfo: state.getUserInfo
+//   };
+// };
+
+// export default connect(mapStateToProps, {getUserInfo})(
+//   Gender
+// );
+
+export default Gender

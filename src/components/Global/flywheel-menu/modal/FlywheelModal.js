@@ -20,7 +20,7 @@ class PopModal extends React.Component {
   }
 
   handleSaveRecipe = e => {
-    //need to handle save for some data. Here we import actions and make use of them
+    //need to handle save for RC2 Recipes.
   };
 
   handleRecordWeight = async () => {
@@ -70,9 +70,7 @@ class PopModal extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    adding: state.adding,
-    added: state.error,
-    error: state.error
+    adding: state.adding
   };
 };
 

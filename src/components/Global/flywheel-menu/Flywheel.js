@@ -5,15 +5,8 @@ import { Motion, StaggeredMotion, spring } from "react-motion";
 import range from "lodash.range";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAppleAlt,
-  faUtensils,
-  faWeight,
-  faTimes
-} from "@fortawesome/free-solid-svg-icons";
 
 //Styles
-
 const MainButton = styled.div`
   position: fixed;
   right: 10px;
@@ -51,65 +44,19 @@ const ChildButton = styled.div`
 const Title = styled.h6`
   color: black;
   position: fixed;
-  top: -32px;
+  font-size:14px;
+  top: -20px;
 `;
 
 const faMBIconColor = "white";
-
 const faChildIconColor = "#007bff";
-
-// Components
-
-//var icon = {
-// icon: null,
-//  name: "",
-//  isaLink: Boolean,
-//  linkPath: ""
-//};
-
-let childButtonIcons = [
-  {
-    icon: faAppleAlt,
-    name: "Food",
-    isaLink: true,
-    linkPath: "/login"
-  },
-  { icon: faUtensils, name: "Recipe", isaLink: false },
-  { icon: faWeight, name: "Weight", isaLink: false }
-];
+// End Styles
 
 // Diameter of the main button in pixels
 const MAIN_BUTTON_DIAM = 75;
 const CHILD_BUTTON_DIAM = 48;
-
-// The number of child buttons that fly out from the main button
-const NUM_CHILDREN = childButtonIcons.length;
-
-//should be between 0 and 0.5 (its maximum value is difference between scale in finalChildButtonStyles a
-// nd initialChildButtonStyles)
 const OFFSET = 0.05;
-
 const SPRING_CONFIG = { stiffness: 500, damping: 15 };
-
-// How far away from the main button does the child buttons go
-const FLY_OUT_RADIUS = 130,
-  SEPARATION_ANGLE = 40, //degrees
-  FAN_ANGLE = (NUM_CHILDREN - 3) * SEPARATION_ANGLE, //degrees //NEED TO ADJUST HERE WHEN ADDING OR DELETING ICONS
-  BASE_ANGLE = (180 - FAN_ANGLE) / 2; // degrees
-
-// Utility functions
-
-function toRadians(degrees) {
-  return degrees * (Math.PI / 180);
-}
-
-function finalChildDeltaPositions(index) {
-  let angle = BASE_ANGLE + index * SEPARATION_ANGLE;
-  return {
-    deltaX: FLY_OUT_RADIUS * Math.cos(toRadians(angle)) - CHILD_BUTTON_DIAM / 2,
-    deltaY: FLY_OUT_RADIUS * Math.sin(toRadians(angle)) + CHILD_BUTTON_DIAM / 2
-  };
-}
 
 class Flywheel extends React.Component {
   constructor(props) {
@@ -117,7 +64,6 @@ class Flywheel extends React.Component {
 
     this.state = {
       isOpen: false,
-      childButtons: [],
       M: { x: 0, y: 0 },
       m_btn_h: 0,
       m_btn_w: 0,
@@ -125,11 +71,31 @@ class Flywheel extends React.Component {
       segue: ""
     };
 
-    // Bind this to the functions
-    this.toggleMenu = this.toggleMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-    this.addOverlay = this.addOverlay.bind(this);
+    this.NUM_CHILDREN = props.childButtonIcons.length;
+    this.FLY_OUT_RADIUS = 130;
+    this.SEPARATION_ANGLE = 40; //degrees
+    this.FAN_ANGLE = (this.NUM_CHILDREN - 3) * this.SEPARATION_ANGLE; //degrees //NEED TO ADJUST HERE WHEN ADDING OR DELETING ICONS
+    this.BASE_ANGLE = (180 - this.FAN_ANGLE) / 2; // degrees
+
   }
+
+ 
+  toRadians = degrees => {
+    return degrees * (Math.PI / 180);
+  };
+
+  finalChildDeltaPositions = index => {
+    let angle = this.BASE_ANGLE + index * this.SEPARATION_ANGLE;
+    return {
+      deltaX:
+        this.FLY_OUT_RADIUS * Math.cos(this.toRadians(angle)) -
+        CHILD_BUTTON_DIAM / 2,
+      deltaY:
+        this.FLY_OUT_RADIUS * Math.sin(this.toRadians(angle)) +
+        CHILD_BUTTON_DIAM / 2
+    };
+  };
+
 
   updateMainBtnPosition(MBE) {
     const M = MBE.getBoundingClientRect(); //Gets the MAIN BUTTON's position realtive to the clients screen
@@ -229,7 +195,7 @@ class Flywheel extends React.Component {
   }
 
   finalChildButtonStylesInit(childIndex) {
-    let { deltaX, deltaY } = finalChildDeltaPositions(childIndex);
+    let { deltaX, deltaY } = this.finalChildDeltaPositions(childIndex);
     return {
       width: CHILD_BUTTON_DIAM,
       height: CHILD_BUTTON_DIAM,
@@ -241,7 +207,7 @@ class Flywheel extends React.Component {
   }
 
   finalChildButtonStyles(childIndex) {
-    let { deltaX, deltaY } = finalChildDeltaPositions(childIndex);
+    let { deltaX, deltaY } = this.finalChildDeltaPositions(childIndex);
     return {
       width: CHILD_BUTTON_DIAM,
       height: CHILD_BUTTON_DIAM,
@@ -252,7 +218,7 @@ class Flywheel extends React.Component {
     };
   }
 
-  addOverlay(e) {
+  addOverlay = (e) => {
     const overlay = document.createElement("div");
     overlay.setAttribute("id", "overlay");
     document.body.appendChild(overlay);
@@ -275,7 +241,7 @@ class Flywheel extends React.Component {
     }
   }
 
-  toggleMenu(e) {
+  toggleMenu = (e) => {
     // this.addOverlay();   //turn this on if you are only using aboslute links or router links. Otherwise leave off as this will duplicate the default overlay provided by boostraps modal
     e.stopPropagation();
     let { isOpen } = this.state;
@@ -284,13 +250,13 @@ class Flywheel extends React.Component {
     });
   }
 
-  closeMenu() {
+  closeMenu = () => {
     this.setState({ isOpen: false });
   }
 
   renderChildButtons() {
     const { isOpen } = this.state;
-    const targetButtonStylesInitObject = range(NUM_CHILDREN).map(i => {
+    const targetButtonStylesInitObject = range(this.NUM_CHILDREN).map(i => {
       return isOpen
         ? this.finalChildButtonStylesInit(i)
         : this.initialChildButtonStylesInit();
@@ -301,7 +267,7 @@ class Flywheel extends React.Component {
       targetButtonStylesInitObject
     ).map(key => targetButtonStylesInitObject[key]);
 
-    const targetButtonStyles = range(NUM_CHILDREN).map(i => {
+    const targetButtonStyles = range(this.NUM_CHILDREN).map(i => {
       return isOpen
         ? this.finalChildButtonStyles(i)
         : this.initialChildButtonStyles();
@@ -399,9 +365,8 @@ class Flywheel extends React.Component {
           <div>
             {interpolatedStyles.map(
               ({ height, left, rotate, scale, top, width }, index) =>
-                childButtonIcons[index].isaLink ? (
-                  <Link to={childButtonIcons[index].linkPath}>
-                    {" "}
+                this.props.childButtonIcons[index].isaLink ? (
+                  <Link to={this.props.childButtonIcons[index].linkPath}>
                     <ChildButton
                       key={index}
                       style={{
@@ -413,9 +378,9 @@ class Flywheel extends React.Component {
                         display: isOpen ? `flex` : `none`
                       }}
                     >
-                      <Title>{childButtonIcons[index].name}</Title>
+                      <Title>{this.props.childButtonIcons[index].name}</Title>
                       <FontAwesomeIcon
-                        icon={childButtonIcons[index].icon}
+                        icon={this.props.childButtonIcons[index].icon}
                         size="2x"
                         color={faChildIconColor}
                       />
@@ -433,15 +398,15 @@ class Flywheel extends React.Component {
                       display: isOpen ? `flex` : `none`
                     }}
                   >
-                    <Title>{childButtonIcons[index].name}</Title>
+                    <Title>{this.props.childButtonIcons[index].name}</Title>
                     <FontAwesomeIcon
-                      icon={childButtonIcons[index].icon}
+                      icon={this.props.childButtonIcons[index].icon}
                       size="2x"
                       color={faChildIconColor}
                       onClick={() => {
                         return (
                           this.setState({
-                            segue: childButtonIcons[index].name
+                            segue: this.props.childButtonIcons[index].name
                           }),
                           this.handleToggleClick()
                         );
@@ -481,7 +446,7 @@ class Flywheel extends React.Component {
                 onClick={this.toggleMenu}
               >
                 <FontAwesomeIcon
-                  icon={faTimes}
+                  icon={this.props.maintButtonIcon}
                   size="3x"
                   color={faMBIconColor}
                 />
@@ -503,4 +468,4 @@ class Flywheel extends React.Component {
 
 export default Flywheel;
 
-// Here is the medium article to help alog with designing: https://medium.com/@nashvail/a-gentle-introduction-to-react-motion-dc50dd9f2459
+// Here is the medium article to help along with designing process and basic functionality: https://medium.com/@nashvail/a-gentle-introduction-to-react-motion-dc50dd9f2459

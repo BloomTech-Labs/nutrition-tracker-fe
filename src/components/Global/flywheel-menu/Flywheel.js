@@ -51,7 +51,7 @@ const ChildButton = styled.div`
 const Title = styled.h6`
   color: black;
   position: fixed;
-  top: -25px;
+  top: -32px;
 `;
 
 const faMBIconColor = "white";
@@ -276,7 +276,7 @@ class Flywheel extends React.Component {
   }
 
   toggleMenu(e) {
-    // this.addOverlay();   //turn this on if you are wanting to use a aboslute link or router link. otherwise leave off as this will duplicate the default overlay provided by boostraps modal
+    // this.addOverlay();   //turn this on if you are only using aboslute links or router links. Otherwise leave off as this will duplicate the default overlay provided by boostraps modal
     e.stopPropagation();
     let { isOpen } = this.state;
     this.setState({
@@ -504,17 +504,3 @@ class Flywheel extends React.Component {
 export default Flywheel;
 
 // Here is the medium article to help alog with designing: https://medium.com/@nashvail/a-gentle-introduction-to-react-motion-dc50dd9f2459
-
-//NOTE:
-//when passing props to this component for links you will need to make sure to match the 'links' array index to the icons array index 'childButtonIcons'
-
-/*
- Make this work with a responsive layout we need to:
-    1) Get ele position reative to the client screen with: the getBoundClientRect() function and make sure that it updates when the screen changes size 
-    2) Use the that ele position var to calculate the child nodes elements on the screen
-
-
-*/
-
-// If we click on a child element link in the flyout we should display modal component that alows interaction
-// when we click on the modal we can either dismiss the modal or do some CRUD that interacts with our backend

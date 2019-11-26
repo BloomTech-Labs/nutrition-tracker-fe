@@ -18,6 +18,12 @@ import Settings from "./components/Settings";
 import PrivateRoute from "./components/PrivateRoute";
 // import RequireAuth from "./components/Auth";
 
+import withNavigation from "./components/Navigation/withNavigation";
+
+const SettingsWithNav = withNavigation({
+  pageTitle: "Settings"
+})(Settings);
+
 class App extends Component {
   render() {
     return (
@@ -27,7 +33,7 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/onboarding" component={Onboarding} />
-        <Route path="/settings" component={Settings} />
+        <Route path="/settings" component={SettingsWithNav} />
       </AppWrapper>
     );
   }

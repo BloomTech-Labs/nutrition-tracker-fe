@@ -27,7 +27,6 @@ const Email = props => {
   }, [props.data.email])
 
   const toggle = () => setModal(!modal);
-  //console.log(newstate);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>

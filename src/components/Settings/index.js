@@ -1,6 +1,8 @@
 import React from "react";
+import styled from "styled-components"
 import { connect } from "react-redux";
-import {ListStyle, HeadingStyle, Container} from "./styles";
+import { Container as Global_Container} from "../Global/styled";
+import {ListStyle, HeadingStyle} from "./styles";
 import {getUserInfo, updateUserInfo} from "../../store/actions/updateUserSettings";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
@@ -10,10 +12,8 @@ import Password from "./components/password";
 import Gender from "./components/gender";
 import ActivityLevel from "./components/activity_level";
 import CurrentWeight from "./components/current_weight";
-import TopBar from "./TopBar";
 
 class Settings extends React.Component {
-
 
   componentDidMount() {
     const id = 1
@@ -28,11 +28,10 @@ class Settings extends React.Component {
   render() {
     console.log(this.user)
     return (
-      <Container>
-        <TopBar />
+      <Container fluid={false} height={this.props.height}>
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
-          {/* <Height data={this.props.userInfo} /> */}
+          <Height updateUser={this.updateUser} data={this.props.userInfo} />
           <CurrentWeight data={this.props.userInfo} />
           <Dob data={this.props.userInfo} />
           <Gender updateUser={this.updateUser} data={this.props.userInfo} />
@@ -51,6 +50,10 @@ class Settings extends React.Component {
     );
   }
 }
+
+const Container = styled(Global_Container)`
+  padding: 0;
+`;
 
 const mapStateToProps = state => {
   return{

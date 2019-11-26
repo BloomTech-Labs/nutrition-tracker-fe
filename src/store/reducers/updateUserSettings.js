@@ -5,6 +5,10 @@ const initialState = {
   height_cm: "",
   sex: "",
   dob: "",
+  height: {
+    feet: "",
+    inches: ""
+  },
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
@@ -36,10 +40,10 @@ export const updateUserInfo = (state = initialState, action) => {
         getInfoStart: false,
         getInfoSuccess: true,
         getInfoFailure: false,
-        // height: {
-        //   feet: action.payload.height.feet,
-        //   inches: action.payload.height.inches
-        // }
+        height: {
+          feet: action.payload.height.feet,
+          inches: action.payload.height.inches
+        }
       };
     }
     case "GET_INFO_FAILURE": {

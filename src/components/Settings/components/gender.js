@@ -24,9 +24,6 @@ const Gender = props => {
 
   const [sex, setSex] = useState("");
 
-  console.log("SEX", sex);
-  console.log("props.data.sex", props.data.sex);
-
   useEffect(()=> {
     setSex(props.data.sex);
   }, [props.data.sex])

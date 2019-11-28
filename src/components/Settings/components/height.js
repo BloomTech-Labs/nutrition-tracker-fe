@@ -29,7 +29,6 @@ const Height = props => {
 
 
   const toggle = () => setModal(!modal);
-  console.log(props.data)
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>

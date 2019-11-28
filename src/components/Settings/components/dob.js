@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {ListStyle} from "../styles";
+import moment from "moment";
+import {InputGroupWithIcon} from "../../Global/styled/index";
 import {
   Button,
   Modal,
@@ -11,21 +13,26 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
 } from "reactstrap";
+import { CalendarSVG } from "../../Global/icons";
 
 const Dob = props => {
   const [modal, setModal] = useState(false);
 
-  const [dob, setDob] = useState(props.data.dob);
+  const [dob, setDob] = useState("");
+
+  useEffect(()=> {
+    console.log("[useEffect]", props.data.dob);
+    setDob(props.data.dob);
+  }, [props.data.dob])
 
   const toggle = () => setModal(!modal);
-
+  console.log(dob)
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
-        <div>{props.data.dob}</div>
+        <div>{moment(dob).format("MMM Do YY")}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>
@@ -33,18 +40,24 @@ const Dob = props => {
           <Form>
             <FormGroup>
               <Label for="dob">Date Of Birth</Label>
-              <Input
-                type="text"
-                name="dob"
-                id="dob"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
+              <InputGroupWithIcon
+                type="date"
+                name="date_of_birth"
+                icon={CalendarSVG}
+                placeholder="MM/DD/YYYY"
+                handleChange={(e) => setDob(e.target.value)}
               />
             </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
+        <Button
+            color="primary"
+            onClick={() => {
+              toggle();
+              props.updateUser({dob: toIsoDateString(dob)});
+            }}
+          >
             Update
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
@@ -55,5 +68,10 @@ const Dob = props => {
     </div>
   );
 };
+
+function toIsoDateString(date) {
+  return new Date(date).toISOString()
+}
+
 
 export default Dob;

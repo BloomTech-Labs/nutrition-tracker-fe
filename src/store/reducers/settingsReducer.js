@@ -75,10 +75,6 @@ export const updateUserInfo = (state = initialState, action) => {
         updateStart: false,
         updateSuccess: true,
         updateFailure: false
-        // height: {
-        //   feet: action.payload.height.feet,
-        //   inches: action.payload.height.inches
-        // }
       };
     }
     case "UPDATE_INFO_FAILURE": {

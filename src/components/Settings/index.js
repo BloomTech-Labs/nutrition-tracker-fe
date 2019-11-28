@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components"
 import { connect } from "react-redux";
-import { Container as Global_Container} from "../Global/styled";
+import { Container as Global_Container, Row, Col} from "../Global/styled";
 import {ListStyle, HeadingStyle} from "./styles";
-import {getUserInfo, updateUserInfo} from "../../store/actions/updateUserSettings";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import {getUserInfo, updateUserInfo} from "../../store/actions/settingsActions";
+import {ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/height";
 import Dob from "./components/dob";
 import Email from "./components/email";
@@ -22,18 +22,19 @@ class Settings extends React.Component {
   }
 
   updateUser = (update) => {
+    console.log("[update]", update);
     this.props.updateUserInfo(update)
   } 
 
   render() {
     console.log(this.user)
     return (
-      <Container fluid={false} height={this.props.height}>
-        <ListGroup>
+      <Container height={this.props.height}>
+          <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />
           <CurrentWeight data={this.props.userInfo} />
-          <Dob data={this.props.userInfo} />
+          <Dob updateUser={this.updateUser} data={this.props.userInfo} />
           <Gender updateUser={this.updateUser} data={this.props.userInfo} />
           <ActivityLevel  />
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
@@ -53,11 +54,12 @@ class Settings extends React.Component {
 
 const Container = styled(Global_Container)`
   padding: 0;
+  overflow-y: scroll;
 `;
 
 const mapStateToProps = state => {
   return{
-    userInfo: state.updateUserInfo // ?????
+    userInfo: state.updateUserInfo
   }
 };
 

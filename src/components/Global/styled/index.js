@@ -9,3 +9,4 @@ export { default as H1 } from "./components/H1";
 export { default as H2 } from "./components/H2";
 export { default as Form } from "./components/Form";
 export { default as SlideBar } from "./components/SlideBar";
+export { default as InputGroupWithIcon } from "./components/InputGroupWithIcon";

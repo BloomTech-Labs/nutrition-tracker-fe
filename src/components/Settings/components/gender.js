@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ListStyle } from "../styles";
 import {
-  getUserInfo,
-} from "../../../store/actions/updateUserSettings";
-import { connect } from "react-redux";
-import {
   Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
   ListGroupItem,
-  CustomInput,
   Input,
   Form,
   FormGroup,
@@ -80,15 +75,5 @@ const Gender = props => {
     </div>
   );
 };
-
-// const mapStateToProps = state => {
-//   return {
-//     userInfo: state.getUserInfo
-//   };
-// };
-
-// export default connect(mapStateToProps, {getUserInfo})(
-//   Gender
-// );
 
 export default Gender

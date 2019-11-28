@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListStyle } from "../styles";
 import {
-  getUserInfo,
-} from "../../../store/actions/updateUserSettings";
-import { connect } from "react-redux";
-import {
   Button,
   Modal,
   ModalHeader,
@@ -43,7 +39,7 @@ const Email = props => {
                 type="text"
                 name="email"
                 id="email"
-                value={email}
+                value={email||""}
                 onChange={e => setEmail(e.target.value)}
               />
             </FormGroup>

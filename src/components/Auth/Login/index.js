@@ -40,6 +40,7 @@ class Login extends React.Component {
           )}
         />
         <Route
+          id="emailRoute"
           path={`${path}/email`}
           render={props => (
             <LoginWithEmail

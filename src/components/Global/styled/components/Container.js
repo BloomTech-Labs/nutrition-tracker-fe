@@ -11,6 +11,8 @@ const StyledContainer = styled(Container)`
 
   height: ${props => props.height ? props.height : "auto"};
 
+  overflow-y: scroll;
+
   /* border: 1px solid red; */
 `;
 

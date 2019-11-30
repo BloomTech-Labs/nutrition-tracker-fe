@@ -3,10 +3,12 @@ import { combineReducers } from "redux";
 import { firebaseReducer } from "react-redux-firebase";
 import { onboardingReducer } from "./onboardingReducer";
 import { updateUserSettings } from "./updateUserSettings";
+import { dailyLogReducer } from "./dailyLogReducer";
 
 export default combineReducers({
   // myCustomAuth: firebaseAuth,
   firebase: firebaseReducer,
   onboarding: onboardingReducer,
-  updateSettings: updateUserSettings
+  updateSettings: updateUserSettings,
+  dailyLog: dailyLogReducer
 });

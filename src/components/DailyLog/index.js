@@ -1,55 +1,56 @@
-import React from "react";
-import styled from "styled-components";
-import { Container, Row, Col } from "../Global/styled";
-import { Table as BS_Table } from "reactstrap";
+import React, {useEffect, useState} from "react";
+import moment from "moment-timezone";
+import * as bundle from "../../vendor/moment-timezone-bundle.json";
+import {useDispatch, useSelector} from "react-redux";
+import useGroupBy from "./custom hooks/useGroupBy";
+import { Container} from "../Global/styled";
 import CaloricBudget from "./components/CaloricBudget";
 import MacroBudgets from "./components/MacroBudgets";
-import theme from "../Global/theme";
 import Pagination from "./components/Pagination";
+import TimeLog from "./components/TimeLog";
+import DisplaySettings from "./components/DisplaySettings";
+import {fetchNutritionBudgets, fetchDailyLog} from "../../store/actions/dailyLogActions";
 
-function DailyLog({ height }) {
+const DailyLog = ({ height }) => {
+  const dispatch = useDispatch();
+  const budgets = useSelector(state => state.dailyLog.budgets);
+  const consumed = useSelector(state => state.dailyLog.consumed);
+  const dailyLog = useSelector(state => state.dailyLog.dailyLog);
+  const currentTimeZone = moment.tz.guess();
+
+  const [currentDate, setCurrentDate] = useState(moment.tz(currentTimeZone).format("YYYY-MM-DD"));
+  const [interval, setInterval] = useState(30);
+  const groupedDailyLog = useGroupBy(interval, dailyLog);
+
+  useEffect(() => {
+    dispatch(fetchNutritionBudgets());
+    dispatch(fetchDailyLog(currentDate, currentTimeZone)); 
+  }, [dispatch, currentTimeZone, currentDate]);
+
+  const updateInterval = interval => {
+    setInterval(interval);
+  }
+
+  const updateDate = date => {
+    setCurrentDate(date);
+  }
+
   return (
     <Container fluid height={height}>
-      <CaloricBudget consumed={1280} total={2140} />
+      <CaloricBudget consumed={consumed.caloriesConsumed} total={budgets.caloricBudget} />
       <MacroBudgets
-        fatsConsumed={52}
-        fatsTotal={124}
-        carbsConsumed={20}
-        carbsTotal={45}
-        protienConsumed={48}
-        protienTotal={80}
+        fatsConsumed={consumed.fatsConsumed}
+        fatsTotal={budgets.fatBudget}
+        carbsConsumed={consumed.carbsConsumed}
+        carbsTotal={budgets.carbBudget}
+        protienConsumed={consumed.proteinConsumed}
+        protienTotal={budgets.proteinBudget}
       />
-      <Pagination />
-      <Row>
-        <Col>
-          <Table>
-            <tbody>
-              <tr>
-                <th>8:00AM</th>
-                <td>Egg</td>
-                <td>medium</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <td style={{ border: "none" }} />
-                <td>White Bread</td>
-                <td>slice/s</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td style={{ border: "none" }} />
-                <td>Orange Juice</td>
-                <td>large glass</td>
-                <td>1</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
+      <Pagination currentDate={currentDate} updateDate={updateDate} currentTimeZone={currentTimeZone}/>
+      <DisplaySettings updateInterval={updateInterval} interval={interval}/>
+      <TimeLog dailyLog={groupedDailyLog}/>
     </Container>
   );
 }
-
-const Table = styled(BS_Table)``;
 
 export default DailyLog;

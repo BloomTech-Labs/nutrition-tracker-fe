@@ -1,18 +1,19 @@
 import React from "react";
+import moment from "moment-timezone";
 import styled from "styled-components";
 import { Row, Col } from "../../Global/styled";
-import { Input as BS_Input, Button } from "reactstrap";
+import { Input as BS_Input, Button as BS_Button } from "reactstrap";
 import { LeftCarotSVG, RightCarotSVG, CalendarSVG } from "../../Global/icons";
 import theme from "../../Global/theme";
 
-const Pagination = () => {
+const Pagination = ({currentDate, updateDate, currentTimeZone}) => {
 
   const pageLeft = () => {
-    console.log("PAGE LEFT");
+    updateDate(moment.tz(currentDate, currentTimeZone).subtract(1, "d").format("YYYY-MM-DD"));
   };
 
   const pageRight = () => {
-    console.log("PAGE RIGHT");
+    updateDate(moment.tz(currentDate, currentTimeZone).add(1, "d").format("YYYY-MM-DD"));
   };
 
   return (
@@ -24,7 +25,7 @@ const Pagination = () => {
           </Button>
           <ActiveDate>
             <CalendarSVG margin="2 0 0 0" />
-            <DateInput type="date" value="1991-02-02" />
+            <DateInput type="date" value={currentDate} />
           </ActiveDate>
           <Button onClick={pageRight}>
             <RightCarotSVG />
@@ -69,6 +70,12 @@ const DateInput = styled(BS_Input)`
   &:valid:before {
     content: "";
   }
+`;
+
+const Button = styled(BS_Button)`
+  background-color: ${theme.color.light};
+  border: none;
+
 `;
 
 export default Pagination;

@@ -22,12 +22,10 @@ const Dob = props => {
   const [dob, setDob] = useState("");
 
   useEffect(()=> {
-    console.log("[useEffect]", props.data.dob);
     setDob(props.data.dob);
   }, [props.data.dob])
 
   const toggle = () => setModal(!modal);
-  console.log(dob)
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>

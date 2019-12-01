@@ -64,10 +64,4 @@ const Email = props => {
   );
 };
 
-// const mapStateToProps = state => {
-//   return {
-//     userInfo: state.getUserInfo
-//   };
-// };
-
 export default Email;

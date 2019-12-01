@@ -3,37 +3,41 @@ import styled from "styled-components"
 import { connect } from "react-redux";
 import { Container as Global_Container, Row, Col} from "../Global/styled";
 import {ListStyle, HeadingStyle} from "./styles";
-import {getUserInfo, updateUserInfo} from "../../store/actions/settingsActions";
+import {getUserInfo, updateUserInfo, getCurrentWeight} from "../../store/actions/settingsActions";
 import {ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/height";
-import Dob from "./components/dob";
-import Email from "./components/email";
-import Password from "./components/password";
-import Gender from "./components/gender";
-import ActivityLevel from "./components/activity_level";
-import CurrentWeight from "./components/current_weight";
+import Height from "./components/Height";
+import Dob from "./components/Dob";
+import Email from "./components/Email";
+import Password from "./components/Password";
+import Gender from "./components/Gender";
+import ActivityLevel from "./components/ActivityLevel";
+import CurrentWeight from "./components/CurrentWeight";
 
 class Settings extends React.Component {
 
   componentDidMount() {
     const id = 1
-    //Calls action to get specific user
+    //Calls action to get specific user.
     this.props.getUserInfo(id);
+    //Calls action to get users current weight.
+    this.props.getCurrentWeight(id);
   }
 
   updateUser = (update) => {
-    console.log("[update]", update);
     this.props.updateUserInfo(update)
   } 
 
+  updateWeight = (update) => {
+    this.props.getCurrentWeight(update)
+  } 
+
   render() {
-    console.log(this.user)
     return (
       <Container height={this.props.height}>
           <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />
-          <CurrentWeight data={this.props.userInfo} />
+          <CurrentWeight updateWeight={this.updateWeight} data={this.props.userInfo} />
           <Dob updateUser={this.updateUser} data={this.props.userInfo} />
           <Gender updateUser={this.updateUser} data={this.props.userInfo} />
           <ActivityLevel  />
@@ -63,4 +67,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { getUserInfo, updateUserInfo })(Settings);
+export default connect(mapStateToProps, { getUserInfo, updateUserInfo, getCurrentWeight })(Settings);

@@ -29,14 +29,13 @@ export const getUserInfo = (id) => dispatch => {
 };
 
 //Updates user
-export const updateUserInfo = infoObj => dispatch => {
-  console.log("[updateUserInfo]", infoObj);
+//TODO: id is hard coded to 1 for testing. Need to pull
+export const updateUserInfo = (infoObj) => dispatch => {
   dispatch({ type: "UPDATE_INFO_START" });
+  const id = 1
   axios
-    .put(`http://localhost:4000/user/1`, infoObj)
+    .put(`http://localhost:4000/user/${id}`, infoObj)
     .then(res => {
-      console.log("[updateUserInfo]", res.data);
-
       dispatch({
         type: "UPDATE_INFO_SUCCESS",
         payload: res.data
@@ -44,5 +43,38 @@ export const updateUserInfo = infoObj => dispatch => {
     })
     .catch(err =>
       dispatch({ type: "UPDATE_INFO_FAILURE", payload: err.message })
+    );
+};
+
+export const getCurrentWeight = (id) => dispatch => {
+  dispatch({ type: "GET_CURRENT_WEIGHT_START" });
+  axios
+    .get(`http://localhost:4000/user/current-weight/${id}`)
+    .then(res => {
+      dispatch({
+        type: "GET_CURRENT_WEIGHT_SUCCESS",
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "GET_CURRENT_WEIGHT_FAILURE", payload: err.message })
+    );
+};
+
+//Updates current weight
+//TODO: id is hard coded to 1 for testing. Need to pull
+export const updateCurrentWeight = infoObj => dispatch => {
+  dispatch({ type: "UPDATE_CURRENT_WEIGHT_START" });
+  const id = 1
+  axios
+    .put(`http://localhost:4000/user/current-weight/${id}`, infoObj)
+    .then(res => {
+      dispatch({
+        type: "UPDATE_CURRENT_WEIGHT_SUCCESS",
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "UPDATE_CURRENT_WEIGHT_FAILURE", payload: err.message })
     );
 };

@@ -5,10 +5,12 @@ const initialState = {
   height_cm: "",
   sex: "",
   dob: "",
+  weight_kg: "",
   height: {
     feet: "",
     inches: ""
   },
+  weight_lbs: "",
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
@@ -28,6 +30,9 @@ export const updateUserInfo = (state = initialState, action) => {
         getInfoFailure: false,
       };
     }
+/********************************************************
+ *                    User Cases                        *
+ ********************************************************/
     case "GET_INFO_SUCCESS": {
       return {
         ...state,
@@ -37,13 +42,13 @@ export const updateUserInfo = (state = initialState, action) => {
         height_cm: action.payload.height_cm,
         sex: action.payload.sex,
         dob: action.payload.dob,
-        getInfoStart: false,
-        getInfoSuccess: true,
-        getInfoFailure: false,
         height: {
           feet: action.payload.height.feet,
           inches: action.payload.height.inches
-        }
+        },
+        getInfoStart: false,
+        getInfoSuccess: true,
+        getInfoFailure: false
       };
     }
     case "GET_INFO_FAILURE": {
@@ -54,7 +59,6 @@ export const updateUserInfo = (state = initialState, action) => {
         getInfoFailure: true,
       };
     }
-
     case "UPDATE_INFO_START": {
       return {
         ...state,
@@ -84,6 +88,36 @@ export const updateUserInfo = (state = initialState, action) => {
         updateSuccess: false,
         updateFailure: true,
         errorMessage: action.payload
+      };
+    }
+/********************************************************
+ *                Current Weight Cases                  *
+ ********************************************************/    
+    case "GET_CURRENT_WEIGHT_START": {
+      return {
+        ...state,
+        getInfoStart: true,
+        getInfoSuccess: false,
+        getInfoFailure: false,
+      };
+    }
+    case "GET_CURRENT_WEIGHT_SUCCESS": {
+      return {
+        ...state,
+        weight_kg: action.payload.weight_kg,
+        weight_lbs: action.payload.weight_lbs,
+        getInfoStart: false,
+        getInfoSuccess: true,
+        getInfoFailure: false
+      };
+    }
+
+    case "GET_CURRENT_WEIGHT_FAILURE": {
+      return {
+        ...state,
+        getInfoStart: false,
+        getInfoSuccess: false,
+        getInfoFailure: true,
       };
     }
 

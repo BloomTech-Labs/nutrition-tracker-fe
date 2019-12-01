@@ -41,11 +41,11 @@ const ActivityLevel = props => {
                 // onChange={(e) => setActivityLevel(e.target.value)}
               >
                 <option value="">Select</option>
-                <option value="Sedentary">Sedentary</option>
-                <option value="Light">Light</option>
-                <option value="Moderate">Moderate</option>
-                <option value="Very">Very</option>
-                <option value="Extra">Extra</option>
+                <option value={1.2}>Sedentary</option>
+                <option value={1.375}>Light</option>
+                <option value={1.55}>Moderate</option>
+                <option value={1.725}>Very</option>
+                <option value={1.9}>Extra</option>
               </CustomInput>
             </FormGroup>
           </Form>

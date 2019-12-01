@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components"
 import { connect } from "react-redux";
-import { Container as Global_Container, Row, Col} from "../Global/styled";
+import { Container } from "../Global/styled";
 import {ListStyle, HeadingStyle} from "./styles";
 import {getUserInfo, updateUserInfo} from "../../store/actions/settingsActions";
 import {ListGroup, ListGroupItem } from "reactstrap";
@@ -29,8 +28,8 @@ class Settings extends React.Component {
   render() {
     console.log(this.user)
     return (
-      <Container height={this.props.height}>
-          <ListGroup>
+      <Container height={this.props.height} fluid>
+        <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />
           <CurrentWeight data={this.props.userInfo} />
@@ -51,11 +50,6 @@ class Settings extends React.Component {
     );
   }
 }
-
-const Container = styled(Global_Container)`
-  padding: 0;
-  overflow-y: scroll;
-`;
 
 const mapStateToProps = state => {
   return{

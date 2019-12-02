@@ -39,7 +39,7 @@ const Weight = props => {
                 type="text"
                 name="weight"
                 id="weight"
-                value={weight}
+                value={weight||""}
                 onChange={(e) => setWeight(e.target.value)}
               />
             </FormGroup>
@@ -66,8 +66,8 @@ const Weight = props => {
 
 // Converts height to centimeters
 function lbsToKgs(lbs) {
-  const kgs = lbs * 0.45359237
-  return(kgs)
+  const kg = lbs * 0.45359237
+  return {weight_kg: kg}
 }
 
 export default Weight;

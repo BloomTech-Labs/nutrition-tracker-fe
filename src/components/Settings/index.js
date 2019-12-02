@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Container } from "../Global/styled";
 import {ListStyle, HeadingStyle} from "./styles";
-import {getUserInfo, updateUserInfo, getCurrentWeight} from "../../store/actions/settingsActions";
+import {getUserInfo, updateUserInfo, getCurrentWeight, updateCurrentWeight, getActivityLevel, updateActivityLevel} from "../../store/actions/settingsActions";
 import {ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/Height";
 import Dob from "./components/Dob";
@@ -16,10 +16,13 @@ class Settings extends React.Component {
 
   componentDidMount() {
     const id = 1
+    console.log("INDEX TRIGGERED")
     //Calls action to get specific user.
     this.props.getUserInfo(id);
     //Calls action to get users current weight.
     this.props.getCurrentWeight(id);
+    //Calls action to get activity level
+    this.props.getActivityLevel(id)
   }
 
   updateUser = (update) => {
@@ -27,7 +30,11 @@ class Settings extends React.Component {
   } 
 
   updateWeight = (update) => {
-    this.props.getCurrentWeight(update)
+    this.props.updateCurrentWeight(update)
+  } 
+
+  updateActivityLevel = (update) => {
+    this.props.updateActivityLevel(update)
   } 
 
   render() {
@@ -39,7 +46,7 @@ class Settings extends React.Component {
           <CurrentWeight updateWeight={this.updateWeight} data={this.props.userInfo} />
           <Dob updateUser={this.updateUser} data={this.props.userInfo} />
           <Gender updateUser={this.updateUser} data={this.props.userInfo} />
-          <ActivityLevel  />
+          <ActivityLevel updateActivityLevel={this.updateActivityLevel}  data={this.props.userInfo}/>
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <ListGroupItem style={ListStyle}>
             MacroNutrient Targets
@@ -61,4 +68,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { getUserInfo, updateUserInfo, getCurrentWeight })(Settings);
+export default connect(mapStateToProps, { getUserInfo, updateUserInfo, getCurrentWeight, updateCurrentWeight, getActivityLevel, updateActivityLevel })(Settings);

@@ -11,6 +11,7 @@ const initialState = {
     inches: ""
   },
   weight_lbs: "",
+  activity_level: "",
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
@@ -111,7 +112,6 @@ export const updateUserInfo = (state = initialState, action) => {
         getInfoFailure: false
       };
     }
-
     case "GET_CURRENT_WEIGHT_FAILURE": {
       return {
         ...state,
@@ -120,6 +120,87 @@ export const updateUserInfo = (state = initialState, action) => {
         getInfoFailure: true,
       };
     }
+    case "ADD_CURRENT_WEIGHT_START": {
+      return {
+        ...state,
+        updateStart: true,
+        updateSuccess: false,
+        updateFailure: false
+      };
+    }
+    case "ADD_CURRENT_WEIGHT_SUCCESS": {
+      return {
+        ...state,
+        weight_kg: action.payload.weight_kg,
+        updateStart: false,
+        updateSuccess: true,
+        updateFailure: false
+      };
+    }
+    case "ADD_CURRENT_WEIGHT_FAILURE": {
+      return {
+        ...state,
+        updateStart: false,
+        updateSuccess: false,
+        updateFailure: true,
+        errorMessage: action.payload
+      };
+    }
+/********************************************************
+ *                Activity Level Cases                  *
+ ********************************************************/    
+case "GET_ACTIVITY_LEVEL_START": {
+  return {
+    ...state,
+    getInfoStart: true,
+    getInfoSuccess: false,
+    getInfoFailure: false,
+  };
+}
+case "GET_ACTIVITY_LEVEL_SUCCESS": {
+  return {
+    ...state,
+    activity_level: action.payload.activity_level,
+    getInfoStart: false,
+    getInfoSuccess: true,
+    getInfoFailure: false
+  };
+}
+case "GET_ACTIVITY_LEVEL_FAILURE": {
+  return {
+    ...state,
+    getInfoStart: false,
+    getInfoSuccess: false,
+    getInfoFailure: true,
+  };
+}
+case "ADD_ACTIVITY_LEVEL_START": {
+  return {
+    ...state,
+    updateStart: true,
+    updateSuccess: false,
+    updateFailure: false
+  };
+}
+case "ADD_ACTIVITY_LEVEL_SUCCESS": {
+  console.log(action.payload)
+  return {
+    ...state,
+    activity_level: action.payload.activity_level,
+    updateStart: false,
+    updateSuccess: true,
+    updateFailure: false
+  };
+}
+case "ADD_ACTIVITY_LEVEL_FAILURE": {
+  return {
+    ...state,
+    updateStart: false,
+    updateSuccess: false,
+    updateFailure: true,
+    errorMessage: action.payload
+  };
+}
 
     default:
       return state;

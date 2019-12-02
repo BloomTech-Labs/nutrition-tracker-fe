@@ -27,7 +27,7 @@ const Email = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Email</div>
-        <div>{props.data.email}</div>
+        <div>{email}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Email</ModalHeader>

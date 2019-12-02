@@ -1,5 +1,9 @@
 import axios from "axios";
 
+
+/********************************************************
+ *                    User Actions                      *
+ ********************************************************/
 //Gets specific user
 export const getUserInfo = (id) => dispatch => {
   dispatch({ type: "GET_INFO_START" });
@@ -46,10 +50,14 @@ export const updateUserInfo = (infoObj) => dispatch => {
     );
 };
 
+/********************************************************
+ *                Current Weight Actions                *
+ ********************************************************/
+//Gets user's current weight
 export const getCurrentWeight = (id) => dispatch => {
   dispatch({ type: "GET_CURRENT_WEIGHT_START" });
   axios
-    .get(`http://localhost:4000/user/current-weight/${id}`)
+    .get(`http://localhost:4000/user/${id}/current-weight`)
     .then(res => {
       dispatch({
         type: "GET_CURRENT_WEIGHT_SUCCESS",
@@ -61,20 +69,62 @@ export const getCurrentWeight = (id) => dispatch => {
     );
 };
 
-//Updates current weight
+//Updates user's current weight
 //TODO: id is hard coded to 1 for testing. Need to pull
 export const updateCurrentWeight = infoObj => dispatch => {
-  dispatch({ type: "UPDATE_CURRENT_WEIGHT_START" });
+  dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
   const id = 1
   axios
-    .put(`http://localhost:4000/user/current-weight/${id}`, infoObj)
+    .post(`http://localhost:4000/user/${id}/current-weight`, infoObj)
     .then(res => {
       dispatch({
-        type: "UPDATE_CURRENT_WEIGHT_SUCCESS",
+        type: "ADD_CURRENT_WEIGHT_SUCCESS",
+        payload: {
+          weight_kg: res.data.weight_kg
+        }
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "ADD_CURRENT_WEIGHT_FAILURE", payload: err.message })
+    );
+};
+
+/********************************************************
+ *               Activity Level Actions                 *
+ ********************************************************/
+//Gets user's activity level
+export const getActivityLevel = (id) => dispatch => {
+  dispatch({ type: "GET_ACTIVITY_LEVEL_START" });
+  axios
+    .get(`http://localhost:4000/user/${id}/activity-level`)
+    .then(res => {
+      dispatch({
+        type: "GET_ACTIVITY_LEVEL_SUCCESS",
         payload: res.data
       });
     })
     .catch(err =>
-      dispatch({ type: "UPDATE_CURRENT_WEIGHT_FAILURE", payload: err.message })
+      dispatch({ type: "GET_ACTIVITY_LEVEL_FAILURE", payload: err.message })
+    );
+};
+
+//Updates user's current weight
+//TODO: id is hard coded to 1 for testing. Need to pull
+export const updateActivityLevel = infoObj => dispatch => {
+  dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
+  console.log("ACTION :", infoObj)
+  const id = 1
+  axios
+    .post(`http://localhost:4000/user/${id}/activity-level`, infoObj)
+    .then(res => {
+      dispatch({
+        type: "ADD_ACTIVITY_LEVEL_SUCCESS",
+        payload: {
+          activity_level: res.data.activity_level
+        }
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "ADD_ACTIVITY_LEVEL_FAILURE", payload: err.message })
     );
 };

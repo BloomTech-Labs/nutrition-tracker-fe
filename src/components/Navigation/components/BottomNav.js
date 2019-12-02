@@ -8,9 +8,9 @@ import {
 import { DailyLogSVG, RecipeSVG, ProgressSVG, SettingsSVG } from '../../Global/icons';
 import theme from '../../Global/theme';
 
-const BottomNav = ({display}) => {
+const BottomNav = ({displayNav}) => {
   return (
-    <NavContainer display={display}>
+    <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
           <NavLink href="/daily-log"><DailyLogSVG /></NavLink>
@@ -30,7 +30,7 @@ const BottomNav = ({display}) => {
 }
 
 const NavContainer = styled.div`
-  display: ${props => props.display ? "block" : "none"};
+  display: ${props => props.displayNav ? "block" : "none"};
 `;
 
 const NavBar = styled(BS_NavBar)`

@@ -34,10 +34,10 @@ const withNavigation = ({
         iconColor={iconColor}
         topNavColor={topNavColor}
         buttonColor={topNavColor}
-        display={displayTop}
+        displayNav={displayTop}
       />
       <Content height={contentHeight} {...theRest} />
-      <BottomNav display={displayBottom} />
+      <BottomNav displayNav={displayBottom} />
     </div>
   );
 };

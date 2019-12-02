@@ -36,7 +36,7 @@ import {
 
 function App() {
   return (
-    <ToastProvider number="5000">
+    <ToastProvider number="5000"> 
     <AppWrapper>
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={Login} />

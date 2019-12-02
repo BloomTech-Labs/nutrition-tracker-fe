@@ -52,7 +52,7 @@ const faMBIconColor = "white";
 const faChildIconColor = "#007bff";
 // End Styles
 
-// Diameter of the main button in pixels
+// Diameter of the main button and child buttons in pixels,
 const MAIN_BUTTON_DIAM = 75;
 const CHILD_BUTTON_DIAM = 48;
 const OFFSET = 0.05;
@@ -74,7 +74,7 @@ class Flywheel extends React.Component {
     this.NUM_CHILDREN = props.childButtonIcons.length;
     this.FLY_OUT_RADIUS = 130;
     this.SEPARATION_ANGLE = 40; //degrees
-    this.FAN_ANGLE = (this.NUM_CHILDREN - 3) * this.SEPARATION_ANGLE; //degrees //NEED TO ADJUST HERE WHEN ADDING OR DELETING ICONS
+    this.FAN_ANGLE = (this.NUM_CHILDREN - 3) * this.SEPARATION_ANGLE; //degrees //NEED TO ADJUST HERE WHEN ADDING OR DELETING CHILD ICONS
     this.BASE_ANGLE = (180 - this.FAN_ANGLE) / 2; // degrees
 
   }
@@ -242,7 +242,7 @@ class Flywheel extends React.Component {
   }
 
   toggleMenu = (e) => {
-    // this.addOverlay();   //turn this on if you are only using aboslute links or router links. Otherwise leave off as this will duplicate the default overlay provided by boostraps modal
+    // this.addOverlay(); //uncomment this only if you are using aboslute links or router links. Otherwise leave off as this will duplicate the default overlay provided by boostraps modal
     e.stopPropagation();
     let { isOpen } = this.state;
     this.setState({
@@ -468,4 +468,21 @@ class Flywheel extends React.Component {
 
 export default Flywheel;
 
+
+
+
+/***********************Flywheel Component Use*********************/
 // Here is the medium article to help along with designing process and basic functionality: https://medium.com/@nashvail/a-gentle-introduction-to-react-motion-dc50dd9f2459
+/*
+  1) Import the Flywheel component into the desired parent component per the usual process.
+  2) Import the desired Font Awesome icons that you are going to use as the main button and child links.
+  3) Make an named array of objects with these key:values: const childButtonIcons = [{ icon: faAppleAlt, name: "Food", isaLink: true, linkPath: "/login"}, { icon: faUtensils, name: "Recipe", isaLink: false }, ...]
+      - "icon" : font-awesome icon from the import.
+      - "name" : name that will appear on the child elements title and also use as the segue identifier for the modal view.
+      - "isaLink" : boolean type to check how the child element should handle a click (modal or link). These are the minimum three keys needed if the child element is not a link.
+      - "linkPath" : a link to an absoulte/relative path. 
+  4) Now Pass the required props to the Flywheel component. Use the props name EXACTLY as they are spelled in the example below:
+       <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/>   
+  5) That's it for Flywheel setup. Keep in mind that this component relys on React-Bootsrap's modals overlay and font-awesome icons to work properly. Happy hacking if you want to tailor it more your needs!
+  6) If you are using modals you will need to adjust what modal shows in the component FlywheelModal. See Notes for use.
+*/

@@ -49,9 +49,9 @@ class PopModal extends React.Component {
     } else if (this.props.segue === "Weight") {
       return (
         <RecordWeight
+          isEnabled={this.props.isEnabled}
           handleToggleClickProp={this.props.handleToggleClickProp}
           weight={this.state.weight}
-          isEnabled={this.props.isEnabled}
           handleRecordWeight={this.handleRecordWeight}
           handleInputChange={this.handleInputChange}
           handleClose={this.handleClose}
@@ -75,3 +75,11 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, { recordUserWeight })(PopModal);
+
+/***********************FlywheelModal Component Use*********************/
+ /*
+    1) We are conditionally rendering which bootstrap dependant child modal gets displayed by checking the "segue" prop that is passed in.
+    The segue value is the string "name" that was provided in the Flywheel child object and can be used to style and provide specific fucntionality for different modals. 
+    !Important, Spelling and Case must match segues value.
+ 
+ */

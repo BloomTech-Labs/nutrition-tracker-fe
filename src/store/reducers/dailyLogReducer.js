@@ -20,7 +20,7 @@ const initialState = {
     carbsConsumed: 0,
     proteinConsumed: 0
   },
-  dailyLog: null,
+  dailyLog: [],
   fetchBudgetStart: false,
   fetchBudgetSuccess: false,
   fetchBudgetFailure: false,
@@ -37,6 +37,7 @@ export const dailyLogReducer = (state = initialState, action) => {
         fetchBudgetStart: true,
         fetchBudgetSuccess: false,
         fetchBudgetFailure: false,
+        budgets: []
       };
     }
 
@@ -56,6 +57,7 @@ export const dailyLogReducer = (state = initialState, action) => {
         fetchBudgetStart: false,
         fetchBudgetSuccess: false,
         fetchBudgetFailure: true,
+        budgets: []
       };
     }
 
@@ -65,8 +67,8 @@ export const dailyLogReducer = (state = initialState, action) => {
         fetchDailyLogStart: true,
         fetchDailyLogSuccess: false,
         fetchDailyLogError: false,
-        consumed: initialState.consumed,
-        dailyLog: initialState.dailyLog
+        consumed: [],
+        dailyLog: []
       };
     }
 
@@ -87,8 +89,8 @@ export const dailyLogReducer = (state = initialState, action) => {
         fetchDailyLogStart: false,
         fetchDailyLogSuccess: false,
         fetchDailyLogError: true,
-        consumed: initialState.consumed,
-        dailyLog: initialState.dailyLog
+        consumed: [],
+        dailyLog: []
       };
     }
 

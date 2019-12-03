@@ -20,25 +20,6 @@ import PrivateRoute from "./components/PrivateRoute";
 // imports for toast wrapper 
 import { ToastProvider } from "react-toast-notifications";
 
-// imports for flywheel testing and example use
-import Flywheel from "./components/Global/flywheel-menu/Flywheel";
-import {
-  faAppleAlt,
-  faUtensils,
-  faWeight,
-  faTimes
-} from "@fortawesome/free-solid-svg-icons";
-
-  let childButtonIcons = [ 
-    {
-      icon: faAppleAlt,
-      name: "Food",
-      isaLink: true,
-      linkPath: "/login"
-    },
-    { icon: faUtensils, name: "Recipe", isaLink: false },
-    { icon: faWeight, name: "Weight", isaLink: false }
-  ];
 
 class App extends Component {
   render() {
@@ -50,8 +31,7 @@ class App extends Component {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/onboarding" component={Onboarding} />
-
-      <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/> 
+       
       </AppWrapper>
       </ToastProvider>
     );

@@ -121,6 +121,7 @@ class Flywheel extends React.Component {
       ) {
         return e;
       }
+      return null;
     });
 
     const joined = returnedNum.join("");
@@ -366,7 +367,7 @@ class Flywheel extends React.Component {
             {interpolatedStyles.map(
               ({ height, left, rotate, scale, top, width }, index) =>
                 this.props.childButtonIcons[index].isaLink ? (
-                  <Link to={this.props.childButtonIcons[index].linkPath}>
+                  <Link to={this.props.childButtonIcons[index].linkPath} key={index}>
                     <ChildButton
                       key={index}
                       style={{

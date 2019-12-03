@@ -7,7 +7,7 @@ import {
 import initialState from './initialState';
 
 
-export const flyWheelReducer = ( state = initialState, action ) => {
+export const flywheelReducer = ( state = initialState, action ) => {
 
     switch( action.type ) {
         case START_INSERT_WEIGHT:

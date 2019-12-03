@@ -7,7 +7,7 @@ const DefaultView = props => {
     <>
     <Modal show={props.isEnabled} onHide={()=>props.handleToggleClickProp()} >
     <Modal.Header closeButton>
-      <Modal.Title>Sorry, you link is broken</Modal.Title>
+      <Modal.Title>Sorry, the link is broken</Modal.Title>
     </Modal.Header>
       <Button variant="secondary" onClick={()=>props.handleToggleClickProp()}>
         Close

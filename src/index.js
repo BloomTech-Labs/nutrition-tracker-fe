@@ -46,11 +46,11 @@ const reactReduxFirebaseProps = {
 ReactDOM.render(
   // our redux provider wraps our firebase's react-redux provide which wraps our Router and then App
   <Provider store={store}>
-    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+   <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}> 
       <Router>
         <App />
       </Router>
-    </ReactReduxFirebaseProvider>
+   </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );

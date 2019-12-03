@@ -28,7 +28,7 @@ class PopModal extends React.Component {
       weight_kg: this.state.weight
     };
 
-    const payload = await this.props.recordUserWeight(newRecord);
+    const payload = await this.props.recordUserWeight(this.props.firebaseID, newRecord);
     return payload;
   };
 
@@ -70,7 +70,8 @@ class PopModal extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    adding: state.adding
+    adding: state.adding,
+    firebaseID: state.firebase.auth.uid
   };
 };
 

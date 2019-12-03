@@ -31,7 +31,7 @@ const RecordWeight = props => {
       <Modal
         show={props.isEnabled}
         onHide={() => {
-          return props.handleClose(), props.handleToggleClickProp();
+          return (props.handleClose(), props.handleToggleClickProp());
         }}
       >
         <Modal.Header closeButton>
@@ -45,7 +45,7 @@ const RecordWeight = props => {
                 <Form.Control
                   placeholder="Enter your weight..."
                   type="text"
-                  value={props.weight}
+                  value={props.weight || ""}
                   onChange={e => props.handleInputChange(e)}
                 />
               </Col>
@@ -65,7 +65,7 @@ const RecordWeight = props => {
           <Button
             variant="secondary"
             onClick={() => {
-              return props.handleClose(), props.handleToggleClickProp();
+              return (props.handleClose(), props.handleToggleClickProp());
             }}
           >
             Close

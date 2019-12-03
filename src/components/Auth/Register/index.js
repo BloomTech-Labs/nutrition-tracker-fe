@@ -47,14 +47,15 @@ class Register extends React.Component {
           path={path}
           render={props => (
             <RegisterOptions
-              {...props}
-              onboardingInfo={onboardingInfo}
-              path={path}
-              id="registerOptions"
+            {...props}
+            onboardingInfo={onboardingInfo}
+            path={path}
+            id="registerOptions"
             />
-          )}
-        />
+            )}
+            />
         <Route
+            id="emailRegisterRoute"
           path={`${path}/email`}
           render={props => (
             <RegisterWithEmail

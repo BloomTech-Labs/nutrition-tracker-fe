@@ -3,7 +3,7 @@ import RecordWeight from "./RecordWeight";
 import Recipe from "./Recipe";
 import DefaultView from "./DefaultView";
 import { connect } from "react-redux";
-import { recordUserWeight } from "../../../../actions/flywheelAction";
+import { recordUserWeight } from "../../../../store/actions/flywheelAction";
 
 class PopModal extends React.Component {
   constructor(props) {

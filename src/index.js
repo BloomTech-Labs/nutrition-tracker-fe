@@ -9,15 +9,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // normalize.css
 import "normalize.css";
 
-// Set up Redux and Router
+// Set up Redux, Router and Firebase's react-redux
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
 // Set up redux middleware and root reducer
-import rootReducer from "./reducers";
+import rootReducer from "./store/reducers";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import firebase from "./config/firebase";
 
 import App from "./App";
 
@@ -27,12 +29,28 @@ import * as serviceWorker from "./serviceWorker";
 // create our redux store and apply our middleware
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
+const reactReduxFirebaseConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: false,
+  attachAuthIsReady: true
+};
+
+const reactReduxFirebaseProps = {
+  firebase,
+  config: reactReduxFirebaseConfig,
+  dispatch: store.dispatch
+  // createFirestoreInstance // <- needed if using firestore
+};
+
 // wrap app with router and redux provider
 ReactDOM.render(
+  // our redux provider wraps our firebase's react-redux provide which wraps our Router and then App
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+      <Router>
+        <App />
+      </Router>
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );

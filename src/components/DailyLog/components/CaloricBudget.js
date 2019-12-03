@@ -38,14 +38,14 @@ const Total = styled.div`
 const Consumed = styled.div`
   display: flex;
   align-items: center;
-  width: ${props => props.percentBudget}%;
+  width: ${props => `${props.percentBudget}%`};
 
   height: 50px;
 
-  border-right: 1px solid ${theme.color.success};
+  border-right: ${props => props.percentBudget === 0 ? "none" : `1px solid ${theme.color.success}`};
   border-radius: 10px;
 
-  background-color: ${theme.color.success};
+  background-color: ${props => props.percentBudget >= 100 ? theme.color.danger : theme.color.success};
 `;
 
 const ConsumedCalories = styled(H2)`

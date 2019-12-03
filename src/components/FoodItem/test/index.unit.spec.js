@@ -152,15 +152,24 @@ describe("<SearchPage/>", () => {
       }
     });
 
+    const getOneFoodItem = jest.fn();
+
     const searchWrapper = await mount(
       <Provider store={store}>
-        <SearchPage />
+        <SearchPage getOneFoodItem={getOneFoodItem} />
       </Provider>
     );
 
     expect(
       searchWrapper
         .find(SearchResults)
+        .first()
+        .exists()
+    ).toBe(true);
+
+    expect(
+      searchWrapper
+        .find(SearchForm)
         .first()
         .exists()
     ).toBe(true);

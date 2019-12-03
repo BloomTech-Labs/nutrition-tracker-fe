@@ -22,7 +22,7 @@ class SearchResults extends React.Component {
         })}
       </TBody>
     ) : (
-      <tr />
+      <TBody />
     );
   }
 }

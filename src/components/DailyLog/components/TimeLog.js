@@ -1,13 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import moment from "moment-timezone";
-
 import { Row, Col } from "../../Global/styled";
 import { Table as BS_Table } from "reactstrap";
 
 const TimeLog = ({ dailyLog }) => {
-
-  console.log("[dailyLog]", dailyLog);
   return (
     <div>
       {dailyLog && dailyLog.map((interval, i) =>
@@ -20,8 +16,8 @@ const TimeLog = ({ dailyLog }) => {
                     {log.firstGroupLog 
                       ? log.hasTimeZoneDifference
                       ? <TimeHeader twoTimeZones>
-                          {log.intervalStartThere}<br/>
-                          <span>{log.intervalStartHere}</span>
+                          {log.intervalStartHere}<br/>
+                          <span>{log.intervalStartThere}</span>
                         </TimeHeader>
                       : <TimeHeader>
                           {log.intervalStart}
@@ -67,12 +63,16 @@ const Table = styled(BS_Table)`
 
 const TimeHeader = styled.th`
   font-size: 1.4rem;
-  text-align: ${props => props.twoTimeZones ? "left" : "center"};
+  text-align: right;
   border: none;
-  width: ${props => props.twoTimeZones ? "30%" : "20%"};
+  width: 25%;
+
+  white-space: nowrap;
 
   span {
     font-weight: lighter;
+    font-style: italic;
+    font-size: 1.2rem;
   }
 `;
 

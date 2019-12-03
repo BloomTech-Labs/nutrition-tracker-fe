@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import moment from "moment-timezone";
 
 const useGroupBy = (interval, dailyLog) => {
-  const [groupedDailyLog, setGroupedDailyLog] = useState(null);
+  const [groupedDailyLog, setGroupedDailyLog] = useState([]);
 
   let timeConsumedAt,
     timeConsumedAtHere,
@@ -15,7 +15,7 @@ const useGroupBy = (interval, dailyLog) => {
 
   useEffect(
     () => {
-      if (dailyLog) {
+      if (dailyLog.length !== 0) {
         groupIndex = -1;
         groupedLog = [[]];
 
@@ -37,10 +37,10 @@ const useGroupBy = (interval, dailyLog) => {
           ) {
             beginNewInterval(log.hasTimeZoneDifference);
             if(log.hasTimeZoneDifference) {
-              log.intervalStartThere = moment.tz(log.timeConsumedAtThere, log.timeZoneThereName).format("h:mm a z")
-              log.intervalStartHere = moment.tz(log.timeConsumedAtHere, log.timeZoneHereName).format("h:mm a z")
+              log.intervalStartThere = moment.tz(intervalStart, log.timeZoneThereName).format("h:mm a z")
+              log.intervalStartHere = moment.tz(intervalStart, log.timeZoneHereName).format("h:mm a z")
             } else {
-              log.intervalStart = moment.tz(log.timeConsumedAt, log.timeZoneName).format("h:mm a")
+              log.intervalStart = moment.tz(intervalStart, log.timeZoneName).format("h:mm a")
             }
 
             log.firstGroupLog = true;
@@ -48,24 +48,22 @@ const useGroupBy = (interval, dailyLog) => {
             groupedLog[groupIndex] = [log];
           } else {
             groupedLog[groupIndex].push(log);
-
-            if(groupedLog[groupIndex].length === 2) {
-              
-            }
           }
-          console.log("[i]            ", i);
-          console.log("[groupIndex]   ", groupIndex);
-          console.log("[timeConsumed] ", timeConsumedAt.format("hh:mma"));
-          console.log("[intervalStart]", intervalStart.format("hh:mma"));
-          console.log("[intervalEnd]  ", intervalEnd.format("hh:mma"));
-          console.log("[between?]     ", timeConsumedAt.isBetween(
-              intervalStart,
-              intervalEnd,
-              null,
-              inclusivity
-            ));
+          // console.log("[i]            ", i);
+          // console.log("[groupIndex]   ", groupIndex);
+          // console.log("[timeConsumed] ", timeConsumedAt.format("hh:mma"));
+          // console.log("[intervalStart]", intervalStart.format("hh:mma"));
+          // console.log("[intervalEnd]  ", intervalEnd.format("hh:mma"));
+          // console.log("[between?]     ", timeConsumedAt.isBetween(
+          //     intervalStart,
+          //     intervalEnd,
+          //     null,
+          //     inclusivity
+          //   ));
           setGroupedDailyLog(groupedLog);
         });
+      } else {
+        setGroupedDailyLog([])
       }
     },
     [dailyLog, interval]

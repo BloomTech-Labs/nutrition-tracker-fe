@@ -54,8 +54,7 @@ class FoodDetails extends React.Component {
       <Container>
         <>
           <Row>
-            <Col> Kale </Col>
-            <Col> 33 Cal </Col>
+            <Col>{this.props.item[0].name}</Col>
           </Row>
           <Row>
             <Col>

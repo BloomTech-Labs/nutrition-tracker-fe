@@ -76,7 +76,7 @@ class FoodDetails extends React.Component {
                 <DropdownToggle caret>
                   {this.state.dropDownSelectionKey !== false
                     ? this.props.item[this.state.dropDownSelectionKey]
-                        .measurement_description
+                        .serving_desc
                     : "Select"}
                 </DropdownToggle>
                 <DropdownMenu>
@@ -85,7 +85,7 @@ class FoodDetails extends React.Component {
                       key={key}
                       onClick={() => this.handleSelect(key)}
                     >
-                      {serving.measurement_description}
+                      {serving.serving_desc}
                     </DropdownItem>
                   ))}
                 </DropdownMenu>

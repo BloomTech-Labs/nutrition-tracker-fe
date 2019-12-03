@@ -77,7 +77,7 @@ export const googleLogin = () => dispatch => {
   dispatch({ type: "GOOGLE_LOGIN_START" });
   firebase
     .auth()
-    .signInWithPopup(googleProvider)
+    .signInWithRedirect(googleProvider)
     .then(res => {
       // google login response
       console.log("Google response:", res);
@@ -122,7 +122,7 @@ export const googleRegister = onboardingInfo => dispatch => {
   dispatch({ type: "GOOGLE_REGISTER_START" });
   firebase
     .auth()
-    .signInWithPopup(googleProvider)
+    .signInWithRedirect(googleProvider)
     .then(res => {
       // google login response
       console.log("Google response:", res);
@@ -175,7 +175,7 @@ export const facebookLogin = () => dispatch => {
   dispatch({ type: "FACEBOOK_LOGIN_START" });
   firebase
     .auth()
-    .signInWithPopup(facebookProvider)
+    .signInWithRedirect(facebookProvider)
     .then(res => {
       // facebook login response
       console.log("Facebook response:", res);
@@ -209,7 +209,7 @@ export const facebookRegister = onboardingInfo => dispatch => {
   dispatch({ type: "FACEBOOK_LOGIN_START" });
   firebase
     .auth()
-    .signInWithPopup(facebookProvider)
+    .signInWithRedirect(facebookProvider)
     .then(res => {
       // facebook login response
       console.log("Facebook response:", res);

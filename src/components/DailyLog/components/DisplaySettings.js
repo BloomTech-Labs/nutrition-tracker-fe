@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import { Row, Col, Input } from "../../Global/styled";
+import moment from "moment-timezone";
+import styled from "styled-components";
+import { Row, Col} from "../../Global/styled";
 import {
   Dropdown,
   DropdownToggle,
@@ -7,26 +9,29 @@ import {
   DropdownItem
 } from "reactstrap";
 
-const DisplaySettings = props => {
+const DisplaySettings = ({updateInterval, interval, currentDate, currentTimeZone}) => {  
   const [intervalDropdownOpen, setIntervalDropdownOpen] = useState(false);
-  const [timeZoneDropdownOpen, setTimeZoneDropdownOpen] = useState(false);
 
-  const toggleIntervalDropdown = (e) => {
-    setIntervalDropdownOpen(prevState => !prevState)
-  };
+  const toggleIntervalDropdown = () => setIntervalDropdownOpen(prevState => !prevState)
+  const handleSelection = e => updateInterval(e.target.value);
 
-  const handleSelection = e => {
-    props.updateInterval(e.target.value);
-  }
+  const gmtOffset = moment
+    .tz(currentDate, currentTimeZone)
+    .format("Z");
 
-  const toggleTimeZoneDropdown = () => setTimeZoneDropdownOpen(prevState => !prevState);
+  const tzAbbreviation = moment
+    .tz(currentDate, currentTimeZone)
+    .format("z");
 
   return (
     <Row>
       <Col justify="flex-start">
-        <Dropdown isOpen={intervalDropdownOpen} toggle={toggleIntervalDropdown}>
-          <DropdownToggle caret>{props.interval} min.</DropdownToggle>
-          <DropdownMenu onClick={handleSelection}>
+        <TimeZone>Current Time-Zone: <br/>{tzAbbreviation} (GMT{gmtOffset})</TimeZone>
+      </Col>
+      <Col justify="flex-end">
+        <Dropdown isOpen={intervalDropdownOpen} toggle={toggleIntervalDropdown} size="lg">
+          <DropdownToggle caret>Interval: {interval} min.</DropdownToggle>
+          <DropdownMenu onClick={handleSelection} size="lg">
             <DropdownItem header>Default</DropdownItem>
             <DropdownItem value={30}>30 min</DropdownItem>
             <DropdownItem divider />
@@ -38,22 +43,12 @@ const DisplaySettings = props => {
           </DropdownMenu>
         </Dropdown>
       </Col>
-      {/* <Col justify="flex-end">
-        <Dropdown isOpen={timeZoneDropdownOpen} toggle={toggleTimeZoneDropdown}>
-          <DropdownToggle caret>Time Zone</DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem header>Current Timezone</DropdownItem>
-            <DropdownItem>GMT+05</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>15 min.</DropdownItem>
-            <DropdownItem>30 min.</DropdownItem>
-            <DropdownItem>45 min.</DropdownItem>
-            <DropdownItem>1 hour</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </Col> */}
     </Row>
   );
 };
+
+const TimeZone = styled.span`
+  text-align: right;
+`;
 
 export default DisplaySettings;

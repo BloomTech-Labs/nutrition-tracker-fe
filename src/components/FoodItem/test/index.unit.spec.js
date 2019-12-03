@@ -3,6 +3,12 @@ import React from "react";
 import { Provider } from "react-redux";
 import SearchForm from "../searchForm";
 import SearchResults from "../searchResults";
+import SearchPage from "../searchPage";
+
+/*
+  [TODO]: !
+    SearchPage error => <tbody> cannot appear as a child of <div>
+*/
 
 let store;
 let wrapper;
@@ -95,7 +101,7 @@ describe("<SearchResults/>", () => {
       </Provider>
     );
     expect(searchWrapper.find("tr")).toHaveLength(0);
-    expect(searchWrapper.find("div")).toHaveLength(1);
+    expect(searchWrapper.find("tbody")).toHaveLength(1);
   });
 
   test("Click event calls store once when triggered", async () => {
@@ -121,5 +127,42 @@ describe("<SearchResults/>", () => {
     // We have three objects on the mock store, find will find the 3 of them and simulate click
     // therefore store.dispatch will has been called once per child rendered
     expect(handleGetFoodItem.mock.calls.length).toBe(1);
+  });
+});
+
+describe("<SearchPage/>", () => {
+  beforeEach(() => {
+    store = global._bigMockStore_();
+  });
+
+  test("Renders", async () => {
+    // We don't want to full render this component because it renders other and we will have to mock EVERYTHING.
+    const searchWrapper = await shallow(
+      <Provider store={store}>
+        <SearchPage />
+      </Provider>
+    );
+    expect(searchWrapper).toMatchSnapshot();
+  });
+
+  test("Renders <SearchForm/> and <SearchResults/>", async () => {
+    store = global._bigMockStore_({
+      foodItemsReducer: {
+        items: mockItems
+      }
+    });
+
+    const searchWrapper = await mount(
+      <Provider store={store}>
+        <SearchPage />
+      </Provider>
+    );
+
+    expect(
+      searchWrapper
+        .find(SearchResults)
+        .first()
+        .exists()
+    ).toBe(true);
   });
 });

@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<SearchPage/> Renders 1`] = `ShallowWrapper {}`;
+
 exports[`<SearchResults/> Renders 1`] = `ReactWrapper {}`;

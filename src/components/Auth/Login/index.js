@@ -63,7 +63,8 @@ const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
-    loading: state.auth.loggingIn
+    loading: state.firebase.isInitializing
+    // loading: state.auth.loggingIn
   };
 };
 

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { Container } from "../../Global/styled";
 
 import TopBar from "../../Onboarding/TopBar";
+import Loading from "../../Global/Loading";
 
 // Routes
 import RegisterOptions from "./RegisterOptions";
@@ -17,10 +18,13 @@ class Register extends React.Component {
     const { path } = this.props.match;
 
     // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn, dob } = this.props;
+    const { isLoggedIn, dob, loading } = this.props;
+
+    // loading page when user is logging in
+    if (isLoggedIn) return <Redirect to="/" />;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (loading) return <Loading />;
 
     // If page refreshes we will lose onboarding data and back end won't be updated properly
     // If one piece of data is not filled out then it none of them are
@@ -72,6 +76,9 @@ const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
+
+    // when user is logging we will throw up a loading screen
+    loading: state.firebase.isInitializing,
 
     // Pulling in this state from onboarding reducer so we can create the onboarding object to pass to register actions
     sex: state.onboarding.sex,

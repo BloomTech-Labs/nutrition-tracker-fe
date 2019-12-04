@@ -17,16 +17,23 @@ import Onboarding from "./components/Onboarding";
 import PrivateRoute from "./components/PrivateRoute";
 // import RequireAuth from "./components/Auth";
 
+// imports for toast wrapper 
+import { ToastProvider } from "react-toast-notifications";
+
+
 class App extends Component {
   render() {
     return (
+      <ToastProvider number="5000"> 
       <AppWrapper>
         <PrivateRoute exact path="/" component={DailyLog} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/onboarding" component={Onboarding} />
+       
       </AppWrapper>
+      </ToastProvider>
     );
   }
 }

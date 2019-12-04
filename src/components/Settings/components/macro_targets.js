@@ -16,32 +16,61 @@ import {
 const Macros = props => {
   const [modal, setModal] = useState(false);
 
-  const [fat, setFat] = useState("");
-  const [carbs, setCarbs] = useState("");
-  const [protein, setProtein] = useState("");
+  const [fat_ratio, setFat] = useState("");
+  const [carbs_ratio, setCarbs] = useState("");
+  const [protein_ratio, setProtein] = useState("");
 
   useEffect(() => {
     setFat(props.data.fat_ratio);
   }, [props.data.fat_ratio]);
+
+  useEffect(() => {
+    setCarbs(props.data.carbs_ratio);
+  }, [props.data.carbs_ratio]);
+
+  useEffect(() => {
+    setProtein(props.data.protein_ratio);
+  }, [props.data.protein_ratio]);
 
   const toggle = () => setModal(!modal);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Macronutrient Targets</div>
+        <div></div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Macronutrient Targets</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="email">Macronutrient Targets</Label>
+              <Label for="fat">Fat</Label>
               <Input
                 type="text"
-                name="email"
-                id="email"
-                value={email || ""}
-                onChange={e => setMac(e.target.value)}
+                name="fat"
+                id="fat"
+                value={fat_ratio || ""}
+                onChange={e => setFat(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="Carbs">Carbs</Label>
+              <Input
+                type="text"
+                name="Carbs"
+                id="Carbs"
+                value={carbs_ratio || ""}
+                onChange={e => setCarbs(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="protein">Protein</Label>
+              <Input
+                type="text"
+                name="protein"
+                id="protein"
+                value={protein_ratio || ""}
+                onChange={e => setProtein(e.target.value)}
               />
             </FormGroup>
           </Form>

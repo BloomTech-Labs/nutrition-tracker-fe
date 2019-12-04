@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { BackSVG } from "../../assets/svg-icons/index";
+import { BackSVG } from "../Global/icons";
 import { Row, Col } from "./styles";
 
 function TopBar(props) {
+  // This is our current tob bar component that will take use back to last page
+  // Will be replaced by HOC
   const handleClick = () => {
     props.history.goBack();
   };

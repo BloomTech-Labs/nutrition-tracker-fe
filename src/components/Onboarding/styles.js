@@ -9,30 +9,17 @@ import {
 } from "reactstrap";
 
 export const Container = styled(BS_Container)`
-  ${props => theme.flex(props.direction, props.justify, props.align)}
+  ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
   height: 100vh;
-
-  /* border: 1px solid red; */
 `;
 
 export const Row = styled(BS_Row)`
-  ${props => theme.flex(props.direction, props.justify, props.align)}
+  ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
   height: ${({ height }) => (height ? height : "auto")};
-
-  /* border: 1px solid blue; */
 `;
 
 export const Col = styled(BS_Col)`
-  ${props =>
-    theme.flex(
-      props.direction,
-      props.justify,
-      props.align
-    )} /* border: 1px solid green; */
-`;
-
-export const Header = styled.h1`
-  font-size: 2.8rem;
+  ${props => theme.mixin.flex(props.direction, props.justify, props.align)}
 `;
 
 export const Input = styled(BS_Input)`
@@ -48,4 +35,8 @@ export const PillButton = styled(BS_Button)`
   font-size: 2rem;
 
   margin-top: 20px;
+`;
+
+export const Header = styled.h1`
+  font-size: 2.8rem;
 `;

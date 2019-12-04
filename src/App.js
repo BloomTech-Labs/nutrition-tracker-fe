@@ -17,6 +17,7 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 // import RequireAuth from "./components/Auth";
+import { ToastProvider } from "react-toast-notifications";
 
 const DailyLogWithNav = withNavigation({
   displayTop: false
@@ -25,13 +26,16 @@ const DailyLogWithNav = withNavigation({
 class App extends Component {
   render() {
     return (
+      <ToastProvider number="5000"> 
       <AppWrapper>
         <PrivateRoute exact path="/" component={DailyLogWithNav} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/onboarding" component={Onboarding} />
+       
       </AppWrapper>
+      </ToastProvider>
     );
   }
 }

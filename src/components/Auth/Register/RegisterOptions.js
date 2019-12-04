@@ -39,7 +39,12 @@ class Register extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton onClick={this.handleGoogleAuth} outline color="primary">
+            <PillButton
+              onClick={this.handleGoogleAuth}
+              outline
+              color="primary"
+              id="googleRegister"
+            >
               <Row align="center">
                 <Col xs="3">
                   <GoogleSVG />
@@ -56,6 +61,7 @@ class Register extends Component {
               onClick={this.handleFacebookAuth}
               outline
               color="primary"
+              id="facebookRegister"
             >
               <Row align="center">
                 <Col xs="3">
@@ -75,6 +81,7 @@ class Register extends Component {
               onClick={() => this.props.history.push(`${path}/email`)}
               outline
               color="primary"
+              id="emailRegister"
             >
               <Row align="center">
                 <Col xs="3">
@@ -103,6 +110,7 @@ const mapStateToProps = state => {
   };
 };
 
+export { Register };
 export default connect(mapStateToProps, {
   googleRegister,
   facebookRegister

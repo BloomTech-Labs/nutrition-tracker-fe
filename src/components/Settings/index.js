@@ -17,11 +17,11 @@ import {
 } from "../../store/actions/settingsActions";
 import {logout} from "../../store/actions/firebaseAuth"
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/Height";
-import Dob from "./components/Dob";
-import Email from "./components/Email";
+import Height from "./components/height";
+import Dob from "./components/dob";
+import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
-import Gender from "./components/Gender";
+import Gender from "./components/gender";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
 

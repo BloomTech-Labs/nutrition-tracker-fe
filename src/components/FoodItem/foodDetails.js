@@ -12,8 +12,7 @@ import {
 } from "reactstrap";
 import { DropdownToggle } from "../Global/styled";
 import { Doughnut } from "react-chartjs-2";
-import { Input } from "../Global/styled";
-import { TBody } from "../Global/styled/";
+import { TBody, Input, H2 } from "../Global/styled/";
 import formatDecimal from "../Global/helpers/formatDecimals";
 
 class FoodDetails extends React.Component {
@@ -54,7 +53,9 @@ class FoodDetails extends React.Component {
       <Container>
         <>
           <Row>
-            <Col>{this.props.item[0].name}</Col>
+            <Col>
+              <H2>{this.props.item[0].food_name}</H2>
+            </Col>
           </Row>
           <Row>
             <Col>

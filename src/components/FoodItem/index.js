@@ -4,7 +4,7 @@ import { searchFoodItems } from "../../store/actions/foodItemAction";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
-import { WithLoading } from "../Global/loading";
+import WithLoading from "../Global/loading/withLoading";
 
 const FoodDetailsWithLoading = WithLoading(FoodDetails);
 

@@ -1,4 +1,5 @@
-import axiosWithAuth from "./AxiosWithAuth";
+//import axiosWithAuth from "./AxiosWithAuth";
+import axios from 'axios';
 
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";

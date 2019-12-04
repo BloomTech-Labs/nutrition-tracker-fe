@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Route, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -20,8 +19,8 @@ class Register extends React.Component {
     // once user logs in isLoggedIn will be true and route you to home page
     const { isLoggedIn, dob, loading } = this.props;
 
-    // loading page when user is logging in
-    if (isLoggedIn) return <Redirect to="/" />;
+    // If user is logged in on login page redirects them to protected route
+    if (isLoggedIn) return <Redirect to="/" id="homeRedirect" />;
 
     // If user is logged in on login page redirects them to protected route
     if (loading) return <Loading />;
@@ -29,7 +28,7 @@ class Register extends React.Component {
     // If page refreshes we will lose onboarding data and back end won't be updated properly
     // If one piece of data is not filled out then it none of them are
     // In that even we will redirect them to the landing page to fill out the info again
-    if (!dob) return <Redirect to="/landing" />;
+    if (!dob) return <Redirect to="/landing" id="landingRedirect" />;
 
     // Onboarding object we send to back end
     // Passing this object down to RegisterOptions and RegisterWithEmail components
@@ -54,16 +53,19 @@ class Register extends React.Component {
               {...props}
               onboardingInfo={onboardingInfo}
               path={path}
+              id="registerOptions"
             />
           )}
         />
         <Route
+          id="emailRegisterRoute"
           path={`${path}/email`}
           render={props => (
             <RegisterWithEmail
               {...props}
               onboardingInfo={onboardingInfo}
               path={path}
+              id="registerWithEmail"
             />
           )}
         />
@@ -72,7 +74,7 @@ class Register extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
@@ -90,4 +92,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { Register };
 export default connect(mapStateToProps, {})(Register);

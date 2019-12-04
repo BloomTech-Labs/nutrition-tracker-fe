@@ -7,10 +7,10 @@ import {
 } from 'reactstrap';
 import { DailyLogSVG, RecipeSVG, ProgressSVG, SettingsSVG } from '../../Global/icons';
 import theme from '../../Global/theme';
-​
-const BottomNav = ({display}) => {
+
+const BottomNav = ({displayNav}) => {
   return (
-    <NavContainer display={display}>
+    <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
           <NavLink href="/daily-log"><DailyLogSVG /></NavLink>
@@ -28,25 +28,25 @@ const BottomNav = ({display}) => {
     </NavContainer>
   )
 }
-​
+
 const NavContainer = styled.div`
-  display: ${props => props.display ? "block" : "none"};
+  display: ${props => props.displayNav ? "block" : "none"};
 `;
-​
+
 const NavBar = styled(BS_NavBar)`
   ${theme.mixin.flex("row", "space-between", "center")};
-​
+
   height: 50px;
   padding: 0;
-​
+
   background-color: black;
 `;
-​
+
 const NavItem = styled(BS_NavItem)`
   ${theme.mixin.flex("row", "center", "center")};
-​
+
   width: 25%;
   height: 100%;
 `;
-​
+
 export default BottomNav;

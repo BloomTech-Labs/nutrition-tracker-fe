@@ -35,7 +35,12 @@ class LoginOptions extends Component {
         </Row>
         <Row>
           <Col>
-            <PillButton onClick={this.handleGoogleAuth} outline color="primary">
+            <PillButton
+              onClick={this.handleGoogleAuth}
+              outline
+              color="primary"
+              id="googleAuth"
+            >
               <Row align="center">
                 <Col xs="3">
                   <GoogleSVG />
@@ -53,6 +58,7 @@ class LoginOptions extends Component {
               onClick={this.handleFacebookAuth}
               outline
               color="primary"
+              id="facebookAuth"
             >
               <Row align="center">
                 <Col xs="3">
@@ -71,6 +77,7 @@ class LoginOptions extends Component {
               onClick={() => this.props.history.push(`${path}/email`)}
               outline
               color="primary"
+              id="emailAuth"
             >
               <Row align="center">
                 <Col xs="3">
@@ -92,4 +99,5 @@ const ButtonLabel = styled.div`
   font-size: 1.6rem;
 `;
 
+export { LoginOptions };
 export default connect(null, { googleLogin, facebookLogin })(LoginOptions);

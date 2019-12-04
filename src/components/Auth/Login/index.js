@@ -40,6 +40,7 @@ class Login extends React.Component {
           )}
         />
         <Route
+          id="emailRoute"
           path={`${path}/email`}
           render={props => (
             <LoginWithEmail
@@ -54,11 +55,12 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty
   };
 };
 
+export {Login};
 export default connect(mapStateToProps, {})(Login);

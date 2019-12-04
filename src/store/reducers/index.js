@@ -3,10 +3,12 @@ import { combineReducers } from "redux";
 import { firebaseReducer } from "react-redux-firebase";
 import { onboardingReducer } from "./onboardingReducer";
 import { updateUserInfo } from "./settingsReducer";
+import { flywheelReducer }  from "./flywheelReducer"; 
 
 export default combineReducers({
   // myCustomAuth: firebaseAuth,
   firebase: firebaseReducer,
   onboarding: onboardingReducer,
-  updateUserInfo: updateUserInfo
+  updateUserInfo: updateUserInfo,
+  flywheel: flywheelReducer
 });

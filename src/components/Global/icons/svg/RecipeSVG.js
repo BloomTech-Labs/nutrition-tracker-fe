@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default ({
-  width = '28',
-  height = '30',
+  width = '32',
+  height = '34',
   fill = '000000',
   margin = '0 0 0 0',
   padding = '0 0 0 0',
-  viewBox = '0 0 28 30'
+  viewBox = '0 0 32 34'
 }) => {
   return (
     <svg

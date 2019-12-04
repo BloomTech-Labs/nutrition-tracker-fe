@@ -13,7 +13,7 @@ import "normalize.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-//import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
 // Set up redux middleware and root reducer
 import rootReducer from "./store/reducers";
@@ -46,11 +46,11 @@ const reactReduxFirebaseProps = {
 ReactDOM.render(
   // our redux provider wraps our firebase's react-redux provide which wraps our Router and then App
   <Provider store={store}>
-    {/* <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}> */}
+    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
       <Router>
         <App />
       </Router>
-    {/* </ReactReduxFirebaseProvider> */}
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {ListStyle} from "../styles";
+import { ListStyle } from "../styles";
 import moment from "moment";
-import {InputGroupWithIcon} from "../../Global/styled/index";
+import { InputGroupWithIcon } from "../../Global/styled/index";
 import {
   Button,
   Modal,
@@ -11,8 +11,7 @@ import {
   ListGroupItem,
   Form,
   FormGroup,
-  Label,
-  Input,
+  Label
 } from "reactstrap";
 import { CalendarSVG } from "../../Global/icons";
 
@@ -21,15 +20,16 @@ const Dob = props => {
 
   const [dob, setDob] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     setDob(props.data.dob);
-  }, [props.data.dob])
+  }, [props.data.dob]);
 
   const toggle = () => setModal(!modal);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
+        {/* Formats date to be displayed to the user */}
         <div>{moment(dob).format("MMM Do YY")}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
@@ -43,17 +43,17 @@ const Dob = props => {
                 name="date_of_birth"
                 icon={CalendarSVG}
                 placeholder="MM/DD/YYYY"
-                handleChange={(e) => setDob(e.target.value)}
+                handleChange={e => setDob(e.target.value)}
               />
             </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-        <Button
+          <Button
             color="primary"
             onClick={() => {
               toggle();
-              props.updateUser({dob: toIsoDateString(dob)});
+              props.updateUser({ dob: toIsoDateString(dob) });
             }}
           >
             Update
@@ -67,9 +67,9 @@ const Dob = props => {
   );
 };
 
+//Formats the date how the DB needs it.
 function toIsoDateString(date) {
-  return new Date(date).toISOString()
+  return new Date(date).toISOString();
 }
-
 
 export default Dob;

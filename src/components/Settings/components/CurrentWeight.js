@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {ListStyle} from "../styles";
+import { ListStyle } from "../styles";
 import {
   Button,
   Modal,
@@ -10,7 +10,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
+  Input
 } from "reactstrap";
 
 const Weight = props => {
@@ -18,9 +18,9 @@ const Weight = props => {
 
   const [weight, setWeight] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     setWeight(props.data.weight_lbs);
-  }, [props.data.weight_lbs])
+  }, [props.data.weight_lbs]);
 
   const toggle = () => setModal(!modal);
   return (
@@ -39,14 +39,14 @@ const Weight = props => {
                 type="text"
                 name="weight"
                 id="weight"
-                value={weight||""}
-                onChange={(e) => setWeight(e.target.value)}
+                value={weight || ""}
+                onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>
           </Form>
         </ModalBody>
         <ModalFooter>
-        <Button
+          <Button
             color="primary"
             onClick={() => {
               toggle();
@@ -64,10 +64,10 @@ const Weight = props => {
   );
 };
 
-// Converts height to centimeters
+// Converts height to centimeters to be returned to the DB.
 function lbsToKgs(lbs) {
-  const kg = lbs * 0.45359237
-  return {weight_kg: kg}
+  const kg = lbs * 0.45359237;
+  return { weight_kg: kg };
 }
 
 export default Weight;

@@ -12,6 +12,11 @@ const initialState = {
   },
   weight_lbs: "",
   activity_level: "",
+  fat_ratio: "",
+  protein_ratio: "",
+  carb_ratio: "",
+  weekly_goal_rate: "",
+  weight_goal_kg: "",
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
@@ -183,7 +188,6 @@ case "ADD_ACTIVITY_LEVEL_START": {
   };
 }
 case "ADD_ACTIVITY_LEVEL_SUCCESS": {
-  console.log(action.payload)
   return {
     ...state,
     activity_level: action.payload.activity_level,
@@ -202,12 +206,122 @@ case "ADD_ACTIVITY_LEVEL_FAILURE": {
   };
 }
 
+/********************************************************
+ *                    Macro Cases                       *
+ ********************************************************/    
+case "GET_MACROS_START": {
+  return {
+    ...state,
+    getInfoStart: true,
+    getInfoSuccess: false,
+    getInfoFailure: false,
+  };
+}
+case "GET_MACROS_SUCCESS": {
+  return {
+    ...state,
+    fat_ratio: action.payload.fat_ratio,
+    protein_ratio: action.payload.protein_ratio,
+    carb_ratio: action.payload.carb_ratio,
+    getInfoStart: false,
+    getInfoSuccess: true,
+    getInfoFailure: false
+  };
+}
+case "GET_MACROS_FAILURE": {
+  return {
+    ...state,
+    getInfoStart: false,
+    getInfoSuccess: false,
+    getInfoFailure: true,
+  };
+}
+case "ADD_MACROS_START": {
+  return {
+    ...state,
+    updateStart: true,
+    updateSuccess: false,
+    updateFailure: false
+  };
+}
+case "ADD_MACROS_SUCCESS": {
+  return {
+    ...state,
+    fat_ratio: action.payload.activity_level,
+    protein_ratio: action.payload.protein_ratio,
+    carb_ratio: action.payload.carb_ratio,
+    updateStart: false,
+    updateSuccess: true,
+    updateFailure: false
+  };
+}
+case "ADD_MACROS_FAILURE": {
+  return {
+    ...state,
+    updateStart: false,
+    updateSuccess: false,
+    updateFailure: true,
+    errorMessage: action.payload
+  };
+}
+
+/********************************************************
+ *                Weight Goal Cases                     *
+ ********************************************************/    
+case "GET_WEIGHT_GOAL_START": {
+  return {
+    ...state,
+    getInfoStart: true,
+    getInfoSuccess: false,
+    getInfoFailure: false,
+  };
+}
+case "GET_WEIGHT_GOAL_SUCCESS": {
+  return {
+    ...state,
+    weekly_goal_rate: action.payload.weekly_goal_rate,
+    weight_goal_kg: action.payload.weight_goal_kg,
+    getInfoStart: false,
+    getInfoSuccess: true,
+    getInfoFailure: false
+  };
+}
+case "GET_WEIGHT_GOAL_FAILURE": {
+  return {
+    ...state,
+    getInfoStart: false,
+    getInfoSuccess: false,
+    getInfoFailure: true,
+  };
+}
+case "ADD_WEIGHT_GOAL_START": {
+  return {
+    ...state,
+    updateStart: true,
+    updateSuccess: false,
+    updateFailure: false
+  };
+}
+case "ADD_WEIGHT_GOAL_SUCCESS": {
+  return {
+    ...state,
+    weekly_goal_rate: action.payload.weekly_goal_rate,
+    weight_goal_kg: action.payload.weight_goal_kg,
+    updateStart: false,
+    updateSuccess: true,
+    updateFailure: false
+  };
+}
+case "ADD_WEIGHT_GOAL_FAILURE": {
+  return {
+    ...state,
+    updateStart: false,
+    updateSuccess: false,
+    updateFailure: true,
+    errorMessage: action.payload
+  };
+}
     default:
       return state;
   }
 };
-
-// export const getUserInfo = (state = initialState, action) => {
-//   switch (action.type) {
-    
-// };

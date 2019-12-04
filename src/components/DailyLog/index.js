@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 import defaultUserImage from "../../default-user-pic.jpeg";
 
@@ -41,6 +42,7 @@ class DailyLog extends Component {
             Sign out
           </PillButton>
         </div>
+        <Link to="/settings">Settings</Link>
       </HomeWrapper>
     );
   }

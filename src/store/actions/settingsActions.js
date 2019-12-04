@@ -34,9 +34,8 @@ export const getUserInfo = (id) => dispatch => {
 
 //Updates user
 //TODO: id is hard coded to 1 for testing. Need to pull
-export const updateUserInfo = (infoObj) => dispatch => {
+export const updateUserInfo = (infoObj, id) => dispatch => {
   dispatch({ type: "UPDATE_INFO_START" });
-  const id = 1
   axios
     .put(`http://localhost:4000/user/${id}`, infoObj)
     .then(res => {
@@ -71,9 +70,8 @@ export const getCurrentWeight = (id) => dispatch => {
 
 //Updates user's current weight
 //TODO: id is hard coded to 1 for testing. Need to pull
-export const updateCurrentWeight = infoObj => dispatch => {
+export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
-  const id = 1
   axios
     .post(`http://localhost:4000/user/${id}/current-weight`, infoObj)
     .then(res => {
@@ -108,12 +106,10 @@ export const getActivityLevel = (id) => dispatch => {
     );
 };
 
-//Updates user's current weight
+//Updates user's activity level
 //TODO: id is hard coded to 1 for testing. Need to pull
-export const updateActivityLevel = infoObj => dispatch => {
+export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
-  console.log("ACTION :", infoObj)
-  const id = 1
   axios
     .post(`http://localhost:4000/user/${id}/activity-level`, infoObj)
     .then(res => {
@@ -126,5 +122,84 @@ export const updateActivityLevel = infoObj => dispatch => {
     })
     .catch(err =>
       dispatch({ type: "ADD_ACTIVITY_LEVEL_FAILURE", payload: err.message })
+    );
+};
+
+/********************************************************
+ *                   Macro Actions                      *
+ ********************************************************/
+//Gets user's macros
+export const getMacros = (id) => dispatch => {
+  dispatch({ type: "GET_MACROS_START" });
+  axios
+    .get(`http://localhost:4000/user/${id}/macro-ratios`)
+    .then(res => {
+      dispatch({
+        type: "GET_MACROS_SUCCESS",
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "GET_MACROS_FAILURE", payload: err.message })
+    );
+};
+
+//Updates user's macros
+//TODO: id is hard coded to 1 for testing. Need to pull
+export const updateMacros = (infoObj, id) => dispatch => {
+  dispatch({ type: "ADD_MACROS_START" });
+  axios
+    .post(`http://localhost:4000/user/${id}/macro-ratios`, infoObj)
+    .then(res => {
+      dispatch({
+        type: "ADD_MACROS_SUCCESS",
+        payload: {
+          fat_ratio: res.data.fat_ratio,
+          protein_ratio: res.data.protein_ratio,
+          carb_ratio: res.data.carb_ratio
+        }
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "ADD_MACROS_FAILURE", payload: err.message })
+    );
+};
+
+/********************************************************
+ *                  Weight Goal Actions                 *
+ ********************************************************/
+//Gets user's macros
+export const getWeightGoal = (id) => dispatch => {
+  dispatch({ type: "GET_WEIGHT_GOAL_START" });
+  axios
+    .get(`http://localhost:4000/user/${id}/weight-goal`)
+    .then(res => {
+      dispatch({
+        type: "GET_WEIGHT_GOAL_SUCCESS",
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "GET_WEIGHT_GOAL_FAILURE", payload: err.message })
+    );
+};
+
+//Updates user's macros
+//TODO: id is hard coded to 1 for testing. Need to pull
+export const updateWeightGoal = (infoObj, id) => dispatch => {
+  dispatch({ type: "ADD_WEIGHT_GOAL_START" });
+  axios
+    .post(`http://localhost:4000/user/${id}/weight-goal`, infoObj)
+    .then(res => {
+      dispatch({
+        type: "ADD_WEIGHT_GOAL_SUCCESS",
+        payload: {
+          weekly_goal_rate: res.data.weekly_goal_rate,
+          weight_goal_kg: res.data.weight_goal_kg
+        }
+      });
+    })
+    .catch(err =>
+      dispatch({ type: "ADD_WEIGHT_GOAL_FAILURE", payload: err.message })
     );
 };

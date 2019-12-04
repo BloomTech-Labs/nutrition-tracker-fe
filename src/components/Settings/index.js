@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Container } from "../Global/styled";
+import {Redirect} from "react-router-dom";
 import { ListStyle, HeadingStyle } from "./styles";
 import {
   getUserInfo,
@@ -14,6 +15,7 @@ import {
   getMacros,
   updateMacros
 } from "../../store/actions/settingsActions";
+import {logout} from "../../store/actions/firebaseAuth"
 import { ListGroup, ListGroupItem } from "reactstrap";
 import Height from "./components/Height";
 import Dob from "./components/Dob";
@@ -54,7 +56,13 @@ class Settings extends React.Component {
     this.props.updateWeightGoal(update, this.props.firebaseID);
   };
 
+  logout = () => {
+    this.props.logout();
+    //window.location.reload(true);
+  }
+
   render() {
+    if (!this.props.firebaseID) return <Redirect to="/landing" />
     return (
       <Container height={this.props.height} fluid>
         <ListGroup>
@@ -74,7 +82,7 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle}>MacroNutrient Targets</ListGroupItem>
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
+          <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>Logout</ListGroupItem>
           <Email updateUser={this.updateUser} data={this.props.userInfo} />
           {/* <Password /> For RC2*/} 
         </ListGroup>
@@ -100,5 +108,6 @@ export default connect(mapStateToProps, {
   getWeightGoal,
   updateWeightGoal,
   getMacros,
-  updateMacros
+  updateMacros,
+  logout
 })(Settings);

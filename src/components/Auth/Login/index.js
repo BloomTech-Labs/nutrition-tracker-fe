@@ -2,7 +2,6 @@ import React from "react";
 
 import { Route, Redirect } from "react-router-dom";
 
-import TopBar from "../../Onboarding/TopBar";
 import { Container } from "../../Global/styled";
 
 // Routes
@@ -29,9 +28,7 @@ class Login extends React.Component {
     if (loading) return <Loading />;
     // Sets up routes for Login pages
     return (
-      <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
-
+      <Container justify="center" fluid={true} height={this.props.height}>
         <Route
           exact
           path={path}
@@ -69,5 +66,5 @@ export const mapStateToProps = state => {
   };
 };
 
-export {Login};
+export { Login };
 export default connect(mapStateToProps, {})(Login);

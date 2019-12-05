@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Container } from "../Global/styled";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { ListStyle, HeadingStyle } from "./styles";
 import {
   getUserInfo,
@@ -15,15 +15,16 @@ import {
   getMacros,
   updateMacros
 } from "../../store/actions/settingsActions";
-import {logout} from "../../store/actions/firebaseAuth"
+import { logout } from "../../store/actions/firebaseAuth";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/Height";
-import Dob from "./components/Dob";
-import Email from "./components/Email";
+import Height from "./components/height";
+import Dob from "./components/dob";
+import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
-import Gender from "./components/Gender";
+import Gender from "./components/gender";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
+import Loading from "../Global/Loading";
 
 class Settings extends React.Component {
   componentDidMount() {
@@ -58,11 +59,15 @@ class Settings extends React.Component {
 
   logout = () => {
     this.props.logout();
-    //window.location.reload(true);
-  }
+  };
 
   render() {
-    if (!this.props.firebaseID) return <Redirect to="/landing" />
+    const { loading, token } = this.props;
+
+    if (loading) return <Loading />;
+
+    if (!token) return <Redirect to="/landing" />;
+
     return (
       <Container height={this.props.height} fluid>
         <ListGroup>
@@ -82,9 +87,11 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle}>MacroNutrient Targets</ListGroupItem>
           <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
-          <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>Logout</ListGroupItem>
+          <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
+            Logout
+          </ListGroupItem>
           <Email updateUser={this.updateUser} data={this.props.userInfo} />
-          {/* <Password /> For RC2*/} 
+          {/* <Password /> For RC2*/}
         </ListGroup>
       </Container>
     );
@@ -94,7 +101,12 @@ class Settings extends React.Component {
 const mapStateToProps = state => {
   return {
     userInfo: state.updateUserInfo,
-    firebaseID: state.firebase.auth.uid
+    firebaseID: state.firebase.auth.uid,
+    loading: !state.firebase.auth.isLoaded,
+    token:
+      state.firebase.auth &&
+      state.firebase.auth.stsTokenManager &&
+      state.firebase.auth.stsTokenManager.accessToken
   };
 };
 

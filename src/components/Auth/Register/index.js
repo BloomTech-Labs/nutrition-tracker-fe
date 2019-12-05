@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 import { Container } from "../../Global/styled";
 
-import TopBar from "../../Onboarding/TopBar";
 import Loading from "../../Global/Loading";
 
 // Routes
@@ -43,8 +42,7 @@ class Register extends React.Component {
     };
 
     return (
-      <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
+      <Container justify="center" fluid={true} height={this.props.height}>
         <Route
           exact
           path={path}

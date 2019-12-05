@@ -6,11 +6,15 @@ import { AppWrapper } from "./components/Global/styled";
 // Set up routes
 import { Route } from "react-router-dom";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 // importing component pages for routes
 import DailyLog from "./components/DailyLog";
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import FoodItem from "./components/FoodItem";
 import Onboarding from "./components/Onboarding";
 import Settings from "./components/Settings";
 
@@ -20,8 +24,12 @@ import PrivateRoute from "./components/PrivateRoute";
 
 import withNavigation from "./components/Navigation/withNavigation";
 
+// TODO: Fix ToastProvider
+
 // imports for toast wrapper
 // import { ToastProvider } from "react-toast-notifications";
+
+library.add(faSearch);
 
 const SettingsWithNav = withNavigation({
   pageTitle: "Settings"

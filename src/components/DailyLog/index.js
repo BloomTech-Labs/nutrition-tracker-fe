@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PillButton, Container } from "../Global/styled";
 
-import Loading from "../Global/Loading";
+import Loading from "../Global/loading";
 
 class DailyLog extends Component {
   // Offers the user a way out, a chance at a better life

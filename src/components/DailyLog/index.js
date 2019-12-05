@@ -28,9 +28,9 @@ const DailyLog = ({ height }) => {
   
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  useEffect(() => dispatch(fetchNutritionBudgets()), [dispatch]);
+  useEffect(() => dispatch(fetchNutritionBudgets(12345)), [dispatch]);
   
-  useEffect(() => dispatch(fetchDailyLog(currentDate, currentTimeZone)), [
+  useEffect(() => dispatch(fetchDailyLog(12345, currentDate, currentTimeZone)), [
     currentDate,
     currentTimeZone,
     dispatch

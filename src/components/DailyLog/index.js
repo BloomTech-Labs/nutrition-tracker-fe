@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 import defaultUserImage from "../../default-user-pic.jpeg";
 
@@ -9,7 +10,7 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { PillButton } from "../Global/styled";
 
-import Loading from "../Global/Loading";
+import Loading from "../Global/loading";
 
 class DailyLog extends Component {
   // Offers the user a way out, a chance at a better life
@@ -41,6 +42,7 @@ class DailyLog extends Component {
             Sign out
           </PillButton>
         </div>
+        <Link to="/settings">Settings</Link>
       </HomeWrapper>
     );
   }

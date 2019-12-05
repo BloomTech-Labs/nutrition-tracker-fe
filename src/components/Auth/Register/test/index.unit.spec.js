@@ -107,11 +107,10 @@ describe("<Register />", () => {
             match={{ path: "/register" }}
             dob={fakeUserOnboarding.dob}
             sex={fakeUserOnboarding.sex}
-      activity_level={fakeUserOnboarding.activity_level}
-      dob={fakeUserOnboarding.dob}
-      weight_kg={fakeUserOnboarding.weight_kg}
-      height_cm={fakeUserOnboarding.height_cm}
-      weekly_goal_rate={fakeUserOnboarding.weekly_goal_rate}
+            activity_level={fakeUserOnboarding.activity_level}
+            weight_kg={fakeUserOnboarding.weight_kg}
+            height_cm={fakeUserOnboarding.height_cm}
+            weekly_goal_rate={fakeUserOnboarding.weekly_goal_rate}
           />
         </Provider>
       </MemoryRouter>
@@ -123,7 +122,12 @@ describe("<Register />", () => {
         .first()
         .exists()
     ).toBe(true);
-    expect(wrapper.find("#registerOptions").first().props().onboardingInfo).toStrictEqual(fakeUserOnboarding);
+    expect(
+      wrapper
+        .find("#registerOptions")
+        .first()
+        .props().onboardingInfo
+    ).toStrictEqual(fakeUserOnboarding);
     // -------|
 
     // ------ User is not logged in and dob provided, on /register/email
@@ -162,8 +166,18 @@ describe("<Register />", () => {
     expect(wrapper.find("#googleRegister").exists()).toBe(true);
     expect(wrapper.find("#facebookRegister").exists()).toBe(true);
     // console.log(wrapper.debug())
-    expect(wrapper.find("Register").first().props().googleRegister).toBeTruthy();
-	expect(wrapper.find("Register").first().props().facebookRegister).toBeTruthy();
+    expect(
+      wrapper
+        .find("Register")
+        .first()
+        .props().googleRegister
+    ).toBeTruthy();
+    expect(
+      wrapper
+        .find("Register")
+        .first()
+        .props().facebookRegister
+    ).toBeTruthy();
     // ------|
 
     // ------ If registration was successful, render a Redirect component
@@ -221,7 +235,7 @@ describe("<Register />", () => {
   test("<RegisterWithEmail />", () => {
     const mockRegister = sinon.spy(),
       onboardingInfo = storeRegistrationSuccess.getState().onboarding,
-      emptyState = { name: '', password: '', email: '' };
+      emptyState = { name: "", password: "", email: "" };
     let wrapper = mount(<RegisterWithEmailConnected store={store} />);
     expect(wrapper.find("#registrationForm").exists()).toBe(true);
     expect(wrapper.find("#passwordInput").exists()).toBe(true);
@@ -240,7 +254,7 @@ describe("<Register />", () => {
       </Provider>
     );
     expect(wrapper.find("RegisterWithEmail").state()).toStrictEqual(emptyState);
-    
+
     wrapper
       .find("#nameInput")
       .first()

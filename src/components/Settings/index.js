@@ -24,7 +24,7 @@ import Email from "./components/email";
 import Gender from "./components/gender";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
-import Loading from "../Global/Loading";
+import Loading from "../Global/loading/Loading";
 
 class Settings extends React.Component {
   componentDidMount() {

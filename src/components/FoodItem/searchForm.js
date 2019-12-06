@@ -1,8 +1,7 @@
 import React from "react";
-import { connect, ReactReduxContext } from "react-redux";
+import { connect } from "react-redux";
 import { searchFoodItems } from "../../store/actions/foodItemAction";
 import {
-  Col,
   Row,
   InputGroupAddon,
   Form,
@@ -11,7 +10,6 @@ import {
 } from "reactstrap";
 import { Input } from "../Global/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
 
 class SearchForm extends React.Component {
   constructor() {
@@ -57,13 +55,6 @@ class SearchForm extends React.Component {
     );
   }
 }
-
-const GraySearchBar = styled(Col)`
-  background-color: grey;
-  && {
-    margin-right: -5px;
-  }
-`;
 
 export default connect(null, { searchFoodItems })(SearchForm);
 

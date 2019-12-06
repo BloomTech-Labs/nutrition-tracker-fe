@@ -95,7 +95,7 @@ export const googleLogin = () => dispatch => {
       console.log("Picture:", userPicture);
 
       // ...
-      dispatch({ type: "GOOGLE_LOGIN_SUCCESS", payload: token });
+      dispatch({ type: "GOOGLE_LOGIN_SUCCESS" });
     })
     .catch(function(error) {
       // Handle Errors here.

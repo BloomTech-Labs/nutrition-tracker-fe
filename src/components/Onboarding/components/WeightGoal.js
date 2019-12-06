@@ -25,13 +25,18 @@ class WeightGoal extends React.Component {
   };
 
   // handles adding target rate and date to redux
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
       target_weight_kg: weightToMetic(target_weight),
       target_rate: Number(target_rate)
     });
-    this.props.history.push("/register");
+    if (target_weight) {
+      this.props.history.push("/register");
+    } else {
+      alert("You need to fill out your target weight to continue.");
+    }
   };
 
   // This function can handle change, can you?

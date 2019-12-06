@@ -28,7 +28,17 @@ class LandingPage extends React.Component {
             <H1>NutriJournal</H1>
           </Col>
         </Row>
-        {/* <Header>NutriJournal</Header> */}
+        <Row>
+          <Col justify="center">
+            <a href="https://platform.fatsecret.com">
+              <img
+                src="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.svg"
+                border="0"
+                alt="fatsecret logo"
+              />
+            </a>
+          </Col>
+        </Row>
         <Row className="fixed-bottom">
           <Col>
             <PillButton color="success" onClick={this.redirectToOnboarding}>

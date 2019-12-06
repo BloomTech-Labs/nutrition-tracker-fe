@@ -4,8 +4,6 @@ import { Route } from "react-router-dom";
 
 import { Container } from "../Global/styled";
 
-import TopBar from "../Global/TopBar";
-
 // Onboarding Routes:
 // import DietaryGoal from "./components/DietaryGoal";
 import Sex from "./components/Sex";

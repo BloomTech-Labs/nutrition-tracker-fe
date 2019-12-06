@@ -2,12 +2,13 @@ import React from "react";
 
 import { Route, Redirect } from "react-router-dom";
 
-import TopBar from "../../Onboarding/TopBar";
 import { Container } from "../../Global/styled";
 
 // Routes
 import LoginWithEmail from "./LoginWithEmail";
 import LoginOptions from "./LoginOptions";
+
+import Loading from "../../Global/loading/Loading";
 
 import { connect } from "react-redux";
 
@@ -17,16 +18,17 @@ class Login extends React.Component {
     const { path } = this.props.match;
 
     // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
     if (isLoggedIn) return <Redirect to="/" />;
 
+    // After user logs in with google some time is spent initializing the user on firebases end
+    // This if statement gives us a loading screen when that happens so it's a smooth transition to home page
+    if (loading) return <Loading />;
     // Sets up routes for Login pages
     return (
-      <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
-
+      <Container justify="center" fluid={true} height={this.props.height}>
         <Route
           exact
           path={path}
@@ -58,9 +60,11 @@ class Login extends React.Component {
 export const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
-    isLoggedIn: !state.firebase.auth.isEmpty
+    isLoggedIn: !state.firebase.auth.isEmpty,
+    loading: state.firebase.isInitializing
+    // loading: state.auth.loggingIn
   };
 };
 
-export {Login};
+export { Login };
 export default connect(mapStateToProps, {})(Login);

@@ -1,4 +1,3 @@
-import initialState from "./initialState";
 import {
   FETCH_START,
   FETCH_SUCCESS,
@@ -9,6 +8,14 @@ import {
   POST_FOOD_FAILURE,
   POST_FOOD_SUCCESS
 } from "../actions/foodItemAction";
+
+const initialState = {
+  getting: false,
+  got: false,
+  error: "",
+  items: [],
+  item: []
+};
 
 export const foodItemsReducer = (state = initialState, action) => {
   switch (action.type) {

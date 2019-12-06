@@ -10,8 +10,7 @@ import {
   Col,
   Dropdown,
   DropdownItem,
-  DropdownMenu,
-  Table
+  DropdownMenu
 } from "reactstrap";
 import { DropdownToggle } from "../Global/styled";
 import { Doughnut } from "react-chartjs-2";
@@ -157,49 +156,47 @@ class FoodDetails extends React.Component {
             </Col>
             <Col>
               {this.state.dropDownSelectionKey !== false && (
-                <Table borderless responsive>
-                  <TBody>
-                    <tr>
-                      <th scope="row"> Fats </th>
-                      <td>
-                        {formatDecimal(
-                          this.props.item[this.state.dropDownSelectionKey].fat *
-                            this.state.quantity
-                        )}
-                        {
-                          this.props.item[this.state.dropDownSelectionKey]
-                            .metric_serving_unit
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> Cholesterol </th>
-                      <td>
-                        {formatDecimal(
-                          this.props.item[this.state.dropDownSelectionKey]
-                            .cholesterol * this.state.quantity
-                        )}
-                        {
-                          this.props.item[this.state.dropDownSelectionKey]
-                            .metric_serving_unit
-                        }
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row"> Sodium </th>
-                      <td>
-                        {formatDecimal(
-                          this.props.item[this.state.dropDownSelectionKey]
-                            .sodium * this.state.quantity
-                        )}
-                        {
-                          this.props.item[this.state.dropDownSelectionKey]
-                            .metric_serving_unit
-                        }
-                      </td>
-                    </tr>
-                  </TBody>
-                </Table>
+                <TBody borderless responsive>
+                  <tr>
+                    <th scope="row"> Fats </th>
+                    <td>
+                      {formatDecimal(
+                        this.props.item[this.state.dropDownSelectionKey].fat *
+                          this.state.quantity
+                      )}
+                      {
+                        this.props.item[this.state.dropDownSelectionKey]
+                          .metric_serving_unit
+                      }
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"> Cholesterol </th>
+                    <td>
+                      {formatDecimal(
+                        this.props.item[this.state.dropDownSelectionKey]
+                          .cholesterol * this.state.quantity
+                      )}
+                      {
+                        this.props.item[this.state.dropDownSelectionKey]
+                          .metric_serving_unit
+                      }
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row"> Sodium </th>
+                    <td>
+                      {formatDecimal(
+                        this.props.item[this.state.dropDownSelectionKey]
+                          .sodium * this.state.quantity
+                      )}
+                      {
+                        this.props.item[this.state.dropDownSelectionKey]
+                          .metric_serving_unit
+                      }
+                    </td>
+                  </tr>
+                </TBody>
               )}
             </Col>
           </Row>

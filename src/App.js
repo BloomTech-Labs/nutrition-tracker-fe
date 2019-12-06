@@ -34,8 +34,26 @@ const SettingsWithNav = withNavigation({
   pageTitle: "Settings"
 })(Settings);
 
+const OnboardingWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Onboarding);
+
+const LoginWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Login);
+
+const RegisterWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Register);
+
 const FoodItemWithNav = withNavigation({
-  pageTitle: "FoodItem"
+  pageTitle: "Food Item"
 })(FoodItem);
 
 class App extends Component {

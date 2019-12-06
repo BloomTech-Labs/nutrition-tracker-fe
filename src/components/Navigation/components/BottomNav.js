@@ -13,7 +13,7 @@ const BottomNav = ({displayNav}) => {
     <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
-          <NavLink href="/daily-log"><DailyLogSVG /></NavLink>
+          <NavLink href="/"><DailyLogSVG /></NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="/recipes"><RecipeSVG /></NavLink>

@@ -7,9 +7,9 @@ export const FETCH_DAILY_LOG_START = "FETCH_DAILY_LOG_START";
 export const FETCH_DAILY_LOG_SUCCESS = "FETCH_DAILY_LOG_SUCCESS";
 export const FETCH_DAILY_LOG_FAILURE = "FETCH_DAILY_LOG_FAILURE";
 
-export const fetchNutritionBudgets = () => dispatch => {
+export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
-  axios.get("http://localhost:4000/user/nutrition-budgets")
+  axios.get(`http://localhost:4000/daily-log/${userID}/nutrition-budgets/`)
     .then(({data}) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,
@@ -20,19 +20,20 @@ export const fetchNutritionBudgets = () => dispatch => {
           proteinBudget: data.proteinBudget,
         }
       })
-      
+      console.log("DATA", data);
     })
     .catch(err => {
+      console.log("DATA", err);
       dispatch({type: FETCH_NUTRITION_BUDGETS_FAILURE})
     })
 };
 
-export const fetchDailyLog = (date, currentTimeZone) => dispatch => {
+export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
   dispatch({ type: FETCH_DAILY_LOG_START });
 
   currentTimeZone = encodeURIComponent(currentTimeZone);
 
-  axios.get(`http://localhost:4000/user/daily-log/${date}/${currentTimeZone}`)
+  axios.get(`http://localhost:4000/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({data}) => {
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,

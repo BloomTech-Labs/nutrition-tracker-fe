@@ -19,22 +19,30 @@ const DailyLog = ({ height }) => {
   const currentTimeZone = moment.tz.guess();
   const today = moment.tz("2019-11-24", currentTimeZone).format("YYYY-MM-DD");
 
-  const budgets = useSelector(state => state.dailyLog.budgets);
-  const consumed = useSelector(state => state.dailyLog.consumed);
-  const dailyLog = useSelector(state => state.dailyLog.dailyLog);
+  const { budgets, consumed, dailyLog } = useSelector(state => state.dailyLog);
+  const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [currentDate, setCurrentDate] = useState(today);
   const [interval, setInterval] = useState(30);
-  
+
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  useEffect(() => dispatch(fetchNutritionBudgets()), [dispatch]);
-  
-  useEffect(() => dispatch(fetchDailyLog(currentDate, currentTimeZone)), [
-    currentDate,
-    currentTimeZone,
-    dispatch
-  ]);
+  useEffect(
+    () => {
+      if (firebaseID) dispatch(fetchNutritionBudgets(firebaseID));
+    },
+    [dispatch, firebaseID]
+  );
+
+  useEffect(
+    () => {
+      if (firebaseID)
+        dispatch(
+          firebaseID && fetchDailyLog(firebaseID, currentDate, currentTimeZone)
+        );
+    },
+    [currentDate, currentTimeZone, dispatch, firebaseID]
+  );
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => setCurrentDate(newDate);
@@ -68,7 +76,5 @@ const DailyLog = ({ height }) => {
     </Container>
   );
 };
-
-
 
 export default DailyLog;

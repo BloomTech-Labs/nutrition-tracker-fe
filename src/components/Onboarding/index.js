@@ -21,8 +21,7 @@ class Onboarding extends React.Component {
     console.log("[Onboarding index.js] this.state", this.state);
 
     return (
-      <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
+      <Container justify="center" fluid={true} height={this.props.height}>
         {/* <Route
           path={`${path}/dietary-goal`}
           render={props => <DietaryGoal {...props} path={path} />}

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { searchFoodItems } from "../../store/actions/foodItemAction";
+import { Container } from "../Global/styled";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
@@ -19,7 +20,7 @@ class FoodItem extends React.Component {
   render() {
     const { path } = this.props.match;
     return (
-      <>
+      <Container height={this.props.height}>
         <Route
           path={`${path}/search`}
           exact
@@ -37,7 +38,7 @@ class FoodItem extends React.Component {
         />
 
         {console.log("here is the getting:", this.props.getting)}
-      </>
+      </Container>
     );
   }
 }

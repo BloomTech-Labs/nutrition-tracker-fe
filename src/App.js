@@ -26,8 +26,8 @@ import withNavigation from "./components/Navigation/withNavigation";
 
 // TODO: Fix ToastProvider
 
-// imports for toast wrapper 
-// import { ToastProvider } from "react-toast-notifications";
+// imports for toast wrapper
+import { ToastProvider } from "react-toast-notifications";
 
 library.add(faSearch);
 
@@ -35,21 +35,46 @@ const SettingsWithNav = withNavigation({
   pageTitle: "Settings"
 })(Settings);
 
+const OnboardingWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Onboarding);
+
+const LoginWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Login);
+
+const RegisterWithNav = withNavigation({
+  iconColor: "black",
+  topNavColor: "white",
+  displayBottom: false
+})(Register);
+
+const DailyLogWithNav = withNavigation({
+  pageTitle: "Daily Log"
+})(DailyLog);
+
+const FoodItemWithNav = withNavigation({
+  pageTitle: "Food Item"
+})(FoodItem);
 
 class App extends Component {
   render() {
     return (
-      //<ToastProvider number="5000"> 
+      <ToastProvider number="5000">
         <AppWrapper>
-          <PrivateRoute exact path="/" component={DailyLog} />
+          <PrivateRoute exact path="/" component={DailyLogWithNav} />
           <Route path="/landing" component={LandingPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/onboarding" component={Onboarding} />
-          <Route path="/food_item" component={FoodItem} />
-          <PrivateRoute path="/settings" component={SettingsWithNav} />
+          <Route path="/login" component={LoginWithNav} />
+          <Route path="/register" component={RegisterWithNav} />
+          <Route path="/onboarding" component={OnboardingWithNav} />
+          <Route path="/settings" component={SettingsWithNav} />
+          <Route path="/food_item" component={FoodItemWithNav} />
         </AppWrapper>
-      //</ToastProvider>
+      </ToastProvider>
     );
   }
 }

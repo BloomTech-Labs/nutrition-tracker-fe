@@ -15,7 +15,8 @@ class BasicInfo extends React.Component {
   };
 
   // Handles basic info to onboarding reducer state
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { date_of_birth, feet, inches, weight } = this.state;
 
     // Action to add basic info to onboarding reducer
@@ -26,7 +27,11 @@ class BasicInfo extends React.Component {
     });
 
     // pushes us to next route after basic info was updated
-    this.props.history.push(`${this.props.path}/weight-goal`);
+    if (date_of_birth && feet && inches && weight) {
+      this.props.history.push(`${this.props.path}/weight-goal`);
+    } else {
+      alert("You need to fill out all info before proceeding.");
+    }
   };
 
   handleChange = e => {

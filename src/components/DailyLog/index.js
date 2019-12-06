@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import defaultUserImage from "../../default-user-pic.jpeg";
 
@@ -8,9 +8,9 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import styled from "styled-components";
-import { PillButton } from "../Global/styled";
+import { PillButton, Container } from "../Global/styled";
 
-import Loading from "../Global/loading";
+import Loading from "../Global/Loading";
 
 class DailyLog extends Component {
   // Offers the user a way out, a chance at a better life
@@ -31,8 +31,12 @@ class DailyLog extends Component {
 
     // This is just placeholder till Daily log gets built out
     return (
-      <HomeWrapper>
-        {user ? <h2>Hello, {user}!</h2> : <h2>Welcome to NutriJournal</h2>}
+      <Container height={this.props.height} align="center">
+        {user ? (
+          <Header>Hello, {user}!</Header>
+        ) : (
+          <Header>Welcome to NutriJournal</Header>
+        )}
         <ProfilePic
           src={pictureURL ? pictureURL : defaultUserImage}
           alt="user pic"
@@ -43,19 +47,13 @@ class DailyLog extends Component {
           </PillButton>
         </div>
         <Link to="/settings">Settings</Link>
-      </HomeWrapper>
+      </Container>
     );
   }
 }
 
-const HomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h1 {
-    margin-top: 0;
-  }
+const Header = styled.h2`
+  margin-top: 2rem;
 `;
 
 const ProfilePic = styled.img`

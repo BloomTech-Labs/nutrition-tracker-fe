@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const MainButton = styled.div`
   position: fixed;
   right: 10px;
-  bottom: 10px;
-  width: 90px;
-  height: 90px;
+  bottom: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
   background-color: #28a745;
   cursor: pointer;
@@ -36,7 +36,7 @@ const ChildButton = styled.div`
   border-radius: 100%;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: rgba(170, 215, 210, 0.934) 0px 0px 50px 12px;
+  /* box-shadow: rgba(170, 215, 210, 0.934) 0px 0px 50px 12px; */
   z-index: 9999;
   display: none;
 `;
@@ -49,11 +49,11 @@ const Title = styled.h6`
 `;
 
 const faMBIconColor = "white";
-const faChildIconColor = "#007bff";
+const faChildIconColor = "000000";
 // End Styles
 
 // Diameter of the main button and child buttons in pixels,
-const MAIN_BUTTON_DIAM = 75;
+const MAIN_BUTTON_DIAM = 50;
 const CHILD_BUTTON_DIAM = 48;
 const OFFSET = 0.05;
 const SPRING_CONFIG = { stiffness: 500, damping: 15 };
@@ -448,7 +448,7 @@ class Flywheel extends React.Component {
               >
                 <FontAwesomeIcon
                   icon={this.props.maintButtonIcon}
-                  size="3x"
+                  size="2x"
                   color={faMBIconColor}
                 />
               </MainButton>

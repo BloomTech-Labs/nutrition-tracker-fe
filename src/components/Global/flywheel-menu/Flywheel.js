@@ -376,7 +376,8 @@ class Flywheel extends React.Component {
                         top,
                         transform: `rotate(${rotate}deg) scale(${scale})`,
                         width,
-                        display: isOpen ? `flex` : `none`
+                        color: "black",
+                        display: isOpen ? "flex" : "none"
                       }}
                     >
                       <Title>{this.props.childButtonIcons[index].name}</Title>

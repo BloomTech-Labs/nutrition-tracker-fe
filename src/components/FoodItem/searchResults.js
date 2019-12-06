@@ -15,7 +15,7 @@ class SearchResults extends React.Component {
                 key={key}
                 onClick={() => this.props.handleGetFoodItem(foodItem.food_id)}
               >
-                <th scope="row"> {foodItem.food_name} </th>
+                <th scope="row" style={{textAlign: "left"}}> {foodItem.food_name} </th>
                 <td>{foodItem.standard_amount}</td>
                 <td>{foodItem.calories} cal</td>
               </tr>

@@ -5,8 +5,14 @@ import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
 import WithLoading from "../Global/loading/withLoading";
+import withNavigation from "../Navigation/withNavigation";
 
 const FoodDetailsWithLoading = WithLoading(FoodDetails);
+
+
+const SearchPageWithNav = withNavigation({
+  pageTitle: "Add Food Item"
+})(SearchPage);
 
 class FoodItem extends React.Component {
   constructor() {
@@ -15,7 +21,6 @@ class FoodItem extends React.Component {
       searchTerm: ""
     };
   }
-
   render() {
     const { path } = this.props.match;
     return (
@@ -23,7 +28,7 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/search`}
           exact
-          render={props => <SearchPage {...props} path={path} />}
+          render={props => <SearchPageWithNav {...props} path={path}/>}
         />
 
         <Route

@@ -14,6 +14,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { createFirestoreInstance } from "redux-firestore";
 
 // Set up redux middleware and root reducer
 import rootReducer from "./store/reducers";
@@ -31,15 +32,15 @@ const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 const reactReduxFirebaseConfig = {
   userProfile: "users",
-  useFirestoreForProfile: false,
+  useFirestoreForProfile: true,
   attachAuthIsReady: true
 };
 
 const reactReduxFirebaseProps = {
   firebase,
   config: reactReduxFirebaseConfig,
-  dispatch: store.dispatch
-  // createFirestoreInstance // <- needed if using firestore
+  dispatch: store.dispatch,
+  createFirestoreInstance // <- needed if using firestore
 };
 
 // wrap app with router and redux provider
@@ -58,4 +59,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

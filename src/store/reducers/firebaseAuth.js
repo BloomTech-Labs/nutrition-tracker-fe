@@ -1,4 +1,9 @@
-import initialState from "./initialState";
+const initialState = {
+  loggingIn: false,
+  isLoggedIn: false,
+  loggingOut: false,
+  error: ""
+};
 
 export const firebaseAuth = (state = initialState, action) => {
   switch (action.type) {
@@ -21,7 +26,8 @@ export const firebaseAuth = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: false,
-        isLoggedIn: false
+        isLoggedIn: false,
+        error: "Login failed"
       };
 
     // register reducer
@@ -52,20 +58,19 @@ export const firebaseAuth = (state = initialState, action) => {
     case "LOGOUT_START":
       return {
         ...state,
-        loggedOut: false
+        loggingOut: true
       };
 
     case "LOGOUT_SUCCESS":
       return {
         ...state,
-        loggedOut: true,
-        token: null
+        loggingOut: false
       };
 
     case "LOGOUT_FAILURE":
       return {
         ...state,
-        loggedOut: false
+        loggingOut: false
       };
 
     // google login reducer
@@ -73,22 +78,18 @@ export const firebaseAuth = (state = initialState, action) => {
       return {
         ...state,
         loggingIn: true,
-        isLoggedIn: false,
         error: null
       };
     case "GOOGLE_LOGIN_SUCCESS":
       return {
         ...state,
-        loggingIn: false,
-        isLoggedIn: true,
-        token: action.payload,
+        loggingIn: true,
         error: null
       };
     case "GOOGLE_LOGIN_FAILURE":
       return {
         ...state,
-        loggingIn: false,
-        isLoggedIn: false
+        loggingIn: false
       };
 
     // facebook login reducer

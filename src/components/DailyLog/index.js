@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import defaultUserImage from "../../default-user-pic.jpeg";
 
@@ -36,13 +36,20 @@ class DailyLog extends Component {
         <ProfilePic
           src={pictureURL ? pictureURL : defaultUserImage}
           alt="user pic"
+          id="profilePic"
         />
         <div>
-          <PillButton color="secondary" onClick={this.handleLogout}>
+          <PillButton
+            color="secondary"
+            onClick={this.handleLogout}
+            id="logoutButton"
+          >
             Sign out
           </PillButton>
         </div>
-        <Link to="/settings">Settings</Link>
+        <Link to="/settings" id="settingsLink">
+          Settings
+        </Link>
       </HomeWrapper>
     );
   }
@@ -76,4 +83,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { DailyLog };
 export default connect(mapStateToProps, { logout })(DailyLog);

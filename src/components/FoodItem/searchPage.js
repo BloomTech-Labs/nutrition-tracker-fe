@@ -3,9 +3,8 @@ import SearchForm from "./searchForm";
 import SearchResults from "./searchResults";
 import { connect } from "react-redux";
 import { getOneFoodItem } from "../../store/actions/foodItemAction";
-import { Container, Col, Row } from "../Global/styled";
-import { Table } from "reactstrap";
-import { TBody } from "../Global/styled/";
+import { Container, Col, Row } from "reactstrap";
+// import { TBody } from "../Global/styled/";
 
 class SearchPage extends React.Component {
   handleGetFoodItem = food_id => {
@@ -18,15 +17,17 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <Container height={this.props.height} fluid>
-        <SearchForm />
+      <Container height={this.props.height}>
         <Row>
           <Col>
-            <Table responsive hover size="lg">
-              <TBody>
-                <SearchResults handleGetFoodItem={this.handleGetFoodItem} />
-              </TBody>
-            </Table>
+            <SearchForm />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {/* <TBody responsive hover size="lg"> */}
+            <SearchResults handleGetFoodItem={this.handleGetFoodItem} />
+            {/* </TBody> */}
           </Col>
         </Row>
       </Container>

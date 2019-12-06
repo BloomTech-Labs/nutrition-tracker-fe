@@ -1,36 +1,49 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import {
   Navbar as BS_NavBar,
   NavItem as BS_NavItem,
   NavLink
-} from 'reactstrap';
-import { DailyLogSVG, RecipeSVG, ProgressSVG, SettingsSVG } from '../../Global/icons';
-import theme from '../../Global/theme';
+} from "reactstrap";
+import {
+  DailyLogSVG,
+  RecipeSVG,
+  ProgressSVG,
+  SettingsSVG
+} from "../../Global/icons";
+import theme from "../../Global/theme";
 
-const BottomNav = ({displayNav}) => {
+const BottomNav = ({ displayNav }) => {
   return (
     <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
-          <NavLink href="/"><DailyLogSVG /></NavLink>
+          <NavLink href="/">
+            <DailyLogSVG />
+          </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/recipes"><RecipeSVG /></NavLink>
+          <NavLink href="/recipes">
+            <RecipeSVG />
+          </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/reports"><ProgressSVG /></NavLink>
+          <NavLink href="/reports">
+            <ProgressSVG />
+          </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/settings"><SettingsSVG /></NavLink>
+          <NavLink href="/settings">
+            <SettingsSVG />
+          </NavLink>
         </NavItem>
       </NavBar>
     </NavContainer>
-  )
-}
+  );
+};
 
 const NavContainer = styled.div`
-  display: ${props => props.displayNav ? "block" : "none"};
+  display: ${props => (props.displayNav ? "block" : "none")};
 `;
 
 const NavBar = styled(BS_NavBar)`

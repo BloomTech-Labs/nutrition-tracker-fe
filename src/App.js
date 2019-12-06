@@ -34,18 +34,21 @@ const SettingsWithNav = withNavigation({
   pageTitle: "Settings"
 })(Settings);
 
+const FoodItemWithNav = withNavigation({
+  pageTitle: "FoodItem"
+})(FoodItem);
 
 class App extends Component {
   render() {
     return (
-      <ToastProvider number="5000"> 
+      <ToastProvider number="5000">
         <AppWrapper>
           <PrivateRoute exact path="/" component={DailyLogWithNav} />
           <Route path="/landing" component={LandingPage} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/onboarding" component={Onboarding} />
-          <Route path="/food-item" component={FoodItem} />
+          <Route path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
         </AppWrapper>
       </ToastProvider>

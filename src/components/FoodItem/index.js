@@ -9,11 +9,6 @@ import withNavigation from "../Navigation/withNavigation";
 
 const FoodDetailsWithLoading = WithLoading(FoodDetails);
 
-
-const SearchPageWithNav = withNavigation({
-  pageTitle: "Add Food Item"
-})(SearchPage);
-
 class FoodItem extends React.Component {
   constructor() {
     super();
@@ -28,7 +23,7 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/search`}
           exact
-          render={props => <SearchPageWithNav {...props} path={path}/>}
+          render={props => <SearchPage {...props} path={path} />}
         />
 
         <Route

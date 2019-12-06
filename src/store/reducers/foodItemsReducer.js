@@ -5,7 +5,9 @@ import {
   FETCH_FAILURE,
   FETCH_GET_ONE_START,
   FETCH_GET_ONE_FAILURE,
-  FETCH_GET_ONE_SUCCESS
+  FETCH_GET_ONE_SUCCESS,
+  POST_FOOD_FAILURE,
+  POST_FOOD_SUCCESS
 } from "../actions/foodItemAction";
 
 export const foodItemsReducer = (state = initialState, action) => {
@@ -50,6 +52,21 @@ export const foodItemsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: "Error",
+        getting: false,
+        got: false
+      };
+    case POST_FOOD_SUCCESS:
+      return {
+        ...state,
+        error: "",
+        getting: false,
+        got: true,
+        food_log: action.payload
+      };
+    case POST_FOOD_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
         getting: false,
         got: false
       };

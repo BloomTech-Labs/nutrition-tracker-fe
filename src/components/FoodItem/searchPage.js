@@ -7,6 +7,28 @@ import { Container, Col, Row } from "../Global/styled";
 import { Table } from "reactstrap";
 import { TBody } from "../Global/styled/";
 
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+
+import {
+  faAppleAlt,
+  faUtensils,
+  faWeight,
+  faCheck
+} from "@fortawesome/free-solid-svg-icons";
+
+import moment from "moment-timezone/builds/moment-timezone-with-data";
+
+let childButtonIcons = [
+  {
+    icon: faAppleAlt,
+    name: "Food",
+    isaLink: true,
+    linkPath: "/food-item/search"
+  },
+  { icon: faUtensils, name: "Recipe", isaLink: false },
+  { icon: faWeight, name: "Weight", isaLink: false }
+];
+
 class SearchPage extends React.Component {
   handleGetFoodItem = food_id => {
     this.props.getOneFoodItem(food_id).then(response => {

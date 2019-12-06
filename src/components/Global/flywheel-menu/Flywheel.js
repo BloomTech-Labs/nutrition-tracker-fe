@@ -5,6 +5,7 @@ import { Motion, StaggeredMotion, spring } from "react-motion";
 import range from "lodash.range";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 //Styles
 const MainButton = styled.div`
@@ -44,7 +45,7 @@ const ChildButton = styled.div`
 const Title = styled.h6`
   color: black;
   position: fixed;
-  font-size:14px;
+  font-size: 14px;
   top: -20px;
 `;
 
@@ -76,10 +77,8 @@ class Flywheel extends React.Component {
     this.SEPARATION_ANGLE = 40; //degrees
     this.FAN_ANGLE = (this.NUM_CHILDREN - 3) * this.SEPARATION_ANGLE; //degrees //NEED TO ADJUST HERE WHEN ADDING OR DELETING CHILD ICONS
     this.BASE_ANGLE = (180 - this.FAN_ANGLE) / 2; // degrees
-
   }
 
- 
   toRadians = degrees => {
     return degrees * (Math.PI / 180);
   };
@@ -95,7 +94,6 @@ class Flywheel extends React.Component {
         CHILD_BUTTON_DIAM / 2
     };
   };
-
 
   updateMainBtnPosition(MBE) {
     const M = MBE.getBoundingClientRect(); //Gets the MAIN BUTTON's position realtive to the clients screen
@@ -219,7 +217,7 @@ class Flywheel extends React.Component {
     };
   }
 
-  addOverlay = (e) => {
+  addOverlay = e => {
     const overlay = document.createElement("div");
     overlay.setAttribute("id", "overlay");
     document.body.appendChild(overlay);
@@ -240,20 +238,24 @@ class Flywheel extends React.Component {
         this.toggleMenu(e);
       });
     }
-  }
+  };
 
-  toggleMenu = (e) => {
+  toggleMenu = e => {
     // this.addOverlay(); //uncomment this only if you are using aboslute links or router links. Otherwise leave off as this will duplicate the default overlay provided by boostraps modal
     e.stopPropagation();
-    let { isOpen } = this.state;
-    this.setState({
-      isOpen: !isOpen
-    });
-  }
+    if (this.props.onMainButtonClick) {
+      this.props.onMainButtonClick();
+    } else {
+      let { isOpen } = this.state;
+      this.setState({
+        isOpen: !isOpen
+      });
+    }
+  };
 
   closeMenu = () => {
     this.setState({ isOpen: false });
-  }
+  };
 
   renderChildButtons() {
     const { isOpen } = this.state;
@@ -367,7 +369,10 @@ class Flywheel extends React.Component {
             {interpolatedStyles.map(
               ({ height, left, rotate, scale, top, width }, index) =>
                 this.props.childButtonIcons[index].isaLink ? (
-                  <Link to={this.props.childButtonIcons[index].linkPath} key={index}>
+                  <Link
+                    to={this.props.childButtonIcons[index].linkPath}
+                    key={index}
+                  >
                     <ChildButton
                       key={index}
                       style={{
@@ -429,9 +434,19 @@ class Flywheel extends React.Component {
 
   render() {
     let { isOpen } = this.state;
-    let mainButtonRotation = isOpen
-      ? { rotate: spring(0, { stiffness: 500, damping: 30 }) }
-      : { rotate: spring(-135, { stiffness: 500, damping: 30 }) };
+    let mainButtonRotation;
+    switch (this.props.staticInitialButton) {
+      case true:
+        mainButtonRotation = {
+          rotate: spring(0, { stiffness: 500, damping: 30 })
+        };
+        break;
+      default:
+        mainButtonRotation = isOpen
+          ? { rotate: spring(0, { stiffness: 500, damping: 30 }) }
+          : { rotate: spring(-135, { stiffness: 500, damping: 30 }) };
+    }
+    // mainButtonRotation = {rotate: spring(0, { stiffness: 500, damping: 30 })}
     return (
       <>
         <div>
@@ -467,10 +482,11 @@ class Flywheel extends React.Component {
   }
 }
 
+Flywheel.propTypes = {
+  onMainButtonClick: PropTypes.func
+};
+
 export default Flywheel;
-
-
-
 
 /***********************Flywheel Component Use*********************/
 // Here is the medium article to help along with designing process and basic functionality: https://medium.com/@nashvail/a-gentle-introduction-to-react-motion-dc50dd9f2459
@@ -481,9 +497,9 @@ export default Flywheel;
       - "icon" : font-awesome icon from the import.
       - "name" : name that will appear on the child elements title and also use as the segue identifier for the modal view.
       - "isaLink" : boolean type to check how the child element should handle a click (modal or link). These are the minimum three keys needed if the child element is not a link.
-      - "linkPath" : a link to an absoulte/relative path. 
+      - "linkPath" : a link to an absoulte/relative path.
   4) Now Pass the required props to the Flywheel component. Use the props name EXACTLY as they are spelled in the example below:
-       <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/>   
+       <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/>
   5) That's it for Flywheel setup. Keep in mind that this component relys on React-Bootsrap's modals overlay and font-awesome icons to work properly. Happy hacking if you want to tailor it more your needs!
   6) If you are using modals you will need to adjust what modal shows in the component FlywheelModal. See Notes for use.
 */

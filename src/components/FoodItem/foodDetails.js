@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getOneFoodItem } from "../../store/actions/foodItemAction";
+import {
+  getOneFoodItem,
+  addFoodItem
+} from "../../store/actions/foodItemAction";
 import {
   Container,
   Row,
@@ -14,6 +17,25 @@ import { DropdownToggle } from "../Global/styled";
 import { Doughnut } from "react-chartjs-2";
 import { TBody, Input, H2 } from "../Global/styled/";
 import formatDecimal from "../Global/helpers/formatDecimals";
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import moment from "moment";
+
+import {
+  faAppleAlt,
+  faUtensils,
+  faWeight,
+  faCheck
+} from "@fortawesome/free-solid-svg-icons";
+let childButtonIcons = [
+  {
+    icon: faAppleAlt,
+    name: "Food",
+    isaLink: true,
+    linkPath: "/food-item/search"
+  },
+  { icon: faUtensils, name: "Recipe", isaLink: false },
+  { icon: faWeight, name: "Weight", isaLink: false }
+];
 
 class FoodDetails extends React.Component {
   constructor() {
@@ -45,6 +67,31 @@ class FoodDetails extends React.Component {
         ...prevState,
         dropDownSelectionKey: key
       };
+    });
+  };
+
+  handleOnMainButtonClick = () => {
+    if (!this.state.dropDownSelectionKey) {
+      return false;
+    }
+    const currentTimeZone = moment.tz.guess(); // this gives you the time-zone_name, ex. America/Los_Angeles
+    const today = moment.tz(currentTimeZone).format("YYYY-MM-DD"); // this give you the current date (localized to the user's timezone)
+    const tzAbbreviation = moment.tz(today, currentTimeZone).format("z"); // this gives you the time_zone_abbr, ex. PST
+    console.log(this.props.match.params);
+    const { food_id } = this.props.match.params;
+    const { quantity } = this.state;
+    const { serving_id } = this.props.item[this.state.dropDownSelectionKey];
+    const time_consumed_at = today,
+      time_zone_abbr = tzAbbreviation,
+      time_zone_name = currentTimeZone;
+    this.props.addFoodItem({
+      fatsecret_food_id: food_id,
+      food_id: this.props.item.id,
+      quantity,
+      serving_id,
+      time_consumed_at,
+      time_zone_abbr,
+      time_zone_name
     });
   };
 
@@ -156,6 +203,16 @@ class FoodDetails extends React.Component {
               )}
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Flywheel
+                staticInitialButton
+                onMainButtonClick={this.handleOnMainButtonClick}
+                maintButtonIcon={faCheck}
+                childButtonIcons={childButtonIcons}
+              />
+            </Col>
+          </Row>
         </>
       </Container>
     );
@@ -184,4 +241,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getOneFoodItem })(FoodDetails);
+export default connect(mapStateToProps, { getOneFoodItem, addFoodItem })(
+  FoodDetails
+);

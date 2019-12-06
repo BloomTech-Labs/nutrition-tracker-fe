@@ -1,6 +1,6 @@
 import React from "react";
 import RecordWeight from "./RecordWeight";
-import Recipe from "./Recipe";
+// import Recipe from "./Recipe";
 import DefaultView from "./DefaultView";
 import { connect } from "react-redux";
 import { recordUserWeight } from "../../../../store/actions/flywheelAction";
@@ -40,11 +40,11 @@ class PopModal extends React.Component {
 
   render() {
     if (this.props.segue === "Recipe") {
-      return (
-        <Recipe
-          isEnabled={this.props.isEnabled}
-          handleToggleClickProp={this.props.handleToggleClickProp}
-        />
+      return ( <div></div>
+        // <Recipe
+        //   isEnabled={this.props.isEnabled}
+        //   handleToggleClickProp={this.props.handleToggleClickProp}
+        // />
       );
     } else if (this.props.segue === "Weight") {
       return (

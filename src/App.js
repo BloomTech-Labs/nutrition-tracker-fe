@@ -34,6 +34,7 @@ const SettingsWithNav = withNavigation({
   pageTitle: "Settings"
 })(Settings);
 
+
 class App extends Component {
   render() {
     return (
@@ -44,7 +45,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/onboarding" component={Onboarding} />
-          <Route path="/food_item" component={FoodItem} />
+          <Route path="/food-item" component={FoodItem} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
         </AppWrapper>
       </ToastProvider>

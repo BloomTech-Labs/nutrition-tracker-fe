@@ -3,7 +3,8 @@ import SearchForm from "./searchForm";
 import SearchResults from "./searchResults";
 import { connect } from "react-redux";
 import { getOneFoodItem } from "../../store/actions/foodItemAction";
-import { Table, Container, Col, Row } from "reactstrap";
+import { Container, Col, Row } from "../Global/styled";
+import { Table } from "reactstrap";
 import { TBody } from "../Global/styled/";
 
 class SearchPage extends React.Component {
@@ -17,12 +18,8 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col>
-            <SearchForm />
-          </Col>
-        </Row>
+      <Container height={this.props.height} fluid>
+        <SearchForm />
         <Row>
           <Col>
             <Table responsive hover size="lg">
@@ -36,5 +33,7 @@ class SearchPage extends React.Component {
     );
   }
 }
+
+// const GlobalContainer
 
 export default connect(null, { getOneFoodItem })(SearchPage);

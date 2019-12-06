@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container } from "../Global/styled";
+import { Container, Row, Col } from "../Global/styled";
 import moment from "moment-timezone";
 import useGroupBy from "./custom hooks/useGroupBy";
 import CaloricBudget from "./components/CaloricBudget";
@@ -12,6 +12,24 @@ import {
   fetchNutritionBudgets,
   fetchDailyLog
 } from "../../store/actions/dailyLogActions";
+
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import {
+  faAppleAlt,
+  faUtensils,
+  faWeight,
+  faTimes
+} from "@fortawesome/free-solid-svg-icons";
+  let childButtonIcons = [ 
+    {
+      icon: faAppleAlt,
+      name: "Food",
+      isaLink: true,
+      linkPath: "/food-item/search"
+    },
+    { icon: faUtensils, name: "Recipe", isaLink: false },
+    { icon: faWeight, name: "Weight", isaLink: false }
+  ];
 
 const DailyLog = ({ height }) => {
   const dispatch = useDispatch();
@@ -73,6 +91,11 @@ const DailyLog = ({ height }) => {
         currentTimeZone={currentTimeZone}
       />
       <TimeLog dailyLog={groupedDailyLog} />
+      <Row>
+        <Col>
+          <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/> 
+        </Col>
+      </Row>
     </Container>
   );
 };

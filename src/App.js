@@ -27,7 +27,7 @@ import withNavigation from "./components/Navigation/withNavigation";
 // TODO: Fix ToastProvider
 
 // imports for toast wrapper
-// import { ToastProvider } from "react-toast-notifications";
+import { ToastProvider } from "react-toast-notifications";
 
 library.add(faSearch);
 
@@ -57,19 +57,24 @@ const DailyLogWithNav = withNavigation({
   pageTitle: "Daily Log"
 })(DailyLog);
 
+const FoodItemWithNav = withNavigation({
+  pageTitle: "Food Item"
+})(FoodItem);
+
 class App extends Component {
   render() {
     return (
-      // <ToastProvider number="5000">
-      <AppWrapper>
-        <PrivateRoute exact path="/" component={DailyLogWithNav} />
-        <Route path="/landing" component={LandingPage} />
-        <Route path="/login" component={LoginWithNav} />
-        <Route path="/register" component={RegisterWithNav} />
-        <Route path="/onboarding" component={OnboardingWithNav} />
-        <Route path="/settings" component={SettingsWithNav} />
-      </AppWrapper>
-      // </ToastProvider>
+      <ToastProvider number="5000">
+        <AppWrapper>
+          <PrivateRoute exact path="/" component={DailyLogWithNav} />
+          <Route path="/landing" component={LandingPage} />
+          <Route path="/login" component={LoginWithNav} />
+          <Route path="/register" component={RegisterWithNav} />
+          <Route path="/onboarding" component={OnboardingWithNav} />
+          <Route path="/settings" component={SettingsWithNav} />
+          <Route path="/food_item" component={FoodItemWithNav} />
+        </AppWrapper>
+      </ToastProvider>
     );
   }
 }

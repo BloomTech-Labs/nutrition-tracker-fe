@@ -16,6 +16,7 @@ import Gender from "./components/gender";
 import ActivityLevel from "./components/activity_level";
 import CurrentWeight from "./components/current_weight";
 import Macros from "./components/macro_targets";
+import WeightGoal from "./components/weight_goal";
 
 class Settings extends React.Component {
   componentDidMount() {
@@ -48,7 +49,13 @@ class Settings extends React.Component {
           >
             MacroNutrient Targets
           </Macros>
-          {/* <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem> */}
+          <WeightGoal
+            style={ListStyle}
+            updateUser={this.updateUser}
+            data={this.props.userInfo}
+          >
+            Weight Goal
+          </WeightGoal>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle}>Logout</ListGroupItem>
           <Email updateUser={this.updateUser} data={this.props.userInfo} />

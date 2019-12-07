@@ -37,7 +37,7 @@ class SearchForm extends React.Component {
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
+                <FontAwesomeIcon icon={["fas", "search"]} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input

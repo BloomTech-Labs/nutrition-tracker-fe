@@ -6,6 +6,7 @@ class SearchResults extends React.Component {
   render() {
     return this.props.items ? (
       <TBody responsive hover size="lg">
+        <tbody>
         {this.props.items.map((foodItem, key) => {
           return (
             <tr
@@ -19,9 +20,10 @@ class SearchResults extends React.Component {
             </tr>
           );
         })}
+        </tbody>
       </TBody>
     ) : (
-      <TBody />
+      <TBody /> // TODO: If this breaks, we may need <tbody></tbody> here
     );
   }
 }

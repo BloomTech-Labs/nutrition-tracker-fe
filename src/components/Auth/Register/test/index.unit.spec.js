@@ -71,7 +71,8 @@ describe("<Register />", () => {
       dob: undefined,
       weight_kg: 0,
       height_cm: 0,
-      weekly_goal_rate: undefined
+      weekly_goal_rate: undefined,
+      loading: undefined
     };
 
     expect(mapStateToProps(initialState)).toStrictEqual(expectedState);

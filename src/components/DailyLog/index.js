@@ -51,7 +51,7 @@ class DailyLog extends Component {
             Sign out
           </PillButton>
         </div>
-        <Link to="/settings">Settings</Link>
+        <Link to="/settings" id="settingsLink">Settings</Link>
       </Container>
     );
   }

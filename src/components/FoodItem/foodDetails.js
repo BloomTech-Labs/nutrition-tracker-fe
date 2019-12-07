@@ -181,4 +181,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { FoodDetails };
 export default connect(mapStateToProps, { getOneFoodItem })(FoodDetails);

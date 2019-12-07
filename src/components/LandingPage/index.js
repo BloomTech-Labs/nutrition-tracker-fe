@@ -41,7 +41,7 @@ class LandingPage extends React.Component {
         </Row>
         <Row className="fixed-bottom">
           <Col>
-            <PillButton color="success" onClick={this.redirectToOnboarding}>
+            <PillButton color="success" onClick={this.redirectToOnboarding} id="createAccountButton">
               Create a New Account
             </PillButton>
           </Col>
@@ -52,6 +52,7 @@ class LandingPage extends React.Component {
               onClick={this.redirectToLogin}
               color="primary"
               outline
+              id="loginButton"
             >
               Login
             </PillButton>
@@ -69,4 +70,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { LandingPage };
 export default connect(mapStateToProps, {})(withRouter(LandingPage));

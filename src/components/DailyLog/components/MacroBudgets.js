@@ -1,8 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-
-import { Row, Col, H3 } from "../../Global/styled";
-import theme from "../../Global/theme";
+import { Row, Col} from "../../Global/styled";
+import DataWheel from "../../Global/DataWheel";
 
 const MacroBudgets = props => {
   const {
@@ -14,62 +12,80 @@ const MacroBudgets = props => {
     protienTotal
   } = props;
 
-  const percentFatBudget = Math.round(
+  const percentFatTotal = Math.round(
     props.fatsConsumed / props.fatsTotal * 100
   );
-  const percentCarbBudget = Math.round(
+  const percentCarbTotal = Math.round(
     props.carbsConsumed / props.carbsTotal * 100
   );
-  const percentProteinBudget = Math.round(
+  const percentProteinTotal = Math.round(
     props.protienConsumed / props.protienTotal * 100
   );
 
+  const uiColors = {
+    fat: {
+      dataColors: "#FFE9AD, #FFE9AD33",
+      borderColor: "#E4D099",
+      hoverBorderColor: "#D5C28F",
+      hoverBackgroundColor: "#FED872"
+    },
+    carbs: {
+      dataColors: "#A1BFDF, #A1BFDF33",
+      borderColor: "#829BB6",
+      hoverBorderColor: "#778EA6",
+      hoverBackgroundColor: "#5F98E5"
+    },
+    protein: {
+      dataColors: "#F5C6CB, #F5C6CB33",
+      borderColor: "#BC9599",
+      hoverBorderColor: "#A68588",
+      hoverBackgroundColor: "#FD7888"
+    }
+  };
+
   return (
-    <Row>
-      <Col direction="column" justify="center" align="center">
-        <H3>Fats</H3>
-        <FatConsumed percentFatBudget={percentFatBudget}>
-          {fatsConsumed}g
-        </FatConsumed>
-        <h4>
-          {fatsTotal}g
-        </h4>
+    <Row noGutters>
+      {/* Fat Budgets */}
+      <Col direction="column" justify="center" align="center" xs={4}>
+        <DataWheel 
+          macroName="Fats"
+          total={fatsTotal}
+          consumed={fatsConsumed}
+          percentTotal={percentFatTotal}
+          dataColors={uiColors.fat.dataColors}
+          borderColor={uiColors.fat.borderColor}
+          hoverBorderColor={uiColors.fat.hoverBorderColor}
+          hoverBackgroundColor={uiColors.fat.hoverBackgroundColor}
+        />
       </Col>
-      <Col direction="column" justify="center" align="center">
-        <H3>Carbs</H3>
-        <CarbsConsumed percentCarbBudget={percentCarbBudget}>
-          {carbsConsumed}g
-        </CarbsConsumed>
-        <h4>
-          {carbsTotal}g
-        </h4>
+      {/* Carb Budgets */}
+      <Col direction="column" justify="center" align="center" xs={4}>
+        <DataWheel 
+          macroName="Carbs"
+          total={carbsTotal}
+          consumed={carbsConsumed}
+          percentTotal={percentCarbTotal}
+          dataColors={uiColors.carbs.dataColors}
+          borderColor={uiColors.carbs.borderColor}
+          hoverBorderColor={uiColors.carbs.hoverBorderColor}
+          hoverBackgroundColor={uiColors.carbs.hoverBackgroundColor}
+        />
       </Col>
-      <Col direction="column" justify="center" align="center">
-        <H3>Protein</H3>
-        <ProteinConsumed percentProteinBudget={percentProteinBudget}>
-          {protienConsumed}g
-        </ProteinConsumed>
-        <h4>
-          {protienTotal}g
-        </h4>
+      {/* Protein Budgets */}
+      <Col direction="column" justify="center" align="center" xs={4}>
+        <DataWheel 
+          macroName="Protien"
+          total={protienTotal}
+          consumed={protienConsumed}
+          percentTotal={percentProteinTotal}
+          dataColors={uiColors.protein.dataColors}
+          borderColor={uiColors.protein.borderColor}
+          hoverBorderColor={uiColors.protein.hoverBorderColor}
+          hoverBackgroundColor={uiColors.protein.hoverBackgroundColor}
+        />
       </Col>
     </Row>
   );
 };
-
-const FatConsumed = styled.h4`
-  color: ${props =>
-    props.percentFatBudget >= 100 ? `${theme.color.danger}` : "black"};
-`;
-
-const CarbsConsumed = styled.h4`
-  color: ${props =>
-    props.percentCarbBudget >= 100 ? `${theme.color.danger}` : "black"};
-`;
-
-const ProteinConsumed = styled.h4`
-  color: ${props =>
-    props.percentProteinBudget >= 100 ? `${theme.color.danger}` : "black"};
-`;
 
 export default MacroBudgets;

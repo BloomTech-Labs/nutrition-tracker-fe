@@ -20,25 +20,32 @@ import {
   faWeight,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
-  let childButtonIcons = [ 
-    {
-      icon: faAppleAlt,
-      name: "Food",
-      isaLink: true,
-      linkPath: "/food-item/search"
-    },
-    { icon: faUtensils, name: "Recipe", isaLink: false },
-    { icon: faWeight, name: "Weight", isaLink: false }
-  ];
+let childButtonIcons = [
+  {
+    icon: faAppleAlt,
+    name: "Food",
+    isaLink: true,
+    linkPath: "/food-item/search"
+  },
+  { icon: faUtensils, name: "Recipe", isaLink: false },
+  { icon: faWeight, name: "Weight", isaLink: false }
+];
 
-const DailyLog = ({ height }) => {
+const DailyLog = props => {
+  const {
+    budgets,
+    consumed,
+    dailyLog,
+    fetchBudgetSuccess,
+    fetchDailyLogSuccess
+  } = useSelector(state => state.dailyLog);
+
   const dispatch = useDispatch();
+
+  const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const currentTimeZone = moment.tz.guess();
   const today = moment.tz("2019-11-24", currentTimeZone).format("YYYY-MM-DD");
-
-  const { budgets, consumed, dailyLog } = useSelector(state => state.dailyLog);
-  const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [currentDate, setCurrentDate] = useState(today);
   const [interval, setInterval] = useState(30);
@@ -66,19 +73,20 @@ const DailyLog = ({ height }) => {
   const updateCurrentDate = newDate => setCurrentDate(newDate);
 
   return (
-    <Container height={height} fluid>
+    <Container height={props.height} fluid>
       <CaloricBudget
         total={budgets.caloricBudget}
         consumed={consumed.caloriesConsumed}
       />
-      <MacroBudgets
-        fatsTotal={budgets.fatBudget}
-        carbsTotal={budgets.carbBudget}
-        protienTotal={budgets.proteinBudget}
-        fatsConsumed={consumed.fatsConsumed}
-        carbsConsumed={consumed.carbsConsumed}
-        protienConsumed={consumed.proteinConsumed}
-      />
+      {fetchBudgetSuccess &&
+        <MacroBudgets
+          fatsTotal={budgets.fatBudget}
+          carbsTotal={budgets.carbBudget}
+          protienTotal={budgets.proteinBudget}
+          fatsConsumed={consumed.fatsConsumed}
+          carbsConsumed={consumed.carbsConsumed}
+          protienConsumed={consumed.proteinConsumed}
+        />}
       <Pagination
         currentDate={currentDate}
         currentTimeZone={currentTimeZone}
@@ -90,10 +98,13 @@ const DailyLog = ({ height }) => {
         updateInterval={updateInterval}
         currentTimeZone={currentTimeZone}
       />
-      <TimeLog dailyLog={groupedDailyLog} />
+      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}
       <Row>
         <Col>
-          <Flywheel maintButtonIcon={faTimes} childButtonIcons={childButtonIcons}/> 
+          <Flywheel
+            maintButtonIcon={faTimes}
+            childButtonIcons={childButtonIcons}
+          />
         </Col>
       </Row>
     </Container>

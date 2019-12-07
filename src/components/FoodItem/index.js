@@ -20,7 +20,7 @@ class FoodItem extends React.Component {
   render() {
     const { path } = this.props.match;
     return (
-      <Container height={this.props.height}>
+      <Container height={this.props.height} fluid>
         <Route
           path={`${path}/search`}
           exact

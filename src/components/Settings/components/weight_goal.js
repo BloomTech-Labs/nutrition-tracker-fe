@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListStyle } from "../styles";
+import { SlideBar } from "../../Global/styled";
 import {
   Button,
   Modal,
@@ -37,13 +38,24 @@ const WeightGoal = props => {
               <Label for="Target Weight">Target Weight</Label>
               <Input
                 type="text"
-                name="fat"
-                id="fat"
+                name="weight"
+                id="weight"
                 value={weight_goal_kg || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>
           </Form>
+          <SlideBar>
+            <Label for="Target Speed">Target Speed</Label>
+
+            <Input
+              name="target_rate"
+              type="range"
+              //   min={-2}
+              //   max={2}
+              //   step={0.5}
+            />
+          </SlideBar>
         </ModalBody>
         <ModalFooter>
           <Button

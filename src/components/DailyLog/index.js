@@ -20,6 +20,7 @@ import {
   faWeight,
   faTimes
 } from "@fortawesome/free-solid-svg-icons";
+import FatSecretAttribution from "./components/FatSecretAttribution";
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -45,7 +46,7 @@ const DailyLog = props => {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const currentTimeZone = moment.tz.guess();
-  const today = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  const today = moment.tz("2019-11-24", currentTimeZone).format("YYYY-MM-DD");
 
   const [currentDate, setCurrentDate] = useState(today);
   const [interval, setInterval] = useState(30);
@@ -78,6 +79,7 @@ const DailyLog = props => {
         total={budgets.caloricBudget}
         consumed={consumed.caloriesConsumed}
       />
+      <FatSecretAttribution />
       {fetchBudgetSuccess &&
         <MacroBudgets
           fatsTotal={budgets.fatBudget}

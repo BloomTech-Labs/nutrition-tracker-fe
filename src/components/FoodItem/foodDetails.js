@@ -1,19 +1,17 @@
 import React from "react";
+import styled from "styled-components";
 import { connect } from "react-redux";
 import {
   getOneFoodItem,
   addFoodItem
 } from "../../store/actions/foodItemAction";
+
 import {
-  Container,
-  Row,
-  Col,
-  Dropdown,
+  ButtonDropdown,
   DropdownItem,
   DropdownMenu
 } from "reactstrap";
-import { DropdownToggle } from "../Global/styled";
-import { Doughnut } from "react-chartjs-2";
+import { DropdownToggle, Row, Col } from "../Global/styled";
 import { TBody, Input, H2 } from "../Global/styled/";
 import formatDecimal from "../Global/helpers/formatDecimals";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
@@ -25,6 +23,7 @@ import {
   faWeight,
   faCheck
 } from "@fortawesome/free-solid-svg-icons";
+import DataWheel from "../Global/DataWheel";
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -48,6 +47,7 @@ class FoodDetails extends React.Component {
 
   componentWillMount() {
     const { food_id } = this.props.match.params;
+    const firebaseID = this.props.firebaseID;
     this.props.getOneFoodItem(food_id);
   }
 
@@ -95,146 +95,154 @@ class FoodDetails extends React.Component {
   };
 
   render() {
+    console.log("[this.props.item]", this.props.item);
     return (
-      <Container>
-        <>
-          <Row>
-            <Col>
-              <H2>{this.props.item[0].food_name}</H2>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Input
-                type="text"
-                name="quantity"
-                value={this.state.quantity}
-                onChange={e => {
-                  this.setState({ quantity: e.target.value });
+      <>
+        <Row>
+          <Col align="center" height="50px">
+            <FoodName>
+              {this.props.item[0].food_name}
+            </FoodName>
+          </Col>
+          <Col align="center" justify="flex-end" height="50px">
+            <Calories>
+              {Math.trunc(this.props.item[0].calories_kcal)} cal
+            </Calories>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Input
+              type="text"
+              name="quantity"
+              value={this.state.quantity}
+              onChange={e => {
+                this.setState({ quantity: e.target.value });
+              }}
+            />
+          </Col>
+          <Col>
+            <ButtonDropdown
+              isOpen={this.state.dropdownOpen}
+              toggle={this.handleToggle}
+              style={{width: "100%"}}
+            >
+              <DropdownToggle
+                caret
+                style={{
+                  textAlign: "right",
+                  backgroundColor: "white",
+                  color: "black",
+                  borderColor: "#CED4DA"
                 }}
-              />
-            </Col>
-            <Col>
-              <Dropdown
-                isOpen={this.state.dropdownOpen}
-                toggle={this.handleToggle}
               >
-                <DropdownToggle caret>
-                  {this.state.dropDownSelectionKey !== false
-                    ? this.props.item[this.state.dropDownSelectionKey]
-                        .serving_desc
-                    : "Select"}
-                </DropdownToggle>
-                <DropdownMenu>
-                  {this.props.item.map((serving, key) => (
-                    <DropdownItem
-                      key={key}
-                      onClick={() => this.handleSelect(key)}
-                    >
-                      {serving.serving_desc}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([1, 2, 3, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([3, 2, 3, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([11, 2, 9, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col>
-              {this.state.dropDownSelectionKey !== false && (
-                <TBody borderless responsive>
-                  <tr>
-                    <th scope="row"> Fats </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey].fat *
-                          this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"> Cholesterol </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .cholesterol * this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"> Sodium </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .sodium * this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                </TBody>
-              )}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Flywheel
-                staticInitialButton
-                onMainButtonClick={this.handleOnMainButtonClick}
-                maintButtonIcon={faCheck}
-                childButtonIcons={childButtonIcons}
-              />
-            </Col>
-          </Row>
-        </>
-      </Container>
+                {this.state.dropDownSelectionKey !== false
+                  ? this.props.item[this.state.dropDownSelectionKey]
+                      .serving_desc
+                  : this.props.item[0].serving_desc}
+              </DropdownToggle>
+              <DropdownMenu>
+                {this.props.item.map((serving, key) =>
+                  <DropdownItem
+                    key={key}
+                    onClick={() => this.handleSelect(key)}
+                  >
+                    {serving.serving_desc}
+                  </DropdownItem>
+                )}
+              </DropdownMenu>
+            </ButtonDropdown>
+          </Col>
+        </Row>
+        <Row noGutters>
+          <Col direction="column" justify="center" align="center" xs={4}>
+            <DataWheel macroName="Fats" />
+          </Col>
+          <Col direction="column" justify="center" align="center" xs={4}>
+            <DataWheel macroName="Carbs" />
+          </Col>
+          <Col direction="column" justify="center" align="center" xs={4}>
+            <DataWheel macroName="Protein" />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {/* {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */}
+            {this.state.dropDownSelectionKey !== false &&
+              <TBody borderless responsive>
+                <tr>
+                  <th scope="row"> Fats </th>
+                  <td>
+                    {formatDecimal(
+                      this.props.item[this.state.dropDownSelectionKey].fat *
+                        this.state.quantity
+                    )}
+                    {
+                      this.props.item[this.state.dropDownSelectionKey]
+                        .metric_serving_unit
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"> Cholesterol </th>
+                  <td>
+                    {formatDecimal(
+                      this.props.item[this.state.dropDownSelectionKey]
+                        .cholesterol * this.state.quantity
+                    )}
+                    {
+                      this.props.item[this.state.dropDownSelectionKey]
+                        .metric_serving_unit
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"> Sodium </th>
+                  <td>
+                    {formatDecimal(
+                      this.props.item[this.state.dropDownSelectionKey].sodium *
+                        this.state.quantity
+                    )}
+                    {
+                      this.props.item[this.state.dropDownSelectionKey]
+                        .metric_serving_unit
+                    }
+                  </td>
+                </tr>
+              </TBody>}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Flywheel
+              staticInitialButton
+              onMainButtonClick={this.handleOnMainButtonClick}
+              maintButtonIcon={faCheck}
+              childButtonIcons={childButtonIcons}
+            />
+          </Col>
+        </Row>
+      </>
     );
   }
 }
 
-// Turns the input strings into a charts.js dataset
-function dataGenerator(data, color) {
-  const dataset = {
-    // labels: color.split(","),
-    datasets: [
-      {
-        backgroundColor: color.split(","),
-        data: data
-      }
-    ]
-  };
-  return dataset;
-}
+const FoodName = styled(H2)`
+  text-align: left;
+`;
+
+const Calories = styled(H2)`
+  text-align: right;
+`;
 
 const mapStateToProps = state => {
   return {
     item: state.foodItemsReducer.item,
     getting: state.foodItemsReducer.getting,
-    got: state.foodItemsReducer.got
+    got: state.foodItemsReducer.got,
+    budgets: state.dailyLog.budgets,
+    consumed: state.dailyLog.consumed,
+    firebaseID: state.firebase.auth.uid
   };
 };
 

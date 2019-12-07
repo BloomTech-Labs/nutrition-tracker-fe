@@ -9,7 +9,6 @@ import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import DisplaySettings from "./components/DisplaySettings";
 import {
-  fetchNutritionBudgets,
   fetchDailyLog
 } from "../../store/actions/dailyLogActions";
 
@@ -37,7 +36,6 @@ const DailyLog = props => {
     budgets,
     consumed,
     dailyLog,
-    fetchBudgetSuccess,
     fetchDailyLogSuccess
   } = useSelector(state => state.dailyLog);
 
@@ -46,19 +44,12 @@ const DailyLog = props => {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const currentTimeZone = moment.tz.guess();
-  const today = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  const today = moment.tz("2019-11-24", currentTimeZone).format("YYYY-MM-DD");
 
   const [currentDate, setCurrentDate] = useState(today);
   const [interval, setInterval] = useState(30);
 
   const groupedDailyLog = useGroupBy(interval, dailyLog);
-
-  useEffect(
-    () => {
-      if (firebaseID) dispatch(fetchNutritionBudgets(firebaseID));
-    },
-    [dispatch, firebaseID]
-  );
 
   useEffect(
     () => {
@@ -80,15 +71,15 @@ const DailyLog = props => {
         consumed={consumed.caloriesConsumed}
       />
       <FatSecretAttribution />
-      {fetchBudgetSuccess &&
+      
         <MacroBudgets
-          fatsTotal={budgets.fatBudget}
-          carbsTotal={budgets.carbBudget}
-          protienTotal={budgets.proteinBudget}
-          fatsConsumed={consumed.fatsConsumed}
-          carbsConsumed={consumed.carbsConsumed}
-          protienConsumed={consumed.proteinConsumed}
-        />}
+          // fatsTotal={budgets.fatBudget}
+          // carbsTotal={budgets.carbBudget}
+          // protienTotal={budgets.proteinBudget}
+          // fatsConsumed={consumed.fatsConsumed}
+          // carbsConsumed={consumed.carbsConsumed}
+          // protienConsumed={consumed.proteinConsumed}
+        />
       <Pagination
         currentDate={currentDate}
         currentTimeZone={currentTimeZone}

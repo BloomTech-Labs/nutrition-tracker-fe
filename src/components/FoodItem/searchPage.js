@@ -3,30 +3,7 @@ import SearchForm from "./searchForm";
 import SearchResults from "./searchResults";
 import { connect } from "react-redux";
 import { getOneFoodItem } from "../../store/actions/foodItemAction";
-import { Container, Col, Row } from "reactstrap";
-// import { TBody } from "../Global/styled/";
-
-import Flywheel from "../Global/flywheel-menu/Flywheel";
-
-import {
-  faAppleAlt,
-  faUtensils,
-  faWeight,
-  faCheck
-} from "@fortawesome/free-solid-svg-icons";
-
-import moment from "moment-timezone/builds/moment-timezone-with-data";
-
-let childButtonIcons = [
-  {
-    icon: faAppleAlt,
-    name: "Food",
-    isaLink: true,
-    linkPath: "/food-item/search"
-  },
-  { icon: faUtensils, name: "Recipe", isaLink: false },
-  { icon: faWeight, name: "Weight", isaLink: false }
-];
+import { Col, Row } from "reactstrap";
 
 class SearchPage extends React.Component {
   handleGetFoodItem = food_id => {
@@ -39,7 +16,7 @@ class SearchPage extends React.Component {
 
   render() {
     return (
-      <Container height={this.props.height}>
+      <>
         <Row>
           <Col>
             <SearchForm />
@@ -52,11 +29,9 @@ class SearchPage extends React.Component {
             {/* </TBody> */}
           </Col>
         </Row>
-      </Container>
+      </>
     );
   }
 }
-
-// const GlobalContainer
 
 export default connect(null, { getOneFoodItem })(SearchPage);

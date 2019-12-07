@@ -20,10 +20,8 @@ export const fetchNutritionBudgets = userID => dispatch => {
           proteinBudget: data.proteinBudget,
         }
       })
-      console.log("DATA", data);
     })
     .catch(err => {
-      console.log("DATA", err);
       dispatch({type: FETCH_NUTRITION_BUDGETS_FAILURE})
     })
 };

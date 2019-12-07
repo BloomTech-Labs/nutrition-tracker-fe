@@ -25,7 +25,6 @@ const initialState = {
   fetchBudgetSuccess: false,
   fetchBudgetFailure: false,
   fetchDailyLogStart: false,
-  fetchDailyLogSuccess: false,
   fetchDailyLogError: false,
 };
 
@@ -35,7 +34,6 @@ export const dailyLogReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchBudgetStart: true,
-        fetchBudgetSuccess: false,
         fetchBudgetFailure: false,
         budgets: []
       };
@@ -45,7 +43,6 @@ export const dailyLogReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchBudgetStart: false,
-        fetchBudgetSuccess: true,
         fetchBudgetFailure: false,
         budgets: action.payload
       };
@@ -55,7 +52,6 @@ export const dailyLogReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchBudgetStart: false,
-        fetchBudgetSuccess: false,
         fetchBudgetFailure: true,
         budgets: []
       };

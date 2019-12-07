@@ -69,7 +69,7 @@ class Settings extends React.Component {
     if (!token) return <Redirect to="/landing" />;
 
     return (
-      <Container height={this.props.height} fluid>
+      <Container fluid style={{padding: 0}} height={this.props.height}>
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />

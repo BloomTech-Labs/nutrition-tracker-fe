@@ -7,7 +7,7 @@ const CaloricBudget = props => {
   const percentBudget = Math.round(props.consumed / props.total * 100);
   return (
     <Row>
-      <Col height="100px" align="center">
+      <Col height="80px" align="center">
         <Total>
           <Consumed percentBudget={percentBudget}>
             <ConsumedCalories>

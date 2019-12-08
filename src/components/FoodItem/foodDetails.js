@@ -87,11 +87,28 @@ class FoodDetails extends React.Component {
     });
   };
 
+  addedMacros() {
+    return {
+      fat: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].fat_g) *
+          this.state.quantity
+      ),
+      carbs: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) *
+          this.state.quantity
+      ),
+      protein: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].protein_g) *
+          this.state.quantity
+      )
+    };
+  }
+
   render() {
     console.log("[this.props.item]", this.props.item);
     if (!this.props.item[0]) return <Loading />;
     return (
-      <>
+      <div>
         <Row>
           <Col align="center" height="50px">
             <FoodName>
@@ -102,8 +119,9 @@ class FoodDetails extends React.Component {
           <Col align="center" justify="flex-end" height="50px">
             <Calories>
               {Math.trunc(
-                this.props.item[0] &&
-                  this.props.item[this.state.dropDownSelectionKey].calories
+                this.props.item[this.state.dropDownSelectionKey] &&
+                  this.props.item[this.state.dropDownSelectionKey]
+                    .calories_kcal * this.state.quantity
               )}{" "}
               cal
             </Calories>
@@ -136,26 +154,25 @@ class FoodDetails extends React.Component {
                   borderColor: "#CED4DA"
                 }}
               >
-                {this.props.item[0] && this.props.item[this.state.dropDownSelectionKey].serving_desc}
+                {this.props.item[0] &&
+                  this.props.item[this.state.dropDownSelectionKey].serving_desc}
               </DropdownToggle>
               <DropdownMenu>
-                {this.props.item.map((serving, key) => (
+                {this.props.item.map((serving, key) =>
                   <DropdownItem
                     key={key}
                     onClick={() => this.handleSelect(key)}
                   >
                     {serving.serving_desc}
                   </DropdownItem>
-                ))}
+                )}
               </DropdownMenu>
             </ButtonDropdown>
           </Col>
         </Row>
-        <MacroBudgets macrosAdded={{
-          fat: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].fat_g) * this.state.quantity),
-          carbs: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) * this.state.quantity),
-          protein: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].protein_g) * this.state.quantity),
-        }}/>
+        <MacroBudgets
+          macrosAdded={this.addedMacros()}
+        />
         <Row>
           <Col direction="column">
             {/* Total Fat */}
@@ -184,7 +201,7 @@ class FoodDetails extends React.Component {
             />
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 }

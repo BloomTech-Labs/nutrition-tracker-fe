@@ -8,7 +8,7 @@ import {
 
 import { ButtonDropdown, DropdownItem, DropdownMenu, Card } from "reactstrap";
 import { Input, H2, Row, Col, DropdownToggle } from "../Global/styled";
-import formatDecimal from "../Global/helpers/formatDecimals";
+// import formatDecimal from "../Global/helpers/formatDecimals";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
 import moment from "moment";
 import Loading from "../Global/Loading";
@@ -120,8 +120,8 @@ class FoodDetails extends React.Component {
             <Calories>
               {Math.trunc(
                 this.props.item[this.state.dropDownSelectionKey] &&
-                  this.props.item[this.state.dropDownSelectionKey]
-                    .calories_kcal * this.state.quantity
+                  this.props.item[this.state.dropDownSelectionKey].calories *
+                    this.state.quantity
               )}{" "}
               cal
             </Calories>
@@ -158,21 +158,19 @@ class FoodDetails extends React.Component {
                   this.props.item[this.state.dropDownSelectionKey].serving_desc}
               </DropdownToggle>
               <DropdownMenu>
-                {this.props.item.map((serving, key) =>
+                {this.props.item.map((serving, key) => (
                   <DropdownItem
                     key={key}
                     onClick={() => this.handleSelect(key)}
                   >
                     {serving.serving_desc}
                   </DropdownItem>
-                )}
+                ))}
               </DropdownMenu>
             </ButtonDropdown>
           </Col>
         </Row>
-        <MacroBudgets
-          macrosAdded={this.addedMacros()}
-        />
+        <MacroBudgets macrosAdded={this.addedMacros()} />
         <Row>
           <DataCol direction="column">
             {/* Total Fat */}

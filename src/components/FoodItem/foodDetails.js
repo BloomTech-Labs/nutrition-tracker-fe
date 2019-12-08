@@ -6,16 +6,12 @@ import {
   addFoodItem
 } from "../../store/actions/foodItemAction";
 
-import {
-  ButtonDropdown,
-  DropdownItem,
-  DropdownMenu
-} from "reactstrap";
-import { DropdownToggle, Row, Col } from "../Global/styled";
-import { TBody, Input, H2 } from "../Global/styled/";
+import { ButtonDropdown, DropdownItem, DropdownMenu, Card } from "reactstrap";
+import { Input, H2, Row, Col, DropdownToggle } from "../Global/styled";
 import formatDecimal from "../Global/helpers/formatDecimals";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
 import moment from "moment";
+import Loading from "../Global/Loading";
 
 import {
   faAppleAlt,
@@ -92,25 +88,24 @@ class FoodDetails extends React.Component {
   };
 
   render() {
-    // console.log("[this.props.item]", this.props.item);
-    console.log("[this.props.item[0] && this.props.item[0].calories]", this.props.item[0] && this.props.item[0].calories)
-    // console.log("fats   ", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].fat_g) * this.state.quantity));
-    // console.log("carbs  ", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) * this.state.quantity));
-    // console.log("protein", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].protein_g) * this.state.quantity));
+    console.log("[this.props.item]", this.props.item);
+    if (!this.props.item[0]) return <Loading />;
     return (
       <>
         <Row>
           <Col align="center" height="50px">
             <FoodName>
-              {this.props.item[0] && this.props.item[0].food_name}
+              {this.props.item[this.state.dropDownSelectionKey] &&
+                this.props.item[this.state.dropDownSelectionKey].food_name}
             </FoodName>
           </Col>
           <Col align="center" justify="flex-end" height="50px">
             <Calories>
               {Math.trunc(
-                  this.props.item[0] &&
-                  this.props.item[this.state.dropDownSelectionKey].calories_kcal
-              )}{" "}cal
+                this.props.item[0] &&
+                  this.props.item[this.state.dropDownSelectionKey].calories
+              )}{" "}
+              cal
             </Calories>
           </Col>
         </Row>
@@ -130,7 +125,7 @@ class FoodDetails extends React.Component {
             <ButtonDropdown
               isOpen={this.state.dropdownOpen}
               toggle={this.handleToggle}
-              style={{width: "100%"}}
+              style={{ width: "100%" }}
             >
               <DropdownToggle
                 caret
@@ -144,14 +139,14 @@ class FoodDetails extends React.Component {
                 {this.props.item[0] && this.props.item[this.state.dropDownSelectionKey].serving_desc}
               </DropdownToggle>
               <DropdownMenu>
-                {this.props.item.map((serving, key) =>
+                {this.props.item.map((serving, key) => (
                   <DropdownItem
                     key={key}
                     onClick={() => this.handleSelect(key)}
                   >
                     {serving.serving_desc}
                   </DropdownItem>
-                )}
+                ))}
               </DropdownMenu>
             </ButtonDropdown>
           </Col>
@@ -162,50 +157,21 @@ class FoodDetails extends React.Component {
           protein: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].protein_g) * this.state.quantity),
         }}/>
         <Row>
-          <Col>
-            {/* {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL}
-            {this.state.dropDownSelectionKey !== false &&
-              <TBody borderless responsive>
-                <tr>
-                  <th scope="row"> Fats </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey].fat *
-                        this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row"> Cholesterol </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .cholesterol * this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row"> Sodium </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey].sodium *
-                        this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-              </TBody>} */}
+          <Col direction="column">
+            {/* Total Fat */}
+            <MainData justify="space-between" align="flex-end">
+              <h3>Total Fat</h3>
+              <h5>
+                {this.props.item[this.state.dropDownSelectionKey].fat} grams
+              </h5>
+            </MainData>
+            {/* Saturated Fat */}
+            <SubData justify="space-between" align="flex-end">
+              <h3>Saturated Fat</h3>
+              <h5>
+                {this.props.item[this.state.dropDownSelectionKey].fat} grams
+              </h5>
+            </SubData>
           </Col>
         </Row>
         <Row>
@@ -222,6 +188,17 @@ class FoodDetails extends React.Component {
     );
   }
 }
+
+const MainData = styled(Col)`
+  border-bottom: 1px solid black;
+`;
+
+const SubData = styled(Col)`
+  border-bottom: 1px solid black;
+  h3 {
+    font-weight: normal;
+  }
+`;
 
 const FoodName = styled(H2)`
   text-align: left;
@@ -245,3 +222,52 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { getOneFoodItem, addFoodItem })(
   FoodDetails
 );
+
+// {
+//   {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */
+// }
+// {
+//   {this.state.dropDownSelectionKey !== false && (
+//               <TBody borderless responsive>
+//                 <tr>
+//                   <h3 scope="row"> Fats </h3>
+//                   <td>
+//                     {formatDecimal(
+//                       this.props.item[this.state.dropDownSelectionKey].fat *
+//                         this.state.quantity
+//                     )}
+//                     {
+//                       this.props.item[this.state.dropDownSelectionKey]
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//                 <tr>
+//                   <th scope="row"> Cholesterol </th>
+//                   <td>
+//                     {formatDecimal(
+//                       this.props.item[this.state.dropDownSelectionKey]
+//                         .cholesterol * this.state.quantity
+//                     )}
+//                     {
+//                       this.props.item[this.state.dropDownSelectionKey]
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//                 <tr>
+//                   <th scope="row"> Sodium </th>
+//                   <td>
+//                     {formatDecimal(
+//                       this.props.item[this.state.dropDownSelectionKey].sodium *
+//                         this.state.quantity
+//                     )}
+//                     {
+//                       this.props.item[this.state.dropDownSelectionKey]
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//               </TBody>
+//             )}
+// }

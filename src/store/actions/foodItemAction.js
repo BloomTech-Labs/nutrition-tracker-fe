@@ -46,26 +46,10 @@ export const getOneFoodItem = food_id => dispatch => {
     });
 };
 
-export const addFoodItem = ({
-  fatsecret_food_id,
-  food_id,
-  quantity,
-  serving_id,
-  time_zone_abbr,
-  time_zone_name,
-  time_consumed_at
-}) => dispatch => {
+export const addFoodItem = (foodLog, firebaseID) => dispatch => {
   dispatch({ type: FETCH_START });
   axios
-    .post(`${LOCALHOST}/log-entry/`, {
-      fatsecret_food_id,
-      food_id,
-      quantity,
-      serving_id,
-      time_zone_abbr,
-      time_zone_name,
-      time_consumed_at
-    })
+    .post(`${LOCALHOST}/log-entry/log/${firebaseID}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })

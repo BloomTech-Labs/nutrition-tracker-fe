@@ -23,7 +23,7 @@ import {
   faWeight,
   faCheck
 } from "@fortawesome/free-solid-svg-icons";
-import DataWheel from "../Global/DataWheel";
+import MacroBudgets from "../Global/MacroBudgets";
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -41,7 +41,7 @@ class FoodDetails extends React.Component {
     this.state = {
       quantity: 1,
       dropdownOpen: false,
-      dropDownSelectionKey: false
+      dropDownSelectionKey: 0
     };
   }
 
@@ -70,9 +70,6 @@ class FoodDetails extends React.Component {
   };
 
   handleOnMainButtonClick = () => {
-    if (!this.state.dropDownSelectionKey) {
-      return false;
-    }
     const currentTimeZone = moment.tz.guess(); // this gives you the time-zone_name, ex. America/Los_Angeles
     const today = moment.tz(currentTimeZone).format("YYYY-MM-DD"); // this give you the current date (localized to the user's timezone)
     const tzAbbreviation = moment.tz(today, currentTimeZone).format("z"); // this gives you the time_zone_abbr, ex. PST
@@ -95,27 +92,35 @@ class FoodDetails extends React.Component {
   };
 
   render() {
-    console.log("[this.props.item]", this.props.item);
+    // console.log("[this.props.item]", this.props.item);
+    console.log("[this.props.item[0] && this.props.item[0].calories]", this.props.item[0] && this.props.item[0].calories)
+    // console.log("fats   ", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].fat_g) * this.state.quantity));
+    // console.log("carbs  ", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) * this.state.quantity));
+    // console.log("protein", Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].protein_g) * this.state.quantity));
     return (
       <>
         <Row>
           <Col align="center" height="50px">
             <FoodName>
-              {this.props.item[0].food_name}
+              {this.props.item[0] && this.props.item[0].food_name}
             </FoodName>
           </Col>
           <Col align="center" justify="flex-end" height="50px">
             <Calories>
-              {Math.trunc(this.props.item[0].calories_kcal)} cal
+              {Math.trunc(
+                  this.props.item[0] &&
+                  this.props.item[this.state.dropDownSelectionKey].calories_kcal
+              )}{" "}cal
             </Calories>
           </Col>
         </Row>
         <Row>
           <Col>
             <Input
-              type="text"
+              type="number"
               name="quantity"
               value={this.state.quantity}
+              min={1}
               onChange={e => {
                 this.setState({ quantity: e.target.value });
               }}
@@ -136,10 +141,7 @@ class FoodDetails extends React.Component {
                   borderColor: "#CED4DA"
                 }}
               >
-                {this.state.dropDownSelectionKey !== false
-                  ? this.props.item[this.state.dropDownSelectionKey]
-                      .serving_desc
-                  : this.props.item[0].serving_desc}
+                {this.props.item[0] && this.props.item[this.state.dropDownSelectionKey].serving_desc}
               </DropdownToggle>
               <DropdownMenu>
                 {this.props.item.map((serving, key) =>
@@ -154,20 +156,14 @@ class FoodDetails extends React.Component {
             </ButtonDropdown>
           </Col>
         </Row>
-        <Row noGutters>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Fats" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Carbs" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Protein" />
-          </Col>
-        </Row>
+        <MacroBudgets macrosAdded={{
+          fat: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].fat_g) * this.state.quantity),
+          carbs: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) * this.state.quantity),
+          protein: Math.ceil(Number(this.props.item[this.state.dropDownSelectionKey].protein_g) * this.state.quantity),
+        }}/>
         <Row>
           <Col>
-            {/* {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */}
+            {/* {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL}
             {this.state.dropDownSelectionKey !== false &&
               <TBody borderless responsive>
                 <tr>
@@ -209,7 +205,7 @@ class FoodDetails extends React.Component {
                     }
                   </td>
                 </tr>
-              </TBody>}
+              </TBody>} */}
           </Col>
         </Row>
         <Row>

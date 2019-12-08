@@ -19,7 +19,7 @@ import {
   faWeight,
   faCheck
 } from "@fortawesome/free-solid-svg-icons";
-import DataWheel from "../Global/DataWheel";
+import MacroBudgets from "../Global/MacroBudgets";
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -66,9 +66,6 @@ class FoodDetails extends React.Component {
   };
 
   handleOnMainButtonClick = () => {
-    if (!this.state.dropDownSelectionKey) {
-      return false;
-    }
     const currentTimeZone = moment.tz.guess(); // this gives you the time-zone_name, ex. America/Los_Angeles
     const today = moment.tz(currentTimeZone).format("YYYY-MM-DD"); // this give you the current date (localized to the user's timezone)
     const tzAbbreviation = moment.tz(today, currentTimeZone).format("z"); // this gives you the time_zone_abbr, ex. PST
@@ -90,11 +87,28 @@ class FoodDetails extends React.Component {
     });
   };
 
+  addedMacros() {
+    return {
+      fat: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].fat_g) *
+          this.state.quantity
+      ),
+      carbs: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].carbs_g) *
+          this.state.quantity
+      ),
+      protein: Math.ceil(
+        Number(this.props.item[this.state.dropDownSelectionKey].protein_g) *
+          this.state.quantity
+      )
+    };
+  }
+
   render() {
     console.log("[this.props.item]", this.props.item);
     if (!this.props.item[0]) return <Loading />;
     return (
-      <>
+      <div>
         <Row>
           <Col align="center" height="50px">
             <FoodName>
@@ -105,8 +119,9 @@ class FoodDetails extends React.Component {
           <Col align="center" justify="flex-end" height="50px">
             <Calories>
               {Math.trunc(
-                this.props.item[0] &&
-                  this.props.item[this.state.dropDownSelectionKey].calories
+                this.props.item[this.state.dropDownSelectionKey] &&
+                  this.props.item[this.state.dropDownSelectionKey]
+                    .calories_kcal * this.state.quantity
               )}{" "}
               cal
             </Calories>
@@ -115,9 +130,10 @@ class FoodDetails extends React.Component {
         <Row>
           <Col>
             <Input
-              type="text"
+              type="number"
               name="quantity"
               value={this.state.quantity}
+              min={1}
               onChange={e => {
                 this.setState({ quantity: e.target.value });
               }}
@@ -138,35 +154,25 @@ class FoodDetails extends React.Component {
                   borderColor: "#CED4DA"
                 }}
               >
-                {this.state.dropDownSelectionKey !== false
-                  ? this.props.item[this.state.dropDownSelectionKey]
-                      .serving_desc
-                  : this.props.item[0] && this.props.item[0].serving_desc}
+                {this.props.item[0] &&
+                  this.props.item[this.state.dropDownSelectionKey].serving_desc}
               </DropdownToggle>
               <DropdownMenu>
-                {this.props.item.map((serving, key) => (
+                {this.props.item.map((serving, key) =>
                   <DropdownItem
                     key={key}
                     onClick={() => this.handleSelect(key)}
                   >
                     {serving.serving_desc}
                   </DropdownItem>
-                ))}
+                )}
               </DropdownMenu>
             </ButtonDropdown>
           </Col>
         </Row>
-        <Row noGutters>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Fats" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Carbs" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Protein" />
-          </Col>
-        </Row>
+        <MacroBudgets
+          macrosAdded={this.addedMacros()}
+        />
         <Row>
           <DataCol direction="column">
             {/* Total Fat */}
@@ -358,7 +364,7 @@ class FoodDetails extends React.Component {
             />
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 }

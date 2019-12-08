@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { Container } from "../../Global/styled";
 
-import Loading from "../../Global/loading/Loading";
+import Loading from "../../Global/Loading";
 
 // Routes
 import RegisterOptions from "./RegisterOptions";

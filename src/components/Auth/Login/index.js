@@ -8,7 +8,7 @@ import { Container } from "../../Global/styled";
 import LoginWithEmail from "./LoginWithEmail";
 import LoginOptions from "./LoginOptions";
 
-import Loading from "../../Global/loading/Loading";
+import Loading from "../../Global/Loading";
 
 import { connect } from "react-redux";
 

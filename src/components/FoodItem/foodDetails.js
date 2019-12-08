@@ -76,15 +76,15 @@ class FoodDetails extends React.Component {
     const time_consumed_at = today,
       time_zone_abbr = tzAbbreviation,
       time_zone_name = currentTimeZone;
+    const firebaseID = this.props.firebaseID;
     this.props.addFoodItem({
       fatsecret_food_id: food_id,
-      food_id: this.props.item.id,
+      food_id: this.props.item[this.state.dropDownSelectionKey].id,
       quantity,
       serving_id,
-      time_consumed_at,
       time_zone_abbr,
       time_zone_name
-    });
+    }, firebaseID);
   };
 
   addedMacros() {

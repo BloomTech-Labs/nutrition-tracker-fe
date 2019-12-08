@@ -4,7 +4,7 @@ import { Container, Row, Col } from "../Global/styled";
 import moment from "moment-timezone";
 import useGroupBy from "./custom hooks/useGroupBy";
 import CaloricBudget from "./components/CaloricBudget";
-import MacroBudgets from "./components/MacroBudgets";
+import MacroBudgets from "../Global/MacroBudgets";
 import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import DisplaySettings from "./components/DisplaySettings";
@@ -71,15 +71,7 @@ const DailyLog = props => {
         consumed={consumed.caloriesConsumed}
       />
       <FatSecretAttribution />
-      
-        <MacroBudgets
-          // fatsTotal={budgets.fatBudget}
-          // carbsTotal={budgets.carbBudget}
-          // protienTotal={budgets.proteinBudget}
-          // fatsConsumed={consumed.fatsConsumed}
-          // carbsConsumed={consumed.carbsConsumed}
-          // protienConsumed={consumed.proteinConsumed}
-        />
+        <MacroBudgets/>
       <Pagination
         currentDate={currentDate}
         currentTimeZone={currentTimeZone}

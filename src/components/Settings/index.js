@@ -27,13 +27,15 @@ import CurrentWeight from "./components/CurrentWeight";
 import Loading from "../Global/Loading";
 
 class Settings extends React.Component {
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
     //These are actions that gets the current info for settings from DB
-    this.props.getUserInfo(this.props.firebaseID);
-    this.props.getCurrentWeight(this.props.firebaseID);
-    this.props.getActivityLevel(this.props.firebaseID);
-    this.props.getMacros(this.props.firebaseID);
-    this.props.getWeightGoal(this.props.firebaseID);
+    if (prevProps.firebaseID !== this.props.firebaseID) {
+      this.props.getUserInfo(this.props.firebaseID);
+      this.props.getCurrentWeight(this.props.firebaseID);
+      this.props.getActivityLevel(this.props.firebaseID);
+      this.props.getMacros(this.props.firebaseID);
+      this.props.getWeightGoal(this.props.firebaseID);
+    }
   }
 
   //These are functions that get passed down to the components and updates the DB for that component's data.
@@ -69,7 +71,7 @@ class Settings extends React.Component {
     if (!token) return <Redirect to="/landing" />;
 
     return (
-      <Container fluid style={{padding: 0}} height={this.props.height}>
+      <Container fluid style={{ padding: 0 }} height={this.props.height}>
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />

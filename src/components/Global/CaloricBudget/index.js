@@ -16,7 +16,7 @@ const CaloricBudget = (props) => {
   const calConsumed = consumed.caloriesConsumed;
   const calTotal = budgets.caloricBudget;
 
-  let percentBudget = Math.round(calConsumed / calTotal * 100);
+  const percentBudget = Math.round(calConsumed / calTotal * 100);
   if(percentBudget >= 100) {
     percentBudget = 0;
   }
@@ -63,9 +63,8 @@ const Total = styled.div`
 const Consumed = styled.div`
   display: flex;
   align-items: center;
-  
-  width: ${props => props.percentBudget};
-  
+  width: ${props => `${props.percentBudget}%`};
+
   height: 50px;
 
   border-right: ${props => props.percentBudget === 0 ? "none" : `1px solid ${theme.color.success}`};
@@ -94,7 +93,6 @@ const Added = styled.div`
 
 const ConsumedCalories = styled(H2)`
   position: absolute;
-  white-space: nowrap;
   margin-left: 10px;
   color: ${theme.color.light};
 `;
@@ -106,7 +104,7 @@ const TotalCalories = styled(H2)`
 
   color: ${theme.color.dark};
   white-space: nowrap;
-  z-index: 2;
+  z-index: 1;
 `;
 
 export default CaloricBudget;

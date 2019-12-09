@@ -6,6 +6,7 @@ export const FETCH_FAILURE = "FETCH_FAILURE";
 export const FETCH_GET_ONE_START = "FETCH_GET_ONE_START";
 export const FETCH_GET_ONE_SUCCESS = "FETCH_GET_ONE_SUCCESS";
 export const FETCH_GET_ONE_FAILURE = "FETCH_GET_ONE_FAILURE";
+export const POST_FOOD_START = "POST_FOOD_START";
 export const POST_FOOD_SUCCESS = "POST_FOOD_SUCCESS";
 export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
 
@@ -47,12 +48,14 @@ export const getOneFoodItem = food_id => dispatch => {
 };
 
 export const addFoodItem = (foodLog, firebaseID, currentDate) => dispatch => {
-  dispatch({ type: FETCH_START });
+  dispatch({ type: POST_FOOD_START });
   return axios
     .post(`${LOCALHOST}/log-entry/${firebaseID}/${currentDate}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })
-    .catch(e => console.error(e));
+    .catch(e => {
+      dispatch({ type: POST_FOOD_FAILURE });
+    });
   //
 };

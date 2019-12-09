@@ -11,10 +11,10 @@ import {
   fetchDailyLog,
   updateCurrentTimeZone
 } from "../../store/actions/dailyLogActions";
-import CaloricBudget from "../Global/CaloricBudget";
 import MacroBudgets from "../Global/MacroBudgets";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
 import { Col, Container, Row } from "../Global/styled";
+import CaloricBudget from "./components/CaloricBudget";
 import DisplaySettings from "./components/DisplaySettings";
 import FatSecretAttribution from "./components/FatSecretAttribution";
 import Pagination from "./components/Pagination";
@@ -72,7 +72,7 @@ const DailyLog = props => {
     <Container height={props.height} fluid>
       <CaloricBudget
         total={budgets.caloricBudget}
-        consumed={2000}
+        consumed={consumed.caloriesConsumed}
       />
       <FatSecretAttribution />
         <MacroBudgets currentDate={currentDate} currentTimeZone={currentTimeZone}/>

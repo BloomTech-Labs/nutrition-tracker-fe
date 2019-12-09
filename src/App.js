@@ -63,11 +63,11 @@ class App extends Component {
         <AppWrapper>
           <PrivateRoute exact path="/" component={DailyLogWithNav} />
           <Route path="/landing" component={LandingPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/onboarding" component={Onboarding} />
+          <Route path="/login" component={LoginWithNav} />
+          <Route path="/register" component={RegisterWithNav} />
+          <Route path="/onboarding" component={OnboardingWithNav} />
           <Route path="/food-item" component={FoodItemWithNav} />
-          <PrivateRoute path="/settings" component={SettingsWithNav} />
+          <Route path="/settings" component={SettingsWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

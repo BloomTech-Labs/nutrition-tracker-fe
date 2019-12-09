@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {connect} from "react-redux";
 import { Textfit } from "react-textfit";
 import { useToasts } from "react-toast-notifications";
 import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
@@ -14,7 +13,7 @@ import {
 import Loading from "../Global/Loading";
 import MacroBudgets from "../Global/MacroBudgets";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
-import { Col, DropdownToggle, H2, H3, Input, Row } from "../Global/styled";
+import { Col, DropdownToggle, H2, H3, H4, Input, Row } from "../Global/styled";
 import NutritionInfo from "./components/NutritionInfo";
 
 const FoodDetails = props => {
@@ -24,20 +23,43 @@ const FoodDetails = props => {
   const [quantity, setQuantity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(0);
+  const [time, setTime] = useState("");
+
+  console.log("[time ******]", time);
+
+  
 
   const { consumed, currentDate, currentTimeZone } = useSelector(
     state => state.dailyLog
   );
-  const { item, getting, got } = useSelector(state => state.foodItemsReducer);
+  const { item, got, error } = useSelector(state => state.foodItemsReducer);
   const firebaseID = useSelector(state => state.firebase.auth.uid);
+
+  const today = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+
+  console.log(moment(`${currentDate} ${time}`).utc().format());
 
   useEffect(
     () => {
-      console.log("[params INSIDE]", props.match.params.fatsecret_food_id);
-      // const { fatsecret_food_id } = props.match.params;
       dispatch(getOneFoodItem(props.match.params.fatsecret_food_id));
     },
     [props.match.params.fatsecret_food_id]
+  );
+
+  useEffect(
+    () => {
+      if (got)
+        addToast("Food Item Added!", {
+          appearance: "success",
+          autoDismiss: true
+        });
+      else if (error)
+        addToast("Error. Try again later.", {
+          appearance: "error",
+          autoDismiss: true
+        });
+    },
+    [error, got]
   );
 
   const handleToggle = e => {
@@ -72,34 +94,20 @@ const FoodDetails = props => {
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-    const payload = await props.addFoodItem(
-      {
-        food_id,
-        quantity,
-        serving_id,
-        fatsecret_food_id,
-        time_zone_name,
-        time_zone_abbr
-      },
-      firebaseID,
-      currentDate
+    dispatch(
+      addFoodItem(
+        {
+          food_id,
+          quantity,
+          serving_id,
+          fatsecret_food_id,
+          time_zone_name,
+          time_zone_abbr
+        },
+        firebaseID,
+        currentDate
+      )
     );
-    console.log("[payload ******]", payload);
-    return payload;
-  };
-
-  const addNewFoodLogWithToast = async () => {
-    const result = await addNewFoodLog();
-
-    !result.payload.error
-      ? addToast("Food Item Added!", {
-          appearance: "success",
-          autoDismiss: true
-        })
-      : addToast("Error. Try again later.", {
-          appearance: "error",
-          autoDismiss: true
-        });
   };
 
   const getCurrentTimeZoneAbbr = () => {
@@ -112,6 +120,8 @@ const FoodDetails = props => {
 
   /* ****************************************************** */
   const foodSelection = item[dropDownSelectionIndex];
+
+  console.log("[quantity]", quantity);
 
   return (
     <div>
@@ -170,7 +180,7 @@ const FoodDetails = props => {
             value={quantity}
             min={1}
             onChange={e => {
-              setQuantity({ quantity: e.target.value });
+              setQuantity(e.target.value);
             }}
           />
         </Col>
@@ -201,13 +211,34 @@ const FoodDetails = props => {
             </DropdownMenu>
           </ButtonDropdown>
         </Col>
+        {moment(today).isSame(currentDate) &&
+          <>
+            <div className="w-100"/>
+            <Col align="center" justify="center">
+              <H3 style={{ paddingTop: "30px" }}>
+                {moment.tz(currentDate, currentTimeZone).format("MM/DD/YYYY")}
+              </H3>
+            </Col>
+            <Col direction="column" align="flex-end">
+              <InputLabel>At Time</InputLabel>
+              <Input
+                type="time"
+                name="time"
+                value={time}
+                style={{ textAlign: "right" }}
+                onChange={(e) => setTime(e.target.value)}
+                min={1}
+              />
+            </Col>
+          </>}
       </Row>
+
       <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
       <Row>
         <Col>
           <Flywheel
             staticInitialButton
-            onMainButtonClick={addNewFoodLogWithToast}
+            onMainButtonClick={addNewFoodLog}
             maintButtonIcon={faCheck}
             childButtonIcons={[]}
           />
@@ -257,7 +288,7 @@ const InputLabel = styled.span`font-size: 1.6rem;`;
 //   FoodDetails
 // );
 
-export default connect(null, {addFoodItem})(FoodDetails);
+export default FoodDetails;
 
 // {
 //   {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */

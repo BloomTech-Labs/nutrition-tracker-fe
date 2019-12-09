@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Col, H2, Row } from "../../Global/styled";
 import theme from "../../Global/theme";
-import { Row, Col, H2 } from "../../Global/styled";
 
 const CaloricBudget = props => {
   const percentBudget = Math.round(props.consumed / props.total * 100);
@@ -57,7 +57,7 @@ const ConsumedCalories = styled(H2)`
 const TotalCalories = styled(H2)`
   position: absolute;
   margin-right: 10px;
-  left: calc(100% - 130px);
+  left: calc(100% - 140px);
 
   color: ${theme.color.dark};
   white-space: nowrap;

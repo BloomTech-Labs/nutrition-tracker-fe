@@ -1,14 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 import { searchFoodItems } from "../../store/actions/foodItemAction";
 import { Container } from "../Global/styled";
-import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
-import WithLoading from "../Global/loading/withLoading";
-import withNavigation from "../Navigation/withNavigation";
-
-const FoodDetailsWithLoading = WithLoading(FoodDetails);
 
 class FoodItem extends React.Component {
   constructor() {
@@ -28,9 +24,9 @@ class FoodItem extends React.Component {
         />
 
         <Route
-          path={`${path}/view/:food_id`}
+          path={`${path}/view/:fatsecret_food_id`}
           render={props => (
-            <FoodDetailsWithLoading
+            <FoodDetails
               isLoading={this.props.isFetching}
               {...props}
             />

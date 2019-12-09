@@ -1,12 +1,17 @@
-import React, { useState } from "react";
 import moment from "moment-timezone";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button as BS_Button, Input as BS_Input } from "reactstrap";
 import styled from "styled-components";
-import { Row, Col } from "../../Global/styled";
-import { Input as BS_Input, Button as BS_Button } from "reactstrap";
-import { LeftCarotSVG, RightCarotSVG, CalendarSVG } from "../../Global/icons";
+import {
+  updateCurrentDate
+} from "../../../store/actions/dailyLogActions";
+import { CalendarSVG, LeftCarotSVG, RightCarotSVG } from "../../Global/icons";
+import { Col, Row } from "../../Global/styled";
 import theme from "../../Global/theme";
 
-const Pagination = ({ currentDate, updateCurrentDate, currentTimeZone }) => {
+const Pagination = ({ currentDate, currentTimeZone }) => {
+  const dispatch = useDispatch();
   const [dateInput, setDateInput] = useState("");
 
   const pageDate = direction => {
@@ -20,13 +25,13 @@ const Pagination = ({ currentDate, updateCurrentDate, currentTimeZone }) => {
             .tz(currentDate, currentTimeZone)
             .add(1, "d")
             .format("YYYY-MM-DD");
-
-    updateCurrentDate(newDate);
+    
+    dispatch(updateCurrentDate(newDate));
   };
 
   const changeDate = () => {
     if (moment(dateInput).isValid()) {
-      updateCurrentDate(dateInput);
+      dispatch(updateCurrentDate(dateInput));
       setDateInput("");
     } else setDateInput(currentDate);
   };

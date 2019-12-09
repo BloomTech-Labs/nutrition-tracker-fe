@@ -1,54 +1,36 @@
-import React from "react";
-import styled from "styled-components";
-import { connect } from "react-redux";
-import {
-  getOneFoodItem,
-  addFoodItem
-} from "../../store/actions/foodItemAction";
-
-import {
-  ButtonDropdown,
-  DropdownItem,
-  DropdownMenu
-} from "reactstrap";
-import { DropdownToggle, Row, Col } from "../Global/styled";
-import { TBody, Input, H2 } from "../Global/styled/";
-import formatDecimal from "../Global/helpers/formatDecimals";
-import Flywheel from "../Global/flywheel-menu/Flywheel";
 import moment from "moment";
-
+import React from "react";
+import { connect } from "react-redux";
+import { Textfit } from "react-textfit";
+import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
+import styled from "styled-components";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
-  faAppleAlt,
-  faUtensils,
-  faWeight,
-  faCheck
-} from "@fortawesome/free-solid-svg-icons";
-import DataWheel from "../Global/DataWheel";
-let childButtonIcons = [
-  {
-    icon: faAppleAlt,
-    name: "Food",
-    isaLink: true,
-    linkPath: "/food-item/search"
-  },
-  { icon: faUtensils, name: "Recipe", isaLink: false },
-  { icon: faWeight, name: "Weight", isaLink: false }
-];
+  addFoodItem,
+  getOneFoodItem
+} from "../../store/actions/foodItemAction";
+import CaloricBudget from "../Global/CaloricBudget";
+import Loading from "../Global/Loading";
+import MacroBudgets from "../Global/MacroBudgets";
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import { Col, DropdownToggle, H2, Input, Row } from "../Global/styled";
+import NutritionInfo from "./components/NutritionInfo";
 
 class FoodDetails extends React.Component {
   constructor() {
     super();
+
     this.state = {
       quantity: 1,
       dropdownOpen: false,
-      dropDownSelectionKey: false
+      dropDownSelectionIndex: 0
     };
   }
 
   componentWillMount() {
-    const { food_id } = this.props.match.params;
-    const firebaseID = this.props.firebaseID;
-    this.props.getOneFoodItem(food_id);
+    console.log("[this.props.match.params]", this.props.match.params);
+    const { fatsecret_food_id } = this.props.match.params;
+    this.props.getOneFoodItem(fatsecret_food_id);
   }
 
   handleToggle = e => {
@@ -64,64 +46,104 @@ class FoodDetails extends React.Component {
     this.setState(function(prevState) {
       return {
         ...prevState,
-        dropDownSelectionKey: key
+        dropDownSelectionIndex: key
       };
     });
   };
 
-  handleOnMainButtonClick = () => {
-    if (!this.state.dropDownSelectionKey) {
-      return false;
-    }
-    const currentTimeZone = moment.tz.guess(); // this gives you the time-zone_name, ex. America/Los_Angeles
-    const today = moment.tz(currentTimeZone).format("YYYY-MM-DD"); // this give you the current date (localized to the user's timezone)
-    const tzAbbreviation = moment.tz(today, currentTimeZone).format("z"); // this gives you the time_zone_abbr, ex. PST
-    console.log(this.props.match.params);
-    const { food_id } = this.props.match.params;
-    const { quantity } = this.state;
-    const { serving_id } = this.props.item[this.state.dropDownSelectionKey];
-    const time_consumed_at = today,
-      time_zone_abbr = tzAbbreviation,
-      time_zone_name = currentTimeZone;
-    this.props.addFoodItem({
-      fatsecret_food_id: food_id,
-      food_id: this.props.item.id,
-      quantity,
-      serving_id,
-      time_consumed_at,
-      time_zone_abbr,
-      time_zone_name
-    });
+  addedMacros() {
+    const foodItem = this.props.item;
+    const selectionIndex = this.state.dropDownSelectionIndex;
+    const quantity = this.state.quantity;
+    /* ****************************************************** */
+    const addedfatGrams = Number(foodItem[selectionIndex].fat_g) * quantity;
+    const addedCarbGrams = Number(foodItem[selectionIndex].carbs_g) * quantity;
+    const addedProteinGrams =
+      Number(foodItem[selectionIndex].protein_g) * quantity;
+
+    // rounds to nearest hundreth
+    return {
+      fat: Math.round(100 * addedfatGrams) / 100,
+      carbs: Math.round(100 * addedCarbGrams) / 100,
+      protein: Math.round(100 * addedProteinGrams) / 100
+    };
+  }
+
+  addNewFoodLog = () => {
+    const foodItem = this.props.item;
+    const selectionIndex = this.state.dropDownSelectionIndex;
+    /* ****************************************************** */
+    const currentDate = this.props.currentDate;
+    const food_id = foodItem[selectionIndex].id;
+    const quantity = this.state.quantity;
+    const serving_id = foodItem[selectionIndex].serving_id;
+    const fatsecret_food_id = this.props.match.params.fatsecret_food_id;
+    const { time_zone_name, time_zone_abbr } = this.getCurrentTimeZone();
+    const firebaseID = this.props.firebaseID;
+
+    this.props.addFoodItem(
+      {
+        food_id,
+        quantity,
+        serving_id,
+        fatsecret_food_id,
+        time_zone_name,
+        time_zone_abbr
+      },
+      firebaseID, currentDate
+    );
+
+    this.props.history.push("/food-item/search");    
   };
 
+  getCurrentTimeZone() {
+    // output ex. America/Los_Angeles
+    const time_zone_name = moment.tz.guess();
+    // output ex. "2019-11-24"
+    const todaysDate = moment.tz(time_zone_name).format("YYYY-MM-DD");
+    // output ex. PST
+    const time_zone_abbr = moment.tz(todaysDate, time_zone_name).format("z"); // output ex. PST
+
+    return { time_zone_name, time_zone_abbr };
+  }
+
   render() {
-    console.log("[this.props.item]", this.props.item);
+    if (!this.props.item[0]) return <Loading />;
+
+    const foodItem = this.props.item;
+    const dropDownSelectionIndex = this.state.dropDownSelectionIndex;
+    /* ****************************************************** */
+    const quantity = this.state.quantity;
+    const foodSelection = foodItem[dropDownSelectionIndex];
+
     return (
       <>
         <Row>
           <Col align="center" height="50px">
             <FoodName>
-              {this.props.item[0].food_name}
+              <Textfit>
+                {foodSelection && foodSelection.food_name}
+              </Textfit>
             </FoodName>
           </Col>
-          <Col align="center" justify="flex-end" height="50px">
-            <Calories>
-              {Math.trunc(this.props.item[0].calories_kcal)} cal
-            </Calories>
-          </Col>
         </Row>
-        <Row>
-          <Col>
+        <CaloricBudget addedCals={foodSelection.calories_kcal * quantity}/>
+        <MacroBudgets macrosAdded={this.addedMacros()} />
+        <Row style={{marginTop: "30px", marginBottom: "10px"}}>
+          <Col direction="column" align="flex-start">
+            <InputLabel>Qty</InputLabel>
             <Input
-              type="text"
+              type="number"
               name="quantity"
-              value={this.state.quantity}
+              value={quantity}
+              min={1}
               onChange={e => {
                 this.setState({ quantity: e.target.value });
               }}
             />
           </Col>
-          <Col>
+          <Col direction="column" align="flex-end">
+            <InputLabel>Serving Type</InputLabel>
             <ButtonDropdown
               isOpen={this.state.dropdownOpen}
               toggle={this.handleToggle}
@@ -136,10 +158,7 @@ class FoodDetails extends React.Component {
                   borderColor: "#CED4DA"
                 }}
               >
-                {this.state.dropDownSelectionKey !== false
-                  ? this.props.item[this.state.dropDownSelectionKey]
-                      .serving_desc
-                  : this.props.item[0].serving_desc}
+                {this.props.item[0] && foodSelection.serving_desc}
               </DropdownToggle>
               <DropdownMenu>
                 {this.props.item.map((serving, key) =>
@@ -154,71 +173,14 @@ class FoodDetails extends React.Component {
             </ButtonDropdown>
           </Col>
         </Row>
-        <Row noGutters>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Fats" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Carbs" />
-          </Col>
-          <Col direction="column" justify="center" align="center" xs={4}>
-            <DataWheel macroName="Protein" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {/* {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */}
-            {this.state.dropDownSelectionKey !== false &&
-              <TBody borderless responsive>
-                <tr>
-                  <th scope="row"> Fats </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey].fat *
-                        this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row"> Cholesterol </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .cholesterol * this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row"> Sodium </th>
-                  <td>
-                    {formatDecimal(
-                      this.props.item[this.state.dropDownSelectionKey].sodium *
-                        this.state.quantity
-                    )}
-                    {
-                      this.props.item[this.state.dropDownSelectionKey]
-                        .metric_serving_unit
-                    }
-                  </td>
-                </tr>
-              </TBody>}
-          </Col>
-        </Row>
+        <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
         <Row>
           <Col>
             <Flywheel
               staticInitialButton
-              onMainButtonClick={this.handleOnMainButtonClick}
+              onMainButtonClick={this.addNewFoodLog}
               maintButtonIcon={faCheck}
-              childButtonIcons={childButtonIcons}
+              childButtonIcons={[]}
             />
           </Col>
         </Row>
@@ -228,11 +190,17 @@ class FoodDetails extends React.Component {
 }
 
 const FoodName = styled(H2)`
-  text-align: left;
+  text-align: center;
+  width: 100%;
+  /* font-size: 2rem; */
 `;
 
 const Calories = styled(H2)`
   text-align: right;
+`;
+
+const InputLabel = styled.span`
+  font-size: 1.6rem;
 `;
 
 const mapStateToProps = state => {
@@ -242,10 +210,61 @@ const mapStateToProps = state => {
     got: state.foodItemsReducer.got,
     budgets: state.dailyLog.budgets,
     consumed: state.dailyLog.consumed,
-    firebaseID: state.firebase.auth.uid
+    currentDate: state.dailyLog.currentDate,
+    currentTimeZone: state.dailyLog.currentTimeZone,
+    firebaseID: state.firebase.auth.uid,
   };
 };
 
 export default connect(mapStateToProps, { getOneFoodItem, addFoodItem })(
   FoodDetails
 );
+
+// {
+//   {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */
+// }
+// {
+//   {this.state.dropDownSelectionIndex !== false && (
+//               <TBody borderless responsive>
+//                 <tr>
+//                   <h3 scope="row"> Fats </h3>
+//                   <td>
+//                     {formatDecimal(
+//                       foodSelection.fat *
+//                         quantity
+//                     )}
+//                     {
+//                       foodSelection
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//                 <tr>
+//                   <th scope="row"> Cholesterol </th>
+//                   <td>
+//                     {formatDecimal(
+//                       foodSelection
+//                         .cholesterol * quantity
+//                     )}
+//                     {
+//                       foodSelection
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//                 <tr>
+//                   <th scope="row"> Sodium </th>
+//                   <td>
+//                     {formatDecimal(
+//                       foodSelection.sodium *
+//                         quantity
+//                     )}
+//                     {
+//                       foodSelection
+//                         .metric_serving_unit
+//                     }
+//                   </td>
+//                 </tr>
+//               </TBody>
+//             )}
+// }

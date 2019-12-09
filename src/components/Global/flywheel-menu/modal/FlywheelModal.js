@@ -1,9 +1,9 @@
 import React from "react";
-import RecordWeight from "./RecordWeight";
-// import Recipe from "./Recipe";
-import DefaultView from "./DefaultView";
 import { connect } from "react-redux";
 import { recordUserWeight } from "../../../../store/actions/flywheelAction";
+// import Recipe from "./Recipe";
+import DefaultView from "./DefaultView";
+import RecordWeight from "./RecordWeight";
 
 class PopModal extends React.Component {
   constructor(props) {
@@ -24,11 +24,9 @@ class PopModal extends React.Component {
   };
 
   handleRecordWeight = async () => {
-    const newRecord = {
-      weight_kg: this.state.weight
-    };
+    const weight_kg = lbsToKgs(this.state.weight)
 
-    const payload = await this.props.recordUserWeight(this.props.firebaseID, newRecord);
+    const payload = await this.props.recordUserWeight(this.props.firebaseID, weight_kg);
     return payload;
   };
 
@@ -66,6 +64,11 @@ class PopModal extends React.Component {
       );
     }
   }
+}
+
+function lbsToKgs(lbs) {
+  const weight_kg = lbs * 0.45359237;
+  return weight_kg;
 }
 
 const mapStateToProps = state => {

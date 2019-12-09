@@ -1,15 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Col, Row } from "reactstrap";
+import { getOneFoodItem } from "../../store/actions/foodItemAction";
 import SearchForm from "./searchForm";
 import SearchResults from "./searchResults";
-import { connect } from "react-redux";
-import { getOneFoodItem } from "../../store/actions/foodItemAction";
-import { Col, Row } from "reactstrap";
 
 class SearchPage extends React.Component {
-  handleGetFoodItem = food_id => {
-    this.props.getOneFoodItem(food_id).then(response => {
+
+  handleGetFoodItem = fatsecret_food_id => {
+    this.props.getOneFoodItem(fatsecret_food_id).then(response => {
       if (response) {
-        this.props.history.push(`${this.props.path}/view/${food_id}`);
+        this.props.history.push(`${this.props.path}/view/${fatsecret_food_id}`);
       }
     });
   };

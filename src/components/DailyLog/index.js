@@ -1,25 +1,26 @@
+import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col } from "../Global/styled";
-import moment from "moment-timezone";
-import useGroupBy from "./custom hooks/useGroupBy";
-import CaloricBudget from "./components/CaloricBudget";
-import MacroBudgets from "./components/MacroBudgets";
-import Pagination from "./components/Pagination";
-import TimeLog from "./components/TimeLog";
-import DisplaySettings from "./components/DisplaySettings";
-import {
-  fetchDailyLog
-} from "../../store/actions/dailyLogActions";
-
-import Flywheel from "../Global/flywheel-menu/Flywheel";
 import {
   faAppleAlt,
+  faTimes,
   faUtensils,
-  faWeight,
-  faTimes
+  faWeight
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  fetchDailyLog,
+  updateCurrentTimeZone
+} from "../../store/actions/dailyLogActions";
+import CaloricBudget from "../Global/CaloricBudget";
+import MacroBudgets from "../Global/MacroBudgets";
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import { Col, Container, Row } from "../Global/styled";
+import DisplaySettings from "./components/DisplaySettings";
 import FatSecretAttribution from "./components/FatSecretAttribution";
+import Pagination from "./components/Pagination";
+import TimeLog from "./components/TimeLog";
+import useGroupBy from "./custom hooks/useGroupBy";
+
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -31,22 +32,21 @@ let childButtonIcons = [
   { icon: faWeight, name: "Weight", isaLink: false }
 ];
 
+const currentTimeZone = moment.tz.guess();
+
 const DailyLog = props => {
   const {
     budgets,
     consumed,
     dailyLog,
-    fetchDailyLogSuccess
+    fetchDailyLogSuccess,
+    currentDate
   } = useSelector(state => state.dailyLog);
 
   const dispatch = useDispatch();
 
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
-  const currentTimeZone = moment.tz.guess();
-  const today = moment.tz("2019-11-24", currentTimeZone).format("YYYY-MM-DD");
-
-  const [currentDate, setCurrentDate] = useState(today);
   const [interval, setInterval] = useState(30);
 
   const groupedDailyLog = useGroupBy(interval, dailyLog);
@@ -61,25 +61,21 @@ const DailyLog = props => {
     [currentDate, currentTimeZone, dispatch, firebaseID]
   );
 
+  useEffect(() => {
+    dispatch(updateCurrentTimeZone(currentTimeZone));
+  }, [currentTimeZone])
+
   const updateInterval = interval => setInterval(interval);
-  const updateCurrentDate = newDate => setCurrentDate(newDate);
+  const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
 
   return (
     <Container height={props.height} fluid>
       <CaloricBudget
         total={budgets.caloricBudget}
-        consumed={consumed.caloriesConsumed}
+        consumed={2000}
       />
       <FatSecretAttribution />
-      
-        <MacroBudgets
-          // fatsTotal={budgets.fatBudget}
-          // carbsTotal={budgets.carbBudget}
-          // protienTotal={budgets.proteinBudget}
-          // fatsConsumed={consumed.fatsConsumed}
-          // carbsConsumed={consumed.carbsConsumed}
-          // protienConsumed={consumed.proteinConsumed}
-        />
+        <MacroBudgets currentDate={currentDate} currentTimeZone={currentTimeZone}/>
       <Pagination
         currentDate={currentDate}
         currentTimeZone={currentTimeZone}

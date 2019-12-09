@@ -1,11 +1,17 @@
+import moment from "moment-timezone";
 import {
-  FETCH_NUTRITION_BUDGETS_START,
-  FETCH_NUTRITION_BUDGETS_SUCCESS,
-  FETCH_NUTRITION_BUDGETS_FAILURE,
+  FETCH_DAILY_LOG_FAILURE,
   FETCH_DAILY_LOG_START,
   FETCH_DAILY_LOG_SUCCESS,
-  FETCH_DAILY_LOG_FAILURE
+  FETCH_NUTRITION_BUDGETS_FAILURE,
+  FETCH_NUTRITION_BUDGETS_START,
+  FETCH_NUTRITION_BUDGETS_SUCCESS,
+  UPDATE_CURRENT_DATE,
+  UPDATE_CURRENT_TIMEZONE
 } from "../actions/dailyLogActions";
+
+const currentTimeZone = moment.tz.guess();
+const currentDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
 
 const initialState = {
   budgets: {
@@ -26,6 +32,8 @@ const initialState = {
   fetchBudgetFailure: false,
   fetchDailyLogStart: false,
   fetchDailyLogError: false,
+  currentDate,
+  currentTimeZone
 };
 
 export const dailyLogReducer = (state = initialState, action) => {
@@ -88,6 +96,20 @@ export const dailyLogReducer = (state = initialState, action) => {
         consumed: [],
         dailyLog: []
       };
+    }
+
+    case UPDATE_CURRENT_DATE: {
+      return {
+        ...state,
+        currentDate: action.payload
+      }
+    }
+
+    case UPDATE_CURRENT_TIMEZONE: {
+      return {
+        ...state,
+        currentTimeZone: action.payload
+      }
     }
 
     default:

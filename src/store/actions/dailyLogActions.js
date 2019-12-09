@@ -6,6 +6,8 @@ export const FETCH_NUTRITION_BUDGETS_FAILURE = "FETCH_NUTRITION_BUDGETS_FAILURE"
 export const FETCH_DAILY_LOG_START = "FETCH_DAILY_LOG_START";
 export const FETCH_DAILY_LOG_SUCCESS = "FETCH_DAILY_LOG_SUCCESS";
 export const FETCH_DAILY_LOG_FAILURE = "FETCH_DAILY_LOG_FAILURE";
+export const UPDATE_CURRENT_DATE = "UPDATE_CURRENT_DATE";
+export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
 
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
@@ -33,6 +35,8 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
 
   axios.get(`http://localhost:4000/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({data}) => {
+
+      console.log("[data.fatsConsumed]", data.fatsConsumed);
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,
         payload: {
@@ -50,4 +54,20 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
       dispatch({type: FETCH_DAILY_LOG_FAILURE})
     })
 };
+
+export const updateCurrentDate = currentDate => dispatch => {
+  console.log("[currentDate]", currentDate)
+  dispatch({
+    type: UPDATE_CURRENT_DATE,
+    payload: currentDate
+  })
+}
+
+export const updateCurrentTimeZone = currentTimeZone => dispatch => {
+  console.log("[currentTimeZone]", currentTimeZone);
+  dispatch({
+    type: UPDATE_CURRENT_TIMEZONE,
+    payload: currentTimeZone
+  })
+}
 

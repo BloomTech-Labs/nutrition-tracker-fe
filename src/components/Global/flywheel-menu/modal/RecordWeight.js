@@ -1,14 +1,13 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { faWeight } from "@fortawesome/free-solid-svg-icons";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
 import { useToasts } from "react-toast-notifications";
-
-const faIconColor = "#007bff";
+import { ScaleSVG } from "../../icons";
 
 const RecordWeight = props => {
   const { addToast } = useToasts();
@@ -16,11 +15,11 @@ const RecordWeight = props => {
   const recordWeightWithToast = async () => {
     const result = await props.handleRecordWeight();
     !result.payload.error
-      ? addToast("Saved Successfully", {
+      ? addToast("Weight Updated!", {
           appearance: "success",
           autoDismiss: true
         })
-      : addToast(`${result.payload.error}`, {
+      : addToast("Weight could not be update. Try again later.", {
           appearance: "error",
           autoDismiss: true
         });
@@ -29,18 +28,43 @@ const RecordWeight = props => {
   return (
     <>
       <Modal
+        size="xl"
         show={props.isEnabled}
+        centered
         onHide={() => {
-          return (props.handleClose(), props.handleToggleClickProp());
+          return props.handleClose(), props.handleToggleClickProp();
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Record Weight</Modal.Title>
+          <Modal.Title style={{ fontSize: "2rem" }}>Record Weight</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group as={Row}>
-              <Col sm="10">
+              <Col>
+                <InputGroup size="lg">
+                  <FormControl
+                    placeholder="Weight (lbs)"
+                    aria-label="Large"
+                    aria-describedby="inputGroup-sizing-lg"
+                    type="number"
+                    value={props.weight || ""}
+                    onChange={e => props.handleInputChange(e)}
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text id="inputGroup-sizing-lg">
+                      <ScaleSVG
+                        width="22"
+                        height="19"
+                        viewBox="0 0 22 19"
+                        padding="0 0 0 0"
+                      />
+                    </InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Col>
+
+              {/* <Col sm="10">
                 {" "}
                 <Form.Control
                   placeholder="Enter your weight..."
@@ -57,27 +81,25 @@ const RecordWeight = props => {
                   className="faComponent"
                   color={faIconColor}
                 />{" "}
-              </Col>
+              </Col> */}
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"
+            size="lg"
             onClick={() => {
-              return (props.handleClose(), props.handleToggleClickProp());
+              return props.handleClose(), props.handleToggleClickProp();
             }}
           >
             Close
           </Button>
           <Button
             variant="primary"
+            size="lg"
             onClick={() => {
-              return (
-                props.handleToggleClickProp(),
-                props.handleClose(),
-                recordWeightWithToast()
-              );
+              return props.handleToggleClickProp(), props.handleClose(), recordWeightWithToast();
             }}
           >
             Save Changes

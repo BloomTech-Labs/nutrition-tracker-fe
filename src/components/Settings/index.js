@@ -1,30 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Container } from "../Global/styled";
 import { Redirect } from "react-router-dom";
-import { ListStyle, HeadingStyle } from "./styles";
-import {
-  getUserInfo,
-  updateUserInfo,
-  getCurrentWeight,
-  updateCurrentWeight,
-  getActivityLevel,
-  updateActivityLevel,
-  getWeightGoal,
-  updateWeightGoal,
-  getMacros,
-  updateMacros
-} from "../../store/actions/settingsActions";
-import { logout } from "../../store/actions/firebaseAuth";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/height";
+import { logout } from "../../store/actions/firebaseAuth";
+import {
+  getActivityLevel,
+  getCurrentWeight,
+  getMacros,
+  getUserInfo,
+  getWeightGoal,
+  updateActivityLevel,
+  updateCurrentWeight,
+  updateMacros,
+  updateUserInfo,
+  updateWeightGoal
+} from "../../store/actions/settingsActions";
+import Loading from "../Global/Loading";
+import { Container } from "../Global/styled";
+import ActivityLevel from "./components/ActivityLevel";
+import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/dob";
 import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
 import Gender from "./components/gender";
-import ActivityLevel from "./components/ActivityLevel";
-import CurrentWeight from "./components/CurrentWeight";
-import Loading from "../Global/loading/Loading";
+import Height from "./components/height";
+import { HeadingStyle, ListStyle } from "./styles";
 
 class Settings extends React.Component {
   componentDidMount() {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Col, Row } from "../../Global/styled";
+import { Col, H3, Row } from "../../Global/styled";
 
 const NutritionInfo = props => {
   const foodSelection = props.foodSelection;
@@ -11,6 +11,12 @@ const NutritionInfo = props => {
   }
 
   return (
+    <>
+    <Row>
+      <Col justify="center">
+        <H3>Nutrition Information</H3>
+      </Col>
+    </Row>
     <Row style={{marginBottom: "8rem", borderTop: "1px solid black" }}>
       <DataCol direction="column">
         {/* Total Fat */}
@@ -174,6 +180,7 @@ const NutritionInfo = props => {
         </MainData>
       </DataCol>
     </Row>
+    </>
   );
 };
 

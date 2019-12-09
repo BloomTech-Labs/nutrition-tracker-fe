@@ -53,17 +53,18 @@ const DailyLog = props => {
 
   useEffect(
     () => {
-      if (firebaseID)
-        dispatch(
-          firebaseID && fetchDailyLog(firebaseID, currentDate, currentTimeZone)
-        );
+      if(firebaseID)
+        dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
     },
     [currentDate, currentTimeZone, dispatch, firebaseID]
   );
 
-  useEffect(() => {
-    dispatch(updateCurrentTimeZone(currentTimeZone));
-  }, [currentTimeZone])
+  useEffect(
+    () => {
+      dispatch(updateCurrentTimeZone(currentTimeZone));
+    },
+    [currentTimeZone]
+  );
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
@@ -75,7 +76,10 @@ const DailyLog = props => {
         consumed={consumed.caloriesConsumed}
       />
       <FatSecretAttribution />
-        <MacroBudgets currentDate={currentDate} currentTimeZone={currentTimeZone}/>
+      <MacroBudgets
+        currentDate={currentDate}
+        currentTimeZone={currentTimeZone}
+      />
       <Pagination
         currentDate={currentDate}
         currentTimeZone={currentTimeZone}

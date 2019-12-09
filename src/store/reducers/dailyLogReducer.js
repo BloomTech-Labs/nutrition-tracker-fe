@@ -31,6 +31,7 @@ const initialState = {
   fetchBudgetSuccess: false,
   fetchBudgetFailure: false,
   fetchDailyLogStart: false,
+  fetchDailyLogSuccess: false,
   fetchDailyLogError: false,
   currentDate,
   currentTimeZone

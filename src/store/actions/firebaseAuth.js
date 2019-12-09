@@ -1,5 +1,5 @@
-import firebase from "../../config/firebase";
 import axios from "axios";
+import firebase from "../../config/firebase";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();

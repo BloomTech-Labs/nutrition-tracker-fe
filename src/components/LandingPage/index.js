@@ -1,11 +1,8 @@
 import React from "react";
-
-// import theme from "../Global/theme";
-import { Container, PillButton, Row, Col, H1 } from "../Global/styled";
-
 import { connect } from "react-redux";
-
 import { Redirect, withRouter } from "react-router-dom";
+// import theme from "../Global/theme";
+import { Col, Container, H1, PillButton, Row } from "../Global/styled";
 
 class LandingPage extends React.Component {
   redirectToOnboarding = () => {
@@ -19,7 +16,7 @@ class LandingPage extends React.Component {
   render() {
     // once user logs in isLoggedIn will be true and route you to home page
     const { isLoggedIn } = this.props;
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (isLoggedIn) return <Redirect to="/daily-log" />;
 
     return (
       <Container fluid>

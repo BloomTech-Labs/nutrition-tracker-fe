@@ -43,37 +43,34 @@ const DailyLog = props => {
     currentDate
   } = useSelector(state => state.dailyLog);
 
-        
-  const {isLoggedIn, isRegistered} = useSelector(state => state.auth);
-
   const dispatch = useDispatch();
 
   const firebaseID = useSelector(state => state.firebase.auth.uid);
+  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
 
   const [interval, setInterval] = useState(30);
 
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
- 
-
   useEffect(
     () => {
-      if(firebaseID && (isLoggedIn || isRegistered))
+      if(isLoaded)
         dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
     },
-    [currentDate, currentTimeZone, dispatch, firebaseID, isLoggedIn, isRegistered]
+    [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]
   );
 
   useEffect(
     () => {
-      dispatch(updateCurrentTimeZone(currentTimeZone));
+      if(isLoaded)
+        dispatch(updateCurrentTimeZone(currentTimeZone));
     },
-    [currentTimeZone, dispatch]
+    [isLoaded, currentTimeZone, dispatch]
   );
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
-
+    
   return (
     <Container height={props.height} fluid>
       <CaloricBudget

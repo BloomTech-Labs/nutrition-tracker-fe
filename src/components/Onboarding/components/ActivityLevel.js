@@ -1,12 +1,9 @@
 import React from "react";
-
-import { PillButton, H2, Row, Col } from "../../Global/styled";
-
 // This is a functional component so I'm using these hooks from react-redux api to get state from reducers and run my dispatch functions from actions
 import { useDispatch, useSelector } from "react-redux";
-import { updateActivityLevel } from "../../../store/actions/onboardingActions";
-
 import { Redirect } from "react-router-dom";
+import { updateActivityLevel } from "../../../store/actions/onboardingActions";
+import { Col, H2, PillButton, Row } from "../../Global/styled";
 
 const ActivityLevel = props => {
   // If you want to use this hook you need to set it up like this every time before you use it
@@ -29,7 +26,7 @@ const ActivityLevel = props => {
   const sex = useSelector(state => state.onboarding.sex);
 
   // If previous state isn't there, route back to landing so info can be filled out properly
-  if (!sex) return <Redirect to="/landing" />;
+  if (!sex) return <Redirect to="/" />;
 
   return (
     <>

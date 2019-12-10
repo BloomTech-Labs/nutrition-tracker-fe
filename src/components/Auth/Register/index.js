@@ -15,7 +15,7 @@ class Register extends React.Component {
     const { isLoggedIn, dob, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/" id="homeRedirect" />;
+    if (isLoggedIn) return <Redirect to="/daily-log" id="homeRedirect" />;
 
     // If user is logged in on login page redirects them to protected route
     if (loading) return <Loading />;
@@ -23,7 +23,7 @@ class Register extends React.Component {
     // If page refreshes we will lose onboarding data and back end won't be updated properly
     // If one piece of data is not filled out then it none of them are
     // In that even we will redirect them to the landing page to fill out the info again
-    if (!dob) return <Redirect to="/landing" id="landingRedirect" />;
+    if (!dob) return <Redirect to="/" id="landingRedirect" />;
 
     // Onboarding object we send to back end
     // Passing this object down to RegisterOptions and RegisterWithEmail components

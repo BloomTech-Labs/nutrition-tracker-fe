@@ -1,10 +1,8 @@
 // hooks doc https://reactjs.org/docs/hooks-intro.html
 import React from "react";
-
 // Using useSelector to grab token from firebase reducer
 import { useSelector } from "react-redux";
-
-import { Route, Redirect } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   // using useSelector to await the token to mount then assigning that to our token variable
@@ -19,10 +17,11 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={routeProps =>
+      render={routeProps => {
+        console.log("[token ******]", token);
         // if use is logged in, send them to private route, else send them to the landing page to log in
-        token ? <RouteComponent {...routeProps} /> : <Redirect to="/landing" />
-      }
+        return token ? <RouteComponent {...routeProps} /> : <Redirect to="/" />
+      }}
     />
   );
 };

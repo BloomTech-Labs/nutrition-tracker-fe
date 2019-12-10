@@ -15,31 +15,30 @@ const MacroBudgets = props => {
 
   const dispatch = useDispatch();
   const firebaseID = useSelector(state => state.firebase.auth.uid);
-  const {isLoggedIn, isRegistered} = useSelector(state => state.auth);
+  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
   const {
     budgets,
     consumed,
     fetchBudgetFailure,
-    fetchBudgetStart,
-    currentDate
+    fetchBudgetStart
   } = useSelector(state => state.dailyLog);
 
   const [macroData, setMacroData] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    if(firebaseID && props.date && (isLoggedIn || isRegistered))
+    if(isLoaded && props.date)
       dispatch(fetchDailyLog(firebaseID, props.date, currentTimeZone))
-  }, [firebaseID, props.date, currentTimeZone, dispatch]
+  }, [isLoaded, firebaseID, props.date, currentTimeZone, dispatch]
   );
 
   useEffect(
     () => {
-      if(firebaseID && (isLoggedIn || isRegistered)) {
+      if(isLoaded) {
         dispatch(fetchNutritionBudgets(firebaseID));
       }
     },
-    [firebaseID, isLoggedIn, isRegistered, dispatch]
+    [isLoaded, firebaseID, dispatch]
   );
 
   useEffect(

@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-
-import { Form } from "reactstrap";
-import { Row, Col, Input, H2, PillButton } from "../../Global/styled";
-import { EmailSVG } from "../../Global/icons";
-import { register } from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
+import { Form } from "reactstrap";
+import { register } from "../../../store/actions/firebaseAuth";
+import { EmailSVG } from "../../Global/icons";
+import { Col, H2, Input, PillButton, Row } from "../../Global/styled";
 
 class RegisterWithEmail extends Component {
   state = {
-    name: "",
+    name: "temp",
     password: "",
     email: ""
   };
@@ -40,17 +39,6 @@ class RegisterWithEmail extends Component {
           Register with email
         </H2>
         <Form onSubmit={this.handleRegister} id="registrationForm">
-          <Row>
-            <Col height="50px" align="center">
-              <Input
-                name="name"
-                placeholder="Username"
-                type="text"
-                onChange={this.handleInputChange}
-                id="nameInput"
-              />
-            </Col>
-          </Row>
           <Row>
             <Col height="50px" align="center">
               <Input

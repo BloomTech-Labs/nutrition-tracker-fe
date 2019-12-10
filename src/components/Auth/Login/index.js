@@ -16,7 +16,7 @@ class Login extends React.Component {
     const { isLoggedIn, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (isLoggedIn) return <Redirect to="/daily-log" />;
 
     // After user logs in with google some time is spent initializing the user on firebases end
     // This if statement gives us a loading screen when that happens so it's a smooth transition to home page

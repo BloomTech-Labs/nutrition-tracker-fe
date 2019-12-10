@@ -68,7 +68,7 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/landing" />;
+    if (!token) return <Redirect to="/" />;
 
     return (
       <Container fluid style={{ padding: 0 }} height={this.props.height}>
@@ -92,7 +92,7 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout
           </ListGroupItem>
-          <Email updateUser={this.updateUser} data={this.props.userInfo} />
+          {/* <Email updateUser={this.updateUser} data={this.props.userInfo} /> */}
           {/* <Password /> For RC2*/}
         </ListGroup>
       </Container>

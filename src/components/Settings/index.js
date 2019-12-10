@@ -29,11 +29,13 @@ import { HeadingStyle, ListStyle } from "./styles";
 class Settings extends React.Component {
   componentDidMount() {
     //These are actions that gets the current info for settings from DB
-    this.props.getUserInfo(this.props.firebaseID);
-    this.props.getCurrentWeight(this.props.firebaseID);
-    this.props.getActivityLevel(this.props.firebaseID);
-    this.props.getMacros(this.props.firebaseID);
-    this.props.getWeightGoal(this.props.firebaseID);
+    if(this.props.firebaseID) {
+      this.props.getUserInfo(this.props.firebaseID);
+      this.props.getCurrentWeight(this.props.firebaseID);
+      this.props.getActivityLevel(this.props.firebaseID);
+      this.props.getMacros(this.props.firebaseID);
+      this.props.getWeightGoal(this.props.firebaseID);
+    }
   }
 
   //These are functions that get passed down to the components and updates the DB for that component's data.

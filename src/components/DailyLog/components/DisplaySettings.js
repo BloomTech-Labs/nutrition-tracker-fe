@@ -1,13 +1,13 @@
-import React, {useState} from "react";
 import moment from "moment-timezone";
-import styled from "styled-components";
-import { Row, Col} from "../../Global/styled";
+import React, {useState} from "react";
 import {
   Dropdown,
-  DropdownToggle,
+  DropdownItem,
   DropdownMenu,
-  DropdownItem
+  DropdownToggle
 } from "reactstrap";
+import styled from "styled-components";
+import { Col, Row } from "../../Global/styled";
 
 const DisplaySettings = ({updateInterval, interval, currentDate, currentTimeZone}) => {  
   const [intervalDropdownOpen, setIntervalDropdownOpen] = useState(false);
@@ -25,10 +25,10 @@ const DisplaySettings = ({updateInterval, interval, currentDate, currentTimeZone
 
   return (
     <Row>
-      <Col justify="flex-start">
-        <TimeZone>Current Time-Zone: <br/>{tzAbbreviation} (GMT{gmtOffset})</TimeZone>
+      <Col justify="flex-start" height="30px" align="center">
+        <TimeZone>Current Time-Zone: {tzAbbreviation} (GMT{gmtOffset})</TimeZone>
       </Col>
-      <Col justify="flex-end">
+      {/* <Col justify="flex-end">
         <Dropdown isOpen={intervalDropdownOpen} toggle={toggleIntervalDropdown} size="lg">
           <DropdownToggle caret>Interval: {interval} min.</DropdownToggle>
           <DropdownMenu onClick={handleSelection} size="lg">
@@ -42,7 +42,7 @@ const DisplaySettings = ({updateInterval, interval, currentDate, currentTimeZone
             <DropdownItem value={60}>1 hour</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-      </Col>
+      </Col> */}
     </Row>
   );
 };

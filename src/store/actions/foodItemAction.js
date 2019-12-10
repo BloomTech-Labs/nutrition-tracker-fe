@@ -47,10 +47,10 @@ export const getOneFoodItem = food_id => dispatch => {
     });
 };
 
-export const addFoodItem = (foodLog, firebaseID, currentDate) => dispatch => {
+export const addFoodItem = (foodLog, firebaseID) => dispatch => {
   dispatch({ type: POST_FOOD_START });
   return axios
-    .post(`${LOCALHOST}/log-entry/${firebaseID}/${currentDate}`, foodLog)
+    .post(`${LOCALHOST}/log-entry/${firebaseID}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })

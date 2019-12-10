@@ -20,24 +20,29 @@ const FoodDetails = props => {
   const dispatch = useDispatch();
   const { addToast } = useToasts();
 
-  const [quantity, setQuantity] = useState(1);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(0);
-  const [time, setTime] = useState("");
-
-  console.log("[time ******]", time);
-
-  
-
   const { consumed, currentDate, currentTimeZone } = useSelector(
     state => state.dailyLog
   );
   const { item, got, error } = useSelector(state => state.foodItemsReducer);
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
-  const today = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  const [quantity, setQuantity] = useState(1);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(0);
 
-  console.log(moment(`${currentDate} ${time}`).utc().format());
+  // to populate date input
+  const todayDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  
+  // to populate time input
+  const todayTime = moment.tz(currentTimeZone).format("HH:mm");
+
+  const [time, setTime] = useState(todayTime);
+  const [date, setDate] = useState(todayDate);
+  const [dateTimeUTC, setDateTimeUTC] = useState(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+
+  useEffect(() => {
+    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+  }, [date, time])
 
   useEffect(
     () => {
@@ -60,7 +65,7 @@ const FoodDetails = props => {
         });
     },
     [error, got]
-  );
+  )
 
   const handleToggle = e => {
     setDropdownOpen(prevState => !prevState.dropdownOpen);
@@ -91,6 +96,7 @@ const FoodDetails = props => {
     const food_id = item[selectionIndex].id;
     const serving_id = item[selectionIndex].serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
+    const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
@@ -101,11 +107,11 @@ const FoodDetails = props => {
           quantity,
           serving_id,
           fatsecret_food_id,
+          time_consumed_at,
           time_zone_name,
           time_zone_abbr
         },
-        firebaseID,
-        currentDate
+        firebaseID
       )
     );
   };
@@ -120,8 +126,6 @@ const FoodDetails = props => {
 
   /* ****************************************************** */
   const foodSelection = item[dropDownSelectionIndex];
-
-  console.log("[quantity]", quantity);
 
   return (
     <div>
@@ -141,33 +145,32 @@ const FoodDetails = props => {
       <Row style={{ paddingTop: "20px" }}>
         <Col align="center" height="50px">
           <CurrentCalories>
-            Current <br />
-            {consumed.caloriesConsumed} cal
+            Current Cal<br />
+            <span>{consumed.caloriesConsumed} cal</span>
           </CurrentCalories>
         </Col>
         <Col align="center" height="50px">
           <AddedCalories>
-            {""} <br />+{" "}
-            {Math.trunc(
+            {""} <br />
+            <span> +{Math.trunc(
               foodSelection && foodSelection.calories_kcal * quantity
             )}{" "}
-            cal
+            cal</span>
           </AddedCalories>
         </Col>
         <Col align="center" height="50px">
           <NewCalories>
-            New <br />{" "}
-            {consumed.caloriesConsumed +
+            New Cal<br />
+            <span>{consumed.caloriesConsumed +
               foodSelection.calories_kcal * quantity}{" "}
-            cal
+            cal</span>
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={addedMacros()} />
+      <MacroBudgets macrosAdded={addedMacros()} date={date}/>
       <Row
         style={{
           marginTop: "50px",
-          marginBottom: "35px",
           paddingTop: "15px",
           borderTop: "1px solid lightgrey"
         }}
@@ -211,27 +214,31 @@ const FoodDetails = props => {
             </DropdownMenu>
           </ButtonDropdown>
         </Col>
-        {moment(today).isSame(currentDate) &&
-          <>
-            <div className="w-100"/>
-            <Col align="center" justify="center">
-              <H3 style={{ paddingTop: "30px" }}>
-                {moment.tz(currentDate, currentTimeZone).format("MM/DD/YYYY")}
-              </H3>
+        </Row>
+        <Row style={{marginBottom: "35px"}}>
+            <Col direction="column" align="flex-start">
+              <InputLabel>Date</InputLabel>
+              <Input
+                type="date"
+                name="date"
+                value={date}
+                style={{ textAlign: "left" }}
+                onChange={e => setDate(e.target.value)}
+                min={1}
+              />
             </Col>
             <Col direction="column" align="flex-end">
-              <InputLabel>At Time</InputLabel>
+              <InputLabel>Time</InputLabel>
               <Input
                 type="time"
                 name="time"
                 value={time}
-                style={{ textAlign: "right" }}
-                onChange={(e) => setTime(e.target.value)}
+                style={{ textAlign: "left" }}
+                onChange={e => setTime(e.target.value)}
                 min={1}
               />
             </Col>
-          </>}
-      </Row>
+         </Row> 
 
       <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
       <Row>
@@ -252,21 +259,36 @@ const FoodName = styled(H2)`
   text-align: center;
   width: 100%;
   /* font-size: 2rem; */
+  span {
+    font-weight: 300;
+  }
 `;
 
 const CurrentCalories = styled(H3)`
   width: 100%;
   text-align: center;
+
+  span {
+    font-weight: 300;
+  }
 `;
 
 const AddedCalories = styled(H3)`
   width: 100%;
   text-align: center;
+
+  span {
+    font-weight: 300;
+  }
 `;
 
 const NewCalories = styled(H3)`
   width: 100%;
   text-align: center;
+
+  span {
+    font-weight: 300;
+  }
 `;
 
 const InputLabel = styled.span`font-size: 1.6rem;`;

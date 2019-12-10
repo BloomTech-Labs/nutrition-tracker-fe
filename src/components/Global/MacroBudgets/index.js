@@ -1,8 +1,11 @@
+import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDailyLog, fetchNutritionBudgets } from "../../../store/actions/dailyLogActions";
 import { Col, Row } from "../styled";
 import DataWheel from "./components/DataWheel";
+
+const currentTimeZone = moment.tz.guess();
 
 const MacroBudgets = props => {
   let macrosAdded;
@@ -22,10 +25,15 @@ const MacroBudgets = props => {
     budgets,
     consumed,
     fetchBudgetFailure,
-    fetchBudgetStart
+    fetchBudgetStart,
+    currentDate
   } = useSelector(state => state.dailyLog);
   const [macroData, setMacroData] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchDailyLog(firebaseID, props.date, currentTimeZone))
+  }, [firebaseID, props.date, currentTimeZone, dispatch])
 
   useEffect(
     () => {
@@ -41,7 +49,7 @@ const MacroBudgets = props => {
       if (fetchBudgetFailure === false && fetchBudgetStart === false) {
         setMacroData({
           fat: {
-            name: `Fats${macrosAdded ? `: ${macrosAdded.fat}g` : ""}`,
+            name: macrosAdded ? `F: ${macrosAdded.fat}g` : "Fats",
             consumed:
               Math.round(consumed.fatsConsumed + (macrosAdded ? macrosAdded.fat : 0)),
             added: macrosAdded ? Math.round(macrosAdded.fat / budgets.fatBudget * 100) : null,
@@ -59,7 +67,7 @@ const MacroBudgets = props => {
             }
           },
           carbs: {
-            name: `Carbs${macrosAdded ? `: ${macrosAdded.carbs}g` : ""}`,
+            name: macrosAdded ? `C: ${macrosAdded.carbs}g` : "Carbs",
             consumed:
               Math.round(consumed.carbsConsumed + (macrosAdded ? macrosAdded.carbs : 0)),
             added: macrosAdded ? Math.round(macrosAdded.carbs / budgets.carbBudget * 100) : null,
@@ -77,7 +85,7 @@ const MacroBudgets = props => {
             }
           },
           protein: {
-            name: `Protein${macrosAdded ? `: ${macrosAdded.protein}g` : ""}`,
+            name: macrosAdded ? `P: ${macrosAdded.protein}g` : "Protien",
             consumed:
               Math.round(consumed.proteinConsumed +
               (macrosAdded ? macrosAdded.protein : 0)),

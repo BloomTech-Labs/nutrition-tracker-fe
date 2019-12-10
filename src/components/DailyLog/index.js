@@ -61,6 +61,7 @@ const DailyLog = props => {
 
   useEffect(
     () => {
+      if(firebaseID)
       dispatch(updateCurrentTimeZone(currentTimeZone));
     },
     [currentTimeZone]

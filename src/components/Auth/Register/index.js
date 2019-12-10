@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import Loading from "../../Global/Loading";
 import { Container } from "../../Global/styled";
+
+import Loading from "../../Global/Loading";
+
 // Routes
 import RegisterOptions from "./RegisterOptions";
 import RegisterWithEmail from "./RegisterWithEmail";

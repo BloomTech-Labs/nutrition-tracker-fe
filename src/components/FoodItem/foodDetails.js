@@ -255,6 +255,38 @@ const FoodDetails = props => {
   );
 };
 
+const DataCol = styled(Col)`
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+  h5 {
+    margin-top: 0.4rem;
+    font-size: 1.6rem;
+  }
+  h6 {
+    font-size: 1.4rem;
+  }
+  .gray-box {
+    width: 100%;
+    height: 1rem;
+    background: gray;
+    border-bottom: 1px solid black;
+  }
+`;
+
+const MainData = styled(Col)`
+  border-bottom: 1px solid black;
+  h5 {
+    font-weight: bold;
+  }
+`;
+
+const SubData = styled(Col)`
+  border-bottom: 1px solid black;
+  h5 {
+    margin-left: 1rem;
+  }
+`;
+
 const FoodName = styled(H2)`
   text-align: center;
   width: 100%;
@@ -293,70 +325,6 @@ const NewCalories = styled(H3)`
 
 const InputLabel = styled.span`font-size: 1.6rem;`;
 
-// const mapStateToProps = state => {
-//   return {
-//     item: state.foodItemsReducer.item,
-//     getting: state.foodItemsReducer.getting,
-//     got: state.foodItemsReducer.got,
-//     budgets: state.dailyLog.budgets,
-//     consumed: state.dailyLog.consumed,
-//     currentDate: state.dailyLog.currentDate,
-//     currentTimeZone: state.dailyLog.currentTimeZone,
-//     firebaseID: state.firebase.auth.uid,
-//   };
-// };
-
-// export default connect(mapStateToProps, { getOneFoodItem, addFoodItem, fetchDailyLog })(
-//   FoodDetails
-// );
 
 export default FoodDetails;
 
-// {
-//   {THIS WHOLE TABLE WILL BE REMOVED AND DISPLAYED IN GLOBAL DATAWHEEL} */
-// }
-// {
-//   {this.state.dropDownSelectionIndex !== false && (
-//               <TBody borderless responsive>
-//                 <tr>
-//                   <h3 scope="row"> Fats </h3>
-//                   <td>
-//                     {formatDecimal(
-//                       foodSelection.fat *
-//                         quantity
-//                     )}
-//                     {
-//                       foodSelection
-//                         .metric_serving_unit
-//                     }
-//                   </td>
-//                 </tr>
-//                 <tr>
-//                   <th scope="row"> Cholesterol </th>
-//                   <td>
-//                     {formatDecimal(
-//                       foodSelection
-//                         .cholesterol * quantity
-//                     )}
-//                     {
-//                       foodSelection
-//                         .metric_serving_unit
-//                     }
-//                   </td>
-//                 </tr>
-//                 <tr>
-//                   <th scope="row"> Sodium </th>
-//                   <td>
-//                     {formatDecimal(
-//                       foodSelection.sodium *
-//                         quantity
-//                     )}
-//                     {
-//                       foodSelection
-//                         .metric_serving_unit
-//                     }
-//                   </td>
-//                 </tr>
-//               </TBody>
-//             )}
-// }

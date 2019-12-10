@@ -23,13 +23,7 @@ const DataWheel = ({macroData}) => {
     },
     maintainAspectRatio: false
   };
-
-  // useEffect(() => {
-
-    // THIS IS THE RIGHT IDEA
-
-  // },[macroData]);
-
+  
   return (
     <BudgetContainer>
       <Doughnut
@@ -71,12 +65,6 @@ const DataWheel = ({macroData}) => {
   ) {
     let percentLeft = macroData.added ? data[2] : data[1];
     let overBudget = percentLeft <= 0;
-    
-    // console.log("******************************");
-    // console.log(`[${macroData.name}]`);
-    // console.log(`[consumed %]       `, data[0]);
-    // console.log(`[added %]          `, data[1]);
-    // console.log(`[left %]           `, data[1]);
     
     if (overBudget) {
       data[0] = 100;

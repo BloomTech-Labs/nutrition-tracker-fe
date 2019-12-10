@@ -7,6 +7,10 @@ import LoginOptions from "./LoginOptions";
 // Routes
 import LoginWithEmail from "./LoginWithEmail";
 
+import Loading from "../../Global/Loading";
+
+import { connect } from "react-redux";
+
 class Login extends React.Component {
   render() {
     // sets path variable

@@ -24,7 +24,7 @@ import Email from "./components/Email";
 import Gender from "./components/Gender";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
-import Loading from "../Global/Loading";
+import Loading from "../Global/loading/Loading";
 import Macros from "./components/Macros";
 import WeightGoal from "./components/WeightGoal";
 

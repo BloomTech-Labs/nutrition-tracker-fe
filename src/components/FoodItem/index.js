@@ -5,7 +5,7 @@ import { Container } from "../Global/styled";
 import { Route } from "react-router-dom";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
-import WithLoading from "../Global/Loading/withLoading";
+import WithLoading from "../Global/loading/withLoading";
 
 const FoodDetailsWithLoading = WithLoading(FoodDetails);
 

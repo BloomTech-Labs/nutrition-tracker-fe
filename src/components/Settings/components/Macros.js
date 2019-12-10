@@ -32,7 +32,7 @@ const Macros = props => {
     setProtein(props.data.protein_ratio);
   }, [props.data.protein_ratio]);
 
-  console.log("CARB:", props.data)
+  console.log("CARB:", props.data);
   const toggle = () => setModal(!modal);
   return (
     <div>

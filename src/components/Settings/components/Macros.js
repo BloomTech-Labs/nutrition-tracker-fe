@@ -17,7 +17,7 @@ const Macros = props => {
   const [modal, setModal] = useState(false);
 
   const [fat_ratio, setFat] = useState("");
-  const [carbs_ratio, setCarbs] = useState("");
+  const [carb_ratio, setCarb] = useState("");
   const [protein_ratio, setProtein] = useState("");
 
   useEffect(() => {
@@ -25,13 +25,14 @@ const Macros = props => {
   }, [props.data.fat_ratio]);
 
   useEffect(() => {
-    setCarbs(props.data.carbs_ratio);
-  }, [props.data.carbs_ratio]);
+    setCarb(props.data.carb_ratio);
+  }, [props.data.carb_ratio]);
 
   useEffect(() => {
     setProtein(props.data.protein_ratio);
   }, [props.data.protein_ratio]);
 
+  console.log("CARB:", props.data)
   const toggle = () => setModal(!modal);
   return (
     <div>
@@ -54,13 +55,13 @@ const Macros = props => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="Carbs">Carbs</Label>
+              <Label for="Carb">Carb</Label>
               <Input
                 type="text"
-                name="Carbs"
-                id="Carbs"
-                value={carbs_ratio || ""}
-                onChange={e => setCarbs(e.target.value)}
+                name="Carb"
+                id="Carb"
+                value={carb_ratio || ""}
+                onChange={e => setCarb(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
@@ -80,7 +81,7 @@ const Macros = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateUser({ fat_ratio, carbs_ratio, protein_ratio });
+              props.updateMacros({ fat_ratio, carb_ratio, protein_ratio });
             }}
           >
             Update

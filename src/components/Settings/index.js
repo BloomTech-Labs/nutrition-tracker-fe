@@ -29,13 +29,15 @@ import Macros from "./components/Macros";
 import WeightGoal from "./components/WeightGoal";
 
 class Settings extends React.Component {
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
     //These are actions that gets the current info for settings from DB
-    this.props.getUserInfo(this.props.firebaseID);
-    this.props.getCurrentWeight(this.props.firebaseID);
-    this.props.getActivityLevel(this.props.firebaseID);
-    this.props.getMacros(this.props.firebaseID);
-    this.props.getWeightGoal(this.props.firebaseID);
+    if (prevProps.firebaseID !== this.props.firebaseID) {
+      this.props.getUserInfo(this.props.firebaseID);
+      this.props.getCurrentWeight(this.props.firebaseID);
+      this.props.getActivityLevel(this.props.firebaseID);
+      this.props.getMacros(this.props.firebaseID);
+      this.props.getWeightGoal(this.props.firebaseID);
+    }
   }
 
   //These are functions that get passed down to the components and updates the DB for that component's data.
@@ -88,14 +90,14 @@ class Settings extends React.Component {
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <Macros
             style={ListStyle}
-            updateUser={this.updateUser}
+            updateMacros={this.updateMacros}
             data={this.props.userInfo}
           >
             MacroNutrient Targets
           </Macros>
           <WeightGoal
             style={ListStyle}
-            updateUser={this.updateUser}
+            updateWeightGoal={this.updateWeightGoal}
             data={this.props.userInfo}
           >
             Weight Goal

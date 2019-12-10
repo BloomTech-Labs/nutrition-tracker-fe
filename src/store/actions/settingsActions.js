@@ -174,6 +174,7 @@ export const getWeightGoal = (id) => dispatch => {
   axios
     .get(`http://localhost:4000/user/${id}/weight-goal`)
     .then(res => {
+      console.log("HERE I AM:", res.data)
       dispatch({
         type: "GET_WEIGHT_GOAL_SUCCESS",
         payload: res.data

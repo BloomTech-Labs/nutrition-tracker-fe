@@ -62,7 +62,7 @@ const WeightGoal = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateUser({ weight_goal_kg });
+              props.updateWeightGoal({ weight_goal_kg });
             }}
           >
             Update

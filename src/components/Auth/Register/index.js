@@ -1,12 +1,8 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
-
 import { connect } from "react-redux";
-
-import { Container } from "../../Global/styled";
-
+import { Redirect, Route } from "react-router-dom";
 import Loading from "../../Global/Loading";
-
+import { Container } from "../../Global/styled";
 // Routes
 import RegisterOptions from "./RegisterOptions";
 import RegisterWithEmail from "./RegisterWithEmail";

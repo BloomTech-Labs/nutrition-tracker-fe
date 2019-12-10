@@ -1,16 +1,11 @@
 import React from "react";
-
-import { Route, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { Redirect, Route } from "react-router-dom";
+import Loading from "../../Global/Loading";
 import { Container } from "../../Global/styled";
-
+import LoginOptions from "./LoginOptions";
 // Routes
 import LoginWithEmail from "./LoginWithEmail";
-import LoginOptions from "./LoginOptions";
-
-import Loading from "../../Global/Loading";
-
-import { connect } from "react-redux";
 
 class Login extends React.Component {
   render() {

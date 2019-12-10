@@ -32,12 +32,12 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form style={{marginTop: "10px"}}>
         <Row form>
           <InputGroup>
             <InputGroupAddon addonType="prepend">
               <InputGroupText>
-                <FontAwesomeIcon icon={["fas", "search"]} size="1x" />
+                <FontAwesomeIcon icon={["fas", "search"]} size="2x" />
               </InputGroupText>
             </InputGroupAddon>
             <Input

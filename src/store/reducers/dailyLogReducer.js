@@ -33,7 +33,7 @@ const initialState = {
   fetchDailyLogStart: false,
   fetchDailyLogSuccess: false,
   fetchDailyLogError: false,
-  currentDate,
+  currentDate: currentDate,
   currentTimeZone
 };
 

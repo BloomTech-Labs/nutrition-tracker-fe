@@ -43,6 +43,9 @@ const DailyLog = props => {
     currentDate
   } = useSelector(state => state.dailyLog);
 
+        
+  const {isLoggedIn, isRegistered} = useSelector(state => state.auth);
+
   const dispatch = useDispatch();
 
   const firebaseID = useSelector(state => state.firebase.auth.uid);
@@ -51,21 +54,21 @@ const DailyLog = props => {
 
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
+ 
+
   useEffect(
     () => {
-      if(firebaseID)
+      if(firebaseID && (isLoggedIn || isRegistered))
         dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
     },
-    [currentDate, currentTimeZone, dispatch, firebaseID]
+    [currentDate, currentTimeZone, dispatch, firebaseID, isLoggedIn, isRegistered]
   );
 
   useEffect(
     () => {
-
-      if(firebaseID)
       dispatch(updateCurrentTimeZone(currentTimeZone));
     },
-    [currentTimeZone]
+    [currentTimeZone, dispatch]
   );
 
   const updateInterval = interval => setInterval(interval);

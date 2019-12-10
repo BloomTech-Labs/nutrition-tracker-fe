@@ -11,16 +11,11 @@ const MacroBudgets = props => {
   let macrosAdded;
 
   if (props.macrosAdded) macrosAdded = props.macrosAdded;
-  // const macrosAdded = {
-  //   fat: 2,
-  //   carbs: 3,
-  //   protein: 1
-  // };
 
-  // const macrosAdded = undefined;
 
   const dispatch = useDispatch();
   const firebaseID = useSelector(state => state.firebase.auth.uid);
+  const {isLoggedIn, isRegistered} = useSelector(state => state.auth);
   const {
     budgets,
     consumed,
@@ -28,20 +23,23 @@ const MacroBudgets = props => {
     fetchBudgetStart,
     currentDate
   } = useSelector(state => state.dailyLog);
+
   const [macroData, setMacroData] = useState({});
   const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchDailyLog(firebaseID, props.date, currentTimeZone))
-  }, [firebaseID, props.date, currentTimeZone, dispatch])
+    if(firebaseID && props.date && (isLoggedIn || isRegistered))
+      dispatch(fetchDailyLog(firebaseID, props.date, currentTimeZone))
+  }, [firebaseID, props.date, currentTimeZone, dispatch]
+  );
 
   useEffect(
     () => {
-      if (firebaseID) {
+      if(firebaseID && (isLoggedIn || isRegistered)) {
         dispatch(fetchNutritionBudgets(firebaseID));
       }
     },
-    [firebaseID, dispatch]
+    [firebaseID, isLoggedIn, isRegistered, dispatch]
   );
 
   useEffect(

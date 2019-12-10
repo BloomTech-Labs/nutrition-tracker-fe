@@ -8,8 +8,6 @@ const CaloricBudget = (props) => {
   
   let addedCals = undefined;
   if(props.addedCals) addedCals = Number(props.addedCals);
-
-  console.log("[addedCals]", addedCals);
   
   const {budgets, consumed} = useSelector(state => state.dailyLog);
 
@@ -25,8 +23,7 @@ const CaloricBudget = (props) => {
   if(percentBudgetWithAdded >= 100) {
     percentBudgetWithAdded = 100;
   }
-  console.log("[percentBudget]         ", percentBudget);
-  console.log("[percentBudgetWithAdded]", percentBudgetWithAdded);
+
   return (
     <Row>
       <Col height="80px" align="center">

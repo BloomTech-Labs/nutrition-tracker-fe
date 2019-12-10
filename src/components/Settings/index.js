@@ -25,9 +25,6 @@ import Email from "./components/email";
 import Gender from "./components/gender";
 import Height from "./components/height";
 import { HeadingStyle, ListStyle } from "./styles";
-import ActivityLevel from "./components/ActivityLevel";
-import CurrentWeight from "./components/CurrentWeight";
-import Loading from "../Global/Loading";
 
 class Settings extends React.Component {
   componentDidUpdate(prevProps) {

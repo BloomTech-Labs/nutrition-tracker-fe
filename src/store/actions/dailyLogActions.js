@@ -11,7 +11,7 @@ export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
 
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
-  axios.get(`http://localhost:4000/daily-log/${userID}/nutrition-budgets/`)
+  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/nutrition-budgets/`)
     .then(({data}) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,
@@ -33,10 +33,9 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
 
   currentTimeZone = encodeURIComponent(currentTimeZone);
 
-  axios.get(`http://localhost:4000/daily-log/${userID}/${date}/${currentTimeZone}`)
+  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({data}) => {
 
-      console.log("[data.fatsConsumed]", data.fatsConsumed);
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,
         payload: {
@@ -56,7 +55,6 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
 };
 
 export const updateCurrentDate = currentDate => dispatch => {
-  console.log("[currentDate]", currentDate)
   dispatch({
     type: UPDATE_CURRENT_DATE,
     payload: currentDate
@@ -64,7 +62,6 @@ export const updateCurrentDate = currentDate => dispatch => {
 }
 
 export const updateCurrentTimeZone = currentTimeZone => dispatch => {
-  console.log("[currentTimeZone]", currentTimeZone);
   dispatch({
     type: UPDATE_CURRENT_TIMEZONE,
     payload: currentTimeZone

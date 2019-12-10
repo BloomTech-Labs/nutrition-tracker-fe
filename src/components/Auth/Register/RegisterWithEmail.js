@@ -39,7 +39,7 @@ class RegisterWithEmail extends Component {
           <EmailSVG width="38" height="38" margin="0 30px 4px 0" />
           Register with email
         </H2>
-        <Form onSubmit={this.handleRegister}>
+        <Form onSubmit={this.handleRegister} id="registrationForm">
           <Row>
             <Col height="50px" align="center">
               <Input
@@ -47,6 +47,7 @@ class RegisterWithEmail extends Component {
                 placeholder="Username"
                 type="text"
                 onChange={this.handleInputChange}
+                id="nameInput"
               />
             </Col>
           </Row>
@@ -57,6 +58,7 @@ class RegisterWithEmail extends Component {
                 type="text"
                 placeholder="Email"
                 onChange={this.handleInputChange}
+                id="emailInput"
               />
             </Col>
           </Row>
@@ -67,12 +69,13 @@ class RegisterWithEmail extends Component {
                 type="password"
                 placeholder="Password"
                 onChange={this.handleInputChange}
+                id="passwordInput"
               />
             </Col>
           </Row>
           <Row className="fixed-bottom">
             <Col>
-              <PillButton className="login" type="submit" color="success">
+              <PillButton className="login" type="submit" color="success" id="registerSubmit">
                 Register
               </PillButton>
             </Col>
@@ -83,4 +86,5 @@ class RegisterWithEmail extends Component {
   }
 }
 
+export { RegisterWithEmail };
 export default connect(null, { register })(RegisterWithEmail);

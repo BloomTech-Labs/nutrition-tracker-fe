@@ -7,10 +7,10 @@ import {
   ModalBody,
   ModalFooter,
   ListGroupItem,
-  Input,
   Form,
   FormGroup,
-  Label
+  Label,
+  CustomInput
 } from "reactstrap";
 
 const Gender = props => {
@@ -19,9 +19,9 @@ const Gender = props => {
 
   const [sex, setSex] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     setSex(props.data.sex);
-  }, [props.data.sex])
+  }, [props.data.sex]);
 
   return (
     <div>
@@ -35,25 +35,17 @@ const Gender = props => {
           <Form>
             <FormGroup>
               <Label for="sex">Gender</Label>
-              {/* <CustomInput
+              <CustomInput
                 type="select"
                 id="sex"
                 name="sex"
-                value={state.sex}
-                onChange={e => changeState({ sex: e.target.value })}
-              >
-                <option value="">Select</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
-              </CustomInput> */}
-              <Input
-                type="text"
-                name="sex"
-                id="sex"
                 value={sex}
                 onChange={e => setSex(e.target.value)}
-              />
+              >
+                <option value="">Select</option>
+                <option value="female">female</option>
+                <option value="male">male</option>
+              </CustomInput>
             </FormGroup>
           </Form>
         </ModalBody>
@@ -62,7 +54,7 @@ const Gender = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateUser(sex);
+              props.updateUser({ sex });
             }}
           >
             Update
@@ -76,4 +68,4 @@ const Gender = props => {
   );
 };
 
-export default Gender
+export default Gender;

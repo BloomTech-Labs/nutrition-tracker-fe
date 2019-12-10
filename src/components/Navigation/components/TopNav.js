@@ -16,17 +16,17 @@ const TopNav = props => {
     topNavColor,
     buttonColor,
     iconColor,
-    display,
+    displayNav,
     history
   } = props;
 
   return (
-    <NavContainer display={display}>
-      <Navbar topNavColor={topNavColor}>
-        <Button buttonColor={buttonColor} onClick={() => history.goBack()}>
+    <NavContainer displayNav={displayNav}>
+      <Navbar topnavcolor={topNavColor}>
+        <Button buttoncolor={buttonColor} onClick={() => history.goBack()}>
           <BackSVG fill={iconColor} />
         </Button>
-        <NavbarBrand titleColor={titleColor}>
+        <NavbarBrand titlecolor={titleColor}>
           {pageTitle}
         </NavbarBrand>
       </Navbar>
@@ -35,7 +35,7 @@ const TopNav = props => {
 };
 
 const NavContainer = styled.div`
-  display: ${props => (props.display ? "block" : "none")};
+  display: ${props => (props.displayNav ? "block" : "none")};
 `;
 
 const Navbar = styled(BS_NavBar)`
@@ -44,12 +44,12 @@ const Navbar = styled(BS_NavBar)`
   height: 50px;
   padding: 0 3px;
 
-  background-color: ${props => props.topNavColor};
+  background-color: ${props => props.topnavcolor};
 `;
 
 const Button = styled(BS_Button)`
   border: none;
-  background-color: ${props => props.buttonColor};
+  background-color: ${props => props.buttoncolor};
 `;
 
 const NavbarBrand = styled(BS_NavbarBrand)`

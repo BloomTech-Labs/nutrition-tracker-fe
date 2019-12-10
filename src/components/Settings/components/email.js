@@ -18,16 +18,16 @@ const Email = props => {
 
   const [email, setEmail] = useState("");
 
-  useEffect(()=> {
+  useEffect(() => {
     setEmail(props.data.email);
-  }, [props.data.email])
+  }, [props.data.email]);
 
   const toggle = () => setModal(!modal);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Email</div>
-        <div>{props.data.email}</div>
+        <div>{email}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Email</ModalHeader>
@@ -39,7 +39,7 @@ const Email = props => {
                 type="text"
                 name="email"
                 id="email"
-                value={email||""}
+                value={email || ""}
                 onChange={e => setEmail(e.target.value)}
               />
             </FormGroup>
@@ -50,7 +50,7 @@ const Email = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateUser({email});
+              props.updateUser({ email });
             }}
           >
             Update
@@ -63,11 +63,5 @@ const Email = props => {
     </div>
   );
 };
-
-// const mapStateToProps = state => {
-//   return {
-//     userInfo: state.getUserInfo
-//   };
-// };
 
 export default Email;

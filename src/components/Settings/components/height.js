@@ -81,7 +81,7 @@ const Height = props => {
   );
 };
 
-// Converts height to centimeters
+// Converts height to centimeters to be sent to the DB.
 function heightToMetric(feet, inches) {
   const feetInches = feet * 12;
   const totalInches = feetInches + Number(inches);

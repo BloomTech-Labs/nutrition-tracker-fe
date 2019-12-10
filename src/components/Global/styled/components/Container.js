@@ -11,6 +11,8 @@ const StyledContainer = styled(Container)`
 
   height: ${props => props.height ? props.height : "auto"};
 
+  overflow-y: auto;
+
   /* border: 1px solid red; */
 `;
 

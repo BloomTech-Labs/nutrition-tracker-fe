@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { Container } from "../../Global/styled";
 
-import TopBar from "../../Onboarding/TopBar";
+import Loading from "../../Global/Loading";
 
 // Routes
 import RegisterOptions from "./RegisterOptions";
@@ -16,15 +16,18 @@ class Register extends React.Component {
     const { path } = this.props.match;
 
     // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn, dob } = this.props;
+    const { isLoggedIn, dob, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (isLoggedIn) return <Redirect to="/" id="homeRedirect" />;
+
+    // If user is logged in on login page redirects them to protected route
+    if (loading) return <Loading />;
 
     // If page refreshes we will lose onboarding data and back end won't be updated properly
     // If one piece of data is not filled out then it none of them are
     // In that even we will redirect them to the landing page to fill out the info again
-    if (!dob) return <Redirect to="/landing" />;
+    if (!dob) return <Redirect to="/landing" id="landingRedirect" />;
 
     // Onboarding object we send to back end
     // Passing this object down to RegisterOptions and RegisterWithEmail components
@@ -39,8 +42,7 @@ class Register extends React.Component {
     };
 
     return (
-      <Container justify="center" fluid={true}>
-        <TopBar {...this.props} />
+      <Container justify="center" fluid={true} height={this.props.height}>
         <Route
           exact
           path={path}
@@ -49,16 +51,19 @@ class Register extends React.Component {
               {...props}
               onboardingInfo={onboardingInfo}
               path={path}
+              id="registerOptions"
             />
           )}
         />
         <Route
+          id="emailRegisterRoute"
           path={`${path}/email`}
           render={props => (
             <RegisterWithEmail
               {...props}
               onboardingInfo={onboardingInfo}
               path={path}
+              id="registerWithEmail"
             />
           )}
         />
@@ -67,10 +72,13 @@ class Register extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+export const mapStateToProps = state => {
   return {
     // when user is not logged in isEmpty is true
     isLoggedIn: !state.firebase.auth.isEmpty,
+
+    // when user is logging we will throw up a loading screen
+    loading: state.firebase.isInitializing,
 
     // Pulling in this state from onboarding reducer so we can create the onboarding object to pass to register actions
     sex: state.onboarding.sex,
@@ -82,4 +90,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { Register };
 export default connect(mapStateToProps, {})(Register);

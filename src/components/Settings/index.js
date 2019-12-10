@@ -81,7 +81,10 @@ class Settings extends React.Component {
           />
           <Dob updateUser={this.updateUser} data={this.props.userInfo} />
           <Gender updateUser={this.updateUser} data={this.props.userInfo} />
-          <ActivityLevel />
+          <ActivityLevel
+            updateActivityLevel={this.updateActivityLevel}
+            data={this.props.userInfo}
+          />{" "}
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
           <Macros
             style={ListStyle}

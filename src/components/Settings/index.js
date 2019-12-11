@@ -1,8 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { HeadingStyle, ListStyle } from "./styles";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import { logout } from "../../store/actions/firebaseAuth";
 import {
   getActivityLevel,
   getCurrentWeight,
@@ -15,16 +12,20 @@ import {
   updateUserInfo,
   updateWeightGoal
 } from "../../store/actions/settingsActions";
-import Loading from "../Global/Loading";
-import { Container } from "../Global/styled";
+
 import ActivityLevel from "./components/ActivityLevel";
+import { Container } from "../Global/styled";
 import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/dob";
 import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
 import Gender from "./components/gender";
 import Height from "./components/height";
-import { HeadingStyle, ListStyle } from "./styles";
+import Loading from "../Global/Loading";
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/firebaseAuth";
 
 class Settings extends React.Component {
   componentDidUpdate(prevProps) {
@@ -35,6 +36,8 @@ class Settings extends React.Component {
       this.props.getActivityLevel(this.props.firebaseID);
       this.props.getMacros(this.props.firebaseID);
       this.props.getWeightGoal(this.props.firebaseID);
+    } else if (prevProps.height_ft !== this.props.height_ft) {
+      this.props.getCurrentWeight(this.props.firebaseID);
     }
   }
 
@@ -103,6 +106,8 @@ class Settings extends React.Component {
 const mapStateToProps = state => {
   return {
     userInfo: state.updateUserInfo,
+    height_ft: state.updateUserInfo.height.feet,
+    height_in: state.updateUserInfo.height.inches,
     firebaseID: state.firebase.auth.uid,
     loading: !state.firebase.auth.isLoaded,
     token:

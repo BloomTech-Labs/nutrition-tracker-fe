@@ -56,7 +56,9 @@ const MacroBudgets = props => {
             ),
             colors: {
               dataColors: macrosAdded
-                ? ["#FFE9AD", "#FFE9AD", "#FFE9AD33"]
+                ? Math.round(macrosAdded.fat / budgets.fatBudget * 100) === 0
+                ? ["#FFE9AD", "#FFE9AD33"]
+                : ["#FFE9AD", "#E0CD98", "#FFE9AD33"]
                 : ["#FFE9AD", "#FFE9AD33"],
               borderColor: "#E4D099",
               hoverBorderColor: "#D5C28F",
@@ -74,7 +76,9 @@ const MacroBudgets = props => {
             ),
             colors: {
               dataColors: macrosAdded
-                ? ["#A1BFDF", "#A1BFDF", "#A1BFDF33"]
+                ? Math.round(macrosAdded.carbs / budgets.carbBudget * 100) === 0
+                ? ["#A1BFDF", "#A1BFDF33"]
+                : ["#A1BFDF", "#859EB8", "#A1BFDF33"]
                 : ["#A1BFDF", "#A1BFDF33"],
               borderColor: "#829BB6",
               hoverBorderColor: "#778EA6",
@@ -93,7 +97,9 @@ const MacroBudgets = props => {
             ),
             colors: {
               dataColors: macrosAdded
-                ? ["#F5C6CB", "#F5C6CB", "#F5C6CB33"]
+                ? Math.round(macrosAdded.protein / budgets.proteinBudget * 100) === 0
+                ? ["#F5C6CB", "#F5C6CB33"]
+                : ["#F5C6CB", "#D1A8AC", "#F5C6CB33"]
                 : ["#F5C6CB", "#F5C6CB33"],
               borderColor: "#BC9599",
               hoverBorderColor: "#A68588",

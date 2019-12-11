@@ -30,7 +30,9 @@ const DataWheel = ({macroData}) => {
         options={options}
         data={dataGenerator(
           macroData.added 
-            ? [macroData.percentTotal, macroData.added, 100 - macroData.percentTotal - macroData.added]
+            ? macroData.added === 0
+            ? [macroData.percentTotal, 0]
+            : [macroData.percentTotal, macroData.added, 100 - macroData.percentTotal - macroData.added]
             : [macroData.percentTotal, 100 - macroData.percentTotal],
           macroData.colors.dataColors,
           macroData.colors.borderColor,

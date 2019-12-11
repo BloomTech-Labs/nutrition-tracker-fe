@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Button,
   Form,
@@ -10,10 +12,7 @@ import {
   ModalFooter,
   ModalHeader
 } from "reactstrap";
-import React, { useEffect, useState } from "react";
-
 import { ListStyle } from "../styles";
-import { useSelector } from "react-redux";
 
 const Weight = props => {
   const [modal, setModal] = useState(false);
@@ -31,7 +30,7 @@ const Weight = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Weight</div>
-        <div>{weight}lbs</div>
+        <div>{weight_lbs}lbs</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle} className="modal-lg">
         <ModalHeader toggle={toggle}>Weight</ModalHeader>

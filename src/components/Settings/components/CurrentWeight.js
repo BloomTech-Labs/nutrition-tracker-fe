@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -11,12 +10,17 @@ import {
   ModalFooter,
   ModalHeader
 } from "reactstrap";
+import React, { useEffect, useState } from "react";
+
 import { ListStyle } from "../styles";
+import { useSelector } from "react-redux";
 
 const Weight = props => {
   const [modal, setModal] = useState(false);
 
   const [weight, setWeight] = useState("");
+
+  const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
 
   useEffect(() => {
     setWeight(props.data.weight_lbs);
@@ -39,7 +43,7 @@ const Weight = props => {
                 type="number"
                 name="weight"
                 id="weight"
-                value={weight || ""}
+                placeholder={weight_lbs || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>

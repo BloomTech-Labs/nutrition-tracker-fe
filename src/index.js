@@ -1,31 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-
 import "./index.css";
-
 // bootstrap css
 import "bootstrap/dist/css/bootstrap.min.css";
-
 // normalize.css
 import "normalize.css";
 
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 // Set up Redux, Router and Firebase's react-redux
 import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { applyMiddleware, createStore } from "redux";
 import { createFirestoreInstance } from "redux-firestore";
-
-// Set up redux middleware and root reducer
-import rootReducer from "./store/reducers";
-import thunk from "redux-thunk";
 import logger from "redux-logger";
-import firebase from "./config/firebase";
-
+import thunk from "redux-thunk";
 import App from "./App";
-
+import firebase from "./config/firebase";
 // Save this puppy for later!
 import * as serviceWorker from "./serviceWorker";
+// Set up redux middleware and root reducer
+import rootReducer from "./store/reducers";
 
 // create our redux store and apply our middleware
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));

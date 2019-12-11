@@ -1,14 +1,14 @@
 import React from "react";
-import styled from "styled-components";
 import {
   Navbar as BS_NavBar,
   NavItem as BS_NavItem,
   NavLink
 } from "reactstrap";
+import styled from "styled-components";
 import {
   DailyLogSVG,
-  RecipeSVG,
   ProgressSVG,
+  RecipeSVG,
   SettingsSVG
 } from "../../Global/icons";
 import theme from "../../Global/theme";
@@ -18,7 +18,7 @@ const BottomNav = ({ displayNav }) => {
     <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
-          <NavLink href="/">
+          <NavLink href="/daily-log">
             <DailyLogSVG />
           </NavLink>
         </NavItem>

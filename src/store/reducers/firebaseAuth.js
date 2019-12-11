@@ -2,6 +2,8 @@ const initialState = {
   loggingIn: false,
   isLoggedIn: false,
   loggingOut: false,
+  registering: false,
+  isRegistered: false,
   error: ""
 };
 
@@ -34,23 +36,24 @@ export const firebaseAuth = (state = initialState, action) => {
     case "REGISTER_START":
       return {
         ...state,
-        loggingIn: true,
-        isLoggedIn: false,
+        registering: true,
+        isRegistered: false,
         error: ""
       };
 
     case "REGISTER_SUCCESS":
       return {
         ...state,
-        loggingIn: false,
-        isLoggedIn: true,
+        registering: false,
+        isRegistered: true,
         error: ""
       };
 
     case "REGISTER_FAILURE":
       return {
         ...state,
-        isLoggedIn: false,
+        registering: false,
+        isRegistered: false,
         error: action.payload
       };
 

@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-
-import styled from "styled-components";
-
-import { PillButton, Row, Col, H2 } from "../../Global/styled";
-
-import { GoogleSVG, FacebookSVG, EmailSVG } from "../../Global/icons";
-
-import {
-  googleRegister,
-  facebookRegister
-} from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
-
 import { Redirect, withRouter } from "react-router-dom";
+import styled from "styled-components";
+import {
+  facebookRegister,
+  googleRegister
+} from "../../../store/actions/firebaseAuth";
+import { EmailSVG, FacebookSVG, GoogleSVG } from "../../Global/icons";
+import { Col, H2, PillButton, Row } from "../../Global/styled";
 
 class Register extends Component {
   // Handles google auth action and sends onboarding info to back end
@@ -29,7 +24,7 @@ class Register extends Component {
 
   render() {
     const { registerSuccess, path } = this.props;
-    if (registerSuccess) return <Redirect to="/" />;
+    if (registerSuccess) return <Redirect to="/daily-log" />;
     return (
       <>
         <Row>
@@ -55,7 +50,7 @@ class Register extends Component {
               </Row>
             </PillButton>
           </Col>
-          <div className="w-100"></div>
+          {/* <div className="w-100"></div>
           <Col>
             <PillButton
               onClick={this.handleFacebookAuth}
@@ -72,8 +67,7 @@ class Register extends Component {
                 </Col>
               </Row>
             </PillButton>
-          </Col>
-          <div className="w-100"></div>
+          </Col> */}
         </Row>
         <Row>
           <Col>

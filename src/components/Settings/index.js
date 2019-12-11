@@ -1,32 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Container } from "../Global/styled";
 import { Redirect } from "react-router-dom";
-import { ListStyle, HeadingStyle } from "./styles";
-import {
-  getUserInfo,
-  updateUserInfo,
-  getCurrentWeight,
-  updateCurrentWeight,
-  getActivityLevel,
-  updateActivityLevel,
-  getWeightGoal,
-  updateWeightGoal,
-  getMacros,
-  updateMacros
-} from "../../store/actions/settingsActions";
-import { logout } from "../../store/actions/firebaseAuth";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/Height";
-import Dob from "./components/Dob";
-import Email from "./components/Email";
-//import Password from "./components/Password"; For RC2
-import Gender from "./components/Gender";
+import { logout } from "../../store/actions/firebaseAuth";
+import {
+  getActivityLevel,
+  getCurrentWeight,
+  getMacros,
+  getUserInfo,
+  getWeightGoal,
+  updateActivityLevel,
+  updateCurrentWeight,
+  updateMacros,
+  updateUserInfo,
+  updateWeightGoal
+} from "../../store/actions/settingsActions";
+import Loading from "../Global/Loading";
+import { Container } from "../Global/styled";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
-import Loading from "../Global/loading/Loading";
-import Macros from "./components/Macros";
-import WeightGoal from "./components/WeightGoal";
+import Dob from "./components/dob";
+import Email from "./components/email";
+//import Password from "./components/Password"; For RC2
+import Gender from "./components/gender";
+import Height from "./components/height";
+import { HeadingStyle, ListStyle } from "./styles";
 
 class Settings extends React.Component {
   componentDidUpdate(prevProps) {
@@ -70,10 +68,10 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/landing" />;
+    if (!token) return <Redirect to="/landing"/>;
 
     return (
-      <Container height={this.props.height} fluid>
+      <Container fluid style={{ padding: 0 }} height={this.props.height}>
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />
@@ -106,7 +104,7 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout
           </ListGroupItem>
-          <Email updateUser={this.updateUser} data={this.props.userInfo} />
+          {/* <Email updateUser={this.updateUser} data={this.props.userInfo} /> */}
           {/* <Password /> For RC2*/}
         </ListGroup>
       </Container>

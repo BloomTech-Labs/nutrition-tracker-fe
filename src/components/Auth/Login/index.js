@@ -1,16 +1,11 @@
 import React from "react";
-
-import { Route, Redirect } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { Redirect, Route } from "react-router-dom";
+import Loading from "../../Global/Loading";
 import { Container } from "../../Global/styled";
-
+import LoginOptions from "./LoginOptions";
 // Routes
 import LoginWithEmail from "./LoginWithEmail";
-import LoginOptions from "./LoginOptions";
-
-import Loading from "../../Global/loading/Loading";
-
-import { connect } from "react-redux";
 
 class Login extends React.Component {
   render() {
@@ -21,7 +16,7 @@ class Login extends React.Component {
     const { isLoggedIn, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (isLoggedIn) return <Redirect to="/daily-log" />;
 
     // After user logs in with google some time is spent initializing the user on firebases end
     // This if statement gives us a loading screen when that happens so it's a smooth transition to home page

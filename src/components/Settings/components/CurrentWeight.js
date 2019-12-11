@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
+import React, { useEffect, useState } from "react";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   Form,
   FormGroup,
+  Input,
   Label,
-  Input
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
+import { ListStyle } from "../styles";
 
 const Weight = props => {
   const [modal, setModal] = useState(false);
@@ -29,14 +29,14 @@ const Weight = props => {
         <div>Weight</div>
         <div>{weight}lbs</div>
       </ListGroupItem>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} className="modal-lg">
         <ModalHeader toggle={toggle}>Weight</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
               <Label for="weight">Current Weight</Label>
               <Input
-                type="text"
+                type="number"
                 name="weight"
                 id="weight"
                 value={weight || ""}

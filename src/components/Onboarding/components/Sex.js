@@ -28,6 +28,7 @@ const Sex = props => {
       <Row>
         <Col>
           <PillButton
+            id="maleButton"
             onClick={() => handleClick("male")}
             outline
             color="primary"
@@ -39,6 +40,7 @@ const Sex = props => {
       <Row>
         <Col>
           <PillButton
+            id="femaleButton"
             onClick={() => handleClick("female")}
             outline
             color="primary"

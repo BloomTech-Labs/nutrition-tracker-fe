@@ -12,6 +12,7 @@ const InputGroupWithIcon = props => {
         marginBottom: "10px"
       }}
     >
+    
       <Input
         placeholder={props.placeholder}
         onChange={e => props.handleChange(e)}
@@ -19,6 +20,7 @@ const InputGroupWithIcon = props => {
         name={props.name}
         type={props.type}
       />
+
       <InputGroupAddon addonType="append">
         <InputGroupText>
           <SVGIcon />

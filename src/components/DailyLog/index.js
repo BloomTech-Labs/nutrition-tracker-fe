@@ -72,6 +72,7 @@ const DailyLog = props => {
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
     
   return (
+    
     <Container height={props.height} fluid>
       <CaloricBudget
         total={budgets.caloricBudget}
@@ -93,7 +94,7 @@ const DailyLog = props => {
         updateInterval={updateInterval}
         currentTimeZone={currentTimeZone}
       />
-      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}
+      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}  {/*Joe here is where we will make this change in onClick event */}
       <Row>
         <Col>
           <Flywheel

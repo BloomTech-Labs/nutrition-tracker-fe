@@ -22,6 +22,8 @@ import Email from "./components/email";
 import Gender from "./components/gender";
 import Height from "./components/height";
 import Loading from "../Global/Loading";
+import Macros from './components/Macros';
+import WeightGoal from './components/WeightGoal'
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";

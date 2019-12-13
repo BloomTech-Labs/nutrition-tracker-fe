@@ -20,6 +20,9 @@ import FatSecretAttribution from "./components/FatSecretAttribution";
 import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import useGroupBy from "./custom hooks/useGroupBy";
+import { Route } from 'react-router-dom'; // Added by joe
+import DeleteMe from './components/DeletemeTest'; // Added by joe
+
 
 let childButtonIcons = [
   {
@@ -72,7 +75,7 @@ const DailyLog = props => {
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
     
   return (
-    
+    <>
     <Container height={props.height} fluid>
       <CaloricBudget
         total={budgets.caloricBudget}
@@ -94,7 +97,9 @@ const DailyLog = props => {
         updateInterval={updateInterval}
         currentTimeZone={currentTimeZone}
       />
-      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}  {/*Joe here is where we will make this change in onClick event */}
+      {console.log(`her is the path: ${props.match.path} , and here is the url: ${props.match.url}`)}
+
+      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} path={props.match.url} props={props} />}  {/*Joe here is where we will make this change in onClick event */}
       <Row>
         <Col>
           <Flywheel
@@ -102,9 +107,14 @@ const DailyLog = props => {
             childButtonIcons={childButtonIcons}
           />
         </Col>
-      </Row>
-    </Container>
+      </Row> 
+ 
+    </Container> 
+    <Route path={`${props.match.path}/updateview/:foodID`} render={(props) =>
+     <DeleteMe {...props} /> }  />  
+    </> 
   );
+  
 };
 
 export default DailyLog;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // Set up routes
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +17,7 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
+
 
 library.add(faSearch);
 
@@ -57,6 +58,7 @@ class App extends Component {
     return (
       <ToastProvider number="5000">
         <AppWrapper>
+        <Switch>
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/daily-log" component={DailyLogWithNav} />
           <Route path="/login" component={LoginWithNav} />
@@ -64,6 +66,7 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
+        </Switch>
         </AppWrapper>
       </ToastProvider>
     );

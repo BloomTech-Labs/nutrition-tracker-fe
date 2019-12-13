@@ -4,10 +4,12 @@ import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
 import Tooltip from "react-bootstrap/Tooltip"; // Added by joe
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"; // Added by joe
+import { Link, Route, Switch, useHistory } from "react-router-dom"; // Added by joe
 
-const TimeLog = ({ dailyLog }) => {
-  console.log("DL", dailyLog);
+const TimeLog = ({ dailyLog, path }) => {
+  let history = useHistory();
   return (
+    console.log('Her is the history:', history),
     <div>
       {dailyLog.length === 0 && (
         <Row>
@@ -32,7 +34,7 @@ const TimeLog = ({ dailyLog }) => {
                       <tr
                         key={i}
                         onClick={() => {
-                          alert(log.foodID);
+                          history.push(`${path}/updateview/${log.foodID}`);
                         }}
                       >
                         {log.firstGroupLog ? (

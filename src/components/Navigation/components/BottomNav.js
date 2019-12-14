@@ -28,7 +28,7 @@ const BottomNav = ({ displayNav }) => {
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="/reports">
+          <NavLink href="/progress-reports/overview">
             <ProgressSVG />
           </NavLink>
         </NavItem>

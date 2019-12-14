@@ -1,10 +1,6 @@
 import React from 'react';
 
 
-
-
-
-
 const Deleteme = props => {
     const {foodID} = props.match.params
     console.log('here is the id:', foodID)

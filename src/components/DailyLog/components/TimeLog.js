@@ -34,7 +34,7 @@ const TimeLog = ({ dailyLog, path }) => {
                       <tr
                         key={i}
                         onClick={() => {
-                          history.push(`${path}/updateview/${log.foodID}`);
+                          history.push(`/updateview/${log.foodID}`);
                         }}
                       >
                         {log.firstGroupLog ? (

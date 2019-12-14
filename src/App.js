@@ -17,13 +17,16 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
-
-
+import UpdateView from './components/UpdateFoodItem';
 library.add(faSearch);
 
 const DailyLogWithNav = withNavigation({
   displayTop: false
 })(DailyLog);
+
+const UpdateViewWithNav = withNavigation({
+  displayTop: true
+})(UpdateView);
 
 library.add(faSearch);
 
@@ -61,6 +64,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/daily-log" component={DailyLogWithNav} />
+          <PrivateRoute path="/updateview" component={UpdateViewWithNav} />
           <Route path="/login" component={LoginWithNav} />
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />

@@ -20,9 +20,8 @@ import FatSecretAttribution from "./components/FatSecretAttribution";
 import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import useGroupBy from "./custom hooks/useGroupBy";
-import { Route } from 'react-router-dom'; // Added by joe
-import DeleteMe from './components/DeletemeTest'; // Added by joe
-
+import { Route } from "react-router-dom"; // Added by joe
+import DeleteMe from "./components/DeletemeTest"; // Added by joe
 
 let childButtonIcons = [
   {
@@ -55,66 +54,64 @@ const DailyLog = props => {
 
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  useEffect(
-    () => {
-      if(isLoaded)
-        dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
-    },
-    [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]
-  );
+  useEffect(() => {
+    if (isLoaded)
+      dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
+  }, [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]);
 
-  useEffect(
-    () => {
-      if(isLoaded)
-        dispatch(updateCurrentTimeZone(currentTimeZone));
-    },
-    [isLoaded, currentTimeZone, dispatch]
-  );
+  useEffect(() => {
+    if (isLoaded) dispatch(updateCurrentTimeZone(currentTimeZone));
+  }, [isLoaded, currentTimeZone, dispatch]);
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
-    
+
   return (
     <>
-    <Container height={props.height} fluid>
-      <CaloricBudget
-        total={budgets.caloricBudget}
-        consumed={consumed.caloriesConsumed}
-      />
-      <FatSecretAttribution />
-      <MacroBudgets
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-      />
-      <Pagination
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-        updateCurrentDate={updateCurrentDate}
-      />
-      <DisplaySettings
-        interval={interval}
-        currentDate={currentDate}
-        updateInterval={updateInterval}
-        currentTimeZone={currentTimeZone}
-      />
-      {console.log(`her is the path: ${props.match.path} , and here is the url: ${props.match.url}`)}
-
-      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} path={props.match.url} props={props} />}  {/*Joe here is where we will make this change in onClick event */}
-      <Row>
-        <Col>
-          <Flywheel
-            maintButtonIcon={faTimes}
-            childButtonIcons={childButtonIcons}
+      <Container height={props.height} fluid>
+        <CaloricBudget
+          total={budgets.caloricBudget}
+          consumed={consumed.caloriesConsumed}
+        />
+        <FatSecretAttribution />
+        <MacroBudgets
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+        />
+        <Pagination
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+          updateCurrentDate={updateCurrentDate}
+        />
+        <DisplaySettings
+          interval={interval}
+          currentDate={currentDate}
+          updateInterval={updateInterval}
+          currentTimeZone={currentTimeZone}
+        /> 
+        {fetchDailyLogSuccess && (
+          <TimeLog
+            dailyLog={groupedDailyLog}
+            path={props.match.url}
+            props={props}
           />
-        </Col>
-      </Row> 
- 
-    </Container> 
-    <Route path={`${props.match.path}/updateview/:foodID`} render={(props) =>
-     <DeleteMe {...props} /> }  />  
-    </> 
+        )} 
+        <Row>
+          <Col>
+            <Flywheel
+              maintButtonIcon={faTimes}
+              childButtonIcons={childButtonIcons}
+            />
+          </Col>
+        </Row>
+      </Container>
+    {/* <Route
+        exact
+        path={`${props.match.path}/updateview/:foodID`}
+        render={props => <DeleteMe {...props} />}
+      /> */} 
+    </>
   );
-  
 };
 
 export default DailyLog;

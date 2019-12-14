@@ -51,6 +51,10 @@ const FoodItemWithNav = withNavigation({
   pageTitle: "Food Item"
 })(FoodItem);
 
+const ProgressReportsWithNav = withNavigation({
+  pageTitle: "Progress Reports"
+})(ProgressReports);
+
 class App extends Component {
   render() {
     return (
@@ -63,7 +67,7 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
-          <Route path="/progress-reports" component={ProgressReports} />
+          <Route path="/progress-reports" component={ProgressReportsWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

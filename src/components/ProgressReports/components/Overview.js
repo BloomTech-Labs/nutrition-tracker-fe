@@ -8,12 +8,12 @@ const Overview = () => {
     <>
       <Row>
         <Col>
-          <WeightProgress />
+          <MacroProgress />
         </Col>
       </Row>
       <Row>
         <Col>
-          <MacroProgress />
+          <WeightProgress />
         </Col>
       </Row>
     </>

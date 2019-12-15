@@ -1,21 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { searchFoodItems } from "../../store/actions/foodItemAction";
-import { Container } from "../Global/styled";
 import { Route } from "react-router-dom";
+import { searchFoodItems } from "../../store/actions/foodItemAction";
+import WithLoading from "../Global/loading/withLoading";
+import { Container } from "../Global/styled";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
-import WithLoading from "../Global/loading/withLoading";
 
 const FoodDetailsWithLoading = WithLoading(FoodDetails);
 
 class FoodItem extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      searchTerm: ""
-    };
-  }
 
   render() {
     const { path } = this.props.match;
@@ -36,18 +30,11 @@ class FoodItem extends React.Component {
             />
           )}
         />
-
-        {console.log("here is the getting:", this.props.getting)}
       </Container>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    items: state.foodItemsReducer.items,
-    getting: state.foodItemsReducer.getting
-  };
-};
+export default FoodItem;
 
-export default connect(mapStateToProps, { searchFoodItems })(FoodItem);
+

@@ -1,18 +1,13 @@
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
-import SearchForm from "../searchForm";
-import SearchResults from "../searchResults";
-import SearchPageConnected, { SearchPage } from "../searchPage";
+import { MemoryRouter } from "react-router";
 import sinon from "sinon";
-
-/*
-  [Error cleared]: !
-    SearchPage error => <tbody> cannot appear as a child of <div>
-*/
+import FoodItem from "../index.js";
 
 let store;
 let wrapper;
+
 const mockItems = [
   {
     food_name: "Pupusa",
@@ -31,4 +26,38 @@ const mockItems = [
   }
 ];
 
+describe("<FoodItem />", () => {
+  test("FoodItem component", () => {
+  
+    // the component file might not be using searchTerm from state
+    // tests for that were not created yet
+    store = _bigMockStore_({
+      foodItemsReducer: {
+        items: mockItems
+      }
+    });
 
+    wrapper = mount(
+      <MemoryRouter initialEntries={["food_item/search"]}>
+        <Provider store={store}>
+          <FoodItem match={{
+            path: "food_item"
+          }}/>
+        </Provider>
+      </MemoryRouter>
+    );
+
+    wrapper = mount(
+      <MemoryRouter initialEntries={["food_item/view/6847"]}>
+        <Provider store={store}>
+          <FoodItem match={{
+            path: "food_item"
+          }}/>
+        </Provider>
+      </MemoryRouter>
+    );
+
+    console.log(wrapper.debug());
+
+  });
+});

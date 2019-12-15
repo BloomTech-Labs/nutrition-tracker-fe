@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
 import moment from "moment";
-import { InputGroupWithIcon } from "../../Global/styled/index";
+import React, { useEffect, useState } from "react";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   Form,
   FormGroup,
-  Label
+  Label,
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
 import { CalendarSVG } from "../../Global/icons";
+import { InputGroupWithIcon } from "../../Global/styled/index";
+import { ListStyle } from "../styles";
 
 const Dob = props => {
   const [modal, setModal] = useState(false);
@@ -30,7 +30,7 @@ const Dob = props => {
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Date Of Birth</div>
         {/* Formats date to be displayed to the user */}
-        <div>{moment(dob).format("MMM Do YY")}</div>
+        <div>{moment(dob).utc().format("MMM DD YY")}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>

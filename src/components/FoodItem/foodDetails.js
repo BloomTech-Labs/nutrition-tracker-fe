@@ -1,185 +1,330 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getOneFoodItem } from "../../store/actions/foodItemAction";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Textfit } from "react-textfit";
+import { useToasts } from "react-toast-notifications";
+import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
+import styled from "styled-components";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
-  Container,
-  Row,
-  Col,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu
-} from "reactstrap";
-import { DropdownToggle } from "../Global/styled";
-import { Doughnut } from "react-chartjs-2";
-import { TBody, Input, H2 } from "../Global/styled/";
-import formatDecimal from "../Global/helpers/formatDecimals";
+  addFoodItem,
+  getOneFoodItem
+} from "../../store/actions/foodItemAction";
+import Loading from "../Global/Loading";
+import MacroBudgets from "../Global/MacroBudgets";
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import { Col, DropdownToggle, H2, H3, H4, Input, Row } from "../Global/styled";
+import NutritionInfo from "./components/NutritionInfo";
 
-class FoodDetails extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      quantity: 1,
-      dropdownOpen: false,
-      dropDownSelectionKey: false
+const FoodDetails = props => {
+  const dispatch = useDispatch();
+  const { addToast } = useToasts();
+
+  const { consumed, currentDate, currentTimeZone } = useSelector(
+    state => state.dailyLog
+  );
+  const { item, got, error } = useSelector(state => state.foodItemsReducer);
+  const firebaseID = useSelector(state => state.firebase.auth.uid);
+
+  const [quantity, setQuantity] = useState(1);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(0);
+
+  // to populate date input
+  const todayDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  
+  // to populate time input
+  const todayTime = moment.tz(currentTimeZone).format("HH:mm");
+
+  const [time, setTime] = useState(todayTime);
+  const [date, setDate] = useState(todayDate);
+  const [dateTimeUTC, setDateTimeUTC] = useState(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+
+  useEffect(() => {
+    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+  }, [date, time])
+
+  useEffect(
+    () => {
+      dispatch(getOneFoodItem(props.match.params.fatsecret_food_id));
+    },
+    [props.match.params.fatsecret_food_id]
+  );
+
+  useEffect(
+    () => {
+      if (got)
+        addToast("Food Item Added!", {
+          appearance: "success",
+          autoDismiss: true
+        });
+      else if (error)
+        addToast("Error. Try again later.", {
+          appearance: "error",
+          autoDismiss: true
+        });
+    },
+    [error, got]
+  )
+
+  const handleToggle = e => {
+    setDropdownOpen(prevState => !prevState.dropdownOpen);
+  };
+
+  const handleSelect = key => {
+    setDropDownSelectionIndex(key);
+  };
+
+  const addedMacros = () => {
+    const selectionIndex = dropDownSelectionIndex;
+    /* ****************************************************** */
+    const addedfatGrams = Number(item[selectionIndex].fat_g) * quantity;
+    const addedCarbGrams = Number(item[selectionIndex].carbs_g) * quantity;
+    const addedProteinGrams = Number(item[selectionIndex].protein_g) * quantity;
+
+    // rounds to nearest hundreth
+    return {
+      fat: Math.round(100 * addedfatGrams) / 100,
+      carbs: Math.round(100 * addedCarbGrams) / 100,
+      protein: Math.round(100 * addedProteinGrams) / 100
     };
-  }
-
-  componentWillMount() {
-    const { food_id } = this.props.match.params;
-    this.props.getOneFoodItem(food_id);
-  }
-
-  handleToggle = e => {
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        dropdownOpen: !prevState.dropdownOpen
-      };
-    });
   };
 
-  handleSelect = key => {
-    this.setState(function(prevState) {
-      return {
-        ...prevState,
-        dropDownSelectionKey: key
-      };
-    });
-  };
+  const addNewFoodLog = async () => {
+    const selectionIndex = dropDownSelectionIndex;
+    /* ****************************************************** */
+    const food_id = item[selectionIndex].id;
+    const serving_id = item[selectionIndex].serving_id;
+    const fatsecret_food_id = props.match.params.fatsecret_food_id;
+    const time_consumed_at = dateTimeUTC;
+    const time_zone_name = currentTimeZone;
+    const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-  render() {
-    return (
-      <Container>
-        <>
-          <Row>
-            <Col>
-              <H2>{this.props.item[0].food_name}</H2>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Input
-                type="text"
-                name="quantity"
-                value={this.state.quantity}
-                onChange={e => {
-                  this.setState({ quantity: e.target.value });
-                }}
-              />
-            </Col>
-            <Col>
-              <Dropdown
-                isOpen={this.state.dropdownOpen}
-                toggle={this.handleToggle}
-              >
-                <DropdownToggle caret>
-                  {this.state.dropDownSelectionKey !== false
-                    ? this.props.item[this.state.dropDownSelectionKey]
-                        .serving_desc
-                    : "Select"}
-                </DropdownToggle>
-                <DropdownMenu>
-                  {this.props.item.map((serving, key) => (
-                    <DropdownItem
-                      key={key}
-                      onClick={() => this.handleSelect(key)}
-                    >
-                      {serving.serving_desc}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([1, 2, 3, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([3, 2, 3, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col xs={4}>
-              <Doughnut
-                data={dataGenerator([11, 2, 9, 4], "red,green,blue,orange")}
-              />
-            </Col>
-            <Col>
-              {this.state.dropDownSelectionKey !== false && (
-                <TBody borderless responsive>
-                  <tr>
-                    <th scope="row"> Fats </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey].fat *
-                          this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"> Cholesterol </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .cholesterol * this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"> Sodium </th>
-                    <td>
-                      {formatDecimal(
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .sodium * this.state.quantity
-                      )}
-                      {
-                        this.props.item[this.state.dropDownSelectionKey]
-                          .metric_serving_unit
-                      }
-                    </td>
-                  </tr>
-                </TBody>
-              )}
-            </Col>
-          </Row>
-        </>
-      </Container>
+    dispatch(
+      addFoodItem(
+        {
+          food_id,
+          quantity,
+          serving_id,
+          fatsecret_food_id,
+          time_consumed_at,
+          time_zone_name,
+          time_zone_abbr
+        },
+        firebaseID
+      )
     );
-  }
-}
-
-// Turns the input strings into a charts.js dataset
-function dataGenerator(data, color) {
-  const dataset = {
-    // labels: color.split(","),
-    datasets: [
-      {
-        backgroundColor: color.split(","),
-        data: data
-      }
-    ]
   };
-  return dataset;
-}
 
-const mapStateToProps = state => {
-  return {
-    item: state.foodItemsReducer.item,
-    getting: state.foodItemsReducer.getting,
-    got: state.foodItemsReducer.got
+  const getCurrentTimeZoneAbbr = () => {
+    const time_zone_abbr = moment.tz(currentDate, currentTimeZone).format("z"); // output ex. PST
+
+    return time_zone_abbr;
   };
+
+  if (!item[0]) return <Loading />;
+
+  /* ****************************************************** */
+  const foodSelection = item[dropDownSelectionIndex];
+
+  return (
+    <div>
+      <Row>
+        <Col
+          align="center"
+          height="50px"
+          style={{ borderBottom: "1px solid lightgrey" }}
+        >
+          <FoodName>
+            <Textfit mode="single" forceSingleModeWidth={false}>
+              {foodSelection && foodSelection.food_name}
+            </Textfit>
+          </FoodName>
+        </Col>
+      </Row>
+      <Row style={{ paddingTop: "20px" }}>
+        <Col align="center" height="50px">
+          <CurrentCalories>
+            Current Cal<br />
+            <span>{consumed.caloriesConsumed} cal</span>
+          </CurrentCalories>
+        </Col>
+        <Col align="center" height="50px">
+          <AddedCalories>
+            {""} <br />
+            <span> +{Math.trunc(
+              foodSelection && foodSelection.calories_kcal * quantity
+            )}{" "}
+            cal</span>
+          </AddedCalories>
+        </Col>
+        <Col align="center" height="50px">
+          <NewCalories>
+            New Cal<br />
+            <span>{consumed.caloriesConsumed +
+              foodSelection.calories_kcal * quantity}{" "}
+            cal</span>
+          </NewCalories>
+        </Col>
+      </Row>
+      <MacroBudgets macrosAdded={addedMacros()} date={date}/>
+      <Row
+        style={{
+          marginTop: "50px",
+          paddingTop: "15px",
+          borderTop: "1px solid lightgrey"
+        }}
+      >
+        <Col direction="column" align="flex-start">
+          <InputLabel>Qty</InputLabel>
+          <Input
+            type="number"
+            name="quantity"
+            value={quantity}
+            min={1}
+            onChange={e => {
+              setQuantity(e.target.value);
+            }}
+          />
+        </Col>
+        <Col direction="column" align="flex-end">
+          <InputLabel>Serving Type</InputLabel>
+          <ButtonDropdown
+            isOpen={dropdownOpen}
+            toggle={handleToggle}
+            style={{ width: "100%" }}
+          >
+            <DropdownToggle
+              caret
+              style={{
+                textAlign: "right",
+                backgroundColor: "white",
+                color: "black",
+                borderColor: "#CED4DA"
+              }}
+            >
+              {item[0] && foodSelection.serving_desc}
+            </DropdownToggle>
+            <DropdownMenu>
+              {item.map((serving, key) =>
+                <DropdownItem key={key} onClick={() => handleSelect(key)}>
+                  {serving.serving_desc}
+                </DropdownItem>
+              )}
+            </DropdownMenu>
+          </ButtonDropdown>
+        </Col>
+        </Row>
+        <Row style={{marginBottom: "35px"}}>
+            <Col direction="column" align="flex-start">
+              <InputLabel>Date</InputLabel>
+              <Input
+                type="date"
+                name="date"
+                value={date}
+                style={{ textAlign: "left" }}
+                onChange={e => setDate(e.target.value)}
+                min={1}
+              />
+            </Col>
+            <Col direction="column" align="flex-end">
+              <InputLabel>Time</InputLabel>
+              <Input
+                type="time"
+                name="time"
+                value={time}
+                style={{ textAlign: "left" }}
+                onChange={e => setTime(e.target.value)}
+                min={1}
+              />
+            </Col>
+         </Row> 
+
+      <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
+      <Row>
+        <Col>
+          <Flywheel
+            staticInitialButton
+            onMainButtonClick={addNewFoodLog}
+            maintButtonIcon={faCheck}
+            childButtonIcons={[]}
+          />
+        </Col>
+      </Row>
+    </div>
+  );
 };
 
-export { FoodDetails };
-export default connect(mapStateToProps, { getOneFoodItem })(FoodDetails);
+const DataCol = styled(Col)`
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+  h5 {
+    margin-top: 0.4rem;
+    font-size: 1.6rem;
+  }
+  h6 {
+    font-size: 1.4rem;
+  }
+  .gray-box {
+    width: 100%;
+    height: 1rem;
+    background: gray;
+    border-bottom: 1px solid black;
+  }
+`;
+
+const MainData = styled(Col)`
+  border-bottom: 1px solid black;
+  h5 {
+    font-weight: bold;
+  }
+`;
+
+const SubData = styled(Col)`
+  border-bottom: 1px solid black;
+  h5 {
+    margin-left: 1rem;
+  }
+`;
+
+const FoodName = styled(H2)`
+  text-align: center;
+  width: 100%;
+  /* font-size: 2rem; */
+  span {
+    font-weight: 300;
+  }
+`;
+
+const CurrentCalories = styled(H3)`
+  width: 100%;
+  text-align: center;
+
+  span {
+    font-weight: 300;
+  }
+`;
+
+const AddedCalories = styled(H3)`
+  width: 100%;
+  text-align: center;
+
+  span {
+    font-weight: 300;
+  }
+`;
+
+const NewCalories = styled(H3)`
+  width: 100%;
+  text-align: center;
+
+  span {
+    font-weight: 300;
+  }
+`;
+
+const InputLabel = styled.span`font-size: 1.6rem;`;
+
+
+export default FoodDetails;
+

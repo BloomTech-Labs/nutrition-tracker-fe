@@ -1,39 +1,44 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Container } from "../Global/styled";
-import { Redirect } from "react-router-dom";
-import { ListStyle, HeadingStyle } from "./styles";
-import {
-  getUserInfo,
-  updateUserInfo,
-  getCurrentWeight,
-  updateCurrentWeight,
-  getActivityLevel,
-  updateActivityLevel,
-  getWeightGoal,
-  updateWeightGoal,
-  getMacros,
-  updateMacros
-} from "../../store/actions/settingsActions";
-import { logout } from "../../store/actions/firebaseAuth";
+import { HeadingStyle, ListStyle } from "./styles";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import Height from "./components/height";
+import {
+  getActivityLevel,
+  getCurrentWeight,
+  getMacros,
+  getUserInfo,
+  getWeightGoal,
+  updateActivityLevel,
+  updateCurrentWeight,
+  updateMacros,
+  updateUserInfo,
+  updateWeightGoal
+} from "../../store/actions/settingsActions";
+
+import ActivityLevel from "./components/ActivityLevel";
+import { Container } from "../Global/styled";
+import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/dob";
 import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
 import Gender from "./components/gender";
-import ActivityLevel from "./components/ActivityLevel";
-import CurrentWeight from "./components/CurrentWeight";
+import Height from "./components/height";
 import Loading from "../Global/Loading";
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/firebaseAuth";
 
 class Settings extends React.Component {
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
     //These are actions that gets the current info for settings from DB
-    this.props.getUserInfo(this.props.firebaseID);
-    this.props.getCurrentWeight(this.props.firebaseID);
-    this.props.getActivityLevel(this.props.firebaseID);
-    this.props.getMacros(this.props.firebaseID);
-    this.props.getWeightGoal(this.props.firebaseID);
+    if (prevProps.firebaseID !== this.props.firebaseID) {
+      this.props.getUserInfo(this.props.firebaseID);
+      this.props.getCurrentWeight(this.props.firebaseID);
+      this.props.getActivityLevel(this.props.firebaseID);
+      this.props.getMacros(this.props.firebaseID);
+      this.props.getWeightGoal(this.props.firebaseID);
+    } else if (prevProps.height_ft !== this.props.height_ft) {
+      this.props.getCurrentWeight(this.props.firebaseID);
+    }
   }
 
   //These are functions that get passed down to the components and updates the DB for that component's data.
@@ -66,10 +71,10 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/landing" />;
+    if (!token) return <Redirect to="/landing"/>;
 
     return (
-      <Container height={this.props.height} fluid>
+      <Container fluid style={{ padding: 0 }} height={this.props.height}>
         <ListGroup>
           <ListGroupItem style={HeadingStyle}>Profile</ListGroupItem>
           <Height updateUser={this.updateUser} data={this.props.userInfo} />
@@ -82,15 +87,27 @@ class Settings extends React.Component {
           <ActivityLevel
             updateActivityLevel={this.updateActivityLevel}
             data={this.props.userInfo}
-          />
+          />{" "}
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <ListGroupItem style={ListStyle}>MacroNutrient Targets</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
+          <Macros
+            style={ListStyle}
+            updateMacros={this.updateMacros}
+            data={this.props.userInfo}
+          >
+            MacroNutrient Targets
+          </Macros>
+          <WeightGoal
+            style={ListStyle}
+            updateWeightGoal={this.updateWeightGoal}
+            data={this.props.userInfo}
+          >
+            Weight Goal
+          </WeightGoal>
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout
           </ListGroupItem>
-          <Email updateUser={this.updateUser} data={this.props.userInfo} />
+          {/* <Email updateUser={this.updateUser} data={this.props.userInfo} /> */}
           {/* <Password /> For RC2*/}
         </ListGroup>
       </Container>
@@ -101,6 +118,8 @@ class Settings extends React.Component {
 const mapStateToProps = state => {
   return {
     userInfo: state.updateUserInfo,
+    height_ft: state.updateUserInfo.height.feet,
+    height_in: state.updateUserInfo.height.inches,
     firebaseID: state.firebase.auth.uid,
     loading: !state.firebase.auth.isLoaded,
     token:

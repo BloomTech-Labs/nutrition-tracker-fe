@@ -1,10 +1,13 @@
 import {
+  FETCH_FAILURE,
+  FETCH_GET_ONE_FAILURE,
+  FETCH_GET_ONE_START,
+  FETCH_GET_ONE_SUCCESS,
   FETCH_START,
   FETCH_SUCCESS,
-  FETCH_FAILURE,
-  FETCH_GET_ONE_START,
-  FETCH_GET_ONE_FAILURE,
-  FETCH_GET_ONE_SUCCESS
+  POST_FOOD_FAILURE,
+  POST_FOOD_START,
+  POST_FOOD_SUCCESS
 } from "../actions/foodItemAction";
 
 const initialState = {
@@ -20,45 +23,55 @@ export const foodItemsReducer = (state = initialState, action) => {
     case FETCH_FAILURE:
       return {
         ...state,
-        error: action.payload,
-        getting: false,
-        got: false
+        getting: false
       };
     case FETCH_START:
       return {
         ...state,
-        error: "",
         getting: true
       };
     case FETCH_SUCCESS:
       return {
         ...state,
-        error: "",
         getting: false,
-        got: true,
         items: action.payload
       };
     case FETCH_GET_ONE_SUCCESS:
       return {
         ...state,
-        error: "",
-        getting: false,
-        got: true,
         item: action.payload
       };
     case FETCH_GET_ONE_START:
       return {
         ...state,
-        error: "",
-        getting: true,
-        got: false
+        got: false,
+        getting: true
       };
     case FETCH_GET_ONE_FAILURE:
       return {
         ...state,
-        error: "Error",
+        getting: false
+      };
+    case POST_FOOD_START:
+      return {
+        ...state,
         getting: false,
-        got: false
+        got: false,
+        food_log: action.payload
+      };
+    case POST_FOOD_SUCCESS:
+      return {
+        ...state,
+        getting: false,
+        got: true,
+        food_log: action.payload
+      };
+    case POST_FOOD_FAILURE:
+      return {
+        ...state,
+        got: false,
+        error: "Error",
+        getting: false
       };
     default:
       return state;

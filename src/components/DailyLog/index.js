@@ -1,83 +1,109 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import moment from "moment-timezone";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  faAppleAlt,
+  faTimes,
+  faUtensils,
+  faWeight
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  fetchDailyLog,
+  updateCurrentTimeZone
+} from "../../store/actions/dailyLogActions";
+import MacroBudgets from "../Global/MacroBudgets";
+import Flywheel from "../Global/flywheel-menu/Flywheel";
+import { Col, Container, Row } from "../Global/styled";
+import CaloricBudget from "./components/CaloricBudget";
+import DisplaySettings from "./components/DisplaySettings";
+import FatSecretAttribution from "./components/FatSecretAttribution";
+import Pagination from "./components/Pagination";
+import TimeLog from "./components/TimeLog";
+import useGroupBy from "./custom hooks/useGroupBy";
 
-import defaultUserImage from "../../default-user-pic.jpeg";
+let childButtonIcons = [
+  {
+    icon: faAppleAlt,
+    name: "Food",
+    isaLink: true,
+    linkPath: "/food-item/search"
+  },
+  { icon: faUtensils, name: "Recipe", isaLink: false },
+  { icon: faWeight, name: "Weight", isaLink: false }
+];
 
-import { logout } from "../../store/actions/firebaseAuth";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+const currentTimeZone = moment.tz.guess();
 
-import styled from "styled-components";
-import { PillButton, Container } from "../Global/styled";
+const DailyLog = props => {
+  const {
+    budgets,
+    consumed,
+    dailyLog,
+    fetchDailyLogSuccess,
+    currentDate
+  } = useSelector(state => state.dailyLog);
 
-import Loading from "../Global/Loading";
+  const dispatch = useDispatch();
 
-class DailyLog extends Component {
-  // Offers the user a way out, a chance at a better life
-  handleLogout = e => {
-    e.preventDefault();
-    this.props.logout();
-  };
+  const firebaseID = useSelector(state => state.firebase.auth.uid);
+  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
 
-  render() {
-    // Destructing props like a karate chop
-    const { user, pictureURL, loading, token } = this.props;
+  const [interval, setInterval] = useState(30);
 
-    // If data is not there but user is logged in, returns a loading screen
-    if (loading) return <Loading />;
+  const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-    // If token isn't there then the user isn't logged in and send them back to wince they came
-    if (!token) return <Redirect to="/landing" />;
+  useEffect(
+    () => {
+      if(isLoaded)
+        dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
+    },
+    [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]
+  );
 
-    // This is just placeholder till Daily log gets built out
-    return (
-      <Container height={this.props.height} align="center">
-        {user ? (
-          <Header>Hello, {user}!</Header>
-        ) : (
-          <Header>Welcome to NutriJournal</Header>
-        )}
-        <ProfilePic
-          src={pictureURL ? pictureURL : defaultUserImage}
-          alt="user pic"
-          id="profilePic"
-        />
-        <div>
-          <PillButton
-            color="secondary"
-            onClick={this.handleLogout}
-            id="logoutButton"
-          >
-            Sign out
-          </PillButton>
-        </div>
-        <Link to="/settings" id="settingsLink">Settings</Link>
-      </Container>
-    );
-  }
-}
+  useEffect(
+    () => {
+      if(isLoaded)
+        dispatch(updateCurrentTimeZone(currentTimeZone));
+    },
+    [isLoaded, currentTimeZone, dispatch]
+  );
 
-const Header = styled.h2`
-  margin-top: 2rem;
-`;
-
-const ProfilePic = styled.img`
-  width: 100px;
-  margin-bottom: 40px;
-  border-radius: 50px;
-`;
-
-const mapStateToProps = state => {
-  return {
-    user: state.firebase.auth && state.firebase.auth.displayName,
-    pictureURL: state.firebase.auth.photoURL,
-    loading: !state.firebase.auth.isLoaded,
-    token:
-      state.firebase.auth &&
-      state.firebase.auth.stsTokenManager &&
-      state.firebase.auth.stsTokenManager.accessToken
-  };
+  const updateInterval = interval => setInterval(interval);
+  const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
+    
+  return (
+    <Container height={props.height} fluid>
+      <CaloricBudget
+        total={budgets.caloricBudget}
+        consumed={consumed.caloriesConsumed}
+      />
+      <FatSecretAttribution />
+      <MacroBudgets
+        currentDate={currentDate}
+        currentTimeZone={currentTimeZone}
+      />
+      <Pagination
+        currentDate={currentDate}
+        currentTimeZone={currentTimeZone}
+        updateCurrentDate={updateCurrentDate}
+      />
+      <DisplaySettings
+        interval={interval}
+        currentDate={currentDate}
+        updateInterval={updateInterval}
+        currentTimeZone={currentTimeZone}
+      />
+      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}
+      <Row>
+        <Col>
+          <Flywheel
+            maintButtonIcon={faTimes}
+            childButtonIcons={childButtonIcons}
+          />
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
-export { DailyLog };
-export default connect(mapStateToProps, { logout })(DailyLog);
+export default DailyLog;

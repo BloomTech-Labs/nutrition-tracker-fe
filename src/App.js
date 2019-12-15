@@ -1,33 +1,28 @@
 import React, { Component } from "react";
-
-// importing from global styles
-import { AppWrapper } from "./components/Global/styled";
-
 // Set up routes
 import { Route } from "react-router-dom";
-
+import { ToastProvider } from "react-toast-notifications";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
-// importing component pages for routes
-import DailyLog from "./components/DailyLog";
-import LandingPage from "./components/LandingPage";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+// importing component pages for routes
+import DailyLog from "./components/DailyLog";
 import FoodItem from "./components/FoodItem";
+// importing from global styles
+import { AppWrapper } from "./components/Global/styled";
+import LandingPage from "./components/LandingPage";
+import withNavigation from "./components/Navigation/withNavigation";
 import Onboarding from "./components/Onboarding";
-import Settings from "./components/Settings";
-
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
-// import RequireAuth from "./components/Auth";
+import Settings from "./components/Settings";
 
-import withNavigation from "./components/Navigation/withNavigation";
+library.add(faSearch);
 
-// TODO: Fix ToastProvider
-
-// imports for toast wrapper
-import { ToastProvider } from "react-toast-notifications";
+const DailyLogWithNav = withNavigation({
+  displayTop: false
+})(DailyLog);
 
 library.add(faSearch);
 
@@ -53,10 +48,6 @@ const RegisterWithNav = withNavigation({
   displayBottom: false
 })(Register);
 
-const DailyLogWithNav = withNavigation({
-  pageTitle: "Daily Log"
-})(DailyLog);
-
 const FoodItemWithNav = withNavigation({
   pageTitle: "Food Item"
 })(FoodItem);
@@ -66,13 +57,13 @@ class App extends Component {
     return (
       <ToastProvider number="5000">
         <AppWrapper>
-          <PrivateRoute exact path="/" component={DailyLogWithNav} />
-          <Route path="/landing" component={LandingPage} />
+          <Route exact path="/" component={LandingPage} />
+          <PrivateRoute path="/daily-log" component={DailyLogWithNav} />
           <Route path="/login" component={LoginWithNav} />
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />
-          <Route path="/settings" component={SettingsWithNav} />
-          <Route path="/food_item" component={FoodItemWithNav} />
+          <PrivateRoute path="/food-item" component={FoodItemWithNav} />
+          <PrivateRoute path="/settings" component={SettingsWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

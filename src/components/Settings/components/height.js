@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
+import React, { useEffect, useState } from "react";
+import {useSelector} from "react-redux";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   Form,
   FormGroup,
+  Input,
   Label,
-  Input
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
+import { ListStyle } from "../styles";
 
 const Height = props => {
   const [modal, setModal] = useState(false);
@@ -19,13 +20,16 @@ const Height = props => {
   const [feet, setFeet] = useState("");
   const [inches, setInches] = useState("");
 
-  useEffect(() => {
-    setFeet(props.data.height.feet);
-  }, [props.data.height.feet]);
+  const myFeet = useSelector(state => state.updateUserInfo.height.feet);
+  const myInches = useSelector(state => state.updateUserInfo.height.inches);
 
   useEffect(() => {
-    setInches(props.data.height.inches);
-  }, [props.data.height.inches]);
+    setFeet(myFeet);
+  }, [myFeet]);
+
+  useEffect(() => {
+    setInches(myInches);
+  }, [myInches]);
 
   const toggle = () => setModal(!modal);
   return (
@@ -33,30 +37,30 @@ const Height = props => {
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Height</div>
         <div>
-          {feet}'{inches}''
+          {myFeet}'{myInches}''
         </div>
       </ListGroupItem>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} size={"lg"}>
         <ModalHeader toggle={toggle}>Height</ModalHeader>
-        <ModalBody>
-          <Form>
+        <ModalBody size="lg">
+          <Form size="lg">
             <FormGroup>
               <Label for="feet">Feet</Label>
               <Input
-                type="text"
+                type="number"
                 name="feet"
                 id="feet"
-                value={feet}
+                placeholder={myFeet || ""}
                 onChange={e => setFeet(e.target.value)}
               />
             </FormGroup>
             <FormGroup>
               <Label for="inches">Inches</Label>
               <Input
-                type="text"
+                type="number"
                 name="inches"
                 id="inches"
-                value={inches}
+                placeholder={myInches || ""}
                 onChange={e => setInches(e.target.value)}
               />
             </FormGroup>

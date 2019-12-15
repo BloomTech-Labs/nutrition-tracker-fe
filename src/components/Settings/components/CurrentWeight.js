@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   Form,
   FormGroup,
+  Input,
   Label,
-  Input
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
+import { ListStyle } from "../styles";
 
 const Weight = props => {
   const [modal, setModal] = useState(false);
 
   const [weight, setWeight] = useState("");
+
+  const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
 
   useEffect(() => {
     setWeight(props.data.weight_lbs);
@@ -27,19 +30,19 @@ const Weight = props => {
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Weight</div>
-        <div>{weight}lbs</div>
+        <div>{weight_lbs}lbs</div>
       </ListGroupItem>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} className="modal-lg">
         <ModalHeader toggle={toggle}>Weight</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
               <Label for="weight">Current Weight</Label>
               <Input
-                type="text"
+                type="number"
                 name="weight"
                 id="weight"
-                value={weight || ""}
+                placeholder={weight_lbs || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>

@@ -1,27 +1,23 @@
 import React from "react";
-
-import {
-  Row,
-  Col,
-  H2,
-  PillButton,
-  Form,
-  SlideBar,
-  Input
-} from "../../Global/styled";
-import { ScaleSVG } from "../../Global/icons";
-
-import InputGroupWithIcon from "./InputGroupWithIcon";
-
 import { connect } from "react-redux";
-import { updateWeightGoal } from "../../../store/actions/onboardingActions";
-
 import { Redirect } from "react-router-dom";
+import { updateWeightGoal } from "../../../store/actions/onboardingActions";
+import { ScaleSVG } from "../../Global/icons";
+import {
+  Col,
+  Form,
+  H2,
+  Input,
+  PillButton,
+  Row,
+  SlideBar
+} from "../../Global/styled";
+import InputGroupWithIcon from "./InputGroupWithIcon";
 
 class WeightGoal extends React.Component {
   state = {
     target_rate: 0,
-    target_weight: 0
+    target_weight: metricToImperial(this.props.weight_kg)
   };
 
   // handles adding target rate and date to redux
@@ -30,8 +26,9 @@ class WeightGoal extends React.Component {
     const { target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
       target_weight_kg: weightToMetic(target_weight),
-      target_rate: Number(target_rate)
+      target_rate: target_rate
     });
+    
     if (target_weight) {
       this.props.history.push("/register");
     } else {
@@ -46,9 +43,20 @@ class WeightGoal extends React.Component {
     });
   };
 
+  updateTargetWeight = e => {
+    this.setState({target_weight: e.target.value}, () => {
+      this.setState({target_rate: 0});
+    });
+  };
+
+  updateTargetRate = e => {
+    this.setState({target_rate: Number(e.target.value)});
+  };
+
   render() {
     // decon props
     const { weight_kg, height_cm, date_of_birth } = this.props;
+    const { target_weight, target_rate } = this.state;
 
     // takes us back home if we are missing values for height, weight, and dob
     // if they aren't present then it will route to landing so onboarding can be filled out properly
@@ -69,31 +77,33 @@ class WeightGoal extends React.Component {
               <InputGroupWithIcon
                 name="target_weight"
                 type="number"
+                value={target_weight}
                 icon={ScaleSVG}
                 placeholder="lbs."
-                handleChange={this.handleChange}
+                handleChange={this.updateTargetWeight}
               />
             </Col>
           </Row>
           <Row>
             <Col>
-              <SlideBar>
+              <SlideBar style={{display: weightToMetic(target_weight) === weight_kg ? "none" : "block" }}>
                 <Input
                   name="target_rate"
                   type="range"
-                  min={-2}
-                  max={2}
+                  value={weightToMetic(target_weight) === weight_kg ? 0 : target_rate}
+                  min={weightToMetic(target_weight) >= weight_kg ? 0 : -2}
+                  max={weightToMetic(target_weight) <= weight_kg ? 0 :  2}
                   step={0.5}
-                  onChange={this.handleChange}
+                  onChange={this.updateTargetRate}
                 />
                 <div>
                   {this.state.target_rate === 0
-                    ? "Maintain"
+                    ? <h3>Maintain</h3>
                     : this.state.target_rate > 0
-                    ? `Gain ${this.state.target_rate} pounds per week`
+                    ? <h3>{`Gain ${this.state.target_rate} pounds per week`}</h3>
                     : this.state.target_rate < 0
-                    ? `Loose ${this.state.target_rate} pounds per week`
-                    : "Maintain"}
+                    ? <h3>{`Loose ${this.state.target_rate} pounds per week`}</h3>
+                    : <h3>Maintain</h3>}
                 </div>
               </SlideBar>
             </Col>
@@ -113,6 +123,10 @@ class WeightGoal extends React.Component {
 
 function weightToMetic(lbs) {
   return Math.round(lbs * 0.453592);
+}
+
+function metricToImperial(kg) {
+  return Math.floor(kg / 0.453592);
 }
 
 const mapStateToProps = state => {

@@ -54,7 +54,7 @@ const Button = styled(BS_Button)`
 
 const NavbarBrand = styled(BS_NavbarBrand)`
   margin-left: 10px;
-  color: ${props => props.titleColor} !important;
+  color: ${props => props.titlecolor} !important;
   font-size: 1.6rem;
 `;
 

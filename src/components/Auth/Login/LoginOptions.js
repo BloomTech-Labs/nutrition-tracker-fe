@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-
-import styled from "styled-components";
-
-import { PillButton, Row, Col, H2 } from "../../Global/styled";
-
-import { GoogleSVG, FacebookSVG, EmailSVG } from "../../Global/icons";
-
-import {
-  googleLogin,
-  facebookLogin
-} from "../../../store/actions/firebaseAuth";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import {
+  facebookLogin,
+  googleLogin
+} from "../../../store/actions/firebaseAuth";
+import { EmailSVG, FacebookSVG, GoogleSVG } from "../../Global/icons";
+import { Col, H2, PillButton, Row } from "../../Global/styled";
 
 class LoginOptions extends Component {
   // logs user in through google
@@ -52,7 +48,7 @@ class LoginOptions extends Component {
             </PillButton>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col>
             <PillButton
               onClick={this.handleFacebookAuth}
@@ -70,7 +66,7 @@ class LoginOptions extends Component {
               </Row>
             </PillButton>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col>
             <PillButton

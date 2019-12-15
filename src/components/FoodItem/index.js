@@ -7,8 +7,6 @@ import { Container } from "../Global/styled";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
 
-const FoodDetailsWithLoading = WithLoading(FoodDetails);
-
 class FoodItem extends React.Component {
 
   render() {
@@ -24,7 +22,7 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/view/:food_id`}
           render={props => (
-            <FoodDetailsWithLoading
+            <FoodDetails
               isLoading={this.props.isFetching}
               {...props}
             />

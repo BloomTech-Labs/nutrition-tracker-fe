@@ -66,7 +66,7 @@ export const addFoodItem = (foodLog, firebaseID) => dispatch => {
 export const getFoodItemForEdit = (foodLogID, userID) => dispatch => {
   dispatch({type: GET_FOOD_ITEM_FOR_EDIT_START})
     return axios 
-    .get(`localhost:4000/food-item/getfooditem/${foodLogID}/user/${userID}`)
+    .get(`http://localhost:4000/food-item/getfooditem/${foodLogID}/user/${userID}`)
     .then(response => {
       dispatch({type: GET_FOOD_ITEM_FOR_EDIT_SUCCESS, payload:response.data })
     })

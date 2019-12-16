@@ -49,11 +49,15 @@ const UpdateFoodItem = props => {
     setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
   }, [date, time])
 
+
   useEffect(
     () => {
-      dispatch(getFoodItemForEdit(6,1));
+      dispatch(getFoodItemForEdit(4,1)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+      console.log("Here is the item in the updatefooditem.js: ",item)
+      setDate(moment.tz(item.time_consumed_at).format("YYYY-MM-DD"))
+  
     },
-    [props.match.params.foodLogID, props.match.params.userID]
+    [props.match.params.foodLogID, props.match.params.userID,date, time]
   );
 
   useEffect(
@@ -83,9 +87,9 @@ const UpdateFoodItem = props => {
   const addedMacros = () => {
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
-    const addedfatGrams = Number(item[selectionIndex].fat_g) * quantity;
-    const addedCarbGrams = Number(item[selectionIndex].carbs_g) * quantity;
-    const addedProteinGrams = Number(item[selectionIndex].protein_g) * quantity;
+    const addedfatGrams = Number(item.fat_g) * quantity;
+    const addedCarbGrams = Number(item.carbs_g) * quantity;
+    const addedProteinGrams = Number(item.protein_g) * quantity;
 
     // rounds to nearest hundreth
     return {
@@ -98,8 +102,8 @@ const UpdateFoodItem = props => {
   const addNewFoodLog = async () => {
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
-    const food_id = item[selectionIndex].id;
-    const serving_id = item[selectionIndex].serving_id;
+    const food_id = item.id;
+    const serving_id = item.serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
@@ -128,10 +132,10 @@ const UpdateFoodItem = props => {
     return time_zone_abbr;
   };
 
-  if (!item[0]) return <Loading />;
+  if (!item) return <Loading />;
 
   /* ****************************************************** */
-  const foodSelection = item[dropDownSelectionIndex];
+  const foodSelection = item;
 
   return (
     <div>
@@ -143,7 +147,7 @@ const UpdateFoodItem = props => {
         >
           <FoodName>
             <Textfit mode="single" forceSingleModeWidth={false}>
-              {foodSelection && foodSelection.food_name}
+              {foodSelection? ` Update: ${foodSelection.food_name}`: `Update`}
             </Textfit>
           </FoodName>
         </Col>
@@ -212,11 +216,8 @@ const UpdateFoodItem = props => {
               {item[0] && foodSelection.serving_desc}
             </DropdownToggle>
             <DropdownMenu>
-              {item.map((serving, key) =>
-                <DropdownItem key={key} onClick={() => handleSelect(key)}>
-                  {serving.serving_desc}
-                </DropdownItem>
-              )}
+            
+              
             </DropdownMenu>
           </ButtonDropdown>
         </Col>

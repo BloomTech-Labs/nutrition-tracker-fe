@@ -1,4 +1,3 @@
-
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,21 +6,26 @@ import { useToasts } from "react-toast-notifications";
 import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import {
-       getFoodItemForEdit
-} from "../../../store/actions/foodItemAction";
+import { getFoodItemForEdit } from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
 import Flywheel from "../../Global/flywheel-menu/Flywheel";
-import { Col, DropdownToggle, H2, H3, H4, Input, Row } from "../../Global/styled";
+import {
+  Col,
+  DropdownToggle,
+  H2,
+  H3,
+  H4,
+  Input,
+  Row
+} from "../../Global/styled";
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
 
 //When we hit the endpoint in our backend we need to we can locad the users metrics for the particular food item selected
 //then we neec to allow the user to modify the record action and reducers are required.
-//we then need to let the user save the record via a put request endpoint that we still need to make 
+//we then need to let the user save the record via a put request endpoint that we still need to make
 
 const UpdateFoodItem = props => {
-
   const dispatch = useDispatch();
   const { addToast } = useToasts();
 
@@ -33,48 +37,54 @@ const UpdateFoodItem = props => {
 
   const [quantity, setQuantity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(0);
+  const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(1);
 
   // to populate date input
   const todayDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
-  
+
   // to populate time input
   const todayTime = moment.tz(currentTimeZone).format("HH:mm");
 
-  const [time, setTime] = useState(todayTime);
-  const [date, setDate] = useState(todayDate);
-  const [dateTimeUTC, setDateTimeUTC] = useState(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-
-  useEffect(() => {
-    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-  }, [date, time])
-
-
-  useEffect(
-    () => {
-      dispatch(getFoodItemForEdit(4,1)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
-      console.log("Here is the item in the updatefooditem.js: ",item)
-      setDate(moment.tz(item.time_consumed_at).format("YYYY-MM-DD"))
-  
-    },
-    [props.match.params.foodLogID, props.match.params.userID,date, time]
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [dateTimeUTC, setDateTimeUTC] = useState(
+    moment
+      .tz(`${date} ${time}`, currentTimeZone)
+      .utc()
+      .format()
   );
 
-  useEffect(
-    () => {
-      if (got)
-        addToast("Food Item Updated!", {
-          appearance: "success",
-          autoDismiss: true
-        });
-      else if (error)
-        addToast("Error. Try again later.", {
-          appearance: "error",
-          autoDismiss: true
-        });
-    },
-    [error, got]
-  )
+  // useEffect(() => {
+  //   setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+  // }, [date, time])
+
+  useEffect(() => {
+    dispatch(getFoodItemForEdit(5, 1)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+    console.log("Here is the item in the updatefooditem.js: ", item);
+  }, [props.match.params.foodLogID, props.match.params.userID]);
+
+  useEffect(() => {
+    setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); // Do not need time zone here
+    setTime(moment(item.time_consumed_at).format("HH:mm")); // Do not need time zone here
+    setQuantity(item.quantity);
+    console.log("Here is the quantity:", item.quantity)
+  }, [date, time]);
+
+  // useEffect(
+  //   () => {
+  //     if (got)
+  //       addToast("Food Item Updated!", {
+  //         appearance: "success",
+  //         autoDismiss: true
+  //       });
+  //     else if (error)
+  //       addToast("Error. Try again later.", {
+  //         appearance: "error",
+  //         autoDismiss: true
+  //       });
+  //   },
+  //   [error, got]
+  // )
 
   const handleToggle = e => {
     setDropdownOpen(prevState => !prevState.dropdownOpen);
@@ -109,8 +119,8 @@ const UpdateFoodItem = props => {
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-    dispatch(
-        //we add update here
+    dispatch();
+    //we add update here
     //   addFoodItem(
     //     {
     //       food_id,
@@ -123,7 +133,6 @@ const UpdateFoodItem = props => {
     //     },
     //     firebaseID
     //   )
-     );
   };
 
   const getCurrentTimeZoneAbbr = () => {
@@ -147,7 +156,7 @@ const UpdateFoodItem = props => {
         >
           <FoodName>
             <Textfit mode="single" forceSingleModeWidth={false}>
-              {foodSelection? ` Update: ${foodSelection.food_name}`: `Update`}
+              {foodSelection ? ` Update: ${foodSelection.food_name}` : `Update`}
             </Textfit>
           </FoodName>
         </Col>
@@ -155,29 +164,37 @@ const UpdateFoodItem = props => {
       <Row style={{ paddingTop: "20px" }}>
         <Col align="center" height="50px">
           <CurrentCalories>
-            Current Cal<br />
+            Current Cal
+            <br />
             <span>{consumed.caloriesConsumed} cal</span>
           </CurrentCalories>
         </Col>
         <Col align="center" height="50px">
           <AddedCalories>
             {""} <br />
-            <span> +{Math.trunc(
-              foodSelection && foodSelection.calories_kcal * quantity
-            )}{" "}
-            cal</span>
+            <span>
+              {" "}
+              +
+              {Math.trunc(
+                foodSelection && foodSelection.calories_kcal * quantity
+              )}{" "}
+              cal
+            </span>
           </AddedCalories>
         </Col>
         <Col align="center" height="50px">
           <NewCalories>
-            New Cal<br />
-            <span>{consumed.caloriesConsumed +
-              foodSelection.calories_kcal * quantity}{" "}
-            cal</span>
+            New Cal
+            <br />
+            <span>
+              {consumed.caloriesConsumed +
+                foodSelection.calories_kcal * quantity}{" "}
+              cal
+            </span>
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={addedMacros()} date={date}/>
+      <MacroBudgets macrosAdded={addedMacros()} date={date} />
       <Row
         style={{
           marginTop: "50px",
@@ -215,37 +232,34 @@ const UpdateFoodItem = props => {
             >
               {item[0] && foodSelection.serving_desc}
             </DropdownToggle>
-            <DropdownMenu>
-            
-              
-            </DropdownMenu>
+            <DropdownMenu></DropdownMenu>
           </ButtonDropdown>
         </Col>
-        </Row>
-        <Row style={{marginBottom: "35px"}}>
-            <Col direction="column" align="flex-start">
-              <InputLabel>Date</InputLabel>
-              <Input
-                type="date"
-                name="date"
-                value={date}
-                style={{ textAlign: "left" }}
-                onChange={e => setDate(e.target.value)}
-                min={1}
-              />
-            </Col>
-            <Col direction="column" align="flex-end">
-              <InputLabel>Time</InputLabel>
-              <Input
-                type="time"
-                name="time"
-                value={time}
-                style={{ textAlign: "left" }}
-                onChange={e => setTime(e.target.value)}
-                min={1}
-              />
-            </Col>
-         </Row> 
+      </Row>
+      <Row style={{ marginBottom: "35px" }}>
+        <Col direction="column" align="flex-start">
+          <InputLabel>Date</InputLabel>
+          <Input
+            type="date"
+            name="date"
+            value={date}
+            style={{ textAlign: "left" }}
+            onChange={e => setDate(e.target.value)}
+            min={1}
+          />
+        </Col>
+        <Col direction="column" align="flex-end">
+          <InputLabel>Time</InputLabel>
+          <Input
+            type="time"
+            name="time"
+            value={time}
+            style={{ textAlign: "left" }}
+            onChange={e => setTime(e.target.value)}
+            min={1}
+          />
+        </Col>
+      </Row>
 
       <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
       <Row>
@@ -330,8 +344,8 @@ const NewCalories = styled(H3)`
   }
 `;
 
-const InputLabel = styled.span`font-size: 1.6rem;`;
-
+const InputLabel = styled.span`
+  font-size: 1.6rem;
+`;
 
 export default UpdateFoodItem;
-

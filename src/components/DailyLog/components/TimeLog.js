@@ -34,6 +34,7 @@ const TimeLog = ({ dailyLog, path }) => {
                       <tr
                         key={i}
                         onClick={() => {
+                          console.log('here is the log joe',log)
                           history.push(`/updateview/${log.foodID}`);
                         }}
                       >

@@ -8,8 +8,7 @@ import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
-  addFoodItem,
-  getOneFoodItem
+       getFoodItemForEdit
 } from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
@@ -17,21 +16,9 @@ import Flywheel from "../../Global/flywheel-menu/Flywheel";
 import { Col, DropdownToggle, H2, H3, H4, Input, Row } from "../../Global/styled";
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
 
-
-// const UpdateFoodItem = props => {
-//    const {foodID} = props.match.params
-//    const itemName = "Product Name"
-//     return (
-//         <>
-//         <h1>{`Update: Food Item`}</h1>
-
-//         </>
-//     )
-// }
-
-
-
-// export default UpdateFoodItem;
+//When we hit the endpoint in our backend we need to we can locad the users metrics for the particular food item selected
+//then we neec to allow the user to modify the record action and reducers are required.
+//we then need to let the user save the record via a put request endpoint that we still need to make 
 
 const UpdateFoodItem = props => {
 
@@ -64,15 +51,15 @@ const UpdateFoodItem = props => {
 
   useEffect(
     () => {
-      dispatch(getOneFoodItem(props.match.params.fatsecret_food_id));
+      dispatch(getFoodItemForEdit(6,1));
     },
-    [props.match.params.fatsecret_food_id]
+    [props.match.params.foodLogID, props.match.params.userID]
   );
 
   useEffect(
     () => {
       if (got)
-        addToast("Food Item Added!", {
+        addToast("Food Item Updated!", {
           appearance: "success",
           autoDismiss: true
         });
@@ -119,19 +106,20 @@ const UpdateFoodItem = props => {
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
     dispatch(
-      addFoodItem(
-        {
-          food_id,
-          quantity,
-          serving_id,
-          fatsecret_food_id,
-          time_consumed_at,
-          time_zone_name,
-          time_zone_abbr
-        },
-        firebaseID
-      )
-    );
+        //we add update here
+    //   addFoodItem(
+    //     {
+    //       food_id,
+    //       quantity,
+    //       serving_id,
+    //       fatsecret_food_id,
+    //       time_consumed_at,
+    //       time_zone_name,
+    //       time_zone_abbr
+    //     },
+    //     firebaseID
+    //   )
+     );
   };
 
   const getCurrentTimeZoneAbbr = () => {

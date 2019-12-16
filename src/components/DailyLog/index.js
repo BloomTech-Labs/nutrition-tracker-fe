@@ -20,8 +20,7 @@ import FatSecretAttribution from "./components/FatSecretAttribution";
 import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import useGroupBy from "./custom hooks/useGroupBy";
-import { Route } from "react-router-dom"; // Added by joe
-import DeleteMe from "./components/DeletemeTest"; // Added by joe
+
 
 let childButtonIcons = [
   {
@@ -105,11 +104,6 @@ const DailyLog = props => {
           </Col>
         </Row>
       </Container>
-    {/* <Route
-        exact
-        path={`${props.match.path}/updateview/:foodID`}
-        render={props => <DeleteMe {...props} />}
-      /> */} 
     </>
   );
 };

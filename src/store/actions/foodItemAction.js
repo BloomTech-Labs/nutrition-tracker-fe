@@ -9,6 +9,9 @@ export const FETCH_GET_ONE_FAILURE = "FETCH_GET_ONE_FAILURE";
 export const POST_FOOD_START = "POST_FOOD_START";
 export const POST_FOOD_SUCCESS = "POST_FOOD_SUCCESS";
 export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
+export const GET_FOOD_ITEM_FOR_EDIT_START = "GET_FOOD_ITEM_FOR_EDIT_START";
+export const GET_FOOD_ITEM_FOR_EDIT_SUCCESS = "GET_FOOD_ITEM_FOR_EDIT_SUCCESS";
+export const GET_FOOD_ITEM_FOR_EDIT_FAILURE = "GET_FOOD_ITEM_FOR_EDIT_FAILURE";
 
 const LOCALHOST = "https://nutri-journal.herokuapp.com";
 
@@ -59,3 +62,16 @@ export const addFoodItem = (foodLog, firebaseID) => dispatch => {
     });
   //
 };
+
+export const getFoodItemForEdit = (foodLogID, userID) => dispatch => {
+  dispatch({type: GET_FOOD_ITEM_FOR_EDIT_START})
+    return axios 
+    .get(`localhost:4000/food-item/getfooditem/${foodLogID}/user/${userID}`)
+    .then(response => {
+      dispatch({type: GET_FOOD_ITEM_FOR_EDIT_SUCCESS, payload:response.data })
+    })
+    .catch(error => {
+      dispatch({type: GET_FOOD_ITEM_FOR_EDIT_FAILURE, payload: {error} })
+    });
+}
+

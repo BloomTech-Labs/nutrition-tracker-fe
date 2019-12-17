@@ -68,7 +68,8 @@ const FoodDetails = props => {
   )
 
   const handleToggle = e => {
-    setDropdownOpen(prevState => !prevState.dropdownOpen);
+    e.preventDefault();
+    setDropdownOpen(!dropdownOpen);
   };
 
   const handleSelect = key => {

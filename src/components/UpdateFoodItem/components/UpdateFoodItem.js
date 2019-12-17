@@ -87,7 +87,8 @@ const UpdateFoodItem = props => {
   // )
 
   const handleToggle = e => {
-    setDropdownOpen(prevState => !prevState.dropdownOpen);
+    e.preventDefault();
+    setDropdownOpen(!dropdownOpen);
   };
 
   const handleSelect = key => {
@@ -217,8 +218,8 @@ const UpdateFoodItem = props => {
         <Col direction="column" align="flex-end">
           <InputLabel>Serving Type</InputLabel>
           <ButtonDropdown
-            isOpen={dropdownOpen}
-            toggle={handleToggle}
+            isOpen={dropdownOpen}     
+            toggle={handleToggle}     
             style={{ width: "100%" }}
           >
             <DropdownToggle
@@ -230,7 +231,7 @@ const UpdateFoodItem = props => {
                 borderColor: "#CED4DA"
               }}
             >
-              {item[0] && foodSelection.serving_desc}
+              {item && foodSelection.serving_desc}
             </DropdownToggle>
             <DropdownMenu></DropdownMenu>
           </ButtonDropdown>

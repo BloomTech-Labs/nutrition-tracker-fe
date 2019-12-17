@@ -46,7 +46,7 @@ describe("<Register />", () => {
     }
   };
   const fakeUserOnboarding = {
-    sex: "male",
+    sex: "Male",
     activity_level: 1,
     dob: "1990-01-28",
     weight_kg: 100,
@@ -107,11 +107,11 @@ describe("<Register />", () => {
             match={{ path: "/register" }}
             dob={fakeUserOnboarding.dob}
             sex={fakeUserOnboarding.sex}
-      activity_level={fakeUserOnboarding.activity_level}
-      dob={fakeUserOnboarding.dob}
-      weight_kg={fakeUserOnboarding.weight_kg}
-      height_cm={fakeUserOnboarding.height_cm}
-      weekly_goal_rate={fakeUserOnboarding.weekly_goal_rate}
+            activity_level={fakeUserOnboarding.activity_level}
+            dob={fakeUserOnboarding.dob}
+            weight_kg={fakeUserOnboarding.weight_kg}
+            height_cm={fakeUserOnboarding.height_cm}
+            weekly_goal_rate={fakeUserOnboarding.weekly_goal_rate}
           />
         </Provider>
       </MemoryRouter>
@@ -240,7 +240,7 @@ describe("<Register />", () => {
       </Provider>
     );
     expect(wrapper.find("RegisterWithEmail").state()).toStrictEqual(emptyState);
-    
+
     wrapper
       .find("#nameInput")
       .first()

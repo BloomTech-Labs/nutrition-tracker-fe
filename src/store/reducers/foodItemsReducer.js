@@ -13,7 +13,10 @@ import {
   GET_FOOD_ITEM_FOR_EDIT_FAILURE,
   UPDATE_FOOD_ITEM_FOR_EDIT_START,
   UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS,
-  UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE
+  UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE,
+  DELETE_FOOD_ITEM_START,
+  DELETE_FOOD_ITEM_SUCCESS,
+  DELETE_FOOD_ITEM_FAILURE
 } from "../actions/foodItemAction";
 
 const initialState = {
@@ -79,54 +82,80 @@ export const foodItemsReducer = (state = initialState, action) => {
         error: "Error",
         getting: false
       };
-      case GET_FOOD_ITEM_FOR_EDIT_START:
-        return {
-          ...state,
-          got:false,
-          error:"",
-          getting: true
-        };
-      case GET_FOOD_ITEM_FOR_EDIT_SUCCESS:
-        return {
-          ...state,
-          item: action.payload,
-          got:true,
-          error:"",
-          getting:false
-        };
-        case GET_FOOD_ITEM_FOR_EDIT_FAILURE:
-          return {
-            ...state,
-            got:false,
-            error: action.payload,
-            getting:false
-          };
+    case GET_FOOD_ITEM_FOR_EDIT_START:
+      return {
+        ...state,
+        got: false,
+        error: "",
+        getting: true
+      };
+    case GET_FOOD_ITEM_FOR_EDIT_SUCCESS:
+      return {
+        ...state,
+        item: action.payload,
+        got: true,
+        error: "",
+        getting: false
+      };
+    case GET_FOOD_ITEM_FOR_EDIT_FAILURE:
+      return {
+        ...state,
+        got: false,
+        error: action.payload,
+        getting: false
+      };
 
-          case UPDATE_FOOD_ITEM_FOR_EDIT_START:
-            return {
-              ...state,
-              got:false,
-              getting: true,
-              error: "",            
-            };
+    case UPDATE_FOOD_ITEM_FOR_EDIT_START:
+      return {
+        ...state,
+        got: false,
+        getting: true,
+        error: ""
+      };
 
-            case UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS:
-              return {
-                ...state,
-                got:true,
-                getting:false,
-                error: ""
-              };
+    case UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS:
+      return {
+        ...state,
+        got: true,
+        getting: false,
+        error: ""
+      };
 
-              case UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE: 
-              return {
-                ...state,
-                got: false,
-                getting: false,
-                error: action.payload
-              };
+    case UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE:
+      return {
+        ...state,
+        got: false,
+        getting: false,
+        error: action.payload
+      };
+
+    case DELETE_FOOD_ITEM_START:
+      return {
+        ...state,
+        got: false,
+        getting: true,
+        error: ""
+      };
+
+    case DELETE_FOOD_ITEM_SUCCESS:
+      return {
+        ...state,
+        got: true,
+        getting: false,
+        error: ""
+      };
+
+    case DELETE_FOOD_ITEM_FAILURE:
+      return {
+        ...state,
+        got: false,
+        getting: false,
+        error: action.payload
+      };
 
     default:
       return state;
   }
 };
+
+

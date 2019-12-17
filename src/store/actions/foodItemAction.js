@@ -15,6 +15,9 @@ export const GET_FOOD_ITEM_FOR_EDIT_FAILURE = "GET_FOOD_ITEM_FOR_EDIT_FAILURE";
 export const UPDATE_FOOD_ITEM_FOR_EDIT_START = "UPDATE_FOOD_ITEM_FOR_EDIT_START";
 export const UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS = "UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS";
 export const UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE = "UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE";
+export const DELETE_FOOD_ITEM_START = "DELETE_FOOD_ITEM_START";
+export const DELETE_FOOD_ITEM_SUCCESS = "DELETE_FOOD_ITEM_SUCCESS";
+export const DELETE_FOOD_ITEM_FAILURE = "DELETE_FOOD_ITEM_FAILURE";
 
 
 const LOCALHOST = "https://nutri-journal.herokuapp.com";
@@ -81,11 +84,23 @@ export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
 export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
   dispatch({type: UPDATE_FOOD_ITEM_FOR_EDIT_START})
     return axios
-    .put(`http://localhost:4000/food-item/updatefooditem/${foodLogID}/user/${user_id}`, foodItem)
+    .put(`http://localhost:4000/food-item/updatefooditem/${foodLogID}/user/${user_id}`, foodItem) //WE NEED TO MAKE THIS ENDPOINT IN OUR BACKEND J/P
     .then(response => {
       dispatch({type: UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS})  
     })
     .catch(error => {
-      dispatch({ type: UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE})
+      dispatch({ type: UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE,payload: {error}})
     })
+}
+
+export const deleteFoodItem = (foodLogID, user_id) => {
+  dispatch({type: DELETE_FOOD_ITEM_START})
+  return axios
+  .delete(`http://localhost:4000/food-item/deletefooditem/${foodLogID}/user/${user_id}`)
+  .then(response => {
+    dispatch({type: DELETE_FOOD_ITEM_START})
+  })
+  .catch(error => {
+    dispatch({type: DELETE_FOOD_ITEM_FAILURE,payload: {error}})
+  })
 }

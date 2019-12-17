@@ -12,6 +12,10 @@ export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
 export const GET_FOOD_ITEM_FOR_EDIT_START = "GET_FOOD_ITEM_FOR_EDIT_START";
 export const GET_FOOD_ITEM_FOR_EDIT_SUCCESS = "GET_FOOD_ITEM_FOR_EDIT_SUCCESS";
 export const GET_FOOD_ITEM_FOR_EDIT_FAILURE = "GET_FOOD_ITEM_FOR_EDIT_FAILURE";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_START = "UPDATE_FOOD_ITEM_FOR_EDIT_START";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS = "UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE = "UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE";
+
 
 const LOCALHOST = "https://nutri-journal.herokuapp.com";
 
@@ -72,5 +76,16 @@ export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
     .catch(error => {
       dispatch({type: GET_FOOD_ITEM_FOR_EDIT_FAILURE, payload: {error} })
     });
-}
+  }
 
+export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
+  dispatch({type: UPDATE_FOOD_ITEM_FOR_EDIT_START})
+    return axios
+    .put(`http://localhost:4000/food-item/updatefooditem/${foodLogID}/user/${user_id}`, foodItem)
+    .then(response => {
+      dispatch({type: UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS})  
+    })
+    .catch(error => {
+      dispatch({ type: UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE})
+    })
+}

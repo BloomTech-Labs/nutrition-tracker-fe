@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
 import Tooltip from "react-bootstrap/Tooltip"; // Added by joe
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"; // Added by joe
-import { Link, Route, Switch, useHistory } from "react-router-dom"; // Added by joe
+import {useHistory } from "react-router-dom"; // Added by joe
 
-const TimeLog = ({ dailyLog, path }) => {
+const TimeLog = ({ dailyLog }) => {
   let history = useHistory();
   return (
-    console.log('Her is the history:', history),
     <div>
       {dailyLog.length === 0 && (
         <Row>
@@ -35,7 +34,7 @@ const TimeLog = ({ dailyLog, path }) => {
                         key={i}
                         onClick={() => {
                           console.log('here is the log joe',log)
-                          history.push(`/updateview/${log.foodID}`);
+                          history.push(`/updateview/${log.foodID}`); //JOE WE NEED TO FIX CHANGE THIS TO 'id' WHICH IS THE FOOD_LOG_ID
                         }}
                       >
                         {log.firstGroupLog ? (

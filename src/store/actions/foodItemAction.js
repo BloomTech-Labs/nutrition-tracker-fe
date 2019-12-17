@@ -60,13 +60,12 @@ export const addFoodItem = (foodLog, firebaseID) => dispatch => {
     .catch(e => {
       dispatch({ type: POST_FOOD_FAILURE });
     });
-  //
 };
 
-export const getFoodItemForEdit = (foodLogID, userID) => dispatch => {
+export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
   dispatch({type: GET_FOOD_ITEM_FOR_EDIT_START})
     return axios 
-    .get(`http://localhost:4000/food-item/getfooditem/${foodLogID}/user/${userID}`)
+    .get(`http://localhost:4000/food-item/getfooditem/${foodLogID}/user/${user_id}`)
     .then(response => {
       dispatch({type: GET_FOOD_ITEM_FOR_EDIT_SUCCESS, payload:response.data })
     })

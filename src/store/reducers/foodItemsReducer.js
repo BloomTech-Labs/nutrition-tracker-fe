@@ -10,7 +10,10 @@ import {
   POST_FOOD_SUCCESS,
   GET_FOOD_ITEM_FOR_EDIT_START,
   GET_FOOD_ITEM_FOR_EDIT_SUCCESS,
-  GET_FOOD_ITEM_FOR_EDIT_FAILURE
+  GET_FOOD_ITEM_FOR_EDIT_FAILURE,
+  UPDATE_FOOD_ITEM_FOR_EDIT_START,
+  UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS,
+  UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE
 } from "../actions/foodItemAction";
 
 const initialState = {
@@ -98,6 +101,30 @@ export const foodItemsReducer = (state = initialState, action) => {
             error: action.payload,
             getting:false
           };
+
+          case UPDATE_FOOD_ITEM_FOR_EDIT_START:
+            return {
+              ...state,
+              got:false,
+              getting: true,
+              error: "",            
+            };
+
+            case UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS:
+              return {
+                ...state,
+                got:true,
+                getting:false,
+                error: ""
+              };
+
+              case UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE: 
+              return {
+                ...state,
+                got: false,
+                getting: false,
+                error: action.payload
+              };
 
     default:
       return state;

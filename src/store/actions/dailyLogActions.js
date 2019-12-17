@@ -11,7 +11,7 @@ export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
 
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
-  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/nutrition-budgets/`)
+  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/nutrition-budgets/`) 
     .then(({data}) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,

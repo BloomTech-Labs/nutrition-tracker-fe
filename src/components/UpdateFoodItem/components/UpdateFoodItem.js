@@ -59,7 +59,7 @@ const UpdateFoodItem = props => {
   // }, [date, time])
 
   useEffect(() => {
-    dispatch(getFoodItemForEdit(5, 1)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+    dispatch(getFoodItemForEdit(5, '12345')); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
     console.log("Here is the item in the updatefooditem.js: ", item);
   }, [props.match.params.foodLogID, props.match.params.userID]);
 
@@ -112,9 +112,9 @@ const UpdateFoodItem = props => {
   const addNewFoodLog = async () => {
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
-    const food_id = item.id;
+    const food_id = item.id; // JOE WE WONT NEED TO SAVE THIS PIECE OF DATA AS IT IS THERE ALREADY
     const serving_id = item.serving_id;
-    const fatsecret_food_id = props.match.params.fatsecret_food_id;
+    const fatsecret_food_id = props.match.params.fatsecret_food_id; // JOE WE WONT NEED TO SAVE THIS PIECE OF DATA AS IT IS THERE ALREADY
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();

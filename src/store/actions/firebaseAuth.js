@@ -35,9 +35,9 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
         sex: onboardingInfo.sex,
         activity_level: onboardingInfo.activity_level,
         dob: onboardingInfo.dob,
-        weight_kg: onboardingInfo.weight_kg,
+        actual_weight_kg: onboardingInfo.weight_kg,
         height_cm: onboardingInfo.height_cm,
-        weekly_goal_rate: onboardingInfo.weekly_goal_rate,
+        goal_weekly_weight_change_rate: onboardingInfo.weekly_goal_rate,
         email: res.user.email
       };
       // a commit

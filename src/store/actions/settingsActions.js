@@ -4,7 +4,7 @@ import axios from "axios";
  *                    User Actions                      *
  ********************************************************/
 //Gets specific user
-export const getUserInfo = (id) => dispatch => {
+export const getUserInfo = id => dispatch => {
   dispatch({ type: "GET_INFO_START" });
   axios
     .get(`http://localhost:4000/user/${id}`)
@@ -26,9 +26,7 @@ export const getUserInfo = (id) => dispatch => {
         }
       });
     })
-    .catch(err =>
-      dispatch({ type: "GET_INFO_FAILURE", payload: err.message })
-    );
+    .catch(err => dispatch({ type: "GET_INFO_FAILURE", payload: err.message }));
 };
 
 //Updates user
@@ -38,6 +36,7 @@ export const updateUserInfo = (infoObj, id) => dispatch => {
   axios
     .put(`http://localhost:4000/user/${id}`, infoObj)
     .then(res => {
+      console.log("UPDATE USER INFO RES DATA:", res.data);
       dispatch({
         type: "UPDATE_INFO_SUCCESS",
         payload: res.data
@@ -52,7 +51,7 @@ export const updateUserInfo = (infoObj, id) => dispatch => {
  *                Current Weight Actions                *
  ********************************************************/
 //Gets user's current weight
-export const getCurrentWeight = (id) => dispatch => {
+export const getCurrentWeight = id => dispatch => {
   dispatch({ type: "GET_CURRENT_WEIGHT_START" });
   axios
     .get(`http://localhost:4000/user/${id}/current-weight`)
@@ -90,7 +89,7 @@ export const updateCurrentWeight = (infoObj, id) => dispatch => {
  *               Activity Level Actions                 *
  ********************************************************/
 //Gets user's activity level
-export const getActivityLevel = (id) => dispatch => {
+export const getActivityLevel = id => dispatch => {
   dispatch({ type: "GET_ACTIVITY_LEVEL_START" });
   axios
     .get(`http://localhost:4000/user/${id}/activity-level`)
@@ -128,7 +127,7 @@ export const updateActivityLevel = (infoObj, id) => dispatch => {
  *                   Macro Actions                      *
  ********************************************************/
 //Gets user's macros
-export const getMacros = (id) => dispatch => {
+export const getMacros = id => dispatch => {
   dispatch({ type: "GET_MACROS_START" });
   axios
     .get(`http://localhost:4000/user/${id}/macro-ratios`)
@@ -168,7 +167,7 @@ export const updateMacros = (infoObj, id) => dispatch => {
  *                  Weight Goal Actions                 *
  ********************************************************/
 //Gets user's macros
-export const getWeightGoal = (id) => dispatch => {
+export const getWeightGoal = id => dispatch => {
   dispatch({ type: "GET_WEIGHT_GOAL_START" });
   axios
     .get(`http://localhost:4000/user/${id}/weight-goal`)

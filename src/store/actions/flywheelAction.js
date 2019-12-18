@@ -5,7 +5,7 @@ export const START_INSERT_WEIGHT = "START_INSERT_WEIGHT";
 export const INSERT_WEIGHT_SUCCESS = "INSERT_WEIGHT_SUCCESS";
 export const INSERT_WEIGHT_FAILURE = "INSERT_WEIGHT_FAILURE";
 
-export const recordUserWeight = (firebaseID, weight_kg) => dispatch => {
+export const recordUserWeight = (firebaseID, actual_weight_kg) => dispatch => {
   dispatch({ type: START_INSERT_WEIGHT });
   return axios
     .post(`http://localhost:4000/user/${firebaseID}/current-weight`, {

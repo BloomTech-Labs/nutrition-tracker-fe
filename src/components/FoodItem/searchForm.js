@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { searchFoodItems } from "../../store/actions/foodItemAction";
 import {
-  Row,
-  InputGroupAddon,
   Form,
   InputGroup,
-  InputGroupText
+  InputGroupAddon,
+  InputGroupText,
+  Row
 } from "reactstrap";
-import { Input } from "../Global/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { searchFoodItems } from "../../store/actions/foodItemAction";
+import { Input } from "../Global/styled";
 
 class SearchForm extends React.Component {
   constructor() {

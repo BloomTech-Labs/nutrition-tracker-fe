@@ -71,10 +71,7 @@ export const getCurrentWeight = id => dispatch => {
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
   axios
-    .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/current-weight`,
-      infoObj
-    )
+    .post(`https://nutri-journal.herokuapp.com/user/${id}/current-weight`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_CURRENT_WEIGHT_SUCCESS",
@@ -112,10 +109,7 @@ export const getActivityLevel = id => dispatch => {
 export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
   axios
-    .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/activity-level`,
-      infoObj
-    )
+    .post(`https://nutri-journal.herokuapp.com/user/${id}/activity-level`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_ACTIVITY_LEVEL_SUCCESS",
@@ -153,10 +147,7 @@ export const getMacros = id => dispatch => {
 export const updateMacros = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_MACROS_START" });
   axios
-    .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`,
-      infoObj
-    )
+    .post(`https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_MACROS_SUCCESS",

@@ -1,15 +1,17 @@
-import { combineReducers } from "redux";
-import { firebaseAuth } from "./firebaseAuth";
-import { foodItemsReducer } from "./foodItemsReducer";
 import { firebaseReducer } from "react-redux-firebase";
-import { onboardingReducer } from "./onboardingReducer";
+import { combineReducers } from "redux";
 import { dailyLogReducer } from "./dailyLogReducer";
-import { updateUserInfo } from "./settingsReducer";
+import { firebaseAuth } from "./firebaseAuth";
 import { flywheelReducer } from "./flywheelReducer";
+import { foodItemsReducer } from "./foodItemsReducer";
+// import { firestoreReducer } from "redux-firestore";
+import { onboardingReducer } from "./onboardingReducer";
+import { updateUserInfo } from "./settingsReducer";
 
 export default combineReducers({
   foodItemsReducer,
   firebase: firebaseReducer,
+  // firestore: firestoreReducer,
   onboarding: onboardingReducer,
   dailyLog: dailyLogReducer,
   auth: firebaseAuth,

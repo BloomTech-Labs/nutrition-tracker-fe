@@ -35,6 +35,8 @@ class Settings extends React.Component {
       this.props.getActivityLevel(this.props.firebaseID);
       this.props.getMacros(this.props.firebaseID);
       this.props.getWeightGoal(this.props.firebaseID);
+    } else if (prevProps.height_ft !== this.props.height_ft) {
+      this.props.getCurrentWeight(this.props.firebaseID);
     }
   }
 
@@ -68,7 +70,7 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/" />;
+    if (!token) return <Redirect to="/"/>;
 
     return (
       <Container fluid style={{ padding: 0 }} height={this.props.height}>
@@ -84,10 +86,22 @@ class Settings extends React.Component {
           <ActivityLevel
             updateActivityLevel={this.updateActivityLevel}
             data={this.props.userInfo}
-          />
+          />{" "}
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <ListGroupItem style={ListStyle}>MacroNutrient Targets</ListGroupItem>
-          <ListGroupItem style={ListStyle}>Weight Goal</ListGroupItem>
+          {/* <Macros
+            style={ListStyle}
+            updateMacros={this.updateMacros}
+            data={this.props.userInfo}
+          >
+            MacroNutrient Targets
+          </Macros>
+          <WeightGoal
+            style={ListStyle}
+            updateWeightGoal={this.updateWeightGoal}
+            data={this.props.userInfo}
+          >
+            Weight Goal
+          </WeightGoal> */}
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout
@@ -103,6 +117,8 @@ class Settings extends React.Component {
 const mapStateToProps = state => {
   return {
     userInfo: state.updateUserInfo,
+    height_ft: state.updateUserInfo.height.feet,
+    height_in: state.updateUserInfo.height.inches,
     firebaseID: state.firebase.auth.uid,
     loading: !state.firebase.auth.isLoaded,
     token:

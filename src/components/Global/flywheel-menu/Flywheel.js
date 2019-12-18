@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import FlywheelModal from "./modal/FlywheelModal";
-import { Motion, StaggeredMotion, spring } from "react-motion";
 import range from "lodash.range";
+import PropTypes from "prop-types";
+import React from "react";
+import { Motion, StaggeredMotion, spring } from "react-motion";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
+import FlywheelModal from "./modal/FlywheelModal";
 
 //Styles
 const MainButton = styled.div`

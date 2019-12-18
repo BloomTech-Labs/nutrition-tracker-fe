@@ -25,6 +25,8 @@ const DailyLogWithNav = withNavigation({
   displayTop: false
 })(DailyLog);
 
+library.add(faSearch);
+
 const SettingsWithNav = withNavigation({
   pageTitle: "Settings"
 })(Settings);

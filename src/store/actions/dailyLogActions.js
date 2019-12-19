@@ -8,10 +8,12 @@ export const FETCH_DAILY_LOG_SUCCESS = "FETCH_DAILY_LOG_SUCCESS";
 export const FETCH_DAILY_LOG_FAILURE = "FETCH_DAILY_LOG_FAILURE";
 export const UPDATE_CURRENT_DATE = "UPDATE_CURRENT_DATE";
 export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
+const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
+const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
-  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/nutrition-budgets/`) 
+  axios.get(`${BASE_URL}/daily-log/${userID}/nutrition-budgets/`) 
     .then(({data}) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,
@@ -33,9 +35,8 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
 
   currentTimeZone = encodeURIComponent(currentTimeZone);
 
-  axios.get(`https://nutri-journal.herokuapp.com/daily-log/${userID}/${date}/${currentTimeZone}`)
+  axios.get(`${BASE_URL}/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({data}) => {
-
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,
         payload: {

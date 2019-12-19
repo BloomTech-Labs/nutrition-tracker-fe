@@ -12,24 +12,22 @@ export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
 export const GET_FOOD_ITEM_FOR_EDIT_START = "GET_FOOD_ITEM_FOR_EDIT_START";
 export const GET_FOOD_ITEM_FOR_EDIT_SUCCESS = "GET_FOOD_ITEM_FOR_EDIT_SUCCESS";
 export const GET_FOOD_ITEM_FOR_EDIT_FAILURE = "GET_FOOD_ITEM_FOR_EDIT_FAILURE";
-export const UPDATE_FOOD_ITEM_FOR_EDIT_START =
-  "UPDATE_FOOD_ITEM_FOR_EDIT_START";
-export const UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS =
-  "UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS";
-export const UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE =
-  "UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_START = "UPDATE_FOOD_ITEM_FOR_EDIT_START";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS = "UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS";
+export const UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE = "UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE";
 export const DELETE_FOOD_ITEM_START = "DELETE_FOOD_ITEM_START";
 export const DELETE_FOOD_ITEM_SUCCESS = "DELETE_FOOD_ITEM_SUCCESS";
 export const DELETE_FOOD_ITEM_FAILURE = "DELETE_FOOD_ITEM_FAILURE";
+const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
+const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
-const LOCALHOST = "https://nutri-journal.herokuapp.com";
 
 export const searchFoodItems = search_term => dispatch => {
   console.log(search_term);
   if (search_term !== "" || search_term.length !== 0) {
     dispatch({ type: FETCH_START });
     return axios
-      .get(`${LOCALHOST}/fatsecret/search-food/${search_term}`)
+      .get(`${BASE_URL}/fatsecret/search-food/${search_term}`)
       .then(response => {
         dispatch({ type: FETCH_SUCCESS, payload: response.data });
         return true;
@@ -47,7 +45,7 @@ export const searchFoodItems = search_term => dispatch => {
 export const getOneFoodItem = food_id => dispatch => {
   dispatch({ type: FETCH_GET_ONE_START });
   return axios
-    .get(`${LOCALHOST}/fatsecret/get-food/${food_id}`)
+    .get(`${BASE_URL}/fatsecret/get-food/${food_id}`)
     .then(response => {
       dispatch({ type: FETCH_GET_ONE_SUCCESS, payload: response.data });
       return true;
@@ -62,7 +60,7 @@ export const getOneFoodItem = food_id => dispatch => {
 export const addFoodItem = (foodLog, firebaseID) => dispatch => {
   dispatch({ type: POST_FOOD_START });
   return axios
-    .post(`${LOCALHOST}/log-entry/${firebaseID}`, foodLog)
+    .post(`${BASE_URL}/log-entry/${firebaseID}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })
@@ -75,7 +73,7 @@ export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
   dispatch({ type: GET_FOOD_ITEM_FOR_EDIT_START });
   return axios
     .get(
-      `http://localhost:4000/food-item/getfooditem/${foodLogID}/user/${user_id}`
+      `${BASE_URL}}/food-item/getfooditem/${foodLogID}/user/${user_id}`
     )
     .then(response => {
       dispatch({
@@ -92,7 +90,7 @@ export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
   dispatch({ type: UPDATE_FOOD_ITEM_FOR_EDIT_START });
   return axios
     .put(
-      `http://localhost:4000/food-item/updatefooditem/${foodLogID}/user/${user_id}`, // J/P WE NEED TO CREATE THIS ENDPOINT
+      `${BASE_URL}/food-item/updatefooditem/${foodLogID}/user/${user_id}`, // J/P WE NEED TO CREATE THIS ENDPOINT
       foodItem
     )
     .then(response => {
@@ -103,11 +101,12 @@ export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
     });
 };
 
-export const deleteFoodItem = (foodLogID, user_id) => dispatch => { // J/P WE NEED TO CREATE THIS ENDPOINT
+export const deleteFoodItem = (foodLogID, user_id) => dispatch => {
+  // J/P WE NEED TO CREATE THIS ENDPOINT
   dispatch({ type: DELETE_FOOD_ITEM_START });
   return axios
     .delete(
-      `http://localhost:4000/food-item/deletefooditem/${foodLogID}/user/${user_id}`
+      `${BASE_URL}/food-item/deletefooditem/${foodLogID}/user/${user_id}`
     )
     .then(response => {
       dispatch({ type: DELETE_FOOD_ITEM_START });

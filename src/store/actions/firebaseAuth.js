@@ -3,6 +3,8 @@ import firebase from "../../config/firebase";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
+const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
+const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
 export const login = (email, password) => dispatch => {
   dispatch({ type: "LOGIN_START" });
@@ -23,7 +25,7 @@ export const login = (email, password) => dispatch => {
 // once we get the response back after the firebase function in the .then we
 // create a new user object gluing the user data from the response to the onboarding info and
 // creating a new user object out of those two object and sending that new user object to the back end
-// to update back end with new user and onboarding info and back end sends everything to the right tables
+// to update back end with new user and onboarding info and back end sends everything to the right tables.
 export const register = (name, email, password, onboardingInfo) => dispatch => {
   dispatch({ type: "REGISTER_START" });
   firebase
@@ -43,7 +45,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       return firebase.auth().currentUser.updateProfile({
@@ -143,7 +145,7 @@ export const googleRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -230,7 +232,7 @@ export const facebookRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {useSelector} from "react-redux";
 import {
   Button,
   Form,
@@ -20,16 +19,14 @@ const Height = props => {
   const [feet, setFeet] = useState("");
   const [inches, setInches] = useState("");
 
-  const myFeet = useSelector(state => state.updateUserInfo.height.feet);
-  const myInches = useSelector(state => state.updateUserInfo.height.inches);
 
   useEffect(() => {
-    setFeet(myFeet);
-  }, [myFeet]);
+    setFeet(props.data.height.feet);
+  }, [props.data.height.feet]);
 
   useEffect(() => {
-    setInches(myInches);
-  }, [myInches]);
+    setInches(props.data.height.inches);
+  }, [props.data.height.inches]);
 
   const toggle = () => setModal(!modal);
   return (
@@ -37,7 +34,7 @@ const Height = props => {
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Height</div>
         <div>
-          {myFeet}'{myInches}''
+          {feet}'{inches}''
         </div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle} size={"lg"}>
@@ -50,7 +47,7 @@ const Height = props => {
                 type="number"
                 name="feet"
                 id="feet"
-                placeholder={myFeet || ""}
+                placeholder={feet || ""}
                 onChange={e => setFeet(e.target.value)}
               />
             </FormGroup>
@@ -60,7 +57,7 @@ const Height = props => {
                 type="number"
                 name="inches"
                 id="inches"
-                placeholder={myInches || ""}
+                placeholder={inches || ""}
                 onChange={e => setInches(e.target.value)}
               />
             </FormGroup>

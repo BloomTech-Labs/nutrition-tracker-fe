@@ -19,18 +19,18 @@ const Weight = props => {
 
   const [weight, setWeight] = useState("");
 
-  const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
+  // const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
 
   useEffect(() => {
-    setWeight(props.data.weight_lbs);
-  }, [props.data.weight_lbs]);
+    setWeight(props.data.actual_weight_lbs);
+  }, [props.data.actual_weight_lbs]);
 
   const toggle = () => setModal(!modal);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Weight</div>
-        <div>{weight_lbs}lbs</div>
+        <div>{weight}lbs</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle} className="modal-lg">
         <ModalHeader toggle={toggle}>Weight</ModalHeader>
@@ -42,7 +42,7 @@ const Weight = props => {
                 type="number"
                 name="weight"
                 id="weight"
-                placeholder={weight_lbs || ""}
+                placeholder={weight || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>

@@ -16,11 +16,13 @@ import {
 import ActivityLevel from "./components/ActivityLevel";
 import { Container } from "../Global/styled";
 import CurrentWeight from "./components/CurrentWeight";
-import Dob from "./components/dob";
-import Email from "./components/email";
+import Dob from "./components/Dob";
+//import Email from "./components/Email";
 //import Password from "./components/Password"; For RC2
-import Gender from "./components/gender";
-import Height from "./components/height";
+import Gender from "./components/Gender";
+import Macros from "./components/Macros";
+import WeightGoal from "./components/WeightGoal";
+import Height from "./components/Height";
 import Loading from "../Global/Loading";
 import React from "react";
 import { Redirect } from "react-router-dom";

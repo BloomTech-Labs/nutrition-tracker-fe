@@ -7,7 +7,7 @@ import axios from "axios";
 export const getUserInfo = id => dispatch => {
   dispatch({ type: "GET_INFO_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}`)
+    .get(`http://localhost:4000/user/${id}`)
     .then(res => {
       dispatch({
         type: "GET_INFO_SUCCESS",
@@ -30,11 +30,10 @@ export const getUserInfo = id => dispatch => {
 };
 
 //Updates user
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateUserInfo = (infoObj, id) => dispatch => {
   dispatch({ type: "UPDATE_INFO_START" });
   axios
-    .put(`https://nutri-journal.herokuapp.com/user/${id}`, infoObj)
+    .put(`http://localhost:4000/user/${id}`, infoObj)
     .then(res => {
       console.log("UPDATE USER INFO RES DATA:", res.data);
       dispatch({
@@ -54,7 +53,7 @@ export const updateUserInfo = (infoObj, id) => dispatch => {
 export const getCurrentWeight = id => dispatch => {
   dispatch({ type: "GET_CURRENT_WEIGHT_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/current-weight`)
+    .get(`http://localhost:4000/user/${id}/current-weight`)
     .then(res => {
       dispatch({
         type: "GET_CURRENT_WEIGHT_SUCCESS",
@@ -67,12 +66,11 @@ export const getCurrentWeight = id => dispatch => {
 };
 
 //Updates user's current weight
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
   axios
     .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/current-weight`,
+      `http://localhost:4000/user/${id}/current-weight`,
       infoObj
     )
     .then(res => {
@@ -95,7 +93,7 @@ export const updateCurrentWeight = (infoObj, id) => dispatch => {
 export const getActivityLevel = id => dispatch => {
   dispatch({ type: "GET_ACTIVITY_LEVEL_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/activity-level`)
+    .get(`http://localhost:4000/user/${id}/activity-level`)
     .then(res => {
       dispatch({
         type: "GET_ACTIVITY_LEVEL_SUCCESS",
@@ -108,12 +106,11 @@ export const getActivityLevel = id => dispatch => {
 };
 
 //Updates user's activity level
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
   axios
     .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/activity-level`,
+      `http://localhost:4000/user/${id}/activity-level`,
       infoObj
     )
     .then(res => {
@@ -136,7 +133,7 @@ export const updateActivityLevel = (infoObj, id) => dispatch => {
 export const getMacros = id => dispatch => {
   dispatch({ type: "GET_MACROS_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`)
+    .get(`http://localhost:4000/user/${id}/macro-ratios`)
     .then(res => {
       dispatch({
         type: "GET_MACROS_SUCCESS",
@@ -149,12 +146,11 @@ export const getMacros = id => dispatch => {
 };
 
 //Updates user's macros
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateMacros = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_MACROS_START" });
   axios
     .post(
-      `https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`,
+      `http://localhost:4000/user/${id}/macro-ratios`,
       infoObj
     )
     .then(res => {
@@ -179,7 +175,7 @@ export const updateMacros = (infoObj, id) => dispatch => {
 export const getWeightGoal = id => dispatch => {
   dispatch({ type: "GET_WEIGHT_GOAL_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/weight-goal`)
+    .get(`http://localhost:4000/user/${id}/weight-goal`)
     .then(res => {
       dispatch({
         type: "GET_WEIGHT_GOAL_SUCCESS",
@@ -192,11 +188,10 @@ export const getWeightGoal = id => dispatch => {
 };
 
 //Updates user's macros
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateWeightGoal = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_WEIGHT_GOAL_START" });
   axios
-    .post(`https://nutri-journal.herokuapp.com/user/${id}/weight-goal`, infoObj)
+    .post(`http://localhost:4000/user/${id}/weight-goal`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_WEIGHT_GOAL_SUCCESS",

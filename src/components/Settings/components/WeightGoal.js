@@ -17,13 +17,24 @@ import {
 const WeightGoal = props => {
   const [modal, setModal] = useState(false);
 
-  const [weight_goal_kg, setWeight] = useState("");
+  const [goal_weight_lbs, setWeight] = useState("");
+  const [target_rate, setRate] = useState("");
+  const [weight_kg, setWeight_kg] = useState("");
 
   useEffect(() => {
-    setWeight(props.data.weight_goal_kg);
-  }, [props.data.weight_goal_kg]);
+    setWeight(props.data.goal_weight_lbs);
+  }, [props.data.goal_weight_lbs]);
+
+  useEffect(() => {
+    setRate(props.data.goal_weekly_weight_change_rate);
+  }, [props.data.goal_weekly_weight_change_rate]);
+
+  useEffect(() => {
+    setRate(props.data.actual_weight_kg);
+  }, [props.data.actual_weight_kg]);
 
   const toggle = () => setModal(!modal);
+
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
@@ -40,21 +51,30 @@ const WeightGoal = props => {
                 type="text"
                 name="weight"
                 id="weight"
-                value={weight_goal_kg || ""}
+                value={goal_weight_lbs || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>
           </Form>
-          <SlideBar>
-            <Label for="Target Speed">Target Speed</Label>
-
+          <SlideBar style={{display: lbsToKgs(goal_weight_lbs) === weight_kg ? "none" : "block" }}>
             <Input
               name="target_rate"
               type="range"
-              //   min={-2}
-              //   max={2}
-              //   step={0.5}
+              value={lbsToKgs(goal_weight_lbs) === weight_kg ? 0 : target_rate}
+              min={lbsToKgs(goal_weight_lbs) >= weight_kg ? 0 : -2}
+              max={lbsToKgs(goal_weight_lbs) <= weight_kg ? 0 :  2}
+              step={0.5}
+              onChange={e => setRate(e.target.value)}
             />
+            <div>
+              {target_rate === 0
+                ? <h3>Maintain</h3>
+                : target_rate > 0
+                ? <h3>{`Gain ${target_rate} pounds per week`}</h3>
+                : target_rate < 0
+                ? <h3>{`Loose ${target_rate} pounds per week`}</h3>
+                : <h3>Maintain</h3>}
+            </div>
           </SlideBar>
         </ModalBody>
         <ModalFooter>
@@ -62,7 +82,7 @@ const WeightGoal = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateWeightGoal({ weight_goal_kg });
+              props.updateWeightGoal(lbsToKgs(goal_weight_lbs));
             }}
           >
             Update
@@ -75,5 +95,12 @@ const WeightGoal = props => {
     </div>
   );
 };
+
+// Converts height to centimeters to be returned to the DB.
+function lbsToKgs(lbs) {
+  const kg = lbs * 0.45359237;
+  return { weight_kg: kg };
+}
+
 
 export default WeightGoal;

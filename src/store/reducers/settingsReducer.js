@@ -5,18 +5,19 @@ const initialState = {
   height_cm: "",
   sex: "",
   dob: "",
-  weight_kg: "",
+  actual_weight_kg: "",
   height: {
     feet: "",
     inches: ""
   },
-  weight_lbs: "",
+  actual_weight_lbs: "",
   activity_level: "",
   fat_ratio: "",
   protein_ratio: "",
   carb_ratio: "",
-  weekly_goal_rate: "",
-  weight_goal_kg: "",
+  goal_weekly_weight_change_rate: "",
+  goal_weight_kg: "",
+  goal_weight_lbs: "",
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
@@ -115,8 +116,8 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_CURRENT_WEIGHT_SUCCESS": {
       return {
         ...state,
-        weight_kg: action.payload.weight_kg,
-        weight_lbs: action.payload.weight_lbs,
+        actual_weight_kg: action.payload.actual_weight_kg,
+        actual_weight_lbs: action.payload.actual_weight_lbs,
         getInfoStart: false,
         getInfoSuccess: true,
         getInfoFailure: false
@@ -287,8 +288,9 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_WEIGHT_GOAL_SUCCESS": {
       return {
         ...state,
-        weekly_goal_rate: action.payload.weekly_goal_rate,
-        weight_goal_kg: action.payload.weight_goal_kg,
+        goal_weekly_weight_change_rate: action.payload.goal_weekly_weight_change_rate,
+        goal_weight_kg: action.payload.goal_weight_kg,
+        goal_weight_lbs: action.payload.goal_weight_lbs,
         getInfoStart: false,
         getInfoSuccess: true,
         getInfoFailure: false

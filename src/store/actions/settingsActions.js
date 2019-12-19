@@ -69,15 +69,12 @@ export const getCurrentWeight = id => dispatch => {
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
   axios
-    .post(
-      `http://localhost:4000/user/${id}/current-weight`,
-      infoObj
-    )
+    .post(`http://localhost:4000/user/${id}/current-weight`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_CURRENT_WEIGHT_SUCCESS",
         payload: {
-          weight_kg: res.data.weight_kg
+          actual_weight_lbs: res.data.actual_weight_lbs
         }
       });
     })
@@ -109,10 +106,7 @@ export const getActivityLevel = id => dispatch => {
 export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
   axios
-    .post(
-      `http://localhost:4000/user/${id}/activity-level`,
-      infoObj
-    )
+    .post(`http://localhost:4000/user/${id}/activity-level`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_ACTIVITY_LEVEL_SUCCESS",
@@ -149,10 +143,7 @@ export const getMacros = id => dispatch => {
 export const updateMacros = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_MACROS_START" });
   axios
-    .post(
-      `http://localhost:4000/user/${id}/macro-ratios`,
-      infoObj
-    )
+    .post(`http://localhost:4000/user/${id}/macro-ratios`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_MACROS_SUCCESS",
@@ -196,8 +187,8 @@ export const updateWeightGoal = (infoObj, id) => dispatch => {
       dispatch({
         type: "ADD_WEIGHT_GOAL_SUCCESS",
         payload: {
-          weekly_goal_rate: res.data.weekly_goal_rate,
-          weight_goal_kg: res.data.weight_goal_kg
+          goal_weekly_weight_change_rate: res.data.goal_weekly_weight_change_rate,
+          goal_weight_kg: res.data.goal_weight_kg
         }
       });
     })

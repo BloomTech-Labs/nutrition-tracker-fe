@@ -43,8 +43,8 @@ const Gender = props => {
                 onChange={e => setSex(e.target.value)}
               >
                 <option value="">Select</option>
-                <option value="female">female</option>
-                <option value="male">male</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
               </CustomInput>
             </FormGroup>
           </Form>
@@ -59,7 +59,13 @@ const Gender = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setSex(props.data.sex);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

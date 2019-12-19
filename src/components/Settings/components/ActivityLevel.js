@@ -62,7 +62,13 @@ const ActivityLevel = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setActivityLevel(props.data.activity_level);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

@@ -85,7 +85,15 @@ const Macros = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setFat(props.data.fat_ratio);
+              setCarb(props.data.carb_ratio);
+              setProtein(props.data.protein_ratio);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

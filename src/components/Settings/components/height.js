@@ -73,7 +73,14 @@ const Height = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setFeet(props.data.height.feet);
+              setInches(props.data.height.inches);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

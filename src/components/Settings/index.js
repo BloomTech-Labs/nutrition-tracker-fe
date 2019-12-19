@@ -1,5 +1,8 @@
-import { HeadingStyle, ListStyle } from "./styles";
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import { logout } from "../../store/actions/firebaseAuth";
 import {
   getActivityLevel,
   getCurrentWeight,
@@ -12,9 +15,9 @@ import {
   updateUserInfo,
   updateWeightGoal
 } from "../../store/actions/settingsActions";
-
-import ActivityLevel from "./components/ActivityLevel";
+import Loading from "../Global/Loading";
 import { Container } from "../Global/styled";
+import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/Dob";
 //import Email from "./components/Email";
@@ -23,11 +26,8 @@ import Gender from "./components/Gender";
 import Macros from "./components/Macros";
 import WeightGoal from "./components/WeightGoal";
 import Height from "./components/Height";
-import Loading from "../Global/Loading";
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { logout } from "../../store/actions/firebaseAuth";
+import { HeadingStyle, ListStyle } from "./styles";
+
 
 class Settings extends React.Component {
   componentDidUpdate(prevProps) {
@@ -73,7 +73,7 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/landing"/>;
+    if (!token) return <Redirect to="/"/>;
 
     return (
       <Container fluid style={{ padding: 0 }} height={this.props.height}>

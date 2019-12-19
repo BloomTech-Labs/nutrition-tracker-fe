@@ -58,7 +58,13 @@ const Weight = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setWeight(props.data.actual_weight_lbs);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

@@ -58,7 +58,13 @@ const Dob = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setDob(props.data.dob);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

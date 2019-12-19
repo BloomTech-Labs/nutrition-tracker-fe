@@ -10,7 +10,7 @@ export const POST_FOOD_START = "POST_FOOD_START";
 export const POST_FOOD_SUCCESS = "POST_FOOD_SUCCESS";
 export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
 
-const LOCALHOST = "https://nutri-journal.herokuapp.com";
+const LOCALHOST = "http://localhost:4000";
 
 export const searchFoodItems = search_term => dispatch => {
   console.log(search_term);

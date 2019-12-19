@@ -9,7 +9,7 @@ const MacroProgress = () => {
         {
           data: [70, 10, 20],
           backgroundColor: ["#FFE9AD", "#A1BFDF", "#F5C6CB"],
-          borderColor: ["#E4D099", "#829BB6", "#A68588"] 
+          borderColor: ["#E4D099", "#829BB6", "#A68588"]
         }
       ]
     };
@@ -25,16 +25,16 @@ const MacroProgress = () => {
           let dataIndex = tooltipItem.index;
           // grabs the label for the current tool-tip
           let dataLabel = data.labels[dataIndex];
-          // grabs the current data value for the dataset 
+          // grabs the current data value for the dataset
           let dataVal = data.datasets[0].data[dataIndex];
           // reformats tool-tip to be displayed as percentage
           return ` ${dataLabel}: ${dataVal}%`;
         }
       }
-    },
+    }
   };
 
-  return <Pie data={data} options={options}/>;
+  return <Pie data={data} options={options} />;
 };
 
 export default MacroProgress;

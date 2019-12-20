@@ -1,11 +1,11 @@
-// sets default backend URL to `master` backend environment URL
+// sets default backend URL to "production" backend environment URL
 
 // to set a custom backendURL, set the .env variable, `REACT_APP_backendURL`
 
-// *************
-// do not make changes to the URL unless you are updating the master
-// backend URL address!!
-// *************
+//                     *************
+//                     do not make changes to the URL unless you are updating the master
+//                     backend URL address!!
+//                     *************
 const productionURL = `https://nutri-journal.herokuapp.com`;
 //                     STOP! MOVE AWAY FROM THE COOKIE JAR!
 //                     ARE YOU SURE YOU SHOULD BE EDITING THIS VALUE?

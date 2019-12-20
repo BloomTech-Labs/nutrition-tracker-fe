@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendURL } from "../../config/backendURL.js";
 
 export const FETCH_NUTRITION_BUDGETS_START = "FETCH_NUTRITION_BUDGETS_START";
 export const FETCH_NUTRITION_BUDGETS_SUCCESS =
@@ -14,9 +15,7 @@ export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
   axios
-    .get(
-      `https://nutri-journal.herokuapp.com/daily-log/${userID}/nutrition-budgets/`
-    )
+    .get(`${backendURL}/daily-log/${userID}/nutrition-budgets/`)
     .then(({ data }) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,
@@ -39,9 +38,7 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
   currentTimeZone = encodeURIComponent(currentTimeZone);
 
   axios
-    .get(
-      `https://nutri-journal.herokuapp.com/daily-log/${userID}/${date}/${currentTimeZone}`
-    )
+    .get(`${backendURL}/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({ data }) => {
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,

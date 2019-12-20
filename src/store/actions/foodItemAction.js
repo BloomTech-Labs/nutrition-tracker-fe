@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendURL } from "../../config/backendURL.js";
 
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
@@ -10,14 +11,12 @@ export const POST_FOOD_START = "POST_FOOD_START";
 export const POST_FOOD_SUCCESS = "POST_FOOD_SUCCESS";
 export const POST_FOOD_FAILURE = "POST_FOOD_FAILURE";
 
-const LOCALHOST = "https://nutri-journal.herokuapp.com";
-
 export const searchFoodItems = search_term => dispatch => {
   console.log(search_term);
   if (search_term !== "" || search_term.length !== 0) {
     dispatch({ type: FETCH_START });
     return axios
-      .get(`${LOCALHOST}/fatsecret/search-food/${search_term}`)
+      .get(`${backendURL}/fatsecret/search-food/${search_term}`)
       .then(response => {
         dispatch({ type: FETCH_SUCCESS, payload: response.data });
         return true;
@@ -35,7 +34,7 @@ export const searchFoodItems = search_term => dispatch => {
 export const getOneFoodItem = food_id => dispatch => {
   dispatch({ type: FETCH_GET_ONE_START });
   return axios
-    .get(`${LOCALHOST}/fatsecret/get-food/${food_id}`)
+    .get(`${backendURL}/fatsecret/get-food/${food_id}`)
     .then(response => {
       dispatch({ type: FETCH_GET_ONE_SUCCESS, payload: response.data });
       return true;
@@ -50,7 +49,7 @@ export const getOneFoodItem = food_id => dispatch => {
 export const addFoodItem = (foodLog, firebaseID) => dispatch => {
   dispatch({ type: POST_FOOD_START });
   return axios
-    .post(`${LOCALHOST}/log-entry/${firebaseID}`, foodLog)
+    .post(`${backendURL}/log-entry/${firebaseID}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })

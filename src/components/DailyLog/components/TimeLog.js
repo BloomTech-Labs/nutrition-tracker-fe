@@ -34,7 +34,7 @@ const TimeLog = ({ dailyLog }) => {
                         key={i}
                         onClick={() => {
                           console.log('here is the log joe',log)
-                          history.push(`/updateview/${log.foodID}`); //JOE WE NEED TO FIX CHANGE THIS TO 'id' WHICH IS THE FOOD_LOG_ID
+                          history.push(`/updateview/${log.foodLogID}`); //JOE WE NEED TO FIX CHANGE THIS TO 'id' WHICH IS THE FOOD_LOG_ID
                         }}
                       >
                         {log.firstGroupLog ? (

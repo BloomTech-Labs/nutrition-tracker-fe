@@ -1,5 +1,8 @@
-import { HeadingStyle, ListStyle } from "./styles";
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import { logout } from "../../store/actions/firebaseAuth";
 import {
   getActivityLevel,
   getCurrentWeight,
@@ -12,20 +15,16 @@ import {
   updateUserInfo,
   updateWeightGoal
 } from "../../store/actions/settingsActions";
-
-import ActivityLevel from "./components/ActivityLevel";
+import Loading from "../Global/Loading";
 import { Container } from "../Global/styled";
+import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/dob";
 import Email from "./components/email";
 //import Password from "./components/Password"; For RC2
 import Gender from "./components/gender";
 import Height from "./components/height";
-import Loading from "../Global/Loading";
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { logout } from "../../store/actions/firebaseAuth";
+import { HeadingStyle, ListStyle } from "./styles";
 
 class Settings extends React.Component {
   componentDidUpdate(prevProps) {
@@ -71,7 +70,7 @@ class Settings extends React.Component {
 
     if (loading) return <Loading />;
 
-    if (!token) return <Redirect to="/landing"/>;
+    if (!token) return <Redirect to="/"/>;
 
     return (
       <Container fluid style={{ padding: 0 }} height={this.props.height}>
@@ -89,7 +88,7 @@ class Settings extends React.Component {
             data={this.props.userInfo}
           />{" "}
           <ListGroupItem style={HeadingStyle}>Nutrition</ListGroupItem>
-          <Macros
+          {/* <Macros
             style={ListStyle}
             updateMacros={this.updateMacros}
             data={this.props.userInfo}
@@ -102,7 +101,7 @@ class Settings extends React.Component {
             data={this.props.userInfo}
           >
             Weight Goal
-          </WeightGoal>
+          </WeightGoal> */}
           <ListGroupItem style={HeadingStyle}>Account Settings</ListGroupItem>
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout

@@ -43,8 +43,8 @@ const Gender = props => {
                 onChange={e => setSex(e.target.value)}
               >
                 <option value="">Select</option>
-                <option value="female">female</option>
-                <option value="male">male</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
               </CustomInput>
             </FormGroup>
           </Form>

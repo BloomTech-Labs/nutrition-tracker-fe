@@ -14,6 +14,4 @@ const productionURL = `https://nutri-journal.herokuapp.com`;
 //                     or development, simply edit the `.env` file, eg set:
 //                     REACT_APP_backendURL=http://the-backend-you-want-to-use.com
 
-const backendURL = process.env.REACT_APP_backendURL || productionURL;
-
-module.exports = { backendURL };
+export const backendURL = process.env.REACT_APP_backendURL || productionURL;

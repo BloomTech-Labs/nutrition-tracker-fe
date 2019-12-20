@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
-const ProteinProgress = () => {
+const ProteinProgress = ({ protein }) => {
   const dynamicDate = x =>
     moment()
       .subtract(x, "days")
@@ -21,7 +21,7 @@ const ProteinProgress = () => {
       datasets: [
         {
           label: "Actual Protein",
-          data: [19, 24, 22, 25, 26, 22, 20],
+          data: protein,
           fill: false,
           borderColor: "#A68588",
           pointBackgroundColor: "#F5C6CB"

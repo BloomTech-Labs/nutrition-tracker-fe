@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
-const FatsProgress = () => {
+const FatsProgress = ({ fats }) => {
   const dynamicDate = x =>
     moment()
       .subtract(x, "days")
@@ -21,7 +21,7 @@ const FatsProgress = () => {
       datasets: [
         {
           label: "Actual Fats",
-          data: [68, 64, 63, 68, 71, 69, 62],
+          data: fats,
           fill: false,
           borderColor: "#E4D099",
           pointBackgroundColor: "#FFE9AD"

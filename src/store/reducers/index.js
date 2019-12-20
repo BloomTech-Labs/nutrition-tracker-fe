@@ -7,6 +7,7 @@ import { foodItemsReducer } from "./foodItemsReducer";
 // import { firestoreReducer } from "redux-firestore";
 import { onboardingReducer } from "./onboardingReducer";
 import { updateUserInfo } from "./settingsReducer";
+import { macroProgressReducer } from "./macroProgress";
 
 export default combineReducers({
   foodItemsReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   dailyLog: dailyLogReducer,
   auth: firebaseAuth,
   updateUserInfo: updateUserInfo,
-  flywheel: flywheelReducer
+  flywheel: flywheelReducer,
+  macroProgress: macroProgressReducer
 });

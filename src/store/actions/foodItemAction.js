@@ -73,7 +73,7 @@ export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
   dispatch({ type: GET_FOOD_ITEM_FOR_EDIT_START });
   return axios
     .get(
-      `${BASE_URL}}/food-item/getfooditem/${foodLogID}/user/${user_id}`
+      `${BASE_URL}/food-item/getfooditem/${foodLogID}/user/${user_id}`
     )
     .then(response => {
       dispatch({

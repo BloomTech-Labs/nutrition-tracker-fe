@@ -9,7 +9,7 @@ const UpdateView = props => {
     return (
         <Container height={props.height}>
         <Route  
-        path={`${props.match.path}/:foodID`}
+        path={`${props.match.path}/:foodLogID`}
         render={props => <UpdateFoodItem {...props} />}
       />
         </Container>

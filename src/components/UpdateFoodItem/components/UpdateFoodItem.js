@@ -7,6 +7,7 @@ import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getFoodItemForEdit } from "../../../store/actions/foodItemAction";
+import { updateFoodItem } from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
 import Flywheel from "../../Global/flywheel-menu/Flywheel";
@@ -59,16 +60,15 @@ const UpdateFoodItem = props => {
   // }, [date, time])
 
   useEffect(() => {
-    console.log("HERE IS THE FB ID:", firebaseID);
-    dispatch(getFoodItemForEdit(props.match.params.foodLogID, 'XczUxVQuueQ3YT844MOdmFZVVhA3')); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+    dispatch(getFoodItemForEdit(props.match.params.foodLogID, firebaseID)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
     console.log("Here is the item in the updatefooditem.js: ", item);
-  }, [props.match.params.foodLogID, props.match.params.userID]);
+  }, [props.match.params.foodLogID], firebaseID);
 
   useEffect(() => {
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); // Do not need time zone here
     setTime(moment(item.time_consumed_at).format("HH:mm")); // Do not need time zone here
     setQuantity(item.quantity);
-    console.log("Here is the quantity:", item.quantity)
+    console.log("Here is the quantity:", item.quantity);
   }, [date, time]);
 
   // useEffect(
@@ -111,31 +111,36 @@ const UpdateFoodItem = props => {
     };
   };
 
-  const addNewFoodLog = async () => {
+
+  const updateFoodLog = async () => {
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
     const food_id = item.id; // JOE WE WONT NEED TO SAVE THIS PIECE OF DATA AS IT IS THERE ALREADY
+    const quantity = item.quantity;
     const serving_id = item.serving_id;
-    const fatsecret_food_id = props.match.params.fatsecret_food_id; // JOE WE WONT NEED TO SAVE THIS PIECE OF DATA AS IT IS THERE ALREADY
+    const fatsecret_food_id = props.match.params.fatsecret_food_id
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-    dispatch();
-    //we add update here
-    //   addFoodItem(
-    //     {
-    //       food_id,
-    //       quantity,
-    //       serving_id,
-    //       fatsecret_food_id,
-    //       time_consumed_at,
-    //       time_zone_name,
-    //       time_zone_abbr
-    //     },
-    //     firebaseID
-    //   )
+    dispatch( 
+      updateFoodItem(
+      {
+          food_id,
+          quantity,
+          serving_id,
+          fatsecret_food_id,
+          time_consumed_at,
+          time_zone_name,
+          time_zone_abbr
+
+      },
+      item.id,
+      firebaseID,
+      
+    )) 
   };
+ 
 
   const getCurrentTimeZoneAbbr = () => {
     const time_zone_abbr = moment.tz(currentDate, currentTimeZone).format("z"); // output ex. PST
@@ -219,8 +224,8 @@ const UpdateFoodItem = props => {
         <Col direction="column" align="flex-end">
           <InputLabel>Serving Type</InputLabel>
           <ButtonDropdown
-            isOpen={dropdownOpen}     
-            toggle={handleToggle}     
+            isOpen={dropdownOpen}
+            toggle={handleToggle}
             style={{ width: "100%" }}
           >
             <DropdownToggle
@@ -268,7 +273,7 @@ const UpdateFoodItem = props => {
         <Col>
           <Flywheel
             staticInitialButton
-            onMainButtonClick={addNewFoodLog}
+            onMainButtonClick={updateFoodLog}
             maintButtonIcon={faCheck}
             childButtonIcons={[]}
           />

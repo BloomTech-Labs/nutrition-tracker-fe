@@ -4,7 +4,7 @@ import Scanner from "../../Scanner";
 import { MemoryRouter } from "react-router";
 import { Provider } from "react-redux";
 
-let store = _bigMockStore_();
+let store = global._bigMockStore_();
 
 describe("<Scanner /> ", () => {
     test("<Scanner /> component should render on the /scanner route", () => {

@@ -1,9 +1,9 @@
-import React from "react
+import React from "react";
 
-export default const SelectPhotos = () => {
+export default () => {
     return (
         <div className="app-select-photos">
-            
+
         </div>
     )
 }

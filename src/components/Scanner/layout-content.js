@@ -1,10 +1,10 @@
 import React from "react";
 
-export default const LayoutContent = () => {
+export default () => {
     return(
         <div className="app-layout-content">
                 {/* Original code use querySelectors but since we're using React, we'll use ref to  emulate the behavior */}
-                <video autoplay ref="video" />
+                <video autoplay />
                 <div className="app-dialog app-dialog-hide">
                     <div className="app-dialog-content">
                         <h2>QR Code</h2>
@@ -15,8 +15,9 @@ export default const LayoutContent = () => {
                         <button className="app-dialog-close">Close</button>
                     </div>
                 </div>
-                <img ref="image" id="frame" src="" alt=""/>
+                <img id="frame" src="" alt=""/>
                 This is a scanner!!
             </div>
     )
 }
+

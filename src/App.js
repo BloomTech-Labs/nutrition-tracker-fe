@@ -17,6 +17,7 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
+import Scanner from "./components/Scanner";
 
 library.add(faSearch);
 
@@ -64,6 +65,7 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
+          <Route path="/scanner" component={Scanner} />
         </AppWrapper>
       </ToastProvider>
     );

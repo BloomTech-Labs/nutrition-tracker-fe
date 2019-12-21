@@ -18,8 +18,10 @@ describe("<Scanner /> ", () => {
             </MemoryRouter>
           );
 
-        console.log(wrapper.debug());
+        //console.log(wrapper.debug());
+        console.log(navigator);
         expect(wrapper.find("Scanner").exists()).toBe(true);
+        
     })
 
 })

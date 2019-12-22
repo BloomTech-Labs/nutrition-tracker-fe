@@ -410,14 +410,14 @@ class Flywheel extends React.Component {
                       icon={this.props.childButtonIcons[index].icon}
                       size="2x"
                       color={faChildIconColor}
-                      onClick={() => {
-                        return (
-                          this.setState({
+                      onClick={!this.props.childButtonIcons[index].isAction? () => {
+                         return( this.setState({
                             segue: this.props.childButtonIcons[index].name
-                          }),
-                          this.handleToggleClick()
-                        );
-                      }}
+                          }), this.handleToggleClick() )} : 
+                          (e) => {
+                         return (e.preventDefault(), this.props.childButtonIcons[index].action())
+                          }}
+                      
                     />
                   </ChildButton>
                 )

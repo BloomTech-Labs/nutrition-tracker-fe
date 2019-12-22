@@ -5,9 +5,11 @@ import { Textfit } from "react-textfit";
 import { useToasts } from "react-toast-notifications";
 import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
 import styled from "styled-components";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { getFoodItemForEdit } from "../../../store/actions/foodItemAction";
-import { updateFoodItem, resetState } from "../../../store/actions/foodItemAction";
+import {
+  getFoodItemForEdit,
+  updateFoodItem,
+  resetState
+} from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
 import Flywheel from "../../Global/flywheel-menu/Flywheel";
@@ -21,6 +23,7 @@ import {
   Row
 } from "../../Global/styled";
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
+import { faTimes, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 //When we hit the endpoint in our backend we need to we can locad the users metrics for the particular food item selected
 //then we need to allow the user to modify the record action and reducers are required.
@@ -28,6 +31,13 @@ import NutritionInfo from "../../FoodItem/components/NutritionInfo";
 //!!! WE HAVE AN ISSUE WITH THE ITEM NOT LOADING ON THE FIRST CLICK WE NEED TO ADDRESS THAT
 
 const UpdateFoodItem = props => {
+  
+  let childButtonIcons = [
+    { icon: faCheck, name: "Update", isaLink: false, isAction:true, action: ()=>{updateFoodLog()} },
+    { icon: faTrash, name: "Delete", isaLink: false, isAction:true, action: ()=>{alert("Delete")} }
+  ];
+  
+
   const dispatch = useDispatch();
   const { addToast } = useToasts();
 
@@ -63,11 +73,10 @@ const UpdateFoodItem = props => {
   useEffect(
     () => {
       const foodLogID = props.match.params.foodLogID;
-      dispatch(getFoodItemForEdit(foodLogID, firebaseID)); 
+      dispatch(getFoodItemForEdit(foodLogID, firebaseID));
     },
     [props.match.params.foodLogID],
-    firebaseID,
-    item
+    firebaseID
   );
 
   useEffect(() => {
@@ -77,25 +86,22 @@ const UpdateFoodItem = props => {
     console.log("Here is the quantity:", item.quantity);
   }, [date, time]);
 
-  useEffect(
-    () => {
-      if(updated) {
-        addToast("Food Item Updated!", {
-          appearance: "success",
-          autoDismiss: true
-        })
-        setTimeout(() => {
-          props.history.goBack()
-        }, 2000);
-      }
-      else if (error){
-        addToast("Error. Try again later.", {
-          appearance: "error",
-          autoDismiss: true
-        })
-     }
-    },[error, updated]);
-
+  useEffect(() => {
+    if (updated) {
+      addToast("Food Item Updated!", {
+        appearance: "success",
+        autoDismiss: true
+      });
+      setTimeout(() => {
+        props.history.goBack();
+      }, 2000);
+    } else if (error) {
+      addToast("Error. Try again later.", {
+        appearance: "error",
+        autoDismiss: true
+      });
+    }
+  }, [error, updated]);
 
   const handleToggle = e => {
     e.preventDefault();
@@ -132,7 +138,8 @@ const UpdateFoodItem = props => {
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-       await dispatch( updateFoodItem(
+    await dispatch(
+      updateFoodItem(
         {
           food_id,
           updatedQuantity,
@@ -146,7 +153,7 @@ const UpdateFoodItem = props => {
         firebaseID
       )
     );
-       await dispatch( resetState()); // Have to reset state for toast to work properly
+    await dispatch(resetState()); // Have to reset state for toast to work properly
   };
 
   const getCurrentTimeZoneAbbr = () => {
@@ -279,10 +286,8 @@ const UpdateFoodItem = props => {
       <Row>
         <Col>
           <Flywheel
-            staticInitialButton
-            onMainButtonClick={updateFoodLog}
-            maintButtonIcon={faCheck}
-            childButtonIcons={[]}
+            maintButtonIcon={faTimes}
+            childButtonIcons={childButtonIcons}
           />
         </Col>
       </Row>

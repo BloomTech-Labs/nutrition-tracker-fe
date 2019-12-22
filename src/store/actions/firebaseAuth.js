@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendURL } from "../../config/backendURL.js";
 import firebase from "../../config/firebase";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -44,7 +45,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("http://localhost:4000/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       return firebase.auth().currentUser.updateProfile({
@@ -144,7 +145,7 @@ export const googleRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("http://localhost:4000/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -231,7 +232,7 @@ export const facebookRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("http://localhost:4000/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
 

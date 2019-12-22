@@ -159,7 +159,8 @@ export const foodItemsReducer = (state = initialState, action) => {
       case RESET_STATE:
         return {
           ...state,
-          updated:false
+          updated:false,
+          error:""
         }
 
     default:

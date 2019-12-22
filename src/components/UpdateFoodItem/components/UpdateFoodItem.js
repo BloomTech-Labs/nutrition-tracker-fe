@@ -23,20 +23,14 @@ import {
   Row
 } from "../../Global/styled";
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
-import { faTimes, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
-
-//When we hit the endpoint in our backend we need to we can locad the users metrics for the particular food item selected
-//then we need to allow the user to modify the record action and reducers are required.
-//we then need to let the user save the record via a put request endpoint that we still need to make
-//!!! WE HAVE AN ISSUE WITH THE ITEM NOT LOADING ON THE FIRST CLICK WE NEED TO ADDRESS THAT
+import { faPencilAlt, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateFoodItem = props => {
-  
+
   let childButtonIcons = [
     { icon: faCheck, name: "Update", isaLink: false, isAction:true, action: ()=>{updateFoodLog()} },
     { icon: faTrash, name: "Delete", isaLink: false, isAction:true, action: ()=>{alert("Delete")} }
   ];
-  
 
   const dispatch = useDispatch();
   const { addToast } = useToasts();
@@ -71,19 +65,21 @@ const UpdateFoodItem = props => {
   // }, [date, time])
 
   useEffect(
-    () => {
-      const foodLogID = props.match.params.foodLogID;
-      dispatch(getFoodItemForEdit(foodLogID, firebaseID));
+     () => {
+     const foodLogID = props.match.params.foodLogID;
+     dispatch(getFoodItemForEdit(foodLogID, firebaseID));
     },
-    [props.match.params.foodLogID],
-    firebaseID
+    [props.match.params.foodLogID, firebaseID],
+
   );
 
-  useEffect(() => {
-    setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); // Do not need time zone here
-    setTime(moment(item.time_consumed_at).format("HH:mm")); // Do not need time zone here
+  useEffect(()=> {
     setQuantity(item.quantity);
-    console.log("Here is the quantity:", item.quantity);
+  },[item])
+
+  useEffect(() => {
+    setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); 
+    setTime(moment(item.time_consumed_at).format("HH:mm")); 
   }, [date, time]);
 
   useEffect(() => {
@@ -163,9 +159,8 @@ const UpdateFoodItem = props => {
   };
 
   if (!item) return <Loading />;
-
+  const foodSelection = item
   /* ****************************************************** */
-  const foodSelection = item;
 
   return (
     <div>
@@ -215,7 +210,7 @@ const UpdateFoodItem = props => {
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={addedMacros()} date={date} />
+      <MacroBudgets macrosAdded={addedMacros()} date={date} /> 
       <Row
         style={{
           marginTop: "50px",
@@ -286,7 +281,8 @@ const UpdateFoodItem = props => {
       <Row>
         <Col>
           <Flywheel
-            maintButtonIcon={faTimes}
+            staticInitialButton
+            maintButtonIcon={faPencilAlt}
             childButtonIcons={childButtonIcons}
           />
         </Col>

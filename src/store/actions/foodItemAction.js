@@ -18,6 +18,7 @@ export const UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE = "UPDATE_FOOD_ITEM_FOR_EDIT_FAIL
 export const DELETE_FOOD_ITEM_START = "DELETE_FOOD_ITEM_START";
 export const DELETE_FOOD_ITEM_SUCCESS = "DELETE_FOOD_ITEM_SUCCESS";
 export const DELETE_FOOD_ITEM_FAILURE = "DELETE_FOOD_ITEM_FAILURE";
+export const RESET_STATE = "RESET_STATE";
 const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
 const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
@@ -33,7 +34,6 @@ export const searchFoodItems = search_term => dispatch => {
         return true;
       })
       .catch(err => {
-        //console.error(err);
         dispatch({ type: FETCH_FAILURE, payload: err.response });
         return false;
       });
@@ -100,6 +100,10 @@ export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
       dispatch({ type: UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE, payload: { error } });
     });
 };
+
+export const resetState = () => dispatch => {
+  dispatch({type: RESET_STATE})
+}
 
 export const deleteFoodItem = (foodLogID, user_id) => dispatch => {
   // J/P WE NEED TO CREATE THIS ENDPOINT

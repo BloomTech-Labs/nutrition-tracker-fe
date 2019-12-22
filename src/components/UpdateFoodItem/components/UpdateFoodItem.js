@@ -7,7 +7,7 @@ import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getFoodItemForEdit } from "../../../store/actions/foodItemAction";
-import { updateFoodItem } from "../../../store/actions/foodItemAction";
+import { updateFoodItem, resetState } from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
 import Flywheel from "../../Global/flywheel-menu/Flywheel";
@@ -34,7 +34,7 @@ const UpdateFoodItem = props => {
   const { consumed, currentDate, currentTimeZone } = useSelector(
     state => state.dailyLog
   );
-  const { item, got, error } = useSelector(state => state.foodItemsReducer);
+  const { item, updated, error } = useSelector(state => state.foodItemsReducer);
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [quantity, setQuantity] = useState(1);
@@ -63,7 +63,7 @@ const UpdateFoodItem = props => {
   useEffect(
     () => {
       const foodLogID = props.match.params.foodLogID;
-      dispatch(getFoodItemForEdit(foodLogID, firebaseID)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+      dispatch(getFoodItemForEdit(foodLogID, firebaseID)); 
     },
     [props.match.params.foodLogID],
     firebaseID,
@@ -77,21 +77,25 @@ const UpdateFoodItem = props => {
     console.log("Here is the quantity:", item.quantity);
   }, [date, time]);
 
-  // useEffect(
-  //   () => {
-  //     if (got)
-  //       addToast("Food Item Updated!", {
-  //         appearance: "success",
-  //         autoDismiss: true
-  //       });
-  //     else if (error)
-  //       addToast("Error. Try again later.", {
-  //         appearance: "error",
-  //         autoDismiss: true
-  //       });
-  //   },
-  //   [error, got]
-  // )
+  useEffect(
+    () => {
+      if(updated) {
+        addToast("Food Item Updated!", {
+          appearance: "success",
+          autoDismiss: true
+        })
+        setTimeout(() => {
+          props.history.goBack()
+        }, 2000);
+      }
+      else if (error){
+        addToast("Error. Try again later.", {
+          appearance: "error",
+          autoDismiss: true
+        })
+     }
+    },[error, updated]);
+
 
   const handleToggle = e => {
     e.preventDefault();
@@ -118,22 +122,20 @@ const UpdateFoodItem = props => {
   };
 
   const updateFoodLog = async () => {
-    //JOE HERE WE WOULD LIKE TO  BE ABLE TO GO BACK TO THE DAILY LOG PAGE IN THE HISTORY AUTOMATIALLY IF THE FOOD-ITEM UPDATES BUT STAY THE PAGE IF ERROR AND ALSO HAVE THE TOAST DISPLAY WHE SUCCESSFULLY UPDATED.
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
     const food_id = item.id;
-    const quantity = item.quantity;
+    const updatedQuantity = quantity;
     const serving_id = item.serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-    dispatch(
-      updateFoodItem(
+       await dispatch( updateFoodItem(
         {
           food_id,
-          quantity,
+          updatedQuantity,
           serving_id,
           fatsecret_food_id,
           time_consumed_at,
@@ -144,7 +146,7 @@ const UpdateFoodItem = props => {
         firebaseID
       )
     );
-    //  props.history.goBack();      JOE HERE WE GO BACK TO THE PREV PAGE
+       await dispatch( resetState()); // Have to reset state for toast to work properly
   };
 
   const getCurrentTimeZoneAbbr = () => {

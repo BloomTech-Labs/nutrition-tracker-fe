@@ -16,12 +16,15 @@ import {
   UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE,
   DELETE_FOOD_ITEM_START,
   DELETE_FOOD_ITEM_SUCCESS,
-  DELETE_FOOD_ITEM_FAILURE
+  DELETE_FOOD_ITEM_FAILURE,
+  RESET_STATE
 } from "../actions/foodItemAction";
 
 const initialState = {
   getting: false,
   got: false,
+  updating:false,
+  updated: false,
   error: "",
   items: [],
   item: []
@@ -87,7 +90,7 @@ export const foodItemsReducer = (state = initialState, action) => {
         ...state,
         got: false,
         error: "",
-        getting: true
+        getting: true,
       };
     case GET_FOOD_ITEM_FOR_EDIT_SUCCESS:
       return {
@@ -108,24 +111,24 @@ export const foodItemsReducer = (state = initialState, action) => {
     case UPDATE_FOOD_ITEM_FOR_EDIT_START:
       return {
         ...state,
-        got: false,
-        getting: true,
+        updated: false,
+        updating: true,
         error: ""
       };
 
     case UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS:
       return {
         ...state,
-        got: true,
-        getting: false,
+        updated: true,
+        updating: false,
         error: ""
       };
 
     case UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE:
       return {
         ...state,
-        got: false,
-        getting: false,
+        updated: false,
+        updating: false,
         error: action.payload
       };
 
@@ -152,6 +155,12 @@ export const foodItemsReducer = (state = initialState, action) => {
         getting: false,
         error: action.payload
       };
+
+      case RESET_STATE:
+        return {
+          ...state,
+          updated:false
+        }
 
     default:
       return state;

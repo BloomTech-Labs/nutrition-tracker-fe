@@ -1,5 +1,6 @@
 import axios from "axios";
 import firebase from "../../config/firebase";
+import { backendURL } from "../../config/backendURL.js";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -44,7 +45,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       return firebase.auth().currentUser.updateProfile({
@@ -144,7 +145,7 @@ export const googleRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -231,7 +232,7 @@ export const facebookRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
 

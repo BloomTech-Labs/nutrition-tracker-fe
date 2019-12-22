@@ -36,6 +36,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
         activity_level: onboardingInfo.activity_level,
         dob: onboardingInfo.dob,
         actual_weight_kg: onboardingInfo.weight_kg,
+        goal_weight_kg: onboardingInfo.target_weight_kg,
         height_cm: onboardingInfo.height_cm,
         goal_weekly_weight_change_rate: onboardingInfo.weekly_goal_rate,
         email: res.user.email

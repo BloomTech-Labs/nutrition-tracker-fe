@@ -23,8 +23,9 @@ import {
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
 
 //When we hit the endpoint in our backend we need to we can locad the users metrics for the particular food item selected
-//then we neec to allow the user to modify the record action and reducers are required.
+//then we need to allow the user to modify the record action and reducers are required.
 //we then need to let the user save the record via a put request endpoint that we still need to make
+//!!! WE HAVE AN ISSUE WITH THE ITEM NOT LOADING ON THE FIRST CLICK WE NEED TO ADDRESS THAT
 
 const UpdateFoodItem = props => {
   const dispatch = useDispatch();
@@ -59,10 +60,15 @@ const UpdateFoodItem = props => {
   //   setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
   // }, [date, time])
 
-  useEffect(() => {
-    dispatch(getFoodItemForEdit(props.match.params.foodLogID, firebaseID)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
-    console.log("Here is the item in the updatefooditem.js: ", item);
-  }, [props.match.params.foodLogID], firebaseID);
+  useEffect(
+    () => {
+      const foodLogID = props.match.params.foodLogID;
+      dispatch(getFoodItemForEdit(foodLogID, firebaseID)); // JOE THIS IS HARD DATA CODED WE CAN NEED CHANGE THIS TO THE PARAMS DATA COMING IN FROM THE CLICK EVENT BUT IN ODRDER TO DO THIS WE NEED TO UPDATE OUR ROUTE TO THIS PAGE TO INCLUDE THE FOOD_LOG_ID NOT THE FOOD_ID AND ALSO HERE WE NEED TO HOOK ONTO THE USERS_ID AND PASS IT TO THE ACTION
+    },
+    [props.match.params.foodLogID],
+    firebaseID,
+    item
+  );
 
   useEffect(() => {
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); // Do not need time zone here
@@ -111,21 +117,21 @@ const UpdateFoodItem = props => {
     };
   };
 
-
   const updateFoodLog = async () => {
+    //JOE HERE WE WOULD LIKE TO  BE ABLE TO GO BACK TO THE DAILY LOG PAGE IN THE HISTORY AUTOMATIALLY IF THE FOOD-ITEM UPDATES BUT STAY THE PAGE IF ERROR AND ALSO HAVE THE TOAST DISPLAY WHE SUCCESSFULLY UPDATED.
     const selectionIndex = dropDownSelectionIndex;
     /* ****************************************************** */
-    const food_id = item.id; // JOE WE WONT NEED TO SAVE THIS PIECE OF DATA AS IT IS THERE ALREADY
+    const food_id = item.id;
     const quantity = item.quantity;
     const serving_id = item.serving_id;
-    const fatsecret_food_id = props.match.params.fatsecret_food_id
+    const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
-    dispatch( 
+    dispatch(
       updateFoodItem(
-      {
+        {
           food_id,
           quantity,
           serving_id,
@@ -133,14 +139,13 @@ const UpdateFoodItem = props => {
           time_consumed_at,
           time_zone_name,
           time_zone_abbr
-
-      },
-      item.id,
-      firebaseID,
-      
-    )) 
+        },
+        item.id,
+        firebaseID
+      )
+    );
+    //  props.history.goBack();      JOE HERE WE GO BACK TO THE PREV PAGE
   };
- 
 
   const getCurrentTimeZoneAbbr = () => {
     const time_zone_abbr = moment.tz(currentDate, currentTimeZone).format("z"); // output ex. PST

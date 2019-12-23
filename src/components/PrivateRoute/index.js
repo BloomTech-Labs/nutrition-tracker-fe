@@ -1,18 +1,25 @@
 // hooks doc https://reactjs.org/docs/hooks-intro.html
-import React from "react";
+import React, { useState } from "react";
 // Using useSelector to grab token from firebase reducer
 import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
+import LandingPage from "../LandingPage";
+import Loading from "../Global/Loading";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
+  const [token, setToken] = useState("");
   // using useSelector to await the token to mount then assigning that to our token variable
-  // when the page rerenders or refreshes all of the firebase data refreshes as well
+  // when the page re-renders or refreshes all of the firebase data refreshes as well
   // using async await here makes sure nothing funny happens when we refresh the page
-  const token = useSelector(
+  useSelector(
     async state =>
       (await state.firebase.auth.stsTokenManager) &&
       state.firebase.auth.stsTokenManager.accessToken
-  );
+  ).then(res => setToken(res));
+
+  const loaded = useSelector(state => state.firebase.profile.isLoaded);
+
+  // if (loading) return <Loading />;
 
   return (
     <Route
@@ -20,7 +27,13 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
       render={routeProps => {
         console.log("[token ******]", token);
         // if use is logged in, send them to private route, else send them to the landing page to log in
-        return token ? <RouteComponent {...routeProps} /> : <Redirect to="/" />
+        return token ? (
+          <RouteComponent {...routeProps} />
+        ) : loaded && !token ? (
+          <LandingPage />
+        ) : (
+          <Loading />
+        );
       }}
     />
   );

@@ -11,9 +11,9 @@ import {
   GET_FOOD_ITEM_FOR_EDIT_START,
   GET_FOOD_ITEM_FOR_EDIT_SUCCESS,
   GET_FOOD_ITEM_FOR_EDIT_FAILURE,
-  UPDATE_FOOD_ITEM_FOR_EDIT_START,
-  UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS,
-  UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE,
+  UPDATE_FOOD_ITEM_START,
+  UPDATE_FOOD_ITEM_SUCCESS,
+  UPDATE_FOOD_ITEM_FAILURE,
   DELETE_FOOD_ITEM_START,
   DELETE_FOOD_ITEM_SUCCESS,
   DELETE_FOOD_ITEM_FAILURE,
@@ -25,6 +25,8 @@ const initialState = {
   got: false,
   updating:false,
   updated: false,
+  deleting:false,
+  deleted:false,
   error: "",
   items: [],
   item: []
@@ -108,7 +110,7 @@ export const foodItemsReducer = (state = initialState, action) => {
         getting: false
       };
 
-    case UPDATE_FOOD_ITEM_FOR_EDIT_START:
+    case UPDATE_FOOD_ITEM_START:
       return {
         ...state,
         updated: false,
@@ -116,7 +118,7 @@ export const foodItemsReducer = (state = initialState, action) => {
         error: ""
       };
 
-    case UPDATE_FOOD_ITEM_FOR_EDIT_SUCCESS:
+    case UPDATE_FOOD_ITEM_SUCCESS:
       return {
         ...state,
         updated: true,
@@ -124,7 +126,7 @@ export const foodItemsReducer = (state = initialState, action) => {
         error: ""
       };
 
-    case UPDATE_FOOD_ITEM_FOR_EDIT_FAILURE:
+    case UPDATE_FOOD_ITEM_FAILURE:
       return {
         ...state,
         updated: false,
@@ -135,24 +137,24 @@ export const foodItemsReducer = (state = initialState, action) => {
     case DELETE_FOOD_ITEM_START:
       return {
         ...state,
-        got: false,
-        getting: true,
+        deleted: false,
+        deleting: true,
         error: ""
       };
 
     case DELETE_FOOD_ITEM_SUCCESS:
       return {
         ...state,
-        got: true,
-        getting: false,
+        deleted: true,
+        deleting: false,
         error: ""
       };
 
     case DELETE_FOOD_ITEM_FAILURE:
       return {
         ...state,
-        got: false,
-        getting: false,
+        deleted: false,
+        deleting: false,
         error: action.payload
       };
 

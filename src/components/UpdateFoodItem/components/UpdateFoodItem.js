@@ -8,6 +8,7 @@ import styled from "styled-components";
 import {
   getFoodItemForEdit,
   updateFoodItem,
+  deleteFoodItem,
   resetState
 } from "../../../store/actions/foodItemAction";
 import Loading from "../../Global/Loading";
@@ -23,13 +24,32 @@ import {
   Row
 } from "../../Global/styled";
 import NutritionInfo from "../../FoodItem/components/NutritionInfo";
-import { faPencilAlt, faTrash, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencilAlt,
+  faTrash,
+  faCheck
+} from "@fortawesome/free-solid-svg-icons";
 
 const UpdateFoodItem = props => {
-
   let childButtonIcons = [
-    { icon: faCheck, name: "Update", isaLink: false, isAction:true, action: ()=>{updateFoodLog()} },
-    { icon: faTrash, name: "Delete", isaLink: false, isAction:true, action: ()=>{alert("Delete")} }
+    {
+      icon: faCheck,
+      name: "Update",
+      isaLink: false,
+      isAction: true,
+      action: () => {
+        updateFoodLog();
+      }
+    },
+    {
+      icon: faTrash,
+      name: "Delete",
+      isaLink: false,
+      isAction: true,
+      action: () => {
+        removeFoodItem();
+      }
+    }
   ];
 
   const dispatch = useDispatch();
@@ -38,7 +58,9 @@ const UpdateFoodItem = props => {
   const { consumed, currentDate, currentTimeZone } = useSelector(
     state => state.dailyLog
   );
-  const { item, updated, error } = useSelector(state => state.foodItemsReducer);
+  const { item, updated, deleted, error } = useSelector(
+    state => state.foodItemsReducer
+  );
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [quantity, setQuantity] = useState(1);
@@ -51,10 +73,6 @@ const UpdateFoodItem = props => {
   // to populate time input
   const recordTime = moment.tz(currentTimeZone).format("HH:mm");
 
-  console.log("Here is the date: ", recordDate, recordTime)
-  console.log("Here is the date from the record: ", item.time_consumed_at)
-
-
   const [time, setTime] = useState(recordDate);
   const [date, setDate] = useState(recordTime);
   const [dateTimeUTC, setDateTimeUTC] = useState(
@@ -65,24 +83,26 @@ const UpdateFoodItem = props => {
   );
 
   useEffect(() => {
-    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-  }, [date, time])
-
-  useEffect(
-     () => {
-     const foodLogID = props.match.params.foodLogID;
-     dispatch(getFoodItemForEdit(foodLogID, firebaseID));
-    },
-    [props.match.params.foodLogID, firebaseID],
-  );
-
-  useEffect(()=> {
-    setQuantity(item.quantity);
-  },[item])
+    setDateTimeUTC(
+      moment
+        .tz(`${date} ${time}`, currentTimeZone)
+        .utc()
+        .format()
+    );
+  }, [date, time]);
 
   useEffect(() => {
-    setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); 
-    setTime(moment(item.time_consumed_at).format("HH:mm"));   
+    const foodLogID = props.match.params.foodLogID;
+    dispatch(getFoodItemForEdit(foodLogID, firebaseID));
+  }, [props.match.params.foodLogID, firebaseID]);
+
+  useEffect(() => {
+    setQuantity(item.quantity);
+  }, [item]);
+
+  useEffect(() => {
+    setDate(moment(item.time_consumed_at).format("YYYY-MM-DD"));
+    setTime(moment(item.time_consumed_at).format("HH:mm"));
   }, [item]);
 
   useEffect(() => {
@@ -94,13 +114,19 @@ const UpdateFoodItem = props => {
       setTimeout(() => {
         props.history.goBack();
       }, 2000);
+    } else if (deleted) {
+      addToast("Food Item Deleted!", {
+        appearance: "success",
+        autoDismiss: true
+      });
+      props.history.goBack();
     } else if (error) {
       addToast("Error. Try again later.", {
         appearance: "error",
         autoDismiss: true
       });
     }
-  }, [error, updated]);
+  }, [error, updated, deleted]);
 
   const handleToggle = e => {
     e.preventDefault();
@@ -155,6 +181,12 @@ const UpdateFoodItem = props => {
     await dispatch(resetState()); // Have to reset state for toast to work properly
   };
 
+  const removeFoodItem = async () => {
+    console.log("here in the remove fucntion");
+    await dispatch(deleteFoodItem(props.match.params.foodLogID, firebaseID));
+    await dispatch(resetState()); // Have to reset state for toast to work properly
+  };
+
   const getCurrentTimeZoneAbbr = () => {
     const time_zone_abbr = moment.tz(currentDate, currentTimeZone).format("z"); // output ex. PST
 
@@ -162,7 +194,7 @@ const UpdateFoodItem = props => {
   };
 
   if (!item) return <Loading />;
-  const foodSelection = item
+  const foodSelection = item;
   /* ****************************************************** */
 
   return (
@@ -213,7 +245,7 @@ const UpdateFoodItem = props => {
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={addedMacros()} date={date} /> 
+      <MacroBudgets macrosAdded={addedMacros()} date={date} />
       <Row
         style={{
           marginTop: "50px",

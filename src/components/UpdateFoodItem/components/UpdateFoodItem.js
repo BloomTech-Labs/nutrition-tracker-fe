@@ -46,13 +46,17 @@ const UpdateFoodItem = props => {
   const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(1);
 
   // to populate date input
-  const todayDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
+  const recordDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
 
   // to populate time input
-  const todayTime = moment.tz(currentTimeZone).format("HH:mm");
+  const recordTime = moment.tz(currentTimeZone).format("HH:mm");
 
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  console.log("Here is the date: ", recordDate, recordTime)
+  console.log("Here is the date from the record: ", item.time_consumed_at)
+
+
+  const [time, setTime] = useState(recordDate);
+  const [date, setDate] = useState(recordTime);
   const [dateTimeUTC, setDateTimeUTC] = useState(
     moment
       .tz(`${date} ${time}`, currentTimeZone)
@@ -60,9 +64,9 @@ const UpdateFoodItem = props => {
       .format()
   );
 
-  // useEffect(() => {
-  //   setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-  // }, [date, time])
+  useEffect(() => {
+    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
+  }, [date, time])
 
   useEffect(
      () => {
@@ -70,7 +74,6 @@ const UpdateFoodItem = props => {
      dispatch(getFoodItemForEdit(foodLogID, firebaseID));
     },
     [props.match.params.foodLogID, firebaseID],
-
   );
 
   useEffect(()=> {
@@ -79,8 +82,8 @@ const UpdateFoodItem = props => {
 
   useEffect(() => {
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD")); 
-    setTime(moment(item.time_consumed_at).format("HH:mm")); 
-  }, [date, time]);
+    setTime(moment(item.time_consumed_at).format("HH:mm"));   
+  }, [item]);
 
   useEffect(() => {
     if (updated) {

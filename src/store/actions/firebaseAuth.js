@@ -3,7 +3,7 @@ import firebase from "../../config/firebase";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
-const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
+const dev = true ;
 const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
 export const login = (email, password) => dispatch => {

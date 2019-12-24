@@ -22,7 +22,7 @@ export const DELETE_FOOD_ITEM_START = "DELETE_FOOD_ITEM_START";
 export const DELETE_FOOD_ITEM_SUCCESS = "DELETE_FOOD_ITEM_SUCCESS";
 export const DELETE_FOOD_ITEM_FAILURE = "DELETE_FOOD_ITEM_FAILURE";
 export const RESET_STATE = "RESET_STATE";
-const dev = true; // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL
+const dev = true ; 
 const BASE_URL = dev
   ? "http://localhost:4000"
   : "https://nutri-journal.herokuapp.com";

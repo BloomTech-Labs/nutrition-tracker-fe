@@ -8,7 +8,7 @@ export const FETCH_DAILY_LOG_SUCCESS = "FETCH_DAILY_LOG_SUCCESS";
 export const FETCH_DAILY_LOG_FAILURE = "FETCH_DAILY_LOG_FAILURE";
 export const UPDATE_CURRENT_DATE = "UPDATE_CURRENT_DATE";
 export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
-const dev = true // FOR US ARE WE IN THE DEVELOPMENT JOE / PAUL 
+const dev = true ;
 const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
 export const fetchNutritionBudgets = userID => dispatch => {

@@ -71,14 +71,8 @@ const UpdateFoodItem = props => {
 
   const [isEnabled, setIsEnabled] = useState(false);
 
-  // to populate date input
-  const recordDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
-
-  // to populate time input
-  const recordTime = moment.tz(currentTimeZone).format("HH:mm");
-
-  const [time, setTime] = useState(recordDate);
-  const [date, setDate] = useState(recordTime);
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [dateTimeUTC, setDateTimeUTC] = useState(
     moment
       .tz(`${date} ${time}`, currentTimeZone)
@@ -102,9 +96,6 @@ const UpdateFoodItem = props => {
 
   useEffect(() => {
     setQuantity(item.quantity);
-  }, [item]);
-
-  useEffect(() => {
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD"));
     setTime(moment(item.time_consumed_at).format("HH:mm"));
   }, [item]);

@@ -8,7 +8,7 @@ export const INSERT_WEIGHT_FAILURE = "INSERT_WEIGHT_FAILURE";
 export const recordUserWeight = (firebaseID, actual_weight_kg) => dispatch => {
   dispatch({ type: START_INSERT_WEIGHT });
   return axios
-    .post(`http://localhost:4000/user/${firebaseID}/current-weight`, {
+    .post(`https://nutri-journal.herokuapp.com/user/${firebaseID}/current-weight`, {
       actual_weight_kg
     })
     .then(res => dispatch({ type: INSERT_WEIGHT_SUCCESS, payload: res.data }))

@@ -14,10 +14,6 @@ class LandingPage extends React.Component {
   };
 
   render() {
-    // once user logs in isLoggedIn will be true and route you to home page
-    const { isLoggedIn } = this.props;
-    if (isLoggedIn) return <Redirect to="/daily-log" />;
-
     return (
       <Container fluid>
         <Row>

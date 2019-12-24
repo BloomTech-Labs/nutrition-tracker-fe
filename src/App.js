@@ -11,7 +11,6 @@ import DailyLog from "./components/DailyLog";
 import FoodItem from "./components/FoodItem";
 // importing from global styles
 import { AppWrapper } from "./components/Global/styled";
-import LandingPage from "./components/LandingPage";
 import withNavigation from "./components/Navigation/withNavigation";
 import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
@@ -57,8 +56,7 @@ class App extends Component {
     return (
       <ToastProvider number="5000">
         <AppWrapper>
-          <Route exact path="/" component={LandingPage} />
-          <PrivateRoute path="/daily-log" component={DailyLogWithNav} />
+          <PrivateRoute exact path="/" component={DailyLogWithNav} />
           <Route path="/login" component={LoginWithNav} />
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />

@@ -15,7 +15,7 @@ class Register extends React.Component {
     const { isLoggedIn, dob, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/daily-log" id="homeRedirect" />;
+    if (isLoggedIn) return <Redirect to="/" id="homeRedirect" />;
 
     // If user is logged in on login page redirects them to protected route
     if (loading) return <Loading />;

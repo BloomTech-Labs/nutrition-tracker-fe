@@ -55,11 +55,11 @@ const DailyLog = props => {
   useEffect(() => {
     if (isLoaded)
       dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
-  }, [isLoaded, currentDate, dispatch, firebaseID]);
+  }, [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]);
 
   useEffect(() => {
     if (isLoaded) dispatch(updateCurrentTimeZone(currentTimeZone));
-  }, [isLoaded, dispatch]);
+  }, [isLoaded, currentTimeZone, dispatch]);
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));

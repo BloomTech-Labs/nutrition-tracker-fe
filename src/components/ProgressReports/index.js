@@ -64,10 +64,10 @@ const ProgressReports = props => {
               <ButtonLabel>Past Month</ButtonLabel>
             </Button>
             <Button>
-              <ButtonLabel>Past 6 Months</ButtonLabel>
+              <ButtonLabel>Past 3 Months</ButtonLabel>
             </Button>
             <Button>
-              <ButtonLabel>Past Year</ButtonLabel>
+              <ButtonLabel>Past 6 Months</ButtonLabel>
             </Button>
           </ButtonGroup>
         </Col>
@@ -79,7 +79,7 @@ const ProgressReports = props => {
 const TabHeader = styled(H3)`
   width: 100%;
   text-align: center;
-  cursor: pointer;;
+  cursor: pointer;
 `;
 
 const ButtonLabel = styled(H4)`

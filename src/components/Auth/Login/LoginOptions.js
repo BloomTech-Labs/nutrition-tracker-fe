@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import {
-  facebookLogin,
-  googleLogin
-} from "../../../store/actions/firebaseAuth";
-import { EmailSVG, FacebookSVG, GoogleSVG } from "../../Global/icons";
+import { googleLogin } from "../../../store/actions/firebaseAuth";
+import { EmailSVG, GoogleSVG } from "../../Global/icons";
 import { Col, H2, PillButton, Row } from "../../Global/styled";
 
 class LoginOptions extends Component {
@@ -15,11 +12,6 @@ class LoginOptions extends Component {
     this.props.googleLogin();
   };
 
-  // logs user in through facebook
-  handleFacebookAuth = e => {
-    e.preventDefault();
-    this.props.facebookLogin();
-  };
   render() {
     const { path } = this.props;
     return (
@@ -48,25 +40,6 @@ class LoginOptions extends Component {
             </PillButton>
           </Col>
         </Row>
-        {/* <Row>
-          <Col>
-            <PillButton
-              onClick={this.handleFacebookAuth}
-              outline
-              color="primary"
-              id="facebookAuth"
-            >
-              <Row align="center">
-                <Col xs="3">
-                  <FacebookSVG />
-                </Col>
-                <Col>
-                  <ButtonLabel>Sign in with Facebook</ButtonLabel>
-                </Col>
-              </Row>
-            </PillButton>
-          </Col>
-        </Row> */}
         <Row>
           <Col>
             <PillButton
@@ -96,4 +69,4 @@ const ButtonLabel = styled.div`
 `;
 
 export { LoginOptions };
-export default connect(null, { googleLogin, facebookLogin })(LoginOptions);
+export default connect(null, { googleLogin })(LoginOptions);

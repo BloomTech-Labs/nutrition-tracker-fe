@@ -2,17 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { searchFoodItems } from "../../store/actions/foodItemAction";
-import WithLoading from "../Global/loading/withLoading";
 import { Container } from "../Global/styled";
 import FoodDetails from "./foodDetails";
 import SearchPage from "./searchPage";
 
 class FoodItem extends React.Component {
-
+  constructor() {
+    super();
+    this.state = {
+      searchTerm: ""
+    };
+  }
   render() {
     const { path } = this.props.match;
     return (
-      <Container height={this.props.height}>
+      <Container height={this.props.height} fluid>
         <Route
           path={`${path}/search`}
           exact
@@ -20,16 +24,23 @@ class FoodItem extends React.Component {
         />
 
         <Route
-          path={`${path}/view/:food_id`}
+          path={`${path}/view/:fatsecret_food_id`}
           render={props => (
             <FoodDetails isLoading={this.props.isFetching} {...props} />
           )}
         />
+
+        {console.log("here is the getting:", this.props.getting)}
       </Container>
     );
   }
 }
 
-export default FoodItem;
+const mapStateToProps = state => {
+  return {
+    items: state.foodItemsReducer.items,
+    getting: state.foodItemsReducer.getting
+  };
+};
 
-
+export default connect(mapStateToProps, { searchFoodItems })(FoodItem);

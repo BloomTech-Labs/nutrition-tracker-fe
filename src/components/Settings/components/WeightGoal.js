@@ -19,7 +19,7 @@ const WeightGoal = props => {
 
   const [goal_weight_lbs, setWeight] = useState("");
   const [target_rate, setRate] = useState("");
-  const [weight_kg, setWeight_kg] = useState("");
+  const [weight_kg, setWeightKg] = useState("");
 
   useEffect(() => {
     setWeight(props.data.goal_weight_lbs);
@@ -30,7 +30,7 @@ const WeightGoal = props => {
   }, [props.data.goal_weekly_weight_change_rate]);
 
   useEffect(() => {
-    setRate(props.data.actual_weight_kg);
+    setWeightKg(props.data.actual_weight_kg);
   }, [props.data.actual_weight_kg]);
 
   const toggle = () => setModal(!modal);
@@ -82,7 +82,7 @@ const WeightGoal = props => {
             color="primary"
             onClick={() => {
               toggle();
-              props.updateWeightGoal(lbsToKgs(goal_weight_lbs));
+              props.updateWeightGoal({goal_weekly_weight_change_rate:target_rate, goal_weight_kg:lbsToKgs(goal_weight_lbs)});
             }}
           >
             Update
@@ -99,7 +99,7 @@ const WeightGoal = props => {
 // Converts height to centimeters to be returned to the DB.
 function lbsToKgs(lbs) {
   const kg = lbs * 0.45359237;
-  return { weight_kg: kg };
+  return kg;
 }
 
 

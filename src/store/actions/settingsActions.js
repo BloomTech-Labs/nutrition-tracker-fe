@@ -181,15 +181,13 @@ export const getWeightGoal = id => dispatch => {
 //Updates user's macros
 export const updateWeightGoal = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_WEIGHT_GOAL_START" });
+  console.log("OBJECT",infoObj)
   axios
     .post(`http://localhost:4000/user/${id}/weight-goal`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_WEIGHT_GOAL_SUCCESS",
-        payload: {
-          goal_weekly_weight_change_rate: res.data.goal_weekly_weight_change_rate,
-          goal_weight_kg: res.data.goal_weight_kg
-        }
+        payload: res.data
       });
     })
     .catch(err =>

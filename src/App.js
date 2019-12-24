@@ -64,7 +64,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/daily-log" component={DailyLogWithNav} />
-          <PrivateRoute path="/updateview" component={UpdateViewWithNav} />
+          <PrivateRoute path="/update-food-item" component={UpdateViewWithNav} />
           <Route path="/login" component={LoginWithNav} />
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />

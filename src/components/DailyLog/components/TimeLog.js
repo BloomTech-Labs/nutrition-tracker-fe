@@ -2,9 +2,9 @@ import React from "react";
 import { Table as BS_Table } from "reactstrap";
 import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
-import Tooltip from "react-bootstrap/Tooltip"; // Added by joe
-import OverlayTrigger from "react-bootstrap/OverlayTrigger"; // Added by joe
-import {useHistory } from "react-router-dom"; // Added by joe
+import Tooltip from "react-bootstrap/Tooltip"; 
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"; 
+import {useHistory} from "react-router-dom"; 
 
 const TimeLog = ({ dailyLog }) => {
   let history = useHistory();
@@ -27,14 +27,14 @@ const TimeLog = ({ dailyLog }) => {
                     <OverlayTrigger
                       key={i}
                       placement="top"
-                      delay={{ show: 250, hide: 400 }} // Joe need to fix the hide
+                      delay={{ show: 250, hide: 400 }} 
                       overlay={renderTooltip(log.foodName)}
                       trigger={["hover"]}
                     >
                       <tr
                         key={i}
                         onClick={() => {
-                          history.push(`/updateview/${log.foodLogID}`); //JOE WE NEED TO FIX CHANGE THIS TO 'id' WHICH IS THE FOOD_LOG_ID
+                          history.push(`/update-food-item/${log.foodLogID}`); 
                         }}
                       >
                         {log.firstGroupLog ? (

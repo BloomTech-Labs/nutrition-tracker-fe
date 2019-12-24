@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Textfit } from "react-textfit";
 import { useToasts } from "react-toast-notifications";
 import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import styled from "styled-components";
 import {
   getFoodItemForEdit,
@@ -47,7 +49,7 @@ const UpdateFoodItem = props => {
       isaLink: false,
       isAction: true,
       action: () => {
-        removeFoodItem();
+      removeWithConfirm();
       }
     }
   ];
@@ -66,6 +68,9 @@ const UpdateFoodItem = props => {
   const [quantity, setQuantity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(1);
+
+
+  const[isEnabled, setIsEnabled] = useState(false)
 
   // to populate date input
   const recordDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
@@ -113,7 +118,7 @@ const UpdateFoodItem = props => {
       });
       setTimeout(() => {
         props.history.goBack();
-      }, 2000);
+      }, 1000);
     } else if (deleted) {
       addToast("Food Item Deleted!", {
         appearance: "success",
@@ -181,8 +186,11 @@ const UpdateFoodItem = props => {
     await dispatch(resetState()); // Have to reset state for toast to work properly
   };
 
+  const removeWithConfirm = () => {
+      setIsEnabled(!isEnabled);
+  }
+
   const removeFoodItem = async () => {
-    console.log("here in the remove fucntion");
     await dispatch(deleteFoodItem(props.match.params.foodLogID, firebaseID));
     await dispatch(resetState()); // Have to reset state for toast to work properly
   };
@@ -322,6 +330,22 @@ const UpdateFoodItem = props => {
           />
         </Col>
       </Row>
+
+      <Modal show={isEnabled} onHide={()=>removeWithConfirm()} >
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete thie item?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={()=>{removeFoodItem()}} >
+          Confirm 
+          </Button>
+          <Button variant="danger" onClick={()=>removeWithConfirm()}>
+          Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 };

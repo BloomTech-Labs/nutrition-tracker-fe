@@ -25,6 +25,7 @@ const TimeLog = ({ dailyLog }) => {
                 <tbody>
                   {interval.map((log, i) => (
                     <OverlayTrigger
+                      key={i}
                       placement="top"
                       delay={{ show: 250, hide: 400 }} // Joe need to fix the hide
                       overlay={renderTooltip(log.foodName)}
@@ -33,7 +34,6 @@ const TimeLog = ({ dailyLog }) => {
                       <tr
                         key={i}
                         onClick={() => {
-                          console.log('here is the log joe',log)
                           history.push(`/updateview/${log.foodLogID}`); //JOE WE NEED TO FIX CHANGE THIS TO 'id' WHICH IS THE FOOD_LOG_ID
                         }}
                       >

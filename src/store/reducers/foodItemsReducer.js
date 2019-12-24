@@ -162,6 +162,7 @@ export const foodItemsReducer = (state = initialState, action) => {
         return {
           ...state,
           updated:false,
+          deleted: false,
           error:""
         }
 

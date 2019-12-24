@@ -21,7 +21,6 @@ import Pagination from "./components/Pagination";
 import TimeLog from "./components/TimeLog";
 import useGroupBy from "./custom hooks/useGroupBy";
 
-
 let childButtonIcons = [
   {
     icon: faAppleAlt,
@@ -87,14 +86,14 @@ const DailyLog = props => {
           currentDate={currentDate}
           updateInterval={updateInterval}
           currentTimeZone={currentTimeZone}
-        /> 
+        />
         {fetchDailyLogSuccess && (
           <TimeLog
             dailyLog={groupedDailyLog}
             path={props.match.url}
             props={props}
           />
-        )} 
+        )}
         <Row>
           <Col>
             <Flywheel

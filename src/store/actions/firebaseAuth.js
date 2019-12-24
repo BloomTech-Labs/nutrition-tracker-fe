@@ -1,5 +1,6 @@
 import axios from "axios";
 import firebase from "../../config/firebase";
+import { backendURL } from "../../config/backendURL.js";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -36,6 +37,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
         activity_level: onboardingInfo.activity_level,
         dob: onboardingInfo.dob,
         actual_weight_kg: onboardingInfo.weight_kg,
+        goal_weight_kg: onboardingInfo.target_weight_kg,
         height_cm: onboardingInfo.height_cm,
         goal_weekly_weight_change_rate: onboardingInfo.weekly_goal_rate,
         email: res.user.email
@@ -43,7 +45,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       return firebase.auth().currentUser.updateProfile({
@@ -135,15 +137,16 @@ export const googleRegister = onboardingInfo => dispatch => {
         sex: onboardingInfo.sex,
         activity_level: onboardingInfo.activity_level,
         dob: onboardingInfo.dob,
-        weight_kg: onboardingInfo.weight_kg,
+        actual_weight_kg: onboardingInfo.weight_kg,
+        goal_weight_kg: onboardingInfo.target_weight_kg,
         height_cm: onboardingInfo.height_cm,
-        weekly_goal_rate: onboardingInfo.weekly_goal_rate,
+        goal_weekly_weight_change_rate: onboardingInfo.weekly_goal_rate,
         email: res.user.email
       };
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -168,91 +171,5 @@ export const googleRegister = onboardingInfo => dispatch => {
       console.log("Credential:", credential);
       // ...
       dispatch({ type: "GOOGLE_REGISTER_FAILURE" });
-    });
-};
-
-export const facebookLogin = () => dispatch => {
-  dispatch({ type: "FACEBOOK_LOGIN_START" });
-  firebase
-    .auth()
-    .signInWithPopup(facebookProvider)
-    .then(res => {
-      // facebook login response
-      console.log("Facebook response:", res);
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = res.credential.accessToken;
-      console.log("Token:", token);
-      // The signed-in user info.
-      const user = res.user;
-      console.log("User:", user);
-      // ...
-      dispatch({ type: "FACEBOOK_LOGIN_SUCCESS" });
-    })
-    .catch(function(error) {
-      // Handle Errors here.
-      const errorCode = error.code;
-      console.log("Error code:", errorCode);
-      const errorMessage = error.message;
-      console.log("Error message:", errorMessage);
-      // The email of the user's account used.
-      const email = error.email;
-      console.log("email:", email);
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      console.log("Credential:", credential);
-      // ...
-      dispatch({ type: "FACEBOOK_LOGIN_FAILURE" });
-    });
-};
-
-export const facebookRegister = onboardingInfo => dispatch => {
-  dispatch({ type: "FACEBOOK_LOGIN_START" });
-  firebase
-    .auth()
-    .signInWithPopup(facebookProvider)
-    .then(res => {
-      // facebook login response
-      console.log("Facebook response:", res);
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = res.credential.accessToken;
-      console.log("Token:", token);
-
-      const newUser = {
-        firebase_id: res.user.uid,
-        sex: onboardingInfo.sex,
-        activity_level: onboardingInfo.activity_level,
-        dob: onboardingInfo.dob,
-        weight_kg: onboardingInfo.weight_kg,
-        height_cm: onboardingInfo.height_cm,
-        weekly_goal_rate: onboardingInfo.weekly_goal_rate,
-        email: res.user.email
-      };
-      // a commit
-      console.log("New user info:", newUser);
-      axios
-        .post("https://nutri-journal.herokuapp.com/auth/register", newUser) // { headers: auth }
-        .then(response => console.log("Response:", response))
-        .catch(err => console.log("Error:", err));
-
-      // The signed-in user info.
-      const user = res.user;
-      console.log("User:", user);
-      // ...
-      dispatch({ type: "FACEBOOK_LOGIN_SUCCESS" });
-    })
-    .catch(function(error) {
-      // Handle Errors here.
-      const errorCode = error.code;
-      console.log("Error code:", errorCode);
-      const errorMessage = error.message;
-      console.log("Error message:", errorMessage);
-      // The email of the user's account used.
-      const email = error.email;
-      console.log("email:", email);
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      console.log("Credential:", credential);
-      // ...
-      dispatch({ type: "FACEBOOK_LOGIN_FAILURE" });
     });
 };

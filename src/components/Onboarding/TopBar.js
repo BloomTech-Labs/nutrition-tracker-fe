@@ -17,11 +17,12 @@ function TopBar(props) {
         align="center"
         style={{ flex: "0 0 50px" }}
         onClick={handleClick}
+        id="goBack"
       >
         <BackSVG />
       </Col>
       <Col justify="flex-start">
-        <PageTitle>{props.title}</PageTitle>
+        <PageTitle id="pageTitle">{props.title}</PageTitle>
       </Col>
     </Row>
   );

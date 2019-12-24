@@ -19,12 +19,10 @@ const Weight = props => {
 
   const [weight, setWeight] = useState("");
 
-  // const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
-
   useEffect(() => {
     setWeight(props.data.actual_weight_lbs);
   }, [props.data.actual_weight_lbs]);
-
+  console.log("HERE I AM", weight)
   const toggle = () => setModal(!modal);
   return (
     <div>
@@ -76,7 +74,7 @@ const Weight = props => {
 // Converts height to centimeters to be returned to the DB.
 function lbsToKgs(lbs) {
   const kg = lbs * 0.45359237;
-  return { weight_kg: kg };
+  return { actual_weight_kg: kg };
 }
 
 export default Weight;

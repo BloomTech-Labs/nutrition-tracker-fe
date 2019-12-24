@@ -40,7 +40,7 @@ const Macros = props => {
         <div></div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Macronutrient Targets</ModalHeader>
+        <ModalHeader>Macronutrient Targets</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

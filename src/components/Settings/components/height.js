@@ -38,7 +38,7 @@ const Height = props => {
         </div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle} size={"lg"}>
-        <ModalHeader toggle={toggle}>Height</ModalHeader>
+        <ModalHeader>Height</ModalHeader>
         <ModalBody size="lg">
           <Form size="lg">
             <FormGroup>

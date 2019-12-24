@@ -42,7 +42,7 @@ const WeightGoal = props => {
         <div></div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Weight Goal</ModalHeader>
+        <ModalHeader>Weight Goal</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

@@ -28,7 +28,7 @@ const ActivityLevel = props => {
         <div>Activity Level</div> <div>{viewActivityLevel(activityLevel)}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Activity Level</ModalHeader>
+        <ModalHeader>Activity Level</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

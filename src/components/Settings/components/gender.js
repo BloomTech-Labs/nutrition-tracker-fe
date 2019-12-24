@@ -30,7 +30,7 @@ const Gender = props => {
         <div>{sex}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Gender</ModalHeader>
+        <ModalHeader>Gender</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

@@ -33,7 +33,7 @@ const Dob = props => {
         <div>{moment(dob).utc().format("MMM DD YY")}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>
+        <ModalHeader>Date Of Birth</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

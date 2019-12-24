@@ -68,6 +68,7 @@ export const getCurrentWeight = id => dispatch => {
 //Updates user's current weight
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
+  console.log("KNJONO:INONIOIN",infoObj)
   axios
     .post(`http://localhost:4000/user/${id}/current-weight`, infoObj)
     .then(res => {

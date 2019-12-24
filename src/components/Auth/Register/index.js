@@ -15,7 +15,7 @@ class Register extends React.Component {
     const { isLoggedIn, dob, loading } = this.props;
 
     // If user is logged in on login page redirects them to protected route
-    if (isLoggedIn) return <Redirect to="/daily-log" id="homeRedirect" />;
+    if (isLoggedIn) return <Redirect to="/" id="homeRedirect" />;
 
     // If user is logged in on login page redirects them to protected route
     if (loading) return <Loading />;
@@ -33,6 +33,7 @@ class Register extends React.Component {
       activity_level: this.props.activity_level,
       dob: this.props.dob,
       weight_kg: this.props.weight_kg,
+      target_weight_kg: this.props.target_weight_kg,
       height_cm: this.props.height_cm,
       weekly_goal_rate: this.props.weekly_goal_rate
     };
@@ -81,6 +82,7 @@ export const mapStateToProps = state => {
     activity_level: state.onboarding.activityLevel,
     dob: state.onboarding.date_of_birth,
     weight_kg: state.onboarding.weight_kg,
+    target_weight_kg: state.onboarding.target_weight_kg,
     height_cm: state.onboarding.height_cm,
     weekly_goal_rate: state.onboarding.target_rate
   };

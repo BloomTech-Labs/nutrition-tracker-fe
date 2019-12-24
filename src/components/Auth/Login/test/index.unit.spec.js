@@ -46,10 +46,11 @@ describe("<Login />", () => {
 
     // to get 100% coverage on this component, we'll test mapStateToProps
     // that means we had to export it from Login/index.js which might be code smell...
-    expect(mapStateToProps(initialState)).toStrictEqual({ isLoggedIn: false });
+    expect(mapStateToProps(initialState)).toStrictEqual({ isLoggedIn: false, loading: undefined });
 
     // when loggedIn is true, only this <Redirect /> component is rendered
-    expect(wrapper.find("Redirect")).toHaveLength(1);
+    //expect(wrapper.find("Redirect")).toHaveLength(1);
+    _doesThisRender_(wrapper, ["Redirect"]);
 
     // begin tests of condition when loggedIn is false
     wrapper = mount(

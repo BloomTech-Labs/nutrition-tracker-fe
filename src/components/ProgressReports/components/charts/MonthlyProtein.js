@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
-const CarbsProgress = ({ carbs }) => {
+export default function MonthlyProtein({ protein }) {
   const dynamicDate = x =>
     moment()
       .subtract(x, "days")
@@ -10,26 +10,30 @@ const CarbsProgress = ({ carbs }) => {
   const data = () => {
     return {
       labels: [
+        `${dynamicDate(30)}`,
+        `${dynamicDate(27)}`,
+        `${dynamicDate(24)}`,
+        `${dynamicDate(21)}`,
+        `${dynamicDate(18)}`,
+        `${dynamicDate(15)}`,
+        `${dynamicDate(12)}`,
+        `${dynamicDate(9)}`,
         `${dynamicDate(6)}`,
-        `${dynamicDate(5)}`,
-        `${dynamicDate(4)}`,
         `${dynamicDate(3)}`,
-        `${dynamicDate(2)}`,
-        `${dynamicDate(1)}`,
         `${dynamicDate(0)}`
       ],
       datasets: [
         {
-          label: "Actual Carbs",
-          data: carbs,
+          label: "Actual Protein",
+          data: protein,
           fill: false,
-          borderColor: "#829BB6",
-          pointBackgroundColor: "#A1BFDF"
+          borderColor: "#A68588",
+          pointBackgroundColor: "#F5C6CB"
           // borderWidth: 1
         },
         {
-          label: "Target Carbs",
-          data: [10, 10, 10, 10, 10, 10, 10],
+          label: "Target Protein",
+          data: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
           fill: false,
           borderColor: "#444",
           pointBackgroundColor: "gray"
@@ -44,8 +48,8 @@ const CarbsProgress = ({ carbs }) => {
       yAxes: [
         {
           ticks: {
-            min: 5,
-            max: 25
+            min: 10,
+            max: 35
           }
         }
       ]
@@ -53,6 +57,4 @@ const CarbsProgress = ({ carbs }) => {
   };
 
   return <Line data={data} options={options} />;
-};
-
-export default CarbsProgress;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
-const ProteinProgress = ({ protein }) => {
+const BiannualProtein = ({ protein }) => {
   const dynamicDate = x =>
     moment()
       .subtract(x, "days")
@@ -10,12 +10,12 @@ const ProteinProgress = ({ protein }) => {
   const data = () => {
     return {
       labels: [
-        `${dynamicDate(6)}`,
-        `${dynamicDate(5)}`,
-        `${dynamicDate(4)}`,
-        `${dynamicDate(3)}`,
-        `${dynamicDate(2)}`,
-        `${dynamicDate(1)}`,
+        `${dynamicDate(180)}`,
+        `${dynamicDate(150)}`,
+        `${dynamicDate(120)}`,
+        `${dynamicDate(90)}`,
+        `${dynamicDate(60)}`,
+        `${dynamicDate(30)}`,
         `${dynamicDate(0)}`
       ],
       datasets: [
@@ -55,4 +55,4 @@ const ProteinProgress = ({ protein }) => {
   return <Line data={data} options={options} />;
 };
 
-export default ProteinProgress;
+export default BiannualProtein;

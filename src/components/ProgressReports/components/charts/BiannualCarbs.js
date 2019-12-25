@@ -2,7 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 
-const FatsProgress = ({ fats }) => {
+const BiannualCarbs = ({ carbs }) => {
   const dynamicDate = x =>
     moment()
       .subtract(x, "days")
@@ -10,26 +10,26 @@ const FatsProgress = ({ fats }) => {
   const data = () => {
     return {
       labels: [
-        `${dynamicDate(6)}`,
-        `${dynamicDate(5)}`,
-        `${dynamicDate(4)}`,
-        `${dynamicDate(3)}`,
-        `${dynamicDate(2)}`,
-        `${dynamicDate(1)}`,
+        `${dynamicDate(180)}`,
+        `${dynamicDate(150)}`,
+        `${dynamicDate(120)}`,
+        `${dynamicDate(90)}`,
+        `${dynamicDate(60)}`,
+        `${dynamicDate(30)}`,
         `${dynamicDate(0)}`
       ],
       datasets: [
         {
-          label: "Actual Fats",
-          data: fats,
+          label: "Actual Carbs",
+          data: carbs,
           fill: false,
-          borderColor: "#E4D099",
-          pointBackgroundColor: "#FFE9AD"
+          borderColor: "#829BB6",
+          pointBackgroundColor: "#A1BFDF"
           // borderWidth: 1
         },
         {
-          label: "Target Fats",
-          data: [70, 70, 70, 70, 70, 70, 70],
+          label: "Target Carbs",
+          data: [10, 10, 10, 10, 10, 10, 10],
           fill: false,
           borderColor: "#444",
           pointBackgroundColor: "gray"
@@ -44,8 +44,8 @@ const FatsProgress = ({ fats }) => {
       yAxes: [
         {
           ticks: {
-            min: 55,
-            max: 80
+            min: 5,
+            max: 25
           }
         }
       ]
@@ -55,4 +55,4 @@ const FatsProgress = ({ fats }) => {
   return <Line data={data} options={options} />;
 };
 
-export default FatsProgress;
+export default BiannualCarbs;

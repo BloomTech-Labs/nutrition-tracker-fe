@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendURL } from "../../config/backendURL.js";
 
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
@@ -22,17 +23,13 @@ export const DELETE_FOOD_ITEM_START = "DELETE_FOOD_ITEM_START";
 export const DELETE_FOOD_ITEM_SUCCESS = "DELETE_FOOD_ITEM_SUCCESS";
 export const DELETE_FOOD_ITEM_FAILURE = "DELETE_FOOD_ITEM_FAILURE";
 export const RESET_STATE = "RESET_STATE";
-const dev = true ; 
-const BASE_URL = dev
-  ? "http://localhost:4000"
-  : "https://nutri-journal.herokuapp.com";
 
 export const searchFoodItems = search_term => dispatch => {
   console.log(search_term);
   if (search_term !== "" || search_term.length !== 0) {
     dispatch({ type: FETCH_START });
     return axios
-      .get(`${BASE_URL}/fatsecret/search-food/${search_term}`)
+      .get(`${backendURL}/fatsecret/search-food/${search_term}`)
       .then(response => {
         dispatch({ type: FETCH_SUCCESS, payload: response.data });
         return true;
@@ -49,7 +46,7 @@ export const searchFoodItems = search_term => dispatch => {
 export const getOneFoodItem = food_id => dispatch => {
   dispatch({ type: FETCH_GET_ONE_START });
   return axios
-    .get(`${BASE_URL}/fatsecret/get-food/${food_id}`)
+    .get(`${backendURL}/fatsecret/get-food/${food_id}`)
     .then(response => {
       dispatch({ type: FETCH_GET_ONE_SUCCESS, payload: response.data });
       return true;
@@ -63,7 +60,7 @@ export const getOneFoodItem = food_id => dispatch => {
 export const addFoodItem = (foodLog, firebaseID) => dispatch => {
   dispatch({ type: POST_FOOD_START });
   return axios
-    .post(`${BASE_URL}/log-entry/${firebaseID}`, foodLog)
+    .post(`${backendURL}/log-entry/${firebaseID}`, foodLog)
     .then(response => {
       dispatch({ type: POST_FOOD_SUCCESS, payload: response.data });
     })
@@ -75,7 +72,7 @@ export const addFoodItem = (foodLog, firebaseID) => dispatch => {
 export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
   dispatch({ type: GET_FOOD_ITEM_FOR_EDIT_START });
   return axios
-    .get(`${BASE_URL}/food-item/getfooditem/${foodLogID}/user/${user_id}`)
+    .get(`${backendURL}/food-item/getfooditem/${foodLogID}/user/${user_id}`)
     .then(response => {
       dispatch({
         type: GET_FOOD_ITEM_FOR_EDIT_SUCCESS,
@@ -91,7 +88,7 @@ export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
   dispatch({ type: UPDATE_FOOD_ITEM_START });
   return axios
     .put(
-      `${BASE_URL}/food-item/updatefooditem/${foodLogID}/user/${user_id}`,
+      `${backendURL}/food-item/updatefooditem/${foodLogID}/user/${user_id}`,
       foodItem
     )
     .then(response => {
@@ -109,7 +106,7 @@ export const resetState = () => dispatch => {
 export const deleteFoodItem = (foodLogID, user_id) => dispatch => {
   dispatch({ type: DELETE_FOOD_ITEM_START });
   return axios
-    .delete(`${BASE_URL}/food-item/deletefooditem/${foodLogID}/user/${user_id}`)
+    .delete(`${backendURL}/food-item/deletefooditem/${foodLogID}/user/${user_id}`)
     .then(response => {
       dispatch({ type: DELETE_FOOD_ITEM_SUCCESS });
     })

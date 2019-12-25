@@ -137,4 +137,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { WeightGoal };
 export default connect(mapStateToProps, { updateWeightGoal })(WeightGoal);

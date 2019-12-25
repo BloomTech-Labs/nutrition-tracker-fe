@@ -27,10 +27,7 @@ class FoodItem extends React.Component {
         <Route
           path={`${path}/view/:fatsecret_food_id`}
           render={props => (
-            <FoodDetails
-              isLoading={this.props.isFetching}
-              {...props}
-            />
+            <FoodDetails isLoading={this.props.isFetching} {...props} />
           )}
         />
       </Container>

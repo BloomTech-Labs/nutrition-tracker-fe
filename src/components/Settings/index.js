@@ -68,11 +68,9 @@ class Settings extends React.Component {
   };
 
   render() {
-    const { loading, token } = this.props;
+    const { token } = this.props;
 
-    if (loading) return <Loading />;
-
-    if (!token) return <Redirect to="/"/>;
+    if (!token) return <Redirect to="/" />;
 
     return (
       <Container fluid style={{ padding: 0 }} height={this.props.height}>

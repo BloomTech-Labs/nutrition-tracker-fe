@@ -1,10 +1,9 @@
 import axios from "axios";
 import firebase from "../../config/firebase";
+import { backendURL } from "../../config/backendURL.js";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
-const dev = true ;
-const BASE_URL = dev? "http://localhost:4000" : "https://nutri-journal.herokuapp.com";
 
 export const login = (email, password) => dispatch => {
   dispatch({ type: "LOGIN_START" });
@@ -46,7 +45,7 @@ export const register = (name, email, password, onboardingInfo) => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       return firebase.auth().currentUser.updateProfile({
@@ -138,15 +137,16 @@ export const googleRegister = onboardingInfo => dispatch => {
         sex: onboardingInfo.sex,
         activity_level: onboardingInfo.activity_level,
         dob: onboardingInfo.dob,
-        weight_kg: onboardingInfo.weight_kg,
+        actual_weight_kg: onboardingInfo.weight_kg,
+        goal_weight_kg: onboardingInfo.target_weight_kg,
         height_cm: onboardingInfo.height_cm,
-        weekly_goal_rate: onboardingInfo.weekly_goal_rate,
+        goal_weekly_weight_change_rate: onboardingInfo.weekly_goal_rate,
         email: res.user.email
       };
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
       // The signed-in user info.
@@ -233,7 +233,7 @@ export const facebookRegister = onboardingInfo => dispatch => {
       // a commit
       console.log("New user info:", newUser);
       axios
-        .post(`${BASE_URL}/auth/register`, newUser) // { headers: auth }
+        .post(`${backendURL}/auth/register`, newUser) // { headers: auth }
         .then(response => console.log("Response:", response))
         .catch(err => console.log("Error:", err));
 

@@ -6,8 +6,10 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger"; 
 import {useHistory} from "react-router-dom"; 
 
+
 const TimeLog = ({ dailyLog }) => {
   let history = useHistory();
+
   return (
     <div>
       {dailyLog.length === 0 && (
@@ -26,12 +28,12 @@ const TimeLog = ({ dailyLog }) => {
                   {interval.map((log, i) => (
                     <OverlayTrigger
                       key={i}
-                      placement="top"
+                      placement="top" 
                       delay={{ show: 250, hide: 400 }} 
                       overlay={renderTooltip(log.foodName)}
-                      trigger={["hover"]}
+                      trigger={"hover"}
                     >
-                      <tr
+                      <tr        
                         key={i}
                         onClick={() => {
                           history.push(`/update-food-item/${log.foodLogID}`); 
@@ -71,8 +73,9 @@ const TimeLog = ({ dailyLog }) => {
   );
 };
 
-const renderTooltip = props => {
-  return <Tooltip {...props}>{`Edit ${props}`}</Tooltip>;
+
+const renderTooltip = (props) => {
+  return  <Tooltip >{`Edit ${props}`}</Tooltip>;
 };
 
 const Table = styled(BS_Table)`

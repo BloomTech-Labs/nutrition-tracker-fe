@@ -37,7 +37,7 @@ const ActivityLevel = props => {
       </Row>
       <Row>
         <Col>
-          <PillButton onClick={() => handleClick(1.2)} outline color="primary">
+          <PillButton id="sedentaryButton" onClick={() => handleClick(1.2)} outline color="primary">
             Sedentary
           </PillButton>
         </Col>
@@ -45,6 +45,7 @@ const ActivityLevel = props => {
       <Row>
         <Col>
           <PillButton
+            id="lightButton"
             onClick={() => handleClick(1.375)}
             outline
             color="primary"
@@ -55,7 +56,7 @@ const ActivityLevel = props => {
       </Row>
       <Row>
         <Col>
-          <PillButton onClick={() => handleClick(1.55)} outline color="primary">
+          <PillButton id="moderateButton" onClick={() => handleClick(1.55)} outline color="primary">
             Moderate
           </PillButton>
         </Col>
@@ -63,6 +64,7 @@ const ActivityLevel = props => {
       <Row>
         <Col>
           <PillButton
+            id="veryButton"
             onClick={() => handleClick(1.725)}
             outline
             color="primary"
@@ -73,7 +75,7 @@ const ActivityLevel = props => {
       </Row>
       <Row>
         <Col>
-          <PillButton onClick={() => handleClick(1.9)} outline color="primary">
+          <PillButton id="extraButton" onClick={() => handleClick(1.9)} outline color="primary">
             Extra
           </PillButton>
         </Col>

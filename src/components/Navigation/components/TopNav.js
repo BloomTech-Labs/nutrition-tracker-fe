@@ -23,7 +23,7 @@ const TopNav = props => {
   return (
     <NavContainer displayNav={displayNav}>
       <Navbar topnavcolor={topNavColor}>
-        <Button buttoncolor={buttonColor} onClick={() => history.goBack()}>
+        <Button buttoncolor={buttonColor} onClick={() => history.goBack()} id="backButton">
           <BackSVG fill={iconColor} />
         </Button>
         <NavbarBrand titlecolor={titleColor}>
@@ -58,4 +58,5 @@ const NavbarBrand = styled(BS_NavbarBrand)`
   font-size: 1.6rem;
 `;
 
+export { TopNav };
 export default withRouter(TopNav);

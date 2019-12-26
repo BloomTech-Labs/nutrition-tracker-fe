@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import decoderFile from "./decoder.js";
+import React, { useEffect, useRef, useState } from "react";
+//import decoderFile from "./decoder.js";
+import Quagga from "quagga"; // Barcode Decoder! https://github.com/serratus/quaggaJS
+
 
 //import QRReader from "./qrscan";
 
@@ -13,15 +15,17 @@ window.isMediaStreamAPISupported =
   "enumerateDevices" in navigator.mediaDevices;
 window.noCameraPermission = false;
 
+let decoder = {};
+
 // helps us set up our web worker, which we'll use to communicate with the compiled decoder file
 // https://github.com/fullstackio/awesome-fullstack-tutorials/blob/master/react/guide-to-web-workers-in-react/react-worker/src/worker.js
-class WebWorker {
+/*class WebWorker {
     constructor(worker) {
       const code = worker.toString();
       const blob = new Blob(["(" + code + ")()"]);
       return new Worker(URL.createObjectURL(blob));
     }
-  }
+  }*/
 
 const Scanner = () => {
   window.isMediaStreamAPISupported =
@@ -35,8 +39,52 @@ const Scanner = () => {
   let QRActive = false;
   let canvas = null,
         ctx = null;
-  const decoder = new WebWorker(decoderFile);
+  //const decoder = new WebWorker(decoderFile);
 
+  let [ quaggaResult, setQuaggaResult ]  = useState("");
+  useEffect(()=>{
+    const quaggaInit = () => {
+        Quagga.init({
+            inputStream : {
+            name : "Live",
+            type : "LiveStream",
+            target: webcamRef.current   // Or '#yourElement' (optional)
+            },
+            decoder : {
+            readers : ["upc_reader", "ean_8_reader"]
+            },
+            multiple: false,
+            debug: {
+                drawBoundingBox: true,
+                showFrequency: true,
+                drawScanline: true,
+                showPattern: true
+            }
+        }, function(err) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            console.log("Initialization finished. Ready to start");
+            Quagga.start();
+        });
+    };
+
+    Quagga.onProcessed((data)=>{
+        if(data) console.log("Quagga deets", data);
+    });
+
+    Quagga.onDetected((data)=>{
+        if(data){
+            console.log("Quagga detection", data);
+            if(data.codeResult.code) {
+                setQuaggaResult(data.codeResult.code);
+                Quagga.stop(); // found a possible result, stop processing images for now
+            };
+        };
+    });
+    quaggaInit();
+},[]);
 
   function showErrorMsg() {
     window.noCameraPermission = true;
@@ -47,6 +95,7 @@ const Scanner = () => {
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then(function(stream) {
+        //quaggaInit();
         webcamRef.current.srcObject = stream;
         //webcamRef.current.setAttribute("controls", true);
         console.log("heyo", webcamRef.current);
@@ -189,9 +238,9 @@ const Scanner = () => {
         <div className="app-dialog app-dialog-hide">
           <div className="app-dialog-content">
             <h2>QR Code</h2>
-            <input type="text" id="result" />
+            <input type="text" id="result" value={quaggaResult}/>
           </div>
-          <div cassName="app-dialog-actions">
+          <div className="app-dialog-actions">
             <button className="app-dialog-open">Open</button>
             <button className="app-dialog-close">Close</button>
           </div>

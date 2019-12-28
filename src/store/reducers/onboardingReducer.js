@@ -6,7 +6,7 @@ import {
   UPDATE_WEIGHT_GOAL
 } from "../actions/onboardingActions";
 
-const initialState = {
+export const initialState = {
   daily_goal: "",
   sex: "",
   weight_kg: 0,

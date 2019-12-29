@@ -20,6 +20,7 @@ const lastWeek = moment
   .utc()
   .format();
 
+// initializes initialState to the period of last week
 const initialState = {
   time_zone: tzAbbreviation,
   start_date: lastWeek,

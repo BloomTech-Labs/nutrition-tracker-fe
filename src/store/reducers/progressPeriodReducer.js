@@ -9,13 +9,23 @@ import {
 const currentTimeZone = moment.tz.guess();
 const tzAbbreviation = moment.tz(currentTimeZone).format("z");
 
+const today = moment
+  .tz(currentTimeZone)
+  .utc()
+  .format();
+
+const lastWeek = moment
+  .tz(currentTimeZone)
+  .subtract(1, "weeks")
+  .utc()
+  .format();
+
+// initializes initialState to the period of last week
 const initialState = {
   time_zone: tzAbbreviation,
-  start_date: null,
-  end_date: moment
-    .tz(currentTimeZone)
-    .utc()
-    .format()
+  start_date: lastWeek,
+  end_date: today,
+  period: "weekly"
 };
 
 export const progressPeriodReducer = (state = initialState, action) => {
@@ -23,37 +33,45 @@ export const progressPeriodReducer = (state = initialState, action) => {
     case SET_TIME_PERIOD_WEEKLY:
       return {
         ...state,
-        start_date: moment(state.end_date)
-          .subtract(7, "days")
+        start_date: moment
+          .tz(currentTimeZone)
+          .subtract(1, "weeks")
           .utc()
-          .format()
+          .format(),
+        period: "weekly"
       };
 
     case SET_TIME_PERIOD_MONTLY:
       return {
         ...state,
-        start_date: moment(state.end_date)
+        start_date: moment
+          .tz(currentTimeZone)
           .subtract(1, "months")
           .utc()
-          .format()
+          .format(),
+        period: "monthly"
       };
 
     case SET_TIME_PERIOD_QUARTERLY:
       return {
         ...state,
-        start_date: moment(state.end_date)
+        start_date: moment
+          .tz(currentTimeZone)
           .subtract(3, "months")
           .utc()
-          .format()
+          .format(),
+        period: "quarterly"
       };
 
     case SET_TIME_PERIOD_BIANNUAL:
       return {
         ...state,
-        start_date: moment(state.end_date)
+        start_date: moment
+          .tz(currentTimeZone)
           .subtract(6, "months")
           .utc()
-          .format()
+          .format(),
+        period: "biannual"
       };
 
     default:

@@ -68,6 +68,8 @@ const UpdateFoodItem = props => {
   const [quantity, setQuantity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(1);
+  const [servingArray, setServingArray] = useState([]);
+  const [servingType, setServingType] = useState("");
 
   const [isEnabled, setIsEnabled] = useState(false);
 
@@ -96,6 +98,8 @@ const UpdateFoodItem = props => {
 
   useEffect(() => {
     setQuantity(item.quantity);
+    setServingArray(item.servingArrayData);
+    setServingType(item.serving_desc); 
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD"));
     setTime(moment(item.time_consumed_at).format("HH:mm"));
   }, [item]);
@@ -129,7 +133,8 @@ const UpdateFoodItem = props => {
   };
 
   const handleSelect = key => {
-    setDropDownSelectionIndex(key);
+    return (setDropDownSelectionIndex(key),
+    setServingType(servingArray[key].serving_desc))
   };
 
   const addedMacros = () => {
@@ -279,9 +284,15 @@ const UpdateFoodItem = props => {
                 borderColor: "#CED4DA"
               }}
             >
-              {item && foodSelection.serving_desc}
+              {item && servingType}
             </DropdownToggle>
-            <DropdownMenu></DropdownMenu>
+            <DropdownMenu>
+              {servingArray !== undefined ? servingArray.map((serving, key) => (
+                <DropdownItem key={key} onClick={() => handleSelect(key)}>
+                  {serving.serving_desc}
+                </DropdownItem>
+              )): null}
+            </DropdownMenu>
           </ButtonDropdown>
         </Col>
       </Row>
@@ -329,9 +340,8 @@ const UpdateFoodItem = props => {
         <Modal.Footer>
           <Button
             variant="primary"
-            onClick={() => {return(
-              removeWithConfirm(),
-              removeFoodItem());
+            onClick={() => {
+              return removeWithConfirm(), removeFoodItem();
             }}
           >
             Confirm

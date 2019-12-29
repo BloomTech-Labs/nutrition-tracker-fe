@@ -1,5 +1,6 @@
 import classnames from "classnames";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button as BS_Button,
   ButtonGroup as BS_ButtonGroup,
@@ -10,12 +11,19 @@ import {
   TabPane
 } from "reactstrap";
 import styled from "styled-components";
+import {
+  setProgressPeriodBiannual,
+  setProgressPeriodMonthly,
+  setProgressPeriodQuarterly,
+  setProgressPeriodWeekly
+} from "../../store/actions/progressPeriodActions";
 import { Col, Container, H3, H4, Row } from "../Global/styled";
 import theme from "../Global/theme";
 import Macros from "./components/Macros";
 import Overview from "./components/Overview";
 
 const ProgressReports = props => {
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("1");
 
   const toggle = tab => {
@@ -57,16 +65,16 @@ const ProgressReports = props => {
       <Row>
         <Col justify="center">
           <ButtonGroup size="lg" className="fixed-bottom">
-            <Button>
+            <Button onClick={() => dispatch(setProgressPeriodWeekly())}>
               <ButtonLabel>Past Week</ButtonLabel>
             </Button>
-            <Button>
+            <Button onClick={() => dispatch(setProgressPeriodMonthly())}>
               <ButtonLabel>Past Month</ButtonLabel>
             </Button>
-            <Button>
+            <Button onClick={() => dispatch(setProgressPeriodQuarterly())}>
               <ButtonLabel>Past 3 Months</ButtonLabel>
             </Button>
-            <Button>
+            <Button onClick={() => dispatch(setProgressPeriodBiannual())}>
               <ButtonLabel>Past 6 Months</ButtonLabel>
             </Button>
           </ButtonGroup>

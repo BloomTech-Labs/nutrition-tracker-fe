@@ -35,7 +35,7 @@ export const progressPeriodReducer = (state = initialState, action) => {
         ...state,
         start_date: moment
           .tz(currentTimeZone)
-          .subtract(7, "days")
+          .subtract(1, "weeks")
           .utc()
           .format(),
         period: "weekly"

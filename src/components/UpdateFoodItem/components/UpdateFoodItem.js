@@ -149,7 +149,7 @@ const UpdateFoodItem = props => {
   };
 
   const addedMacros = () => {
-   
+   if(quantity !== item.quantity) {
     const addedfatGrams = Number(fat_g) * quantity;
     const addedCarbGrams = Number(carbs_g) * quantity;
     const addedProteinGrams = Number(protein_g) * quantity;
@@ -159,6 +159,9 @@ const UpdateFoodItem = props => {
       carbs: Math.round(100 * addedCarbGrams) / 100,
       protein: Math.round(100 * addedProteinGrams) / 100
     }
+  }else{
+    return null;
+  }
  
   };
 

@@ -10,10 +10,11 @@ import {
   TabPane
 } from "reactstrap";
 import styled from "styled-components";
-import { Col, Container, H3, H4, Row } from "../Global/styled";
+import { Col, Container, H3, H4, Row, Linkton } from "../Global/styled";
 import theme from "../Global/theme";
 import Macros from "./components/Macros";
 import Overview from "./components/Overview";
+import { Link } from "react-router-dom";
 
 const ProgressReports = props => {
   const [activeTab, setActiveTab] = useState("1");
@@ -57,16 +58,16 @@ const ProgressReports = props => {
       <Row>
         <Col justify="center">
           <ButtonGroup size="lg" className="fixed-bottom">
-            <Button>
+            <Button to="/progress-reports/weekly">
               <ButtonLabel>Past Week</ButtonLabel>
             </Button>
-            <Button>
+            <Button to="/progress-reports/monthly">
               <ButtonLabel>Past Month</ButtonLabel>
             </Button>
-            <Button>
+            <Button to="/progress-reports/quarterly">
               <ButtonLabel>Past 3 Months</ButtonLabel>
             </Button>
-            <Button>
+            <Button to="/progress-reports/biannual">
               <ButtonLabel>Past 6 Months</ButtonLabel>
             </Button>
           </ButtonGroup>
@@ -97,7 +98,7 @@ const ButtonGroup = styled(BS_ButtonGroup)`
   left: 15px;
 `;
 
-const Button = styled(BS_Button)`
+const Button = styled(Linkton)`
   background-color: ${theme.color.light};
   color: black;
 `;

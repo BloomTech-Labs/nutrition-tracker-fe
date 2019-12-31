@@ -14,3 +14,4 @@ export { default as TBody } from "./components/TableBody";
 export { default as Form } from "./components/Form";
 export { default as SlideBar } from "./components/SlideBar";
 export { default as InputGroupWithIcon } from "./components/InputGroupWithIcon";
+export { default as Linkton } from "./components/Linkton";

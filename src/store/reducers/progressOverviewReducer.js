@@ -5,20 +5,19 @@ import {
 } from "../actions/progressOverviewActions";
 
 const initialState = {
-  actualWeights: [],
-  goalWeights: [],
+  weightsOverTime: [],
   getWeightProgressStart: false,
   getWeightProgressSuccess: false,
   getWeightProgressFailure: false
 };
 
 export const progressOverviewReducer = (state = initialState, action) => {
+  const { weightsOverTime } = action.payload ? action.payload : initialState;
+
   switch (action.type) {
     case GET_WEIGHT_PROGRESS_START: {
       return {
-        ...state,
-        actualWeights: true,
-        goalWeights: false,
+        weightsOverTime,
         getWeightProgressStart: true,
         getWeightProgressSuccess: false,
         getWeightProgressFailure: false
@@ -27,9 +26,7 @@ export const progressOverviewReducer = (state = initialState, action) => {
 
     case GET_WEIGHT_PROGRESS_SUCCESS: {
       return {
-        ...state,
-        actualWeights: true,
-        goalWeights: false,
+        weightsOverTime,
         getWeightProgressStart: false,
         getWeightProgressSuccess: true,
         getWeightProgressFailure: false
@@ -38,9 +35,7 @@ export const progressOverviewReducer = (state = initialState, action) => {
 
     case GET_WEIGHT_PROGRESS_FAILURE: {
       return {
-        ...state,
-        actualWeights: true,
-        goalWeights: false,
+        weightsOverTime,
         getWeightProgressStart: false,
         getWeightProgressSuccess: false,
         getWeightProgressFailure: true

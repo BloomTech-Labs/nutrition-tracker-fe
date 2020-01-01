@@ -9,11 +9,12 @@ export const getWeightProgress = (
   user_id,
   time_zone,
   start_date,
-  end_date
+  end_date,
+  period
 ) => dispatch => {
   dispatch({ type: GET_WEIGHT_PROGRESS_START });
   axios
-    .get(`${backendURL}/user/${user_id}`, {
+    .post(`${backendURL}/progress-reports/${user_id}/weight/${period}`, {
       time_zone,
       start_date,
       end_date
@@ -22,8 +23,7 @@ export const getWeightProgress = (
       dispatch({
         type: GET_WEIGHT_PROGRESS_SUCCESS,
         payload: {
-          actualWeights: data.actualWeights,
-          goalWeights: data.goalWeights
+          weightsOverTime: data.weightsOverTime
         }
       });
     })

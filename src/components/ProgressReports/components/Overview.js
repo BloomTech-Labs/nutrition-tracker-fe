@@ -1,16 +1,16 @@
 import React from "react";
-import {Col, Row} from "../../Global/styled";
+import { Col, Row } from "../../Global/styled";
 import MacroProgress from "./charts/MacroProgress";
 import WeightProgress from "./charts/WeightProgress";
 
 const Overview = () => {
   return (
     <>
-      <Row>
+      {/* <Row>
         <Col>
           <MacroProgress />
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col>
           <WeightProgress />

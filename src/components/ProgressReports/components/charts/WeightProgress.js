@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { getWeightProgress } from "../../../../store/actions/progressOverviewActions";
 import useConfigChart from "../custom-hooks/useConfigChart";
 
-const WeightProgress = () => {
-  const dispatch = useDispatch();
-  // variable is true when the user's firebase profile is loaded
-  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
-  const progressPeriod = useSelector(state => state.progressPeriod);
-
+const WeightProgress = weightsOverTime => {
   const {
-    weightsOverTime,
     getWeightProgressStart,
     getWeightProgressSuccess,
     getWeightProgressFailure
@@ -22,21 +15,6 @@ const WeightProgress = () => {
   const { data, options, chartConfigured } = useConfigChart({
     weightsOverTime
   });
-
-  useEffect(() => {
-    if (isLoaded) {
-      const { time_zone, start_date, end_date, period } = progressPeriod;
-      dispatch(
-        getWeightProgress(
-          /*firebaseID*/ "dave",
-          time_zone,
-          start_date,
-          end_date,
-          period
-        )
-      );
-    }
-  }, [isLoaded, progressPeriod, dispatch]);
 
   return (
     <ChartWrapper>

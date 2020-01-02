@@ -56,13 +56,13 @@ const useConfigChart = () => {
       };
 
       const options = {
+        legend: {
+          position: "bottom",
+          fullWidth: true
+        },
         scales: {
           yAxes: [
             {
-              scaleLabel: {
-                display: true,
-                labelString: "lbs."
-              },
               ticks: {
                 min: 168,
                 max: 184

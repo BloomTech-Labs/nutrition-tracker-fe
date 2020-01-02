@@ -35,6 +35,8 @@ let childButtonIcons = [
 const currentTimeZone = moment.tz.guess();
 
 const DailyLog = props => {
+  const dispatch = useDispatch();
+
   const {
     budgets,
     consumed,
@@ -43,19 +45,16 @@ const DailyLog = props => {
     currentDate
   } = useSelector(state => state.dailyLog);
 
-  const dispatch = useDispatch();
+  const [interval, setInterval] = useState(30);
+  const groupedDailyLog = useGroupBy(interval, dailyLog);
 
   const firebaseID = useSelector(state => state.firebase.auth.uid);
   const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
 
-  const [interval, setInterval] = useState(30);
-
-  const groupedDailyLog = useGroupBy(interval, dailyLog);
-
   useEffect(() => {
     if (isLoaded)
       dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
-  }, [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]);
+  }, [isLoaded, firebaseID, currentDate, currentTimeZone, dispatch]);
 
   useEffect(() => {
     if (isLoaded) dispatch(updateCurrentTimeZone(currentTimeZone));

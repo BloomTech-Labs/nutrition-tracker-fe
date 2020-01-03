@@ -7,6 +7,7 @@ import {
   faUtensils,
   faWeight
 } from "@fortawesome/free-solid-svg-icons";
+import { useFetchByDispatch } from "../../custom-hooks/useFetchByDispatch";
 import {
   fetchDailyLog,
   updateCurrentTimeZone
@@ -44,21 +45,18 @@ const DailyLog = props => {
     fetchDailyLogSuccess,
     currentDate
   } = useSelector(state => state.dailyLog);
+  const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [interval, setInterval] = useState(30);
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  const firebaseID = useSelector(state => state.firebase.auth.uid);
-  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
+  useFetchByDispatch(fetchDailyLog, {
+    firebaseID,
+    currentDate,
+    currentTimeZone
+  });
 
-  useEffect(() => {
-    if (isLoaded)
-      dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
-  }, [isLoaded, firebaseID, currentDate, currentTimeZone, dispatch]);
-
-  useEffect(() => {
-    if (isLoaded) dispatch(updateCurrentTimeZone(currentTimeZone));
-  }, [isLoaded, currentTimeZone, dispatch]);
+  useFetchByDispatch(updateCurrentTimeZone, { currentTimeZone });
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));

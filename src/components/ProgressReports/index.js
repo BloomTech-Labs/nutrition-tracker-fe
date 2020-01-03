@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Button as BS_Button,
   ButtonGroup as BS_ButtonGroup,

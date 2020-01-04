@@ -2,17 +2,18 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 
-import WeeklyMacros from "./macro-views/WeeklyMacros";
-import MonthlyMacros from "./macro-views/MonthlyMacros";
-import QuarterlyMacros from "./macro-views/QuarterlyMacros";
-import BiannualMacros from "./macro-views/BiannualMacros";
+// import WeeklyMacros from "./macro-views/WeeklyMacros";
+// import MonthlyMacros from "./macro-views/MonthlyMacros";
+// import QuarterlyMacros from "./macro-views/QuarterlyMacros";
+// import BiannualMacros from "./macro-views/BiannualMacros";
+import MacroProgressView from "./macro-views";
 
 import styled from "styled-components";
 
 const Macros = () => {
   return (
     <MacroWrapper>
-      <Switch>
+      {/* <Switch>
         <Route
           exact
           path="/progress-reports/:period"
@@ -21,7 +22,8 @@ const Macros = () => {
         <Route path="/progress-reports/:period" component={MonthlyMacros} />
         <Route path="/progress-reports/:period" component={QuarterlyMacros} />
         <Route path="/progress-reports/:period" component={BiannualMacros} />
-      </Switch>
+      </Switch> */}
+      <MacroProgressView />
     </MacroWrapper>
   );
 };

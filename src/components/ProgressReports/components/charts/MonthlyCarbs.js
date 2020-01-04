@@ -33,7 +33,7 @@ export default function MonthlyCarbs({ carbs }) {
         },
         {
           label: "Target Carbs",
-          data: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+          data: [10, 10, 10, 10, null, 10, 10, 10, 10, 10, 10],
           fill: false,
           borderColor: "#444",
           pointBackgroundColor: "gray"

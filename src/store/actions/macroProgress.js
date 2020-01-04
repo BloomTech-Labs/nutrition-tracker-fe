@@ -16,7 +16,7 @@ export const WEEKLY_MACRO_PROGRESS_START = "WEEKLY_MACRO_PROGRESS_START",
 export const getWeeklyMacroProgress = user_id => dispatch => {
   dispatch({ type: WEEKLY_MACRO_PROGRESS_START });
   axios
-    .get(`http://localhost:4000/progress/weekly-actuals/${user_id}`)
+    .get(`http://localhost:4000/progress/${user_id}`)
     .then(res =>
       dispatch({ type: WEEKLY_MACRO_PROGRESS_SUCCESS, payload: res.data })
     )

@@ -6,6 +6,7 @@ import { flywheelReducer } from "./flywheelReducer";
 import { foodItemsReducer } from "./foodItemsReducer";
 // import { firestoreReducer } from "redux-firestore";
 import { onboardingReducer } from "./onboardingReducer";
+import { progressPeriodReducer } from "./progressPeriodReducer";
 import { updateUserInfo } from "./settingsReducer";
 import { macroProgressReducer } from "./macroProgress";
 
@@ -18,5 +19,6 @@ export default combineReducers({
   auth: firebaseAuth,
   updateUserInfo: updateUserInfo,
   flywheel: flywheelReducer,
-  macroProgress: macroProgressReducer
+  macroProgress: macroProgressReducer,
+  progressPeriod: progressPeriodReducer
 });

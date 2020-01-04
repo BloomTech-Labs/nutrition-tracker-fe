@@ -1,40 +1,43 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import useConfigPieChart from "../custom-hooks/useConfigPieChart";
 
-const MacroProgress = () => {
-  const data = () => {
-    return {
-      labels: ["Fat", "Carbs", "Protein"],
-      datasets: [
-        {
-          data: [70, 10, 20],
-          backgroundColor: ["#FFE9AD", "#A1BFDF", "#F5C6CB"],
-          borderColor: ["#E4D099", "#829BB6", "#A68588"]
-        }
-      ]
-    };
-  };
+const MacroProgress = averageMacros => {
+  const {
+    getAverageMacrosStart,
+    getAverageMacrosSuccess,
+    getAverageMacrosFailure
+  } = useSelector(state => state.progressOverview);
 
-  const options = {
-    cutoutPercentage: 75,
-    tooltips: {
-      // callback runs before tool-tip is rendered
-      callbacks: {
-        label: (tooltipItem, data) => {
-          // grabs the index of the current tool-tip item
-          let dataIndex = tooltipItem.index;
-          // grabs the label for the current tool-tip
-          let dataLabel = data.labels[dataIndex];
-          // grabs the current data value for the dataset
-          let dataVal = data.datasets[0].data[dataIndex];
-          // reformats tool-tip to be displayed as percentage
-          return ` ${dataLabel}: ${dataVal}%`;
-        }
-      }
-    }
-  };
+  const { data, options, chartConfigured } = useConfigPieChart({
+    averageMacros
+  });
 
-  return <Pie data={data} options={options} />;
+  return (
+    <ChartWrapper>
+      {getAverageMacrosStart && <h3>Loading...</h3>}
+      {getAverageMacrosFailure && (
+        <h3>Could not retrive data. Try again later.</h3>
+      )}
+      {getAverageMacrosSuccess && chartConfigured && (
+        <>
+          <h3>Average Macros over Time</h3>
+          <Pie data={data} options={options} />
+        </>
+      )}
+    </ChartWrapper>
+  );
 };
+
+const ChartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 280px;
+`;
 
 export default MacroProgress;

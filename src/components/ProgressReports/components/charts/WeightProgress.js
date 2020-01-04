@@ -1,59 +1,44 @@
-import React from 'react'
+import React from "react";
 import { Line } from "react-chartjs-2";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import useConfigChart from "../custom-hooks/useConfigChart";
 
-const WeightProgress = () => {
-  const data = () => {
-    return {
-      labels: [
-        "10/04",
-        "10/05",
-        "10/06",
-        "10/07",
-        "10/08",
-        "10/09",
-        "10/10",
-        "10/11",
-        "10/12",
-        "10/13",
-        "10/14",
-        "10/15"
-      ],
-      datasets: [
-        {
-          label: "Target",
-          data: [180, 178, 176, 174, 172, 170, 168, 166, 164, 162, 160],
-          fill: false,
-          borderColor: "green",
-          borderDash: [10, 5] // [dashLength, spaceLength]
-        },
-        {
-          label: "Weight",
-          data: [180, 179, 174, 174, 173, 169, 167, 166, 165, 161, 160],
-          fill: false,
-          borderColor: "red",
-          pointBackgroundColor: "red",
-          borderWidth: 1
-        }
-      ]
-    };
-  };
+const WeightProgress = weightsOverTime => {
+  const {
+    getWeightProgressStart,
+    getWeightProgressSuccess,
+    getWeightProgressFailure
+  } = useSelector(state => state.progressOverview);
 
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            min: 140,
-            max: 200
-          }
-        }
-      ]
-    }
-  };
-  
+  // initializes the Line Chart's data and options
+  const { data, options, chartConfigured } = useConfigChart({
+    weightsOverTime
+  });
+
   return (
-    <Line data={data} options={options} />
-  )
-}
+    <ChartWrapper>
+      {getWeightProgressStart && <h3>Loading...</h3>}
+      {getWeightProgressFailure && (
+        <h3>Could not retrive data. Try again later.</h3>
+      )}
+      {getWeightProgressSuccess && chartConfigured && (
+        <>
+          <h3>Actual Weight vs. Target</h3>
+          <Line data={data} options={options} height={200} />
+        </>
+      )}
+    </ChartWrapper>
+  );
+};
+
+const ChartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 280px;
+`;
 
 export default WeightProgress;

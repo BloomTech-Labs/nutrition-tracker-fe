@@ -67,7 +67,10 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
-          <Route path="/progress-reports" component={ProgressReportsWithNav} />
+          <PrivateRoute
+            path="/progress-reports"
+            component={ProgressReportsWithNav}
+          />
         </AppWrapper>
       </ToastProvider>
     );

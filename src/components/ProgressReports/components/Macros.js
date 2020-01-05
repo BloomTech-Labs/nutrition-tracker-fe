@@ -22,7 +22,8 @@ export default function Macros() {
     actual_carbs,
     target_carbs,
     actual_protein,
-    target_protein
+    target_protein,
+    labels
   } = useSelector(state => state.macroProgress);
 
   useFetchByDispatch(getMacroProgress, {

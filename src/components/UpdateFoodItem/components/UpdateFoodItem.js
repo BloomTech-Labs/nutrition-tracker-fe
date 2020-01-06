@@ -66,6 +66,7 @@ const UpdateFoodItem = props => {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
 
   const [quantity, setQuantity] = useState(1);
+  const [updatedQuantity, setUpdatedQuantity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropDownSelectionIndex, setDropDownSelectionIndex] = useState(null);
   const [servingArray, setServingArray] = useState([]);
@@ -238,10 +239,13 @@ const UpdateFoodItem = props => {
             {""} <br />
             <span>
               {" "}
-              +
-              {Math.trunc(
-                foodSelection && foodSelection.calories_kcal * quantity
-              )}{" "}
+              {updatedQuantity >= 0 ? "+" : "" }
+              { quantity === item.quantity ? Math.trunc(
+               foodSelection && foodSelection.calories_kcal * quantity 
+              ) :  Math.trunc(
+               foodSelection && foodSelection.calories_kcal * updatedQuantity 
+              )
+              } { " "}
               cal
             </span>
           </AddedCalories>
@@ -251,8 +255,8 @@ const UpdateFoodItem = props => {
             New Cal
             <br />
             <span>
-              {consumed.caloriesConsumed +
-                foodSelection.calories_kcal * quantity}{" "}
+              {quantity !== item.quantity? consumed.caloriesConsumed +
+                foodSelection.calories_kcal * updatedQuantity : 0}{" "}
               cal
             </span>
           </NewCalories>
@@ -274,7 +278,9 @@ const UpdateFoodItem = props => {
             value={quantity}
             min={1}
             onChange={ e => {
-              setQuantity(e.target.value)
+              return (
+                setQuantity(e.target.value),
+                setUpdatedQuantity(e.target.value - item.quantity))
             }}
           />
         </Col>

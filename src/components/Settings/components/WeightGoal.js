@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
-import { SlideBar } from "../../Global/styled";
+import React, { useEffect, useState } from "react";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   Form,
   FormGroup,
+  Input,
   Label,
-  Input
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
+import { SlideBar } from "../../Global/styled";
+import { ListStyle } from "../styles";
 
 const WeightGoal = props => {
   const [modal, setModal] = useState(false);

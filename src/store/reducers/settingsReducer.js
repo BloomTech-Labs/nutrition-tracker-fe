@@ -21,9 +21,22 @@ const initialState = {
   updateStart: false,
   updateSuccess: false,
   updateFailure: false,
+  // ***********************
   getInfoStart: false,
   getInfoSuccess: false,
   getInfoFailure: false,
+  getCurrentWeightStart: false,
+  getCurrentWeightSuccess: false, 
+  getCurrentWeightFailure: false,
+  getActivityLevelStart: false,
+  getActivityLevelSuccess: false,
+  getActivityLevelFailure: false,
+  getMacrosStart: false,
+  getMacrosSuccess: false,
+  getMacrosFailure: false,
+  getWeightGoalStart: false,
+  getWeightGoalSuccess: false,
+  getWeightGoalFailure: false,
   error: null
 };
 
@@ -108,9 +121,9 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_CURRENT_WEIGHT_START": {
       return {
         ...state,
-        getInfoStart: true,
-        getInfoSuccess: false,
-        getInfoFailure: false
+        getCurrentWeightStart: true,
+        getCurrentWeightSuccess: false, 
+        getCurrentWeightFailure: false,
       };
     }
     case "GET_CURRENT_WEIGHT_SUCCESS": {
@@ -118,17 +131,17 @@ export const updateUserInfo = (state = initialState, action) => {
         ...state,
         actual_weight_kg: action.payload.actual_weight_kg,
         actual_weight_lbs: action.payload.actual_weight_lbs,
-        getInfoStart: false,
-        getInfoSuccess: true,
-        getInfoFailure: false
+        getCurrentWeightStart: false,
+        getCurrentWeightSuccess: true, 
+        getCurrentWeightFailure: false,
       };
     }
     case "GET_CURRENT_WEIGHT_FAILURE": {
       return {
         ...state,
-        getInfoStart: false,
-        getInfoSuccess: false,
-        getInfoFailure: true
+        getCurrentWeightStart: false,
+        getCurrentWeightSuccess: false, 
+        getCurrentWeightFailure: true,
       };
     }
     case "ADD_CURRENT_WEIGHT_START": {
@@ -164,26 +177,26 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_ACTIVITY_LEVEL_START": {
       return {
         ...state,
-        getInfoStart: true,
-        getInfoSuccess: false,
-        getInfoFailure: false
+        getActivityLevelStart: true,
+        getActivityLevelSuccess: false,
+        getActivityLevelFailure: false,
       };
     }
     case "GET_ACTIVITY_LEVEL_SUCCESS": {
       return {
         ...state,
         activity_level: action.payload.activity_level,
-        getInfoStart: false,
-        getInfoSuccess: true,
-        getInfoFailure: false
+        getActivityLevelStart: false,
+        getActivityLevelSuccess: true,
+        getActivityLevelFailure: false,
       };
     }
     case "GET_ACTIVITY_LEVEL_FAILURE": {
       return {
         ...state,
-        getInfoStart: false,
-        getInfoSuccess: false,
-        getInfoFailure: true
+        getActivityLevelStart: false,
+        getActivityLevelSuccess: false,
+        getActivityLevelFailure: true,
       };
     }
     case "ADD_ACTIVITY_LEVEL_START": {
@@ -220,9 +233,9 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_MACROS_START": {
       return {
         ...state,
-        getInfoStart: true,
-        getInfoSuccess: false,
-        getInfoFailure: false
+        getMacrosStart: true,
+        getMacrosSuccess: false,
+        getMacrosFailure: false,
       };
     }
     case "GET_MACROS_SUCCESS": {
@@ -231,17 +244,17 @@ export const updateUserInfo = (state = initialState, action) => {
         fat_ratio: action.payload.fat_ratio,
         protein_ratio: action.payload.protein_ratio,
         carb_ratio: action.payload.carb_ratio,
-        getInfoStart: false,
-        getInfoSuccess: true,
-        getInfoFailure: false
+        getMacrosStart: false,
+        getMacrosSuccess: true,
+        getMacrosFailure: false,
       };
     }
     case "GET_MACROS_FAILURE": {
       return {
         ...state,
-        getInfoStart: false,
-        getInfoSuccess: false,
-        getInfoFailure: true
+        getMacrosStart: false,
+        getMacrosSuccess: false,
+        getMacrosFailure: true,
       };
     }
     case "ADD_MACROS_START": {
@@ -280,9 +293,9 @@ export const updateUserInfo = (state = initialState, action) => {
     case "GET_WEIGHT_GOAL_START": {
       return {
         ...state,
-        getInfoStart: true,
-        getInfoSuccess: false,
-        getInfoFailure: false
+        getWeightGoalStart: true,
+        getWeightGoalSuccess: false,
+        getWeightGoalFailure: false,
       };
     }
     case "GET_WEIGHT_GOAL_SUCCESS": {
@@ -291,17 +304,17 @@ export const updateUserInfo = (state = initialState, action) => {
         goal_weekly_weight_change_rate: action.payload.goal_weekly_weight_change_rate,
         goal_weight_kg: action.payload.goal_weight_kg,
         goal_weight_lbs: action.payload.goal_weight_lbs,
-        getInfoStart: false,
-        getInfoSuccess: true,
-        getInfoFailure: false
+        getWeightGoalStart: false,
+        getWeightGoalSuccess: true,
+        getWeightGoalFailure: false,
       };
     }
     case "GET_WEIGHT_GOAL_FAILURE": {
       return {
         ...state,
-        getInfoStart: false,
-        getInfoSuccess: false,
-        getInfoFailure: true
+        getWeightGoalStart: false,
+        getWeightGoalSuccess: false,
+        getWeightGoalFailure: true,
       };
     }
     case "ADD_WEIGHT_GOAL_START": {

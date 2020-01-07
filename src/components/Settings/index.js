@@ -15,32 +15,24 @@ import {
   updateUserInfo,
   updateWeightGoal
 } from "../../store/actions/settingsActions";
-import Loading from "../Global/Loading";
 import { Container } from "../Global/styled";
 import ActivityLevel from "./components/ActivityLevel";
 import CurrentWeight from "./components/CurrentWeight";
 import Dob from "./components/Dob";
-//import Email from "./components/Email";
-//import Password from "./components/Password"; For RC2
 import Gender from "./components/Gender";
+import Height from "./components/Height";
 import Macros from "./components/Macros";
 import WeightGoal from "./components/WeightGoal";
-import Height from "./components/Height";
 import { HeadingStyle, ListStyle } from "./styles";
 
-
 class Settings extends React.Component {
-  componentDidUpdate(prevProps) {
-    //These are actions that gets the current info for settings from DB
-    if (prevProps.firebaseID !== this.props.firebaseID) {
-      this.props.getUserInfo(this.props.firebaseID);
-      this.props.getCurrentWeight(this.props.firebaseID);
-      this.props.getActivityLevel(this.props.firebaseID);
-      this.props.getMacros(this.props.firebaseID);
-      this.props.getWeightGoal(this.props.firebaseID);
-    } else if (prevProps.height_ft !== this.props.height_ft) {
-      this.props.getCurrentWeight(this.props.firebaseID);
-    }
+  componentDidMount(prevProps) {
+    this.props.getUserInfo(this.props.firebaseID);
+    this.props.getCurrentWeight(this.props.firebaseID);
+    this.props.getActivityLevel(this.props.firebaseID);
+    this.props.getMacros(this.props.firebaseID);
+    this.props.getWeightGoal(this.props.firebaseID);
+    this.props.getCurrentWeight(this.props.firebaseID);
   }
 
   //These are functions that get passed down to the components and updates the DB for that component's data.
@@ -107,8 +99,6 @@ class Settings extends React.Component {
           <ListGroupItem style={ListStyle} onClick={() => this.props.logout()}>
             Logout
           </ListGroupItem>
-          {/* <Email updateUser={this.updateUser} data={this.props.userInfo} /> */}
-          {/* <Password /> For RC2*/}
         </ListGroup>
       </Container>
     );
@@ -120,6 +110,11 @@ const mapStateToProps = state => {
     userInfo: state.updateUserInfo,
     height_ft: state.updateUserInfo.height.feet,
     height_in: state.updateUserInfo.height.inches,
+    getInfoSuccess: state.updateUserInfo.getInfoSuccess,
+    getCurrentWeightSuccess: state.updateUserInfo.getCurrentWeightSuccess,
+    getActivityLevelSuccess: state.updateUserInfo.getActivityLevelSuccess,
+    getMacrosSuccess: state.updateUserInfo.getMacrosSuccess,
+    getWeightGoalSuccess: state.updateUserInfo.getWeightGoalSuccess,
     firebaseID: state.firebase.auth.uid,
     loading: !state.firebase.auth.isLoaded,
     token:

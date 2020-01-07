@@ -22,7 +22,6 @@ const Weight = props => {
   useEffect(() => {
     setWeight(props.data.actual_weight_lbs);
   }, [props.data.actual_weight_lbs]);
-  console.log("HERE I AM", weight)
   const toggle = () => setModal(!modal);
   return (
     <div>

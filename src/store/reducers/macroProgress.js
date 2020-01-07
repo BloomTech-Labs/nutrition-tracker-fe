@@ -1,3 +1,5 @@
+import moment from "moment-timezone";
+
 import {
   GET_MACROS_PROGRESS_START,
   GET_MACROS_PROGRESS_SUCCESS,
@@ -26,13 +28,27 @@ export const macroProgressReducer = (state = initialState, action) => {
     case GET_MACROS_PROGRESS_SUCCESS:
       return {
         ...state,
-        actual_fats: action.payload.actual_fats,
-        actual_carbs: action.payload.actual_carbs,
-        actual_protein: action.payload.actual_protein,
-        target_fats: action.payload.target_fats,
-        target_carbs: action.payload.target_carbs,
-        target_protein: action.payload.target_protein,
-        labels: action.payload.labels,
+        actual_fats: action.payload.fatMacros.map(record => {
+          return record.actual_fat_macros;
+        }),
+        actual_carbs: action.payload.carbMacros.map(record => {
+          return record.actual_carbs_macros;
+        }),
+        actual_protein: action.payload.proteinMacros.map(record => {
+          return record.actual_protein_macros;
+        }),
+        target_fats: action.payload.fatMacros.map(record => {
+          return record.goal_fat_macros;
+        }),
+        target_carbs: action.payload.carbMacros.map(record => {
+          return record.goal_carbs_macros;
+        }),
+        target_protein: action.payload.proteinMacros.map(record => {
+          return record.goal_protein_macros;
+        }),
+        labels: action.payload.fatMacros.map(record => {
+          return moment(record.observation_date).format("MM/DD");
+        }),
         getting: false
       };
     case GET_MACROS_PROGRESS_FAILURE:

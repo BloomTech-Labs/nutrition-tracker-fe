@@ -33,13 +33,6 @@ export default function Macros() {
 
   return (
     <MacroWrapper>
-      {console.log("ACTUAL CARBS", actual_carbs)}
-      {console.log("TARGET CARBS", target_carbs)}
-      {console.log("ACTUAL FATS", actual_fats)}
-      {console.log("TARGET FATS", target_fats)}
-      {console.log("ACTUAL PROTEIN", actual_protein)}
-      {console.log("TARGET PROTEIN", target_protein)}
-
       <Row>
         <Col>
           <ProgressCarbs

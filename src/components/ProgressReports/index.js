@@ -105,7 +105,7 @@ const ButtonGroup = styled(BS_ButtonGroup)`
   left: 15px;
 `;
 
-const Button = styled(Linkton)`
+const Button = styled(BS_Button)`
   background-color: ${theme.color.light};
   color: black;
 `;

@@ -27,6 +27,7 @@ const DietaryGoal = ({ history, path }) => {
       <Row>
         <Col>
           <PillButton
+            id="loseButton"
             onClick={() => handleClick("lose")}
             outline
             color="primary"
@@ -38,6 +39,7 @@ const DietaryGoal = ({ history, path }) => {
       <Row>
         <Col>
           <PillButton
+            id="gainButton"
             onClick={() => handleClick("gain")}
             outline
             color="primary"
@@ -49,6 +51,7 @@ const DietaryGoal = ({ history, path }) => {
       <Row>
         <Col>
           <PillButton
+            id="maintainButton"
             onClick={() => handleClick("maintain")}
             outline
             color="primary"

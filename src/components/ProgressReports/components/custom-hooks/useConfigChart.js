@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useConfigChart = () => {
   const { weightsOverTime, getWeightProgressSuccess } = useSelector(

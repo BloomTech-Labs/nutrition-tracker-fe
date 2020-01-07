@@ -6,9 +6,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { getMacroProgress } from "../../../store/actions/macroProgress";
 
-import ProgressCarbs from "./charts/ProgressCarbs";
-import ProgressFats from "./charts/ProgressFats";
-import ProgressProtein from "./charts/ProgressProtein";
+import MacroChart from "./charts/MacrosBreakdown";
 
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
 
@@ -31,32 +29,56 @@ export default function Macros() {
     ...progressPeriod
   });
 
+  const fats_info = {
+    title_1: "Actual Fats",
+    title_2: "Target Fats",
+    color_1: "#E4D099",
+    color_2: "#FFE9AD"
+  };
+
+  const carbs_info = {
+    title_1: "Actual Carbs",
+    title_2: "Target Carbs",
+    color_1: "#829BB6",
+    color_2: "#A1BFDF"
+  };
+
+  const protein_info = {
+    title_1: "Actual Protein",
+    title_2: "Target Protein",
+    color_1: "#A68588",
+    color_2: "#F5C6CB"
+  };
+
   return (
     <MacroWrapper>
       <Row>
         <Col>
-          <ProgressCarbs
-            actual_carbs={actual_carbs}
-            target_carbs={target_carbs}
+          <MacroChart
+            actuals={actual_carbs}
+            goals={target_carbs}
             labels={labels}
+            info={fats_info}
           />
         </Col>
       </Row>
       <Row>
         <Col>
-          <ProgressFats
-            actual_fats={actual_fats}
-            target_fats={target_fats}
+          <MacroChart
+            actuals={actual_fats}
+            goals={target_fats}
             labels={labels}
+            info={carbs_info}
           />
         </Col>
       </Row>
       <Row>
         <Col>
-          <ProgressProtein
-            actual_protein={actual_protein}
-            target_protein={target_protein}
+          <MacroChart
+            actuals={actual_protein}
+            goals={target_protein}
             labels={labels}
+            info={protein_info}
           />
         </Col>
       </Row>

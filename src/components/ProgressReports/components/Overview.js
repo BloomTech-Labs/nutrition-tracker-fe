@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
 import { getWeightProgress } from "../../../store/actions/progressOverviewActions";
 import { getAverageMacrosConsumed } from "../../../store/actions/progressOverviewActions";
 import { Col, Row } from "../../Global/styled";
 import MacroProgress from "./charts/MacroProgress";
 import WeightProgress from "./charts/WeightProgress";
+
 const Overview = () => {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
   const progressPeriod = useSelector(state => state.progressPeriod);

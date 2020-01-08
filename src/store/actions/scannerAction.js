@@ -4,25 +4,20 @@ export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 
-const LOCALHOST = "https://nutri-journal.herokuapp.com";
+const LOCALHOST = "http://localhost:4000";
 
 export const searchBarcode = barcode => dispatch => {
   console.log("Barcode is: ", barcode);
   if (barcode) {
-    dispatch({ type: FETCH_START });
     return axios
       .get(`${LOCALHOST}/fatsecret/scanner/get-food/${barcode}`)
       .then(response => {
-        dispatch({ type: FETCH_SUCCESS, payload: response.data });
-        return true;
+        return response.data[0].fatsecret_food_id;
       })
       .catch(err => {
-        dispatch({ type: FETCH_FAILURE, payload: err.response });
-        return false;
+        return null;
       });
   } else {
     dispatch({ type: FETCH_SUCCESS, payload: [] });
   }
 };
-
-

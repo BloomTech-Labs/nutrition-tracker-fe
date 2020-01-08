@@ -10,18 +10,17 @@ window.isMediaStreamAPISupported =
   "enumerateDevices" in navigator.mediaDevices;
 window.noCameraPermission = false;
 
-const Scanner = (props) => {
-
-    const handleSearchBarcode = quagga_barcode => {
-      //console.log(props);
+const Scanner = props => {
+  function handleSearchBarcode(quagga_barcode) {
+    //console.log(props);
     props.searchBarcode(quagga_barcode).then(response => {
+      console.log("Response", response);
       if (response) {
-        //this.props.history.push(`${this.props.path}/view/${props}`);
         console.log("Barcode backend response: ", response);
+        props.history.push(`/food-item/view/${response}`);
       }
     });
-  };
-
+  }
 
   window.isMediaStreamAPISupported =
     navigator &&
@@ -60,17 +59,16 @@ const Scanner = (props) => {
   };
 
   useEffect(() => {
-    Quagga.onProcessed(data => {
-      if (data) console.log("Quagga deets", data);
-    });
+    // Quagga.onProcessed(data => {
+    //   if (data) console.log("Quagga deets", data);
+    // });
 
     Quagga.onDetected(data => {
       if (data) {
         console.log("Quagga detection", data);
         if (data.codeResult.code) {
-          setQuaggaResult(data.codeResult.code);
           console.log(webcamRef.current);
-          handleSearchBarcode(quaggaResult);
+          handleSearchBarcode(data.codeResult.code);
           Quagga.stop(); // found a possible result, stop processing images for now
         }
       }
@@ -148,11 +146,13 @@ const Scanner = (props) => {
   return (
     <>
       <div className="app-layout-content">
-        {/* Original code use querySelectors but since we're using React, we'll use react refs to  emulate the behavior 
+        {/* Original code use querySelectors but since we're using React, we'll use react refs to  emulate the behavior
         Docs on video tag: https://www.w3schools.com/html/html5_video.asp
         */}
         {window.isMediaStreamAPISupported && !forSelectedPhotos ? (
-          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%">Your browser doesn't support video.</video>
+          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%">
+            Your browser doesn't support video.
+          </video>
         ) : (
           <img id="frame" src="" alt="" ref={webcamRef} />
         )}
@@ -164,18 +164,17 @@ const Scanner = (props) => {
             <button className="app-dialog-open" onClick={quaggaInit}>
               Try Again
             </button>
-            <button className="app-dialog-search" onClick={()=>console.log("Results", quaggaResult)}>
-                Search
+            <button
+              className="app-dialog-search"
+              onClick={() => console.log("Results", quaggaResult)}
+            >
+              Search
             </button>
           </div>
         </div>
       </div>
-
-
-      
     </>
   );
 };
 
 export default connect(null, { searchBarcode })(Scanner);
-

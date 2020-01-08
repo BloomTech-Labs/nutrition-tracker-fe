@@ -53,6 +53,10 @@ const FoodItemWithNav = withNavigation({
   pageTitle: "Food Item"
 })(FoodItem);
 
+const ScannerWithNav = withNavigation({
+  pageTitle: "Barcode Scanner"
+})(Scanner);
+
 class App extends Component {
   render() {
     return (
@@ -65,7 +69,7 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
-          <Route path="/scanner" component={Scanner} />
+          <Route path="/scanner" component={ScannerWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

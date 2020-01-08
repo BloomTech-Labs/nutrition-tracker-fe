@@ -55,6 +55,7 @@ const Scanner = () => {
         console.log("Quagga detection", data);
         if (data.codeResult.code) {
           setQuaggaResult(data.codeResult.code);
+          console.log(webcamRef.current);
           Quagga.stop(); // found a possible result, stop processing images for now
         }
       }
@@ -132,40 +133,31 @@ const Scanner = () => {
   return (
     <>
       <div className="app-layout-content">
-        {/* Original code use querySelectors but since we're using React, we'll use ref to  emulate the behavior */}
+        {/* Original code use querySelectors but since we're using React, we'll use react refs to  emulate the behavior 
+        Docs on video tag: https://www.w3schools.com/html/html5_video.asp
+        */}
         {window.isMediaStreamAPISupported && !forSelectedPhotos ? (
-          <video autoplay="autoplay" ref={webcamRef} />
+          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%">Your browser doesn't support video.</video>
         ) : (
           <img id="frame" src="" alt="" ref={webcamRef} />
         )}
         <div className="app-dialog app-dialog-hide">
           <div className="app-dialog-content">
-            <h2>QR Code</h2>
             <input type="text" id="result" value={quaggaResult} />
           </div>
           <div className="app-dialog-actions">
             <button className="app-dialog-open" onClick={quaggaInit}>
-              Open
+              Try Again
             </button>
-            <button className="app-dialog-close">Close</button>
+            <button className="app-dialog-search" onClick={()=>console.log("Results", quaggaResult)}>
+                Search
+            </button>
           </div>
         </div>
-        This is a scanner!!
       </div>
 
-      <canvas
-        ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onClick={e => {
-          canvas = canvasRef.current;
-          ctx = canvas.getContext("2d");
-        }}
-      />
 
-      <button className="app-select-photos">
-        Simulates the option to select a photo from storage{" "}
-      </button>
+      
     </>
   );
 };

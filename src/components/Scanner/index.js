@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
+import { searchBarcode } from "../../store/actions/scannerAction";
 import Quagga from "quagga"; // Barcode Decoder! https://github.com/serratus/quaggaJS
 
 window.iOS = ["iPad", "iPhone", "iPod"].indexOf(navigator.platform) >= 0;
@@ -8,7 +10,19 @@ window.isMediaStreamAPISupported =
   "enumerateDevices" in navigator.mediaDevices;
 window.noCameraPermission = false;
 
-const Scanner = () => {
+const Scanner = (props) => {
+
+    const handleSearchBarcode = quagga_barcode => {
+      //console.log(props);
+    props.searchBarcode(quagga_barcode).then(response => {
+      if (response) {
+        //this.props.history.push(`${this.props.path}/view/${props}`);
+        console.log("Barcode backend response: ", response);
+      }
+    });
+  };
+
+
   window.isMediaStreamAPISupported =
     navigator &&
     navigator.mediaDevices &&
@@ -56,6 +70,7 @@ const Scanner = () => {
         if (data.codeResult.code) {
           setQuaggaResult(data.codeResult.code);
           console.log(webcamRef.current);
+          handleSearchBarcode(quaggaResult);
           Quagga.stop(); // found a possible result, stop processing images for now
         }
       }
@@ -162,4 +177,5 @@ const Scanner = () => {
   );
 };
 
-export default Scanner;
+export default connect(null, { searchBarcode })(Scanner);
+

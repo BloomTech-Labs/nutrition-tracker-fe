@@ -8,7 +8,7 @@ const LOCALHOST = "https://nutri-journal.herokuapp.com";
 
 export const searchBarcode = barcode => dispatch => {
   console.log("Barcode is: ", barcode);
-  if (barcode !== "" || barcode.length !== 0) {
+  if (barcode) {
     dispatch({ type: FETCH_START });
     return axios
       .get(`${LOCALHOST}/fatsecret/scanner/get-food/${barcode}`)

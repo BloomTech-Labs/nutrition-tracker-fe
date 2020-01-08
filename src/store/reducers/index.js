@@ -4,6 +4,7 @@ import { dailyLogReducer } from "./dailyLogReducer";
 import { firebaseAuth } from "./firebaseAuth";
 import { flywheelReducer } from "./flywheelReducer";
 import { foodItemsReducer } from "./foodItemsReducer";
+import { macroProgressReducer } from "./macroProgress";
 // import { firestoreReducer } from "redux-firestore";
 import { onboardingReducer } from "./onboardingReducer";
 import { progressOverviewReducer } from "./progressOverviewReducer";
@@ -19,6 +20,7 @@ export default combineReducers({
   auth: firebaseAuth,
   updateUserInfo: updateUserInfo,
   flywheel: flywheelReducer,
+  macroProgress: macroProgressReducer,
   progressOverview: progressOverviewReducer,
   progressPeriod: progressPeriodReducer
 });

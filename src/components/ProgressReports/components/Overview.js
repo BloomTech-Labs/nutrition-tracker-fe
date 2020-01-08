@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
 import { getWeightProgress } from "../../../store/actions/progressOverviewActions";
 import { getAverageMacrosConsumed } from "../../../store/actions/progressOverviewActions";

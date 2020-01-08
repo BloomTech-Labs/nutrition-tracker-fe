@@ -9,7 +9,8 @@ import {
 const currentTimeZone = moment.tz.guess();
 const tzAbbreviation = moment.tz(currentTimeZone).format("z");
 
-const today = moment("2020-02-22")
+const today = moment
+  .tz(currentTimeZone)
   .utc()
   .format();
 

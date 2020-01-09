@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendURL } from "../../config/backendURL.js";
 
 /********************************************************
  *                    User Actions                      *
@@ -7,7 +8,7 @@ import axios from "axios";
 export const getUserInfo = id => dispatch => {
   dispatch({ type: "GET_INFO_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}`)
+    .get(`${backendURL}/user/${id}`)
     .then(res => {
       dispatch({
         type: "GET_INFO_SUCCESS",
@@ -34,7 +35,7 @@ export const getUserInfo = id => dispatch => {
 export const updateUserInfo = (infoObj, id) => dispatch => {
   dispatch({ type: "UPDATE_INFO_START" });
   axios
-    .put(`https://nutri-journal.herokuapp.com/user/${id}`, infoObj)
+    .put(`${backendURL}/user/${id}`, infoObj)
     .then(res => {
       console.log("UPDATE USER INFO RES DATA:", res.data);
       dispatch({
@@ -54,7 +55,7 @@ export const updateUserInfo = (infoObj, id) => dispatch => {
 export const getCurrentWeight = id => dispatch => {
   dispatch({ type: "GET_CURRENT_WEIGHT_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/current-weight`)
+    .get(`${backendURL}/user/${id}/current-weight`)
     .then(res => {
       dispatch({
         type: "GET_CURRENT_WEIGHT_SUCCESS",
@@ -71,7 +72,7 @@ export const getCurrentWeight = id => dispatch => {
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
   axios
-    .post(`https://nutri-journal.herokuapp.com/user/${id}/current-weight`, infoObj)
+    .post(`${backendURL}/user/${id}/current-weight`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_CURRENT_WEIGHT_SUCCESS",
@@ -92,7 +93,7 @@ export const updateCurrentWeight = (infoObj, id) => dispatch => {
 export const getActivityLevel = id => dispatch => {
   dispatch({ type: "GET_ACTIVITY_LEVEL_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/activity-level`)
+    .get(`${backendURL}/user/${id}/activity-level`)
     .then(res => {
       dispatch({
         type: "GET_ACTIVITY_LEVEL_SUCCESS",
@@ -109,7 +110,7 @@ export const getActivityLevel = id => dispatch => {
 export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
   axios
-    .post(`https://nutri-journal.herokuapp.com/user/${id}/activity-level`, infoObj)
+    .post(`${backendURL}/user/${id}/activity-level`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_ACTIVITY_LEVEL_SUCCESS",
@@ -130,7 +131,7 @@ export const updateActivityLevel = (infoObj, id) => dispatch => {
 export const getMacros = id => dispatch => {
   dispatch({ type: "GET_MACROS_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`)
+    .get(`${backendURL}/user/${id}/macro-ratios`)
     .then(res => {
       dispatch({
         type: "GET_MACROS_SUCCESS",
@@ -147,7 +148,7 @@ export const getMacros = id => dispatch => {
 export const updateMacros = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_MACROS_START" });
   axios
-    .post(`https://nutri-journal.herokuapp.com/user/${id}/macro-ratios`, infoObj)
+    .post(`${backendURL}/user/${id}/macro-ratios`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_MACROS_SUCCESS",
@@ -170,7 +171,7 @@ export const updateMacros = (infoObj, id) => dispatch => {
 export const getWeightGoal = id => dispatch => {
   dispatch({ type: "GET_WEIGHT_GOAL_START" });
   axios
-    .get(`https://nutri-journal.herokuapp.com/user/${id}/weight-goal`)
+    .get(`${backendURL}/user/${id}/weight-goal`)
     .then(res => {
       dispatch({
         type: "GET_WEIGHT_GOAL_SUCCESS",
@@ -187,7 +188,7 @@ export const getWeightGoal = id => dispatch => {
 export const updateWeightGoal = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_WEIGHT_GOAL_START" });
   axios
-    .post(`https://nutri-journal.herokuapp.com/user/${id}/weight-goal`, infoObj)
+    .post(`${backendURL}/user/${id}/weight-goal`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_WEIGHT_GOAL_SUCCESS",

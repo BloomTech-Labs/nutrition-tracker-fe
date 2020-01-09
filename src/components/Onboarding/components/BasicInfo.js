@@ -51,11 +51,12 @@ class BasicInfo extends React.Component {
             <H2>Let's get some basic info!</H2>
           </Col>
         </Row>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} id="formSubmit">
           <Row>
             <Col direction="column" align="flex-start">
               <h3>Birth Date</h3>
               <InputGroupWithIcon
+                id="birthdatePicker"
                 type="date"
                 name="date_of_birth"
                 icon={CalendarSVG}
@@ -68,6 +69,7 @@ class BasicInfo extends React.Component {
             <Col direction="column" align="flex-start">
               <h3>Height</h3>
               <InputGroupWithIcon
+                id="heightFeetInput"
                 type="number"
                 name="feet"
                 icon={RulerSVG}
@@ -77,6 +79,7 @@ class BasicInfo extends React.Component {
             </Col>
             <Col direction="column" align="flex-start" justify="flex-end">
               <InputGroupWithIcon
+                id="heightInchesInput"
                 type="number"
                 name="inches"
                 icon={RulerSVG}
@@ -89,6 +92,7 @@ class BasicInfo extends React.Component {
             <Col direction="column" align="flex-start">
               <h3>Weight</h3>
               <InputGroupWithIcon
+                id="weightInput"
                 type="number"
                 name="weight"
                 icon={ScaleSVG}
@@ -99,7 +103,7 @@ class BasicInfo extends React.Component {
           </Row>
           <Row className="fixed-bottom">
             <Col>
-              <PillButton type="submit" color="success">
+              <PillButton id="submitButton" type="submit" color="success">
                 Next
               </PillButton>
             </Col>
@@ -128,4 +132,5 @@ const mapStateToProps = state => {
   };
 };
 
+export { BasicInfo };
 export default connect(mapStateToProps, { updateBasicInfo })(BasicInfo);

@@ -35,4 +35,5 @@ class SearchPage extends React.Component {
   }
 }
 
+export { SearchPage };
 export default connect(null, { getOneFoodItem })(SearchPage);

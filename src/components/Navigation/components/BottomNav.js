@@ -19,7 +19,7 @@ const BottomNav = ({ displayNav }) => {
     <NavContainer displayNav={displayNav}>
       <NavBar>
         <NavItem>
-          <NavLink href="/daily-log">
+          <NavLink href="/">
             <DailyLogSVG />
           </NavLink>
         </NavItem>

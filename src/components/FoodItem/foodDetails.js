@@ -135,7 +135,7 @@ const FoodDetails = props => {
           height="50px"
           style={{ borderBottom: "1px solid lightgrey" }}
         >
-          <FoodName>
+          <FoodName id="food-name">
             <Textfit mode="single" forceSingleModeWidth={false}>
               {foodSelection && foodSelection.food_name}
             </Textfit>

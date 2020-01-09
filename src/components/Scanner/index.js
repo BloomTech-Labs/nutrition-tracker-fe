@@ -12,11 +12,8 @@ window.noCameraPermission = false;
 
 const Scanner = props => {
   function handleSearchBarcode(quagga_barcode) {
-    //console.log(props);
     props.searchBarcode(quagga_barcode).then(response => {
-      console.log("Response", response);
       if (response) {
-        console.log("Barcode backend response: ", response);
         props.history.push(`/food-item/view/${response}`);
       } else {
         Quagga.stop();
@@ -54,7 +51,6 @@ const Scanner = props => {
           console.log(err);
           return;
         }
-        console.log("Initialization finished. Ready to start");
         window.setTimeout(()=>{Quagga.stop(); console.log("Quagga stopped")},10000)
         Quagga.start();
       }
@@ -68,9 +64,7 @@ const Scanner = props => {
 
     Quagga.onDetected(data => {
       if (data) {
-        console.log("Quagga detection", data);
         if (data.codeResult.code) {
-          console.log(webcamRef.current);
           handleSearchBarcode(data.codeResult.code);
           Quagga.stop(); // found a possible result, stop processing images for now
         }
@@ -142,13 +136,12 @@ const Scanner = props => {
       })
       .catch(function(error) {
         showErrorMsg();
-        console.error("Error occurred : ", error);
       });
   }
 
   return (
     <>
-      <div className="app-layout-content">
+      <div>
         {/* Original code use querySelectors but since we're using React, we'll use react refs to  emulate the behavior
         Docs on video tag: https://www.w3schools.com/html/html5_video.asp
         */}
@@ -159,22 +152,16 @@ const Scanner = props => {
         ) : (
           <img id="frame" src="" alt="" ref={webcamRef} />
         )}
-        <div className="app-dialog app-dialog-hide">
-          <div className="app-dialog-content">
+        {/*<div>
+          <div>
             <input type="text" id="result" value={quaggaResult} />
           </div>
-          <div className="app-dialog-actions">
-            <button className="app-dialog-open" onClick={quaggaInit}>
+          <div>
+            <button onClick={quaggaInit}>
               Try Again
             </button>
-            <button
-              className="app-dialog-search"
-              onClick={() => console.log("Results", quaggaResult)}
-            >
-              Search
-            </button>
           </div>
-        </div>
+        </div> */ /* Use these elements for testing */}
       </div>
     </>
   );

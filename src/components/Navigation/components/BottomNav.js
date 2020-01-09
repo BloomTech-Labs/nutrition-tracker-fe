@@ -44,14 +44,15 @@ const BottomNav = ({ displayNav }) => {
 
 const NavContainer = styled.div`
   display: ${props => (props.displayNav ? "block" : "none")};
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 `;
 
 const NavBar = styled(BS_NavBar)`
   ${theme.mixin.flex("row", "space-between", "center")};
-
   height: 50px;
   padding: 0;
-
   background-color: black;
 `;
 

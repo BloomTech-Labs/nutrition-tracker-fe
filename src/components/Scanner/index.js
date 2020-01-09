@@ -18,6 +18,8 @@ const Scanner = props => {
       if (response) {
         console.log("Barcode backend response: ", response);
         props.history.push(`/food-item/view/${response}`);
+      } else {
+        Quagga.stop();
       }
     });
   }
@@ -53,15 +55,16 @@ const Scanner = props => {
           return;
         }
         console.log("Initialization finished. Ready to start");
+        window.setTimeout(()=>{Quagga.stop(); console.log("Quagga stopped")},10000)
         Quagga.start();
       }
     );
   };
 
   useEffect(() => {
-    // Quagga.onProcessed(data => {
-    //   if (data) console.log("Quagga deets", data);
-    // });
+    Quagga.onProcessed(data => {
+      if (data) console.log("Quagga deets", data);
+    });
 
     Quagga.onDetected(data => {
       if (data) {

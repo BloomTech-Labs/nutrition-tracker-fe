@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { searchBarcode } from "../../store/actions/scannerAction";
 import Quagga from "quagga"; // Barcode Decoder! https://github.com/serratus/quaggaJS
+import { useToasts } from "react-toast-notifications";
+
 
 window.iOS = ["iPad", "iPhone", "iPod"].indexOf(navigator.platform) >= 0;
 window.isMediaStreamAPISupported =
@@ -11,12 +13,15 @@ window.isMediaStreamAPISupported =
 window.noCameraPermission = false;
 
 const Scanner = props => {
+  const { addToast } = useToasts();
+
   function handleSearchBarcode(quagga_barcode) {
     props.searchBarcode(quagga_barcode).then(response => {
       if (response) {
         props.history.push(`/food-item/view/${response}`);
       } else {
         Quagga.stop();
+        showErrorMsg(`Unable to find item for barcode ${quagga_barcode}, try again`)
       }
     });
   }
@@ -51,18 +56,19 @@ const Scanner = props => {
           console.log(err);
           return;
         }
-        window.setTimeout(()=>{Quagga.stop(); console.log("Quagga stopped")},10000)
+        window.setTimeout(()=>{showErrorMsg("No barcode detected, try again"); quaggaInit();},30000)
         Quagga.start();
       }
     );
   };
 
   useEffect(() => {
-    Quagga.onProcessed(data => {
+    /*Quagga.onProcessed(data => {
       if (data) console.log("Quagga deets", data);
-    });
+    });*/ // Use this for testing
 
     Quagga.onDetected(data => {
+      
       if (data) {
         if (data.codeResult.code) {
           handleSearchBarcode(data.codeResult.code);
@@ -73,9 +79,12 @@ const Scanner = props => {
     quaggaInit();
   }, []);
 
-  function showErrorMsg() {
-    window.noCameraPermission = true;
-    alert("Unable to access the camera");
+  function showErrorMsg(message="Error", cameraIssue=false) {
+    window.noCameraPermission = cameraIssue;
+    addToast(message, {
+          appearance: "error",
+          autoDismiss: true
+        });
   }
 
   function startCapture(constraints) {
@@ -86,11 +95,13 @@ const Scanner = props => {
       })
       .catch(function(err) {
         console.log("Error occurred ", err);
-        showErrorMsg();
+        Quagga.stop();
+        showErrorMsg("Unable to access camera", true);
+
       });
   }
 
-  if (window.isMediaStreamAPISupported) {
+  if (window.isMediaStreamAPISupported && !window.noCameraPermission) {
     navigator.mediaDevices
       .enumerateDevices()
       .then(function(devices) {
@@ -135,7 +146,8 @@ const Scanner = props => {
         }
       })
       .catch(function(error) {
-        showErrorMsg();
+        showErrorMsg("Error iniating barcode scanner", true);
+        console.log("Error initiating Quagga", error);
       });
   }
 
@@ -146,7 +158,7 @@ const Scanner = props => {
         Docs on video tag: https://www.w3schools.com/html/html5_video.asp
         */}
         {window.isMediaStreamAPISupported && !forSelectedPhotos ? (
-          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%">
+          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%" onClick={()=>{console.log("Wow")}}>
             Your browser doesn't support video.
           </video>
         ) : (

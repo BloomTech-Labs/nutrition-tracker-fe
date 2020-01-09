@@ -9,7 +9,8 @@ import {
   DailyLogSVG,
   ProgressSVG,
   RecipeSVG,
-  SettingsSVG
+  SettingsSVG,
+  ScannerSVG
 } from "../../Global/icons";
 import theme from "../../Global/theme";
 
@@ -30,6 +31,11 @@ const BottomNav = ({ displayNav }) => {
         <NavItem>
           <NavLink href="/reports">
             <ProgressSVG />
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/scanner">
+            <ScannerSVG />
           </NavLink>
         </NavItem>
         <NavItem>
@@ -59,7 +65,7 @@ const NavBar = styled(BS_NavBar)`
 const NavItem = styled(BS_NavItem)`
   ${theme.mixin.flex("row", "center", "center")};
 
-  width: 25%;
+  width: 20%;
   height: 100%;
 `;
 

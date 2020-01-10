@@ -56,7 +56,9 @@ const DailyLog = props => {
     currentTimeZone
   });
 
-  useFetchByDispatch(updateCurrentTimeZone, { currentTimeZone });
+  useFetchByDispatch(updateCurrentTimeZone, {
+    currentTimeZone
+  });
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));

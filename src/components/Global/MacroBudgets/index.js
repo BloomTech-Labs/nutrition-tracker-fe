@@ -22,7 +22,8 @@ const MacroBudgets = props => {
     budgets,
     consumed,
     fetchBudgetFailure,
-    fetchBudgetStart
+    fetchBudgetStart,
+    currentDate
   } = useSelector(state => state.dailyLog);
 
   const [macroData, setMacroData] = useState({});
@@ -30,7 +31,7 @@ const MacroBudgets = props => {
 
   useFetchByDispatch(fetchDailyLog, {
     firebaseID,
-    date: props.date,
+    currentDate,
     currentTimeZone
   });
 

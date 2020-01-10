@@ -32,7 +32,6 @@ const Macros = props => {
     setProtein(props.data.protein_ratio);
   }, [props.data.protein_ratio]);
 
-  console.log("CARB:", props.data);
   const toggle = () => setModal(!modal);
   return (
     <div>
@@ -41,7 +40,7 @@ const Macros = props => {
         <div></div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Macronutrient Targets</ModalHeader>
+        <ModalHeader>Macronutrient Targets</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
@@ -86,7 +85,15 @@ const Macros = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setFat(props.data.fat_ratio);
+              setCarb(props.data.carb_ratio);
+              setProtein(props.data.protein_ratio);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

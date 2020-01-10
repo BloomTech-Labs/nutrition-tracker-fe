@@ -31,7 +31,6 @@ export const getUserInfo = id => dispatch => {
 };
 
 //Updates user
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateUserInfo = (infoObj, id) => dispatch => {
   dispatch({ type: "UPDATE_INFO_START" });
   axios
@@ -68,16 +67,16 @@ export const getCurrentWeight = id => dispatch => {
 };
 
 //Updates user's current weight
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateCurrentWeight = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_CURRENT_WEIGHT_START" });
+  console.log("KNJONO:INONIOIN",infoObj)
   axios
     .post(`${backendURL}/user/${id}/current-weight`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_CURRENT_WEIGHT_SUCCESS",
         payload: {
-          weight_kg: res.data.weight_kg
+          actual_weight_lbs: res.data.actual_weight_lbs
         }
       });
     })
@@ -106,7 +105,6 @@ export const getActivityLevel = id => dispatch => {
 };
 
 //Updates user's activity level
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateActivityLevel = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_ACTIVITY_LEVEL_START" });
   axios
@@ -144,7 +142,6 @@ export const getMacros = id => dispatch => {
 };
 
 //Updates user's macros
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateMacros = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_MACROS_START" });
   axios
@@ -184,18 +181,15 @@ export const getWeightGoal = id => dispatch => {
 };
 
 //Updates user's macros
-//TODO: id is hard coded to 1 for testing. Need to pull
 export const updateWeightGoal = (infoObj, id) => dispatch => {
   dispatch({ type: "ADD_WEIGHT_GOAL_START" });
+  console.log("OBJECT",infoObj)
   axios
     .post(`${backendURL}/user/${id}/weight-goal`, infoObj)
     .then(res => {
       dispatch({
         type: "ADD_WEIGHT_GOAL_SUCCESS",
-        payload: {
-          weekly_goal_rate: res.data.weekly_goal_rate,
-          weight_goal_kg: res.data.weight_goal_kg
-        }
+        payload: res.data
       });
     })
     .catch(err =>

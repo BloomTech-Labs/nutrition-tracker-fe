@@ -30,7 +30,7 @@ const Gender = props => {
         <div>{sex}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Gender</ModalHeader>
+        <ModalHeader>Gender</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
@@ -59,7 +59,13 @@ const Gender = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setSex(props.data.sex);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

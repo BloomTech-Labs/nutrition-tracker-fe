@@ -17,6 +17,7 @@ import Onboarding from "./components/Onboarding";
 import PrivateRoute from "./components/PrivateRoute";
 import ProgressReports from "./components/ProgressReports";
 import Settings from "./components/Settings";
+import Scanner from "./components/Scanner";
 
 library.add(faSearch);
 
@@ -56,6 +57,10 @@ const ProgressReportsWithNav = withNavigation({
   pageTitle: "Progress Reports"
 })(ProgressReports);
 
+const ScannerWithNav = withNavigation({
+  pageTitle: "Barcode Scanner"
+})(Scanner);
+
 class App extends Component {
   render() {
     return (
@@ -71,6 +76,7 @@ class App extends Component {
             path="/progress-reports"
             component={ProgressReportsWithNav}
           />
+          <Route path="/scanner" component={ScannerWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

@@ -1,14 +1,10 @@
 import React from "react";
-
-import { Col, Row } from "./../../Global/styled";
-import styled from "styled-components";
-
 import { useSelector } from "react-redux";
-import { getMacroProgress } from "../../../store/actions/macroProgress";
-
-import MacroChart from "./charts/MacrosBreakdown";
-
+import styled from "styled-components";
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
+import { getMacroProgress } from "../../../store/actions/macroProgress";
+import { Col, Row } from "./../../Global/styled";
+import LineChart from "./charts/LineChart";
 
 export default function Macros() {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
@@ -50,35 +46,84 @@ export default function Macros() {
     color_2: "#F5C6CB"
   };
 
+  const min = array =>
+    Math.min.apply(Math, array) >= 10
+      ? Math.floor(Math.max.apply(Math, array) / 10) * 10 - 10
+      : 0;
+
+  const max = array => Math.ceil(Math.max.apply(Math, array) / 10) * 10 + 10;
+
+  const fatOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            min: min(actual_fats),
+            max: max(actual_fats)
+          }
+        }
+      ]
+    }
+  };
+
+  const carbOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            min: min(actual_carbs),
+            max: max(actual_carbs)
+          }
+        }
+      ]
+    }
+  };
+
+  const proteinOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            min: min(actual_protein),
+            max: max(actual_protein)
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <MacroWrapper>
       <Row>
         <Col>
-          <MacroChart
+          <LineChart
             actuals={actual_carbs}
             goals={target_carbs}
             labels={labels}
             info={fats_info}
+            options={fatOptions}
           />
         </Col>
       </Row>
       <Row>
         <Col>
-          <MacroChart
+          <LineChart
             actuals={actual_fats}
             goals={target_fats}
             labels={labels}
             info={carbs_info}
+            options={carbOptions}
           />
         </Col>
       </Row>
       <Row>
         <Col>
-          <MacroChart
+          <LineChart
             actuals={actual_protein}
             goals={target_protein}
             labels={labels}
             info={protein_info}
+            options={proteinOptions}
           />
         </Col>
       </Row>

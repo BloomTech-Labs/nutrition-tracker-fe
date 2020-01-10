@@ -7,6 +7,9 @@ export const GET_WEIGHT_PROGRESS_FAILURE = "GET_WEIGHT_PROGRESS_FAILURE";
 export const GET_AVERAGE_MACROS_START = "GET_AVERAGE_MACROS_START";
 export const GET_AVERAGE_MACROS_SUCCESS = "GET_AVERAGE_MACROS_SUCCESS";
 export const GET_AVERAGE_MACROS_FAILURE = "GET_AVERAGE_MACROS_FAILURE";
+export const GET_CALORIES_CONSUMED_START = "GET_CALORIES_CONSUMED_START";
+export const GET_CALORIES_CONSUMED_SUCCESS = "GET_CALORIES_CONSUMED_SUCCESS";
+export const GET_CALORIES_CONSUMED_FAILURE = "GET_CALORIES_CONSUMED_FAILURE";
 
 export const getWeightProgress = (
   user_id,
@@ -33,6 +36,34 @@ export const getWeightProgress = (
     .catch(err => {
       dispatch({
         type: GET_WEIGHT_PROGRESS_FAILURE,
+        err: err
+      });
+    });
+};
+
+export const getCaloriesConsumed = (
+  user_id,
+  time_zone,
+  start_date,
+  end_date,
+  period
+) => dispatch => {
+  dispatch({ type: GET_CALORIES_CONSUMED_START });
+  axios
+    .post(`${backendURL}/progress-reports/${user_id}/calories/${period}`, {
+      time_zone,
+      start_date,
+      end_date
+    })
+    .then(({ data }) => {
+      dispatch({
+        type: GET_CALORIES_CONSUMED_SUCCESS,
+        payload: data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_CALORIES_CONSUMED_FAILURE,
         err: err
       });
     });

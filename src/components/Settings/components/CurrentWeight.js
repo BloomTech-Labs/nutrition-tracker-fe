@@ -19,18 +19,15 @@ const Weight = props => {
 
   const [weight, setWeight] = useState("");
 
-  const weight_lbs = useSelector(state => state.updateUserInfo.weight_lbs);
-
   useEffect(() => {
-    setWeight(props.data.weight_lbs);
-  }, [props.data.weight_lbs]);
-
+    setWeight(props.data.actual_weight_lbs);
+  }, [props.data.actual_weight_lbs]);
   const toggle = () => setModal(!modal);
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
         <div>Weight</div>
-        <div>{weight_lbs}lbs</div>
+        <div>{weight}lbs</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle} className="modal-lg">
         <ModalHeader toggle={toggle}>Weight</ModalHeader>
@@ -42,7 +39,7 @@ const Weight = props => {
                 type="number"
                 name="weight"
                 id="weight"
-                placeholder={weight_lbs || ""}
+                placeholder={weight || ""}
                 onChange={e => setWeight(e.target.value)}
               />
             </FormGroup>
@@ -58,7 +55,13 @@ const Weight = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setWeight(props.data.actual_weight_lbs);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>
@@ -70,7 +73,7 @@ const Weight = props => {
 // Converts height to centimeters to be returned to the DB.
 function lbsToKgs(lbs) {
   const kg = lbs * 0.45359237;
-  return { weight_kg: kg };
+  return { actual_weight_kg: kg };
 }
 
 export default Weight;

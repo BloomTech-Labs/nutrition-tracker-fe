@@ -30,7 +30,7 @@ const Email = props => {
         <div>{email}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Email</ModalHeader>
+        <ModalHeader>Email</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

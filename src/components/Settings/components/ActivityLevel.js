@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { ListStyle } from "../styles";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroupItem,
   CustomInput,
   Form,
   FormGroup,
-  Label
+  Label,
+  ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
+import { ListStyle } from "../styles";
 
 const ActivityLevel = props => {
   const [modal, setModal] = useState(false);
 
   const [activityLevel, setActivityLevel] = useState("");
+
   useEffect(() => {
     setActivityLevel(props.data.activity_level);
   }, [props.data.activity_level]);
@@ -24,11 +26,11 @@ const ActivityLevel = props => {
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
-        {/* Calls function at bottom so the activity level will display as words and not numbers */}
-        <div>Activity Level</div> <div>{viewActivityLevel(activityLevel)}</div>
+        <div>Activity Level</div>
+        <div>{activityLevel}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Activity Level</ModalHeader>
+        <ModalHeader>Activity Level</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
@@ -62,7 +64,13 @@ const ActivityLevel = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setActivityLevel(props.data.activity_level);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

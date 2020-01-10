@@ -5,5 +5,5 @@ import theme from "../../theme";
 export default styled.div`
   min-height: 100vh;
   text-align: center;
-  background-color: ${theme.color.light};
+  background-color: ${theme.color.nutri_background};
 `;

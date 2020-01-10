@@ -4,7 +4,6 @@ import { searchBarcode } from "../../store/actions/scannerAction";
 import Quagga from "quagga"; // Barcode Decoder! https://github.com/serratus/quaggaJS
 import { useToasts } from "react-toast-notifications";
 
-
 window.iOS = ["iPad", "iPhone", "iPod"].indexOf(navigator.platform) >= 0;
 window.isMediaStreamAPISupported =
   navigator &&
@@ -21,7 +20,9 @@ const Scanner = props => {
         props.history.push(`/food-item/view/${response}`);
       } else {
         Quagga.stop();
-        showErrorMsg(`Unable to find item for barcode ${quagga_barcode}, try again`)
+        showErrorMsg(
+          `Unable to find item for barcode ${quagga_barcode}, try again`
+        );
       }
     });
   }
@@ -56,7 +57,10 @@ const Scanner = props => {
           console.log(err);
           return;
         }
-        window.setTimeout(()=>{showErrorMsg("No barcode detected, try again"); quaggaInit();},30000)
+        window.setTimeout(() => {
+          showErrorMsg("No barcode detected, try again");
+          quaggaInit();
+        }, 30000);
         Quagga.start();
       }
     );
@@ -68,7 +72,6 @@ const Scanner = props => {
     });*/ // Use this for testing
 
     Quagga.onDetected(data => {
-      
       if (data) {
         if (data.codeResult.code) {
           handleSearchBarcode(data.codeResult.code);
@@ -79,12 +82,12 @@ const Scanner = props => {
     quaggaInit();
   }, []);
 
-  function showErrorMsg(message="Error", cameraIssue=false) {
+  function showErrorMsg(message = "Error", cameraIssue = false) {
     window.noCameraPermission = cameraIssue;
     addToast(message, {
-          appearance: "error",
-          autoDismiss: true
-        });
+      appearance: "error",
+      autoDismiss: true
+    });
   }
 
   function startCapture(constraints) {
@@ -97,7 +100,6 @@ const Scanner = props => {
         console.log("Error occurred ", err);
         Quagga.stop();
         showErrorMsg("Unable to access camera", true);
-
       });
   }
 
@@ -158,7 +160,15 @@ const Scanner = props => {
         Docs on video tag: https://www.w3schools.com/html/html5_video.asp
         */}
         {window.isMediaStreamAPISupported && !forSelectedPhotos ? (
-          <video autoplay="autoplay" ref={webcamRef} height="25%" width="25%" onClick={()=>{console.log("Wow")}}>
+          <video
+            autoPlay="autoplay"
+            ref={webcamRef}
+            height="25%"
+            width="25%"
+            onClick={() => {
+              console.log("Wow");
+            }}
+          >
             Your browser doesn't support video.
           </video>
         ) : (
@@ -173,7 +183,8 @@ const Scanner = props => {
               Try Again
             </button>
           </div>
-        </div> */ /* Use these elements for testing */}
+        </div> */
+        /* Use these elements for testing */}
       </div>
     </>
   );

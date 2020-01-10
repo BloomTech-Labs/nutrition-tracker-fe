@@ -16,6 +16,7 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
+import Scanner from "./components/Scanner";
 
 library.add(faSearch);
 
@@ -51,6 +52,10 @@ const FoodItemWithNav = withNavigation({
   pageTitle: "Food Item"
 })(FoodItem);
 
+const ScannerWithNav = withNavigation({
+  pageTitle: "Barcode Scanner"
+})(Scanner);
+
 class App extends Component {
   render() {
     return (
@@ -62,6 +67,7 @@ class App extends Component {
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
+          <Route path="/scanner" component={ScannerWithNav} />
         </AppWrapper>
       </ToastProvider>
     );

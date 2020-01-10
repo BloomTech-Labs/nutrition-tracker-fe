@@ -26,6 +26,7 @@ const DailyLogWithNav = withNavigation({
 })(DailyLog);
 
 const UpdateViewWithNav = withNavigation({
+  pageTitle: "Update Food",
   displayTop: true
 })(UpdateView);
 

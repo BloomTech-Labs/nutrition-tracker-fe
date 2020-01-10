@@ -21,7 +21,7 @@ import {
   DropdownToggle,
   H2,
   H3,
-  H4,
+  // H4,
   Input,
   Row
 } from "../../Global/styled";
@@ -74,7 +74,7 @@ const UpdateFoodItem = props => {
   const [fat_g, setFat_g] = useState(0.0);
   const [carbs_g, setCarbs_g] = useState(0.0);
   const [protein_g, setProtein_g] = useState(0.0);
-  const [didUpdate, setDidUpdate] = useState(false);
+  // const [didUpdate, setDidUpdate] = useState(false);
 
   const [isEnabled, setIsEnabled] = useState(false);
 
@@ -104,14 +104,13 @@ const UpdateFoodItem = props => {
   useEffect(() => {
     setQuantity(item.quantity);
     setServingArray(item.servingArrayData);
-    setServingType(item.serving_desc); 
+    setServingType(item.serving_desc);
     setFat_g(item.fat_g);
     setCarbs_g(item.carbs_g);
     setProtein_g(item.protein_g);
     setDate(moment(item.time_consumed_at).format("YYYY-MM-DD"));
     setTime(moment(item.time_consumed_at).format("HH:mm"));
   }, [item]);
-
 
   useEffect(() => {
     if (updated) {
@@ -142,34 +141,38 @@ const UpdateFoodItem = props => {
   };
 
   const handleSelect = key => {
-    return (setDropDownSelectionIndex(key),
-    setServingType(servingArray[key].serving_desc),
-    setFat_g(servingArray[key].fat_g),
-    setCarbs_g(servingArray[key].carbs_g),
-    setProtein_g(servingArray[key].protein_g));
+    return (
+      setDropDownSelectionIndex(key),
+      setServingType(servingArray[key].serving_desc),
+      setFat_g(servingArray[key].fat_g),
+      setCarbs_g(servingArray[key].carbs_g),
+      setProtein_g(servingArray[key].protein_g)
+    );
   };
 
   const addedMacros = () => {
-   if(quantity !== item.quantity) {
-    const addedfatGrams = Number(fat_g) * quantity;
-    const addedCarbGrams = Number(carbs_g) * quantity;
-    const addedProteinGrams = Number(protein_g) * quantity;
-    // rounds to nearest hundreth
-    return {
-      fat: Math.round(100 * addedfatGrams) / 100,
-      carbs: Math.round(100 * addedCarbGrams) / 100,
-      protein: Math.round(100 * addedProteinGrams) / 100
+    if (quantity !== item.quantity) {
+      const addedfatGrams = Number(fat_g) * quantity;
+      const addedCarbGrams = Number(carbs_g) * quantity;
+      const addedProteinGrams = Number(protein_g) * quantity;
+      // rounds to nearest hundreth
+      return {
+        fat: Math.round(100 * addedfatGrams) / 100,
+        carbs: Math.round(100 * addedCarbGrams) / 100,
+        protein: Math.round(100 * addedProteinGrams) / 100
+      };
+    } else {
+      return null;
     }
-  }else{
-    return null;
-  }
- 
   };
 
   const updateFoodLog = async () => {
     const food_id = item.id;
     const updatedQuantity = quantity;
-    const serving_id = dropDownSelectionIndex !== null ? servingArray[dropDownSelectionIndex].serving_id : item.serving_id;
+    const serving_id =
+      dropDownSelectionIndex !== null
+        ? servingArray[dropDownSelectionIndex].serving_id
+        : item.serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
     const time_zone_name = currentTimeZone;
@@ -221,7 +224,7 @@ const UpdateFoodItem = props => {
         >
           <FoodName>
             <Textfit mode="single" forceSingleModeWidth={false}>
-             {foodSelection ? `Update: ${foodSelection.food_name}` : `Update`}
+              {foodSelection ? `Update: ${foodSelection.food_name}` : `Update`}
             </Textfit>
           </FoodName>
         </Col>
@@ -239,13 +242,15 @@ const UpdateFoodItem = props => {
             {""} <br />
             <span>
               {" "}
-              {updatedQuantity >= 0 ? "+" : "" }
-              { quantity === item.quantity ? Math.trunc(
-               foodSelection && foodSelection.calories_kcal * quantity 
-              ) :  Math.trunc(
-               foodSelection && foodSelection.calories_kcal * updatedQuantity 
-              )
-              } { " "}
+              {updatedQuantity >= 0 ? "+" : ""}
+              {quantity === item.quantity
+                ? Math.trunc(
+                    foodSelection && foodSelection.calories_kcal * quantity
+                  )
+                : Math.trunc(
+                    foodSelection &&
+                      foodSelection.calories_kcal * updatedQuantity
+                  )}{" "}
               cal
             </span>
           </AddedCalories>
@@ -255,14 +260,16 @@ const UpdateFoodItem = props => {
             New Cal
             <br />
             <span>
-              {quantity !== item.quantity? consumed.caloriesConsumed +
-                foodSelection.calories_kcal * updatedQuantity : 0}{" "}
+              {quantity !== item.quantity
+                ? consumed.caloriesConsumed +
+                  foodSelection.calories_kcal * updatedQuantity
+                : 0}{" "}
               cal
             </span>
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={ addedMacros() } date={date} />
+      <MacroBudgets macrosAdded={addedMacros()} date={date} />
       <Row
         style={{
           marginTop: "50px",
@@ -277,10 +284,11 @@ const UpdateFoodItem = props => {
             name="quantity"
             value={quantity}
             min={1}
-            onChange={ e => {
+            onChange={e => {
               return (
                 setQuantity(e.target.value),
-                setUpdatedQuantity(e.target.value - item.quantity))
+                setUpdatedQuantity(e.target.value - item.quantity)
+              );
             }}
           />
         </Col>
@@ -303,11 +311,13 @@ const UpdateFoodItem = props => {
               {item && servingType}
             </DropdownToggle>
             <DropdownMenu>
-              {servingArray !== undefined ? servingArray.map((serving, key) => (
-                <DropdownItem key={key} onClick={() => handleSelect(key)}>
-                  {serving.serving_desc}
-                </DropdownItem>
-              )): null}
+              {servingArray !== undefined
+                ? servingArray.map((serving, key) => (
+                    <DropdownItem key={key} onClick={() => handleSelect(key)}>
+                      {serving.serving_desc}
+                    </DropdownItem>
+                  ))
+                : null}
             </DropdownMenu>
           </ButtonDropdown>
         </Col>
@@ -371,37 +381,37 @@ const UpdateFoodItem = props => {
   );
 };
 
-const DataCol = styled(Col)`
-  margin-top: 2rem;
-  margin-bottom: 8rem;
-  h5 {
-    margin-top: 0.4rem;
-    font-size: 1.6rem;
-  }
-  h6 {
-    font-size: 1.4rem;
-  }
-  .gray-box {
-    width: 100%;
-    height: 1rem;
-    background: gray;
-    border-bottom: 1px solid black;
-  }
-`;
+// const DataCol = styled(Col)`
+//   margin-top: 2rem;
+//   margin-bottom: 8rem;
+//   h5 {
+//     margin-top: 0.4rem;
+//     font-size: 1.6rem;
+//   }
+//   h6 {
+//     font-size: 1.4rem;
+//   }
+//   .gray-box {
+//     width: 100%;
+//     height: 1rem;
+//     background: gray;
+//     border-bottom: 1px solid black;
+//   }
+// `;
 
-const MainData = styled(Col)`
-  border-bottom: 1px solid black;
-  h5 {
-    font-weight: bold;
-  }
-`;
+// const MainData = styled(Col)`
+//   border-bottom: 1px solid black;
+//   h5 {
+//     font-weight: bold;
+//   }
+// `;
 
-const SubData = styled(Col)`
-  border-bottom: 1px solid black;
-  h5 {
-    margin-left: 1rem;
-  }
-`;
+// const SubData = styled(Col)`
+//   border-bottom: 1px solid black;
+//   h5 {
+//     margin-left: 1rem;
+//   }
+// `;
 
 const FoodName = styled(H2)`
   text-align: center;

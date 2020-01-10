@@ -25,7 +25,6 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     <Route
       {...rest}
       render={routeProps => {
-        console.log("[token ******]", token);
         // if use is logged in, send them to private route, else send them to the landing page to log in
         return token ? (
           <RouteComponent {...routeProps} />

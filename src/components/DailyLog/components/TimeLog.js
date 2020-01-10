@@ -2,10 +2,9 @@ import React from "react";
 import { Table as BS_Table } from "reactstrap";
 import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
-import Tooltip from "react-bootstrap/Tooltip"; 
-import OverlayTrigger from "react-bootstrap/OverlayTrigger"; 
-import {useHistory} from "react-router-dom"; 
-
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { useHistory } from "react-router-dom";
 
 const TimeLog = ({ dailyLog }) => {
   let history = useHistory();
@@ -28,17 +27,18 @@ const TimeLog = ({ dailyLog }) => {
                   {interval.map((log, i) => (
                     <OverlayTrigger
                       key={i}
-                      placement="top" 
-                      delay={{ show: 250, hide: 400 }} 
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
                       overlay={renderTooltip(log.foodName)}
                       trigger={"hover"}
                     >
-                      <tr        
+                      <tr
                         key={i}
                         onClick={() => {
-                          history.push(`/update-food-item/${log.foodLogID}`); 
+                          history.push(`/update-food-item/${log.foodLogID}`);
                         }}
                       >
+                        {console.log("LOG IT BOY!!!!!", log)}
                         {log.firstGroupLog ? (
                           log.hasTimeZoneDifference ? (
                             <TimeHeader twoTimeZones>
@@ -73,9 +73,8 @@ const TimeLog = ({ dailyLog }) => {
   );
 };
 
-
-const renderTooltip = (props) => {
-  return  <Tooltip >{`Edit ${props}`}</Tooltip>;
+const renderTooltip = props => {
+  return <Tooltip>{`Edit ${props}`}</Tooltip>;
 };
 
 const Table = styled(BS_Table)`

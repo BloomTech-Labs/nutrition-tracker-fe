@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import {
   Button,
   CustomInput,
@@ -15,7 +15,6 @@ import {
 import { ListStyle } from "../styles";
 
 const ActivityLevel = props => {
-
   const [modal, setModal] = useState(false);
 
   const [activityLevel, setActivityLevel] = useState("");
@@ -27,6 +26,8 @@ const ActivityLevel = props => {
   return (
     <div>
       <ListGroupItem onClick={toggle} style={ListStyle}>
+        <div>Activity Level</div>
+        <div>{activityLevel}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader>Activity Level</ModalHeader>

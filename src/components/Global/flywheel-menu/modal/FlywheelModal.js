@@ -17,16 +17,19 @@ class PopModal extends React.Component {
     this.setState({
       weight: e.target.value
     });
-  }
+  };
 
   handleSaveRecipe = e => {
     //need to handle save for RC2 Recipes.
   };
 
   handleRecordWeight = async () => {
-    const weight_kg = lbsToKgs(this.state.weight)
+    const weight_kg = lbsToKgs(this.state.weight);
 
-    const payload = await this.props.recordUserWeight(this.props.firebaseID, weight_kg);
+    const payload = await this.props.recordUserWeight(
+      this.props.firebaseID,
+      weight_kg
+    );
     return payload;
   };
 
@@ -38,7 +41,8 @@ class PopModal extends React.Component {
 
   render() {
     if (this.props.segue === "Recipe") {
-      return ( <div></div>
+      return (
+        <div></div>
         // <Recipe
         //   isEnabled={this.props.isEnabled}
         //   handleToggleClickProp={this.props.handleToggleClickProp}
@@ -81,7 +85,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { recordUserWeight })(PopModal);
 
 /***********************FlywheelModal Component Use*********************/
- /*
+/*
     1) We are conditionally rendering which bootstrap dependant child modal gets displayed by checking the "segue" prop that is passed in.
     The segue value is the string "name" that was provided in the Flywheel child object and can be used to style and provide specific fucntionality for different modals. 
     !Important, Spelling and Case must match segues value.

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // Set up routes
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,7 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
+import UpdateView from "./components/UpdateFoodItem";
 import Scanner from "./components/Scanner";
 
 library.add(faSearch);
@@ -23,6 +24,11 @@ library.add(faSearch);
 const DailyLogWithNav = withNavigation({
   displayTop: false
 })(DailyLog);
+
+const UpdateViewWithNav = withNavigation({
+  pageTitle: "Update Food",
+  displayTop: true
+})(UpdateView);
 
 library.add(faSearch);
 
@@ -61,13 +67,19 @@ class App extends Component {
     return (
       <ToastProvider number="5000">
         <AppWrapper>
-          <PrivateRoute exact path="/" component={DailyLogWithNav} />
-          <Route path="/login" component={LoginWithNav} />
-          <Route path="/register" component={RegisterWithNav} />
-          <Route path="/onboarding" component={OnboardingWithNav} />
-          <PrivateRoute path="/food-item" component={FoodItemWithNav} />
-          <PrivateRoute path="/settings" component={SettingsWithNav} />
-          <Route path="/scanner" component={ScannerWithNav} />
+          <Switch>
+            <PrivateRoute
+              path="/update-food-item"
+              component={UpdateViewWithNav}
+            />
+            <PrivateRoute exact path="/" component={DailyLogWithNav} />
+            <Route path="/login" component={LoginWithNav} />
+            <Route path="/register" component={RegisterWithNav} />
+            <Route path="/onboarding" component={OnboardingWithNav} />
+            <PrivateRoute path="/food-item" component={FoodItemWithNav} />
+            <PrivateRoute path="/settings" component={SettingsWithNav} />
+            <Route path="/scanner" component={ScannerWithNav} />
+          </Switch>
         </AppWrapper>
       </ToastProvider>
     );

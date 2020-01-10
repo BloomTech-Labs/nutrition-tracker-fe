@@ -33,7 +33,7 @@ const Dob = props => {
         <div>{moment(dob).utc().format("MMM DD YY")}</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Date Of Birth</ModalHeader>
+        <ModalHeader>Date Of Birth</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
@@ -58,7 +58,13 @@ const Dob = props => {
           >
             Update
           </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
+          <Button
+            color="secondary"
+            onClick={() => {
+              toggle();
+              setDob(props.data.dob);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

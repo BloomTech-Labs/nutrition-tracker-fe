@@ -16,7 +16,9 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import Settings from "./components/Settings";
-import UpdateView from './components/UpdateFoodItem';
+import UpdateView from "./components/UpdateFoodItem";
+import Scanner from "./components/Scanner";
+
 library.add(faSearch);
 
 const DailyLogWithNav = withNavigation({
@@ -55,20 +57,28 @@ const FoodItemWithNav = withNavigation({
   pageTitle: "Food Item"
 })(FoodItem);
 
+const ScannerWithNav = withNavigation({
+  pageTitle: "Barcode Scanner"
+})(Scanner);
+
 class App extends Component {
   render() {
     return (
       <ToastProvider number="5000">
         <AppWrapper>
-        <Switch>
-          <PrivateRoute path="/update-food-item" component={UpdateViewWithNav} />
-          <PrivateRoute exact path="/" component={DailyLogWithNav} />
-          <Route path="/login" component={LoginWithNav} />
-          <Route path="/register" component={RegisterWithNav} />
-          <Route path="/onboarding" component={OnboardingWithNav} />
-          <PrivateRoute path="/food-item" component={FoodItemWithNav} />
-          <PrivateRoute path="/settings" component={SettingsWithNav} />
-        </Switch>
+          <Switch>
+            <PrivateRoute
+              path="/update-food-item"
+              component={UpdateViewWithNav}
+            />
+            <PrivateRoute exact path="/" component={DailyLogWithNav} />
+            <Route path="/login" component={LoginWithNav} />
+            <Route path="/register" component={RegisterWithNav} />
+            <Route path="/onboarding" component={OnboardingWithNav} />
+            <PrivateRoute path="/food-item" component={FoodItemWithNav} />
+            <PrivateRoute path="/settings" component={SettingsWithNav} />
+            <Route path="/scanner" component={ScannerWithNav} />
+          </Switch>
         </AppWrapper>
       </ToastProvider>
     );

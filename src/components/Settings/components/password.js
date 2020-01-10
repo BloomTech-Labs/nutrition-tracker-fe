@@ -26,7 +26,7 @@ const Password = props => {
         <div>Password</div>
       </ListGroupItem>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Password</ModalHeader>
+        <ModalHeader>Password</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>

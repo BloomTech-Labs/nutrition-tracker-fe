@@ -1,36 +1,28 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Textfit } from "react-textfit";
 import { useToasts } from "react-toast-notifications";
 import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import styled from "styled-components";
 import {
-  getFoodItemForEdit,
-  updateFoodItem,
+  faCheck,
+  faPencilAlt,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
+import {
   deleteFoodItem,
-  resetState
+  getFoodItemForEdit,
+  resetState,
+  updateFoodItem
 } from "../../../store/actions/foodItemAction";
+import NutritionInfo from "../../FoodItem/components/NutritionInfo";
 import Loading from "../../Global/Loading";
 import MacroBudgets from "../../Global/MacroBudgets";
 import Flywheel from "../../Global/flywheel-menu/Flywheel";
-import {
-  Col,
-  DropdownToggle,
-  H2,
-  H3,
-  // H4,
-  Input,
-  Row
-} from "../../Global/styled";
-import NutritionInfo from "../../FoodItem/components/NutritionInfo";
-import {
-  faPencilAlt,
-  faTrash,
-  faCheck
-} from "@fortawesome/free-solid-svg-icons";
+import { Col, DropdownToggle, H2, H3, Input, Row } from "../../Global/styled";
 
 const UpdateFoodItem = props => {
   let childButtonIcons = [
@@ -98,7 +90,7 @@ const UpdateFoodItem = props => {
 
   useEffect(() => {
     const foodLogID = props.match.params.foodLogID;
-    dispatch(getFoodItemForEdit(foodLogID, firebaseID));
+    dispatch(getFoodItemForEdit(foodLogID));
   }, [props.match.params.foodLogID, firebaseID]);
 
   useEffect(() => {
@@ -168,13 +160,15 @@ const UpdateFoodItem = props => {
 
   const updateFoodLog = async () => {
     const food_id = item.id;
-    const updatedQuantity = quantity;
     const serving_id =
       dropDownSelectionIndex !== null
         ? servingArray[dropDownSelectionIndex].serving_id
         : item.serving_id;
-    const fatsecret_food_id = props.match.params.fatsecret_food_id;
+    const fatsecret_food_id = item.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
+    const daily_nutrition_totals_date = moment
+      .tz(dateTimeUTC, currentTimeZone)
+      .format("YYYY-MM-DD");
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
@@ -182,15 +176,15 @@ const UpdateFoodItem = props => {
       updateFoodItem(
         {
           food_id,
-          updatedQuantity,
+          quantity,
           serving_id,
           fatsecret_food_id,
           time_consumed_at,
+          daily_nutrition_totals_date,
           time_zone_name,
           time_zone_abbr
         },
-        item.id,
-        firebaseID
+        props.match.params.foodLogID
       )
     );
     await dispatch(resetState()); // Have to reset state for toast to work properly
@@ -201,7 +195,7 @@ const UpdateFoodItem = props => {
   };
 
   const removeFoodItem = async () => {
-    await dispatch(deleteFoodItem(props.match.params.foodLogID, firebaseID));
+    await dispatch(deleteFoodItem(props.match.params.foodLogID));
     await dispatch(resetState()); // Have to reset state for toast to work properly
   };
 

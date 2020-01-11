@@ -102,6 +102,9 @@ const FoodDetails = props => {
     const serving_id = item[selectionIndex].serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
+    const daily_nutrition_totals_date = moment
+      .tz(dateTimeUTC, currentTimeZone)
+      .format("YYYY-MM-DD");
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
@@ -113,6 +116,7 @@ const FoodDetails = props => {
           serving_id,
           fatsecret_food_id,
           time_consumed_at,
+          daily_nutrition_totals_date,
           time_zone_name,
           time_zone_abbr
         },

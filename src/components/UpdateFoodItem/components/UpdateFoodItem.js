@@ -98,7 +98,7 @@ const UpdateFoodItem = props => {
 
   useEffect(() => {
     const foodLogID = props.match.params.foodLogID;
-    dispatch(getFoodItemForEdit(foodLogID, firebaseID));
+    dispatch(getFoodItemForEdit(foodLogID));
   }, [props.match.params.foodLogID, firebaseID]);
 
   useEffect(() => {
@@ -189,8 +189,7 @@ const UpdateFoodItem = props => {
           time_zone_name,
           time_zone_abbr
         },
-        item.id,
-        firebaseID
+        item.id
       )
     );
     await dispatch(resetState()); // Have to reset state for toast to work properly
@@ -201,7 +200,7 @@ const UpdateFoodItem = props => {
   };
 
   const removeFoodItem = async () => {
-    await dispatch(deleteFoodItem(props.match.params.foodLogID, firebaseID));
+    await dispatch(deleteFoodItem(props.match.params.foodLogID));
     await dispatch(resetState()); // Have to reset state for toast to work properly
   };
 

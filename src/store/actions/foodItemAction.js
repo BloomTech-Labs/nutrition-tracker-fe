@@ -69,10 +69,10 @@ export const addFoodItem = (foodLog, firebaseID) => dispatch => {
     });
 };
 
-export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
+export const getFoodItemForEdit = foodLogID => dispatch => {
   dispatch({ type: GET_FOOD_ITEM_FOR_EDIT_START });
   return axios
-    .get(`${backendURL}/food-item/getfooditem/${foodLogID}/user/${user_id}`)
+    .get(`${backendURL}/food-item/getfooditem/${foodLogID}`)
     .then(response => {
       dispatch({
         type: GET_FOOD_ITEM_FOR_EDIT_SUCCESS,
@@ -84,13 +84,10 @@ export const getFoodItemForEdit = (foodLogID, user_id) => dispatch => {
     });
 };
 
-export const updateFoodItem = (foodItem, foodLogID, user_id) => dispatch => {
+export const updateFoodItem = (foodItem, foodLogID) => dispatch => {
   dispatch({ type: UPDATE_FOOD_ITEM_START });
   return axios
-    .put(
-      `${backendURL}/food-item/updatefooditem/${foodLogID}/user/${user_id}`,
-      foodItem
-    )
+    .put(`${backendURL}/food-item/updatefooditem/${foodLogID}`, foodItem)
     .then(response => {
       dispatch({ type: UPDATE_FOOD_ITEM_SUCCESS });
     })
@@ -103,10 +100,10 @@ export const resetState = () => dispatch => {
   dispatch({ type: RESET_STATE });
 };
 
-export const deleteFoodItem = (foodLogID, user_id) => dispatch => {
+export const deleteFoodItem = foodLogID => dispatch => {
   dispatch({ type: DELETE_FOOD_ITEM_START });
   return axios
-    .delete(`${backendURL}/food-item/deletefooditem/${foodLogID}/user/${user_id}`)
+    .delete(`${backendURL}/food-item/deletefooditem/${foodLogID}`)
     .then(response => {
       dispatch({ type: DELETE_FOOD_ITEM_SUCCESS });
     })

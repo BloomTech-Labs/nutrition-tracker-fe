@@ -5,9 +5,12 @@ import {
   GET_CALORIES_CONSUMED_FAILURE,
   GET_CALORIES_CONSUMED_START,
   GET_CALORIES_CONSUMED_SUCCESS,
-  GET_WEIGHT_PROGRESS_FAILURE,
-  GET_WEIGHT_PROGRESS_START,
-  GET_WEIGHT_PROGRESS_SUCCESS
+  GET_WEIGHT_ACTUALS_FAILURE,
+  GET_WEIGHT_ACTUALS_START,
+  GET_WEIGHT_ACTUALS_SUCCESS,
+  GET_WEIGHT_TARGETS_FAILURE,
+  GET_WEIGHT_TARGETS_START,
+  GET_WEIGHT_TARGETS_SUCCESS
 } from "../actions/progressOverviewActions";
 
 /*
@@ -18,10 +21,15 @@ import {
 
 const initialState = {
   // WEIGHT PROGRESS OVER TIME
-  weightsOverTime: [],
-  getWeightProgressStart: false,
-  getWeightProgressSuccess: false,
-  getWeightProgressFailure: false,
+  weight_actuals: [],
+  weight_targets: [],
+  weight_labels: [],
+  getWeightActualsStart: false,
+  getWeightActualsSuccess: false,
+  getWeightActualsFailure: false,
+  getWeightTargetsStart: false,
+  getWeightTargetsSuccess: false,
+  getWeightTargetsFailure: false,
   // AVERAGE MACROS OVER TIME
   actual_calories: [],
   target_calories: [],
@@ -37,10 +45,6 @@ const initialState = {
 };
 
 export const progressOverviewReducer = (state = initialState, action) => {
-  const { weightsOverTime } = action.payload
-    ? action.payload
-    : initialState.weightsOverTime;
-
   const { averageMacros } = action.payload
     ? action.payload
     : initialState.averageMacros;
@@ -76,40 +80,72 @@ export const progressOverviewReducer = (state = initialState, action) => {
     case GET_CALORIES_CONSUMED_FAILURE: {
       return {
         ...state,
-        weightsOverTime,
         getCaloriesConsumedStart: false,
         getCaloriesConsumedSuccess: false,
         getCaloriesConsumedFailure: true
       };
     }
 
-    case GET_WEIGHT_PROGRESS_START: {
+    case GET_WEIGHT_ACTUALS_START: {
       return {
         ...state,
-        weightsOverTime,
-        getWeightProgressStart: true,
-        getWeightProgressSuccess: false,
-        getWeightProgressFailure: false
+        getWeightActualsStart: true,
+        getWeightActualsSuccess: false,
+        getWeightActualsFailure: false
       };
     }
 
-    case GET_WEIGHT_PROGRESS_SUCCESS: {
+    case GET_WEIGHT_ACTUALS_SUCCESS: {
       return {
         ...state,
-        weightsOverTime,
-        getWeightProgressStart: false,
-        getWeightProgressSuccess: true,
-        getWeightProgressFailure: false
+        weight_actuals: action.payload.actualWeights.map(record => {
+          return record.actual_weight_lbs;
+        }),
+        getWeightActualsStart: false,
+        getWeightActualsSuccess: true,
+        getWeightActualsFailure: false
       };
     }
 
-    case GET_WEIGHT_PROGRESS_FAILURE: {
+    case GET_WEIGHT_ACTUALS_FAILURE: {
       return {
         ...state,
-        weightsOverTime,
-        getWeightProgressStart: false,
-        getWeightProgressSuccess: false,
-        getWeightProgressFailure: true
+        getWeightActualsStart: false,
+        getWeightActualsSuccess: false,
+        getWeightActualsFailure: true
+      };
+    }
+
+    case GET_WEIGHT_TARGETS_START: {
+      return {
+        ...state,
+        getWeightTargetsStart: true,
+        getWeightTargetsSuccess: false,
+        getWeightTargetsFailure: false
+      };
+    }
+
+    case GET_WEIGHT_TARGETS_SUCCESS: {
+      return {
+        ...state,
+        weight_targets: action.payload.targetWeights.map(record => {
+          return record.target_goal_weight_lbs;
+        }),
+        weight_labels: action.payload.targetWeights.map(record => {
+          return record.observation_date;
+        }),
+        getWeightTargetsStart: false,
+        getWeightTargetsSuccess: true,
+        getWeightTargetsFailure: false
+      };
+    }
+
+    case GET_WEIGHT_TARGETS_FAILURE: {
+      return {
+        ...state,
+        getWeightTargetsStart: false,
+        getWeightTargetsSuccess: false,
+        getWeightTargetsFailure: true
       };
     }
 

@@ -50,13 +50,13 @@ const DailyLog = props => {
   const [interval, setInterval] = useState(30);
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  useFetchByDispatch(fetchDailyLog, {
-    firebaseID,
-    currentDate,
+  useFetchByDispatch(updateCurrentTimeZone, {
     currentTimeZone
   });
 
-  useFetchByDispatch(updateCurrentTimeZone, {
+  useFetchByDispatch(fetchDailyLog, {
+    firebaseID,
+    currentDate,
     currentTimeZone
   });
 

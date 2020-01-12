@@ -14,8 +14,9 @@ export const UPDATE_CURRENT_TIMEZONE = "UPDATE_CURRENT_TIMEZONE";
 
 export const fetchNutritionBudgets = userID => dispatch => {
   dispatch({ type: FETCH_NUTRITION_BUDGETS_START });
-  axios.get(`${backendURL}/daily-log/${userID}/nutrition-budgets/`) 
-    .then(({data}) => {
+  axios
+    .get(`${backendURL}/daily-log/${userID}/nutrition-budgets/`)
+    .then(({ data }) => {
       dispatch({
         type: FETCH_NUTRITION_BUDGETS_SUCCESS,
         payload: {
@@ -36,8 +37,9 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
 
   currentTimeZone = encodeURIComponent(currentTimeZone);
 
-  axios.get(`${backendURL}/daily-log/${userID}/${date}/${currentTimeZone}`)
-    .then(({data}) => {
+  axios
+    .get(`${backendURL}/daily-log/${userID}/${date}/${currentTimeZone}`)
+    .then(({ data }) => {
       dispatch({
         type: FETCH_DAILY_LOG_SUCCESS,
         payload: {

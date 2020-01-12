@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button as BS_Button, Input as BS_Input } from "reactstrap";
 import styled from "styled-components";
-import {
-  updateCurrentDate
-} from "../../../store/actions/dailyLogActions";
+import { updateCurrentDate } from "../../../store/actions/dailyLogActions";
 import { CalendarSVG, LeftCarotSVG, RightCarotSVG } from "../../Global/icons";
 import { Col, Row } from "../../Global/styled";
 import theme from "../../Global/theme";
@@ -25,7 +23,7 @@ const Pagination = ({ currentDate, currentTimeZone }) => {
             .tz(currentDate, currentTimeZone)
             .add(1, "d")
             .format("YYYY-MM-DD");
-    
+
     dispatch(updateCurrentDate(newDate));
   };
 
@@ -48,7 +46,6 @@ const Pagination = ({ currentDate, currentTimeZone }) => {
             <LeftCarotSVG />
           </Button>
           <ActiveDate>
-            <CalendarSVG margin="2 0 0 0" />
             <DateInput
               type="date"
               value={dateInput || currentDate}
@@ -87,7 +84,7 @@ const DateInput = styled(BS_Input)`
   font-size: 1.6rem;
 
   border: none;
-  background-color: ${theme.color.light};
+  background-color: ${theme.color.nutri_background};
 
   &:before {
     content: attr(placeholder) !important;
@@ -102,9 +99,8 @@ const DateInput = styled(BS_Input)`
 `;
 
 const Button = styled(BS_Button)`
-  background-color: ${theme.color.light};
+  background-color: ${theme.color.nutri_background};
   border: none;
-
 `;
 
 export default Pagination;

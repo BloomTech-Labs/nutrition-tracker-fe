@@ -1,10 +1,10 @@
 import React from "react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { useHistory } from "react-router-dom";
 import { Table as BS_Table } from "reactstrap";
 import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { useHistory } from "react-router-dom";
 
 const TimeLog = ({ dailyLog }) => {
   let history = useHistory();
@@ -38,7 +38,6 @@ const TimeLog = ({ dailyLog }) => {
                           history.push(`/update-food-item/${log.foodLogID}`);
                         }}
                       >
-                        {console.log("LOG IT BOY!!!!!", log)}
                         {log.firstGroupLog ? (
                           log.hasTimeZoneDifference ? (
                             <TimeHeader twoTimeZones>
@@ -96,7 +95,7 @@ const Table = styled(BS_Table)`
 
 const TimeHeader = styled.th`
   font-size: 1.4rem;
-  text-align: right;
+  text-align: left;
   border: none;
   width: 25%;
 
@@ -111,10 +110,12 @@ const TimeHeader = styled.th`
 
 const FoodName = styled.td`
   text-align: left;
+  font-size: 1.4rem;
 `;
 
 const ServingName = styled.td`
   text-align: right;
+  font-size: 1.4rem;
 `;
 
 const Quantity = styled.td`

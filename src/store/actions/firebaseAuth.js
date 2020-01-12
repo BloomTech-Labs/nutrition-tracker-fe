@@ -1,6 +1,6 @@
 import axios from "axios";
-import firebase from "../../config/firebase";
 import { backendURL } from "../../config/backendURL.js";
+import firebase from "../../config/firebase";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();

@@ -7,6 +7,7 @@ import {
   faUtensils,
   faWeight
 } from "@fortawesome/free-solid-svg-icons";
+import { useFetchByDispatch } from "../../custom-hooks/useFetchByDispatch";
 import {
   fetchDailyLog,
   updateCurrentTimeZone
@@ -35,6 +36,8 @@ let childButtonIcons = [
 const currentTimeZone = moment.tz.guess();
 
 const DailyLog = props => {
+  const dispatch = useDispatch();
+
   const {
     budgets,
     consumed,
@@ -42,24 +45,20 @@ const DailyLog = props => {
     fetchDailyLogSuccess,
     currentDate
   } = useSelector(state => state.dailyLog);
-
-  const dispatch = useDispatch();
-
   const firebaseID = useSelector(state => state.firebase.auth.uid);
-  const isLoaded = useSelector(state => state.firebase.profile.isLoaded);
 
   const [interval, setInterval] = useState(30);
-
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
-  useEffect(() => {
-    if (isLoaded)
-      dispatch(fetchDailyLog(firebaseID, currentDate, currentTimeZone));
-  }, [isLoaded, currentDate, currentTimeZone, dispatch, firebaseID]);
+  useFetchByDispatch(updateCurrentTimeZone, {
+    currentTimeZone
+  });
 
-  useEffect(() => {
-    if (isLoaded) dispatch(updateCurrentTimeZone(currentTimeZone));
-  }, [isLoaded, currentTimeZone, dispatch]);
+  useFetchByDispatch(fetchDailyLog, {
+    firebaseID,
+    currentDate,
+    currentTimeZone
+  });
 
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));

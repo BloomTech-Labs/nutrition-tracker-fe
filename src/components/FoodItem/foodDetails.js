@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Textfit } from "react-textfit";
 import { useToasts } from "react-toast-notifications";
-import { ButtonDropdown, DropdownItem, DropdownMenu } from "reactstrap";
+import {
+  DropdownItem as BS_DropdownItem,
+  ButtonDropdown,
+  DropdownMenu
+} from "reactstrap";
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -341,6 +345,10 @@ const NewCalories = styled(H3)`
 `;
 
 const InputLabel = styled.span`
+  font-size: 1.6rem;
+`;
+
+const DropdownItem = styled(BS_DropdownItem)`
   font-size: 1.6rem;
 `;
 

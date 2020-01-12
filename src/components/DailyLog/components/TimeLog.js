@@ -1,9 +1,14 @@
 import React from "react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { useHistory } from "react-router-dom";
 import { Table as BS_Table } from "reactstrap";
 import styled from "styled-components";
 import { Col, H4, Row } from "../../Global/styled";
 
 const TimeLog = ({ dailyLog }) => {
+  let history = useHistory();
+
   return (
     <div>
       {dailyLog.length === 0 && (
@@ -20,28 +25,43 @@ const TimeLog = ({ dailyLog }) => {
               <Table>
                 <tbody>
                   {interval.map((log, i) => (
-                    <tr key={i}>
-                      {log.firstGroupLog ? (
-                        log.hasTimeZoneDifference ? (
-                          <TimeHeader twoTimeZones>
-                            {log.intervalStartHere}
-                            <br />
-                            <span>{log.intervalStartThere}</span>
-                          </TimeHeader>
+                    <OverlayTrigger
+                      key={i}
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip(log.foodName)}
+                      trigger={"hover"}
+                    >
+                      <tr
+                        key={i}
+                        onClick={() => {
+                          history.push(`/update-food-item/${log.foodLogID}`);
+                        }}
+                      >
+                        {log.firstGroupLog ? (
+                          log.hasTimeZoneDifference ? (
+                            <TimeHeader twoTimeZones>
+                              {log.intervalStartHere}
+                              <br />
+                              <span>{log.intervalStartThere}</span>
+                            </TimeHeader>
+                          ) : (
+                            <TimeHeader>{log.intervalStart}</TimeHeader>
+                          )
                         ) : (
-                          <TimeHeader>{log.intervalStart}</TimeHeader>
-                        )
-                      ) : (
-                        <TimeHeader />
-                      )}
-                      <FoodName className="food-name">{log.foodName}</FoodName>
-                      <ServingName className="serving">
-                        {log.servingDescription}
-                      </ServingName>
-                      <Quantity className="quantity">
-                        {Math.trunc(log.quantity)}
-                      </Quantity>
-                    </tr>
+                          <TimeHeader />
+                        )}
+                        <FoodName className="food-name">
+                          {log.foodName}
+                        </FoodName>
+                        <ServingName className="serving">
+                          {log.servingDescription}
+                        </ServingName>
+                        <Quantity className="quantity">
+                          {Math.trunc(log.quantity)}
+                        </Quantity>
+                      </tr>
+                    </OverlayTrigger>
                   ))}
                 </tbody>
               </Table>
@@ -50,6 +70,10 @@ const TimeLog = ({ dailyLog }) => {
         ))}
     </div>
   );
+};
+
+const renderTooltip = props => {
+  return <Tooltip>{`Edit ${props}`}</Tooltip>;
 };
 
 const Table = styled(BS_Table)`

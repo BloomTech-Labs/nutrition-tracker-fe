@@ -13,7 +13,7 @@ import {
 import Loading from "../Global/Loading";
 import MacroBudgets from "../Global/MacroBudgets";
 import Flywheel from "../Global/flywheel-menu/Flywheel";
-import { Col, DropdownToggle, H2, H3, H4, Input, Row } from "../Global/styled";
+import { Col, DropdownToggle, H2, H3, Input, Row } from "../Global/styled";
 import NutritionInfo from "./components/NutritionInfo";
 
 const FoodDetails = props => {
@@ -32,43 +32,48 @@ const FoodDetails = props => {
 
   // to populate date input
   const todayDate = moment.tz(currentTimeZone).format("YYYY-MM-DD");
-  
+
   // to populate time input
   const todayTime = moment.tz(currentTimeZone).format("HH:mm");
 
   const [time, setTime] = useState(todayTime);
   const [date, setDate] = useState(todayDate);
-  const [dateTimeUTC, setDateTimeUTC] = useState(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-
-  useEffect(() => {
-    setDateTimeUTC(moment.tz(`${date} ${time}`, currentTimeZone).utc().format());
-  }, [date, time])
-
-  useEffect(
-    () => {
-      dispatch(getOneFoodItem(props.match.params.fatsecret_food_id));
-    },
-    [props.match.params.fatsecret_food_id]
+  const [dateTimeUTC, setDateTimeUTC] = useState(
+    moment
+      .tz(`${date} ${time}`, currentTimeZone)
+      .utc()
+      .format()
   );
 
-  useEffect(
-    () => {
-      if (got)
-        addToast("Food Item Added!", {
-          appearance: "success",
-          autoDismiss: true
-        });
-      else if (error)
-        addToast("Error. Try again later.", {
-          appearance: "error",
-          autoDismiss: true
-        });
-    },
-    [error, got]
-  )
+  useEffect(() => {
+    setDateTimeUTC(
+      moment
+        .tz(`${date} ${time}`, currentTimeZone)
+        .utc()
+        .format()
+    );
+  }, [date, time]);
+
+  useEffect(() => {
+    dispatch(getOneFoodItem(props.match.params.fatsecret_food_id));
+  }, [props.match.params.fatsecret_food_id]);
+
+  useEffect(() => {
+    if (got)
+      addToast("Food Item Added!", {
+        appearance: "success",
+        autoDismiss: true
+      });
+    else if (error)
+      addToast("Error. Try again later.", {
+        appearance: "error",
+        autoDismiss: true
+      });
+  }, [error, got]);
 
   const handleToggle = e => {
-    setDropdownOpen(prevState => !prevState.dropdownOpen);
+    e.preventDefault();
+    setDropdownOpen(!dropdownOpen);
   };
 
   const handleSelect = key => {
@@ -97,6 +102,9 @@ const FoodDetails = props => {
     const serving_id = item[selectionIndex].serving_id;
     const fatsecret_food_id = props.match.params.fatsecret_food_id;
     const time_consumed_at = dateTimeUTC;
+    const daily_nutrition_totals_date = moment
+      .tz(dateTimeUTC, currentTimeZone)
+      .format("YYYY-MM-DD");
     const time_zone_name = currentTimeZone;
     const time_zone_abbr = getCurrentTimeZoneAbbr();
 
@@ -108,6 +116,7 @@ const FoodDetails = props => {
           serving_id,
           fatsecret_food_id,
           time_consumed_at,
+          daily_nutrition_totals_date,
           time_zone_name,
           time_zone_abbr
         },
@@ -145,29 +154,37 @@ const FoodDetails = props => {
       <Row style={{ paddingTop: "20px" }}>
         <Col align="center" height="50px">
           <CurrentCalories>
-            Current Cal<br />
+            Current Cal
+            <br />
             <span>{consumed.caloriesConsumed} cal</span>
           </CurrentCalories>
         </Col>
         <Col align="center" height="50px">
           <AddedCalories>
             {""} <br />
-            <span> +{Math.trunc(
-              foodSelection && foodSelection.calories_kcal * quantity
-            )}{" "}
-            cal</span>
+            <span>
+              {" "}
+              +
+              {Math.trunc(
+                foodSelection && foodSelection.calories_kcal * quantity
+              )}{" "}
+              cal
+            </span>
           </AddedCalories>
         </Col>
         <Col align="center" height="50px">
           <NewCalories>
-            New Cal<br />
-            <span>{consumed.caloriesConsumed +
-              foodSelection.calories_kcal * quantity}{" "}
-            cal</span>
+            New Cal
+            <br />
+            <span>
+              {consumed.caloriesConsumed +
+                foodSelection.calories_kcal * quantity}{" "}
+              cal
+            </span>
           </NewCalories>
         </Col>
       </Row>
-      <MacroBudgets macrosAdded={addedMacros()} date={date}/>
+      <MacroBudgets macrosAdded={addedMacros()} date={date} />
       <Row
         style={{
           marginTop: "50px",
@@ -206,39 +223,39 @@ const FoodDetails = props => {
               {item[0] && foodSelection.serving_desc}
             </DropdownToggle>
             <DropdownMenu>
-              {item.map((serving, key) =>
+              {item.map((serving, key) => (
                 <DropdownItem key={key} onClick={() => handleSelect(key)}>
                   {serving.serving_desc}
                 </DropdownItem>
-              )}
+              ))}
             </DropdownMenu>
           </ButtonDropdown>
         </Col>
-        </Row>
-        <Row style={{marginBottom: "35px"}}>
-            <Col direction="column" align="flex-start">
-              <InputLabel>Date</InputLabel>
-              <Input
-                type="date"
-                name="date"
-                value={date}
-                style={{ textAlign: "left" }}
-                onChange={e => setDate(e.target.value)}
-                min={1}
-              />
-            </Col>
-            <Col direction="column" align="flex-end">
-              <InputLabel>Time</InputLabel>
-              <Input
-                type="time"
-                name="time"
-                value={time}
-                style={{ textAlign: "left" }}
-                onChange={e => setTime(e.target.value)}
-                min={1}
-              />
-            </Col>
-         </Row> 
+      </Row>
+      <Row style={{ marginBottom: "35px" }}>
+        <Col direction="column" align="flex-start">
+          <InputLabel>Date</InputLabel>
+          <Input
+            type="date"
+            name="date"
+            value={date}
+            style={{ textAlign: "left" }}
+            onChange={e => setDate(e.target.value)}
+            min={1}
+          />
+        </Col>
+        <Col direction="column" align="flex-end">
+          <InputLabel>Time</InputLabel>
+          <Input
+            type="time"
+            name="time"
+            value={time}
+            style={{ textAlign: "left" }}
+            onChange={e => setTime(e.target.value)}
+            min={1}
+          />
+        </Col>
+      </Row>
 
       <NutritionInfo foodSelection={foodSelection} quantity={quantity} />
       <Row>
@@ -323,8 +340,8 @@ const NewCalories = styled(H3)`
   }
 `;
 
-const InputLabel = styled.span`font-size: 1.6rem;`;
-
+const InputLabel = styled.span`
+  font-size: 1.6rem;
+`;
 
 export default FoodDetails;
-

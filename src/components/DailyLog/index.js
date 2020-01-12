@@ -64,37 +64,45 @@ const DailyLog = props => {
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
 
   return (
-    <Container height={props.height} fluid>
-      <CaloricBudget
-        total={budgets.caloricBudget}
-        consumed={consumed.caloriesConsumed}
-      />
-      <FatSecretAttribution />
-      <MacroBudgets
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-      />
-      <Pagination
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-        updateCurrentDate={updateCurrentDate}
-      />
-      <DisplaySettings
-        interval={interval}
-        currentDate={currentDate}
-        updateInterval={updateInterval}
-        currentTimeZone={currentTimeZone}
-      />
-      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}
-      <Row>
-        <Col>
-          <Flywheel
-            maintButtonIcon={faTimes}
-            childButtonIcons={childButtonIcons}
+    <>
+      <Container height={props.height} fluid>
+        <CaloricBudget
+          total={budgets.caloricBudget}
+          consumed={consumed.caloriesConsumed}
+        />
+        <FatSecretAttribution />
+        <MacroBudgets
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+        />
+        <Pagination
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+          updateCurrentDate={updateCurrentDate}
+        />
+        <DisplaySettings
+          interval={interval}
+          currentDate={currentDate}
+          updateInterval={updateInterval}
+          currentTimeZone={currentTimeZone}
+        />
+        {fetchDailyLogSuccess && (
+          <TimeLog
+            dailyLog={groupedDailyLog}
+            path={props.match.url}
+            props={props}
           />
-        </Col>
-      </Row>
-    </Container>
+        )}
+        <Row>
+          <Col>
+            <Flywheel
+              maintButtonIcon={faTimes}
+              childButtonIcons={childButtonIcons}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

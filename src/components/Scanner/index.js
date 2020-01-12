@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { searchBarcode } from "../../store/actions/scannerAction";
 import Quagga from "quagga"; // Barcode Decoder! https://github.com/serratus/quaggaJS
@@ -31,13 +31,13 @@ const Scanner = props => {
     navigator &&
     navigator.mediaDevices &&
     "enumerateDevices" in navigator.mediaDevices;
-  let canvasRef = useRef(null),
-    webcamRef = useRef(null),
+  let webcamRef = useRef(null),
     forSelectedPhotos = false,
-    canvas = null,
+    // canvasRef = useRef(null),
+    // canvas = null,
     ctx = null;
 
-  let [quaggaResult, setQuaggaResult] = useState("");
+  // let [quaggaResult, setQuaggaResult] = useState("");
 
   const quaggaInit = () => {
     Quagga.init(

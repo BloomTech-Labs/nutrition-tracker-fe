@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // Set up routes
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -16,14 +16,20 @@ import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
 import PrivateRoute from "./components/PrivateRoute";
 import ProgressReports from "./components/ProgressReports";
-import Settings from "./components/Settings";
 import Scanner from "./components/Scanner";
+import Settings from "./components/Settings";
+import UpdateView from "./components/UpdateFoodItem";
 
 library.add(faSearch);
 
 const DailyLogWithNav = withNavigation({
   displayTop: false
 })(DailyLog);
+
+const UpdateViewWithNav = withNavigation({
+  pageTitle: "Update Food",
+  displayTop: true
+})(UpdateView);
 
 library.add(faSearch);
 
@@ -71,6 +77,10 @@ class App extends Component {
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
+          <PrivateRoute
+            path="/update-food-item"
+            component={UpdateViewWithNav}
+          />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
           <PrivateRoute
             path="/progress-reports"

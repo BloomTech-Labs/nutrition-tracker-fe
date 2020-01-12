@@ -11,13 +11,12 @@ const tzAbbreviation = moment.tz(currentTimeZone).format("z");
 
 const today = moment
   .tz(currentTimeZone)
-  .utc()
+
   .format();
 
 const lastWeek = moment
   .tz(currentTimeZone)
   .subtract(1, "weeks")
-  .utc()
   .format();
 
 // initializes initialState to the period of last week

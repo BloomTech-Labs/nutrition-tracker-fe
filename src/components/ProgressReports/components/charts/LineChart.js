@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-export default function MacroChart({ actuals, goals, labels, info }) {
+export default function LineChart({ actuals, goals, labels, info, options }) {
   const data = () => {
     return {
       labels: labels,
@@ -22,26 +22,6 @@ export default function MacroChart({ actuals, goals, labels, info }) {
         }
       ]
     };
-  };
-
-  const min = array =>
-    Math.min.apply(Math, array) >= 10
-      ? Math.floor(Math.max.apply(Math, array) / 10) * 10 - 10
-      : 0;
-
-  const max = array => Math.ceil(Math.max.apply(Math, array) / 10) * 10 + 10;
-
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            min: min(actuals),
-            max: max(actuals)
-          }
-        }
-      ]
-    }
   };
 
   return <Line data={data} options={options} />;

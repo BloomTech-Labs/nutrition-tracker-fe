@@ -3,8 +3,8 @@ import React, { useState } from "react";
 // Using useSelector to grab token from firebase reducer
 import { useSelector } from "react-redux";
 import { Route } from "react-router-dom";
-import LandingPage from "../LandingPage";
 import Loading from "../Global/Loading";
+import LandingPage from "../LandingPage";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const [token, setToken] = useState("");
@@ -19,13 +19,10 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
 
   const loaded = useSelector(state => state.firebase.profile.isLoaded);
 
-  // if (loading) return <Loading />;
-
   return (
     <Route
       {...rest}
       render={routeProps => {
-        // console.log("[token ******]", token);
         // if use is logged in, send them to private route, else send them to the landing page to log in
         return token ? (
           <RouteComponent {...routeProps} />

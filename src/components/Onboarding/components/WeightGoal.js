@@ -16,7 +16,7 @@ import InputGroupWithIcon from "./InputGroupWithIcon";
 
 class WeightGoal extends React.Component {
   state = {
-    target_rate: 0,
+    target_rate: 0.0,
     target_weight: metricToImperial(this.props.weight_kg)
   };
 

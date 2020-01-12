@@ -36,7 +36,10 @@ export const fetchDailyLog = (userID, date, currentTimeZone) => dispatch => {
   dispatch({ type: FETCH_DAILY_LOG_START });
 
   currentTimeZone = encodeURIComponent(currentTimeZone);
-
+  console.log(
+    "here?",
+    `${backendURL}/daily-log/${userID}/${date}/${currentTimeZone}`
+  );
   axios
     .get(`${backendURL}/daily-log/${userID}/${date}/${currentTimeZone}`)
     .then(({ data }) => {

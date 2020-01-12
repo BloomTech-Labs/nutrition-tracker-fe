@@ -50,49 +50,59 @@ const DailyLog = props => {
   const [interval, setInterval] = useState(30);
   const groupedDailyLog = useGroupBy(interval, dailyLog);
 
+  useFetchByDispatch(updateCurrentTimeZone, {
+    currentTimeZone
+  });
+
   useFetchByDispatch(fetchDailyLog, {
     firebaseID,
     currentDate,
     currentTimeZone
   });
 
-  useFetchByDispatch(updateCurrentTimeZone, { currentTimeZone });
-
   const updateInterval = interval => setInterval(interval);
   const updateCurrentDate = newDate => dispatch(updateCurrentDate(newDate));
 
   return (
-    <Container height={props.height} fluid>
-      <CaloricBudget
-        total={budgets.caloricBudget}
-        consumed={consumed.caloriesConsumed}
-      />
-      <FatSecretAttribution />
-      <MacroBudgets
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-      />
-      <Pagination
-        currentDate={currentDate}
-        currentTimeZone={currentTimeZone}
-        updateCurrentDate={updateCurrentDate}
-      />
-      <DisplaySettings
-        interval={interval}
-        currentDate={currentDate}
-        updateInterval={updateInterval}
-        currentTimeZone={currentTimeZone}
-      />
-      {fetchDailyLogSuccess && <TimeLog dailyLog={groupedDailyLog} />}
-      <Row>
-        <Col>
-          <Flywheel
-            maintButtonIcon={faTimes}
-            childButtonIcons={childButtonIcons}
+    <>
+      <Container height={props.height} fluid>
+        <CaloricBudget
+          total={budgets.caloricBudget}
+          consumed={consumed.caloriesConsumed}
+        />
+        <FatSecretAttribution />
+        <MacroBudgets
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+        />
+        <Pagination
+          currentDate={currentDate}
+          currentTimeZone={currentTimeZone}
+          updateCurrentDate={updateCurrentDate}
+        />
+        <DisplaySettings
+          interval={interval}
+          currentDate={currentDate}
+          updateInterval={updateInterval}
+          currentTimeZone={currentTimeZone}
+        />
+        {fetchDailyLogSuccess && (
+          <TimeLog
+            dailyLog={groupedDailyLog}
+            path={props.match.url}
+            props={props}
           />
-        </Col>
-      </Row>
-    </Container>
+        )}
+        <Row>
+          <Col>
+            <Flywheel
+              maintButtonIcon={faTimes}
+              childButtonIcons={childButtonIcons}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

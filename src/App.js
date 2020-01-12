@@ -88,6 +88,10 @@ class App extends Component {
             component={ProgressReportsWithNav}
           />
           <Route path="/scanner" component={ScannerWithNav} />
+          <PrivateRoute
+            path="/update-food-item"
+            component={UpdateViewWithNav}
+          />
         </AppWrapper>
       </ToastProvider>
     );

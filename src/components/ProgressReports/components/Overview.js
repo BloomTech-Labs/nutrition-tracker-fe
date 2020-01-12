@@ -8,8 +8,6 @@ import { getCaloriesConsumed } from "../../../store/actions/progressOverviewActi
 import { getAverageMacrosConsumed } from "../../../store/actions/progressOverviewActions";
 import { Col as BS_Col, Row } from "../../Global/styled";
 import LineChart from "./charts/LineChart";
-import MacroProgress from "./charts/MacroProgress";
-import WeightProgress from "./charts/WeightProgress";
 
 const Overview = () => {
   const firebaseID = useSelector(state => state.firebase.auth.uid);
@@ -17,7 +15,6 @@ const Overview = () => {
   const { start_date } = useSelector(state => state.progressPeriod);
 
   const {
-    averageMacros,
     weight_actuals,
     weight_targets,
     weight_labels,

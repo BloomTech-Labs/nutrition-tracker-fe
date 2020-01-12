@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
 import { getWeightActuals } from "../../../store/actions/progressOverviewActions";
 import { getWeightTargets } from "../../../store/actions/progressOverviewActions";
 import { getCaloriesConsumed } from "../../../store/actions/progressOverviewActions";
 import { getAverageMacrosConsumed } from "../../../store/actions/progressOverviewActions";
-import { Col, Row } from "../../Global/styled";
+import { Col as BS_Col, Row } from "../../Global/styled";
 import LineChart from "./charts/LineChart";
 import MacroProgress from "./charts/MacroProgress";
 import WeightProgress from "./charts/WeightProgress";
@@ -26,22 +27,22 @@ const Overview = () => {
   } = useSelector(state => state.progressOverview);
 
   useFetchByDispatch(getAverageMacrosConsumed, {
-    firebaseID: "12345",
+    firebaseID,
     start_date
   });
 
   useFetchByDispatch(getWeightTargets, {
-    firebaseID: "dave",
+    firebaseID,
     ...progressPeriod
   });
 
   useFetchByDispatch(getWeightActuals, {
-    firebaseID: "dave",
+    firebaseID,
     ...progressPeriod
   });
 
   useFetchByDispatch(getCaloriesConsumed, {
-    firebaseID: "12345",
+    firebaseID,
     ...progressPeriod
   });
 
@@ -65,7 +66,7 @@ const Overview = () => {
       : 0;
 
   const calories_max = array =>
-    Math.round(Math.max.apply(Math, array) / 200) * 200 + 200;
+    Math.round(Math.max.apply(Math, array) / 100) * 100 + 200;
 
   const calorie_info = {
     title_1: "Actual Calories",
@@ -80,7 +81,8 @@ const Overview = () => {
         {
           ticks: {
             min: calories_min(actual_calories),
-            max: calories_max(target_calories)
+            max: calories_max(actual_calories),
+            callback: value => `${value} cal`
           }
         }
       ]
@@ -100,7 +102,8 @@ const Overview = () => {
         {
           ticks: {
             min: weight_min(weight_targets, weight_actuals),
-            max: weight_max(weight_targets, weight_actuals)
+            max: weight_max(weight_targets, weight_actuals),
+            callback: value => `${value} lbs`
           }
         }
       ]
@@ -111,7 +114,7 @@ const Overview = () => {
     <>
       <Row>
         <Col direction="column" align="center">
-          <h3>Actual vs. Target Weights</h3>
+          <h3>Weight - Actuals vs Targets</h3>
           <LineChart
             actuals={weight_actuals}
             goals={weight_targets}
@@ -123,7 +126,7 @@ const Overview = () => {
       </Row>
       <Row>
         <Col direction="column" align="center">
-          <h3>Calories vs. Caloric Budget</h3>
+          <h3>Calories - Actuals vs Targets</h3>
           <LineChart
             actuals={actual_calories}
             goals={target_calories}
@@ -133,13 +136,12 @@ const Overview = () => {
           />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <MacroProgress averageMacros={averageMacros} />
-        </Col>
-      </Row>
     </>
   );
 };
+
+const Col = styled(BS_Col)`
+  margin: 2rem 0;
+`;
 
 export default Overview;

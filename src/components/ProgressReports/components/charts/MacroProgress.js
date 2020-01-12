@@ -38,6 +38,8 @@ const ChartWrapper = styled.div`
   align-content: center;
   width: 100%;
   height: 280px;
+
+  margin-bottom: 8rem;
 `;
 
 export default MacroProgress;

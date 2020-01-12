@@ -25,10 +25,10 @@ class WeightGoal extends React.Component {
     e.preventDefault();
     const { target_rate, target_weight } = this.state;
     this.props.updateWeightGoal({
-      target_weight_kg: weightToMetic(target_weight),
+      target_weight_kg: weightToMetric(target_weight),
       target_rate: target_rate
     });
-    
+
     if (target_weight) {
       this.props.history.push("/register");
     } else {
@@ -44,13 +44,13 @@ class WeightGoal extends React.Component {
   };
 
   updateTargetWeight = e => {
-    this.setState({target_weight: e.target.value}, () => {
-      this.setState({target_rate: 0});
+    this.setState({ target_weight: e.target.value }, () => {
+      this.setState({ target_rate: 0 });
     });
   };
 
   updateTargetRate = e => {
-    this.setState({target_rate: Number(e.target.value)});
+    this.setState({ target_rate: Number(e.target.value) });
   };
 
   render() {
@@ -86,24 +86,37 @@ class WeightGoal extends React.Component {
           </Row>
           <Row>
             <Col>
-              <SlideBar style={{display: weightToMetic(target_weight) === weight_kg ? "none" : "block" }}>
+              <SlideBar
+                style={{
+                  display:
+                    weightToMetric(target_weight) === weight_kg
+                      ? "none"
+                      : "block"
+                }}
+              >
                 <Input
                   name="target_rate"
                   type="range"
-                  value={weightToMetic(target_weight) === weight_kg ? 0 : target_rate}
-                  min={weightToMetic(target_weight) >= weight_kg ? 0 : -2}
-                  max={weightToMetic(target_weight) <= weight_kg ? 0 :  2}
+                  value={
+                    weightToMetric(target_weight) === weight_kg
+                      ? 0
+                      : target_rate
+                  }
+                  min={weightToMetric(target_weight) >= weight_kg ? 0 : -2}
+                  max={weightToMetric(target_weight) <= weight_kg ? 0 : 2}
                   step={0.5}
                   onChange={this.updateTargetRate}
                 />
                 <div>
-                  {this.state.target_rate === 0
-                    ? <h3>Maintain</h3>
-                    : this.state.target_rate > 0
-                    ? <h3>{`Gain ${this.state.target_rate} pounds per week`}</h3>
-                    : this.state.target_rate < 0
-                    ? <h3>{`Loose ${this.state.target_rate} pounds per week`}</h3>
-                    : <h3>Maintain</h3>}
+                  {this.state.target_rate === 0 ? (
+                    <h3>Maintain</h3>
+                  ) : this.state.target_rate > 0 ? (
+                    <h3>{`Gain ${this.state.target_rate} pounds per week`}</h3>
+                  ) : this.state.target_rate < 0 ? (
+                    <h3>{`Loose ${this.state.target_rate} pounds per week`}</h3>
+                  ) : (
+                    <h3>Maintain</h3>
+                  )}
                 </div>
               </SlideBar>
             </Col>
@@ -121,12 +134,12 @@ class WeightGoal extends React.Component {
   }
 }
 
-function weightToMetic(lbs) {
-  return Math.round(lbs * 0.453592);
+function weightToMetric(lbs) {
+  return lbs * 0.453592;
 }
 
 function metricToImperial(kg) {
-  return Math.floor(kg / 0.453592);
+  return Math.round(kg / 0.453592);
 }
 
 const mapStateToProps = state => {

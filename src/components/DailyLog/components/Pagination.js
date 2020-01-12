@@ -84,7 +84,7 @@ const DateInput = styled(BS_Input)`
   font-size: 1.6rem;
 
   border: none;
-  background-color: ${theme.color.light};
+  background-color: ${theme.color.nutri_background};
 
   &:before {
     content: attr(placeholder) !important;
@@ -99,7 +99,7 @@ const DateInput = styled(BS_Input)`
 `;
 
 const Button = styled(BS_Button)`
-  background-color: ${theme.color.light};
+  background-color: ${theme.color.nutri_background};
   border: none;
 `;
 

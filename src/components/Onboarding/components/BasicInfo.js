@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import InputGroupWithIcon from "./InputGroupWithIcon";
-import { Row, Col, PillButton, H2, Form } from "../../Global/styled";
-import { CalendarSVG, RulerSVG, ScaleSVG } from "../../Global/icons";
-import { updateBasicInfo } from "../../../store/actions/onboardingActions";
 import { Redirect } from "react-router-dom";
+import { updateBasicInfo } from "../../../store/actions/onboardingActions";
+import { CalendarSVG, RulerSVG, ScaleSVG } from "../../Global/icons";
+import { Col, Form, H2, PillButton, Row } from "../../Global/styled";
+import InputGroupWithIcon from "./InputGroupWithIcon";
 
 class BasicInfo extends React.Component {
   state = {
@@ -23,7 +23,7 @@ class BasicInfo extends React.Component {
     this.props.updateBasicInfo({
       date_of_birth: date_of_birth,
       height: heightToMetric(feet, inches),
-      weight: weightToMetic(weight)
+      weight: weightToMetric(weight)
     });
 
     // pushes us to next route after basic info was updated
@@ -122,8 +122,8 @@ function heightToMetric(feet, inches) {
 }
 
 // Converts weight to kilograms
-function weightToMetic(lbs) {
-  return Math.round(lbs * 0.453592);
+function weightToMetric(lbs) {
+  return lbs * 0.453592;
 }
 
 const mapStateToProps = state => {

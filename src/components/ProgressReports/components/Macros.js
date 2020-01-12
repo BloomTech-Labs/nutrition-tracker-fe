@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useFetchByDispatch } from "../../../custom-hooks/useFetchByDispatch";
 import { getMacroProgress } from "../../../store/actions/macroProgress";
-import { Col, Row } from "./../../Global/styled";
+import { Col as BS_Col, Row } from "./../../Global/styled";
 import LineChart from "./charts/LineChart";
 
 export default function Macros() {
@@ -59,7 +59,8 @@ export default function Macros() {
         {
           ticks: {
             min: min(actual_fats),
-            max: max(actual_fats)
+            max: max(actual_fats),
+            callback: value => `${value}%`
           }
         }
       ]
@@ -72,7 +73,8 @@ export default function Macros() {
         {
           ticks: {
             min: min(actual_carbs),
-            max: max(actual_carbs)
+            max: max(actual_carbs),
+            callback: value => `${value}%`
           }
         }
       ]
@@ -85,7 +87,8 @@ export default function Macros() {
         {
           ticks: {
             min: min(actual_protein),
-            max: max(actual_protein)
+            max: max(actual_protein),
+            callback: value => `${value}%`
           }
         }
       ]
@@ -95,10 +98,11 @@ export default function Macros() {
   return (
     <MacroWrapper>
       <Row>
-        <Col>
+        <Col direction="column" align="center">
+          <h3>Fat Ratios - Actuals vs Targets</h3>
           <LineChart
-            actuals={actual_carbs}
-            goals={target_carbs}
+            actuals={actual_fats}
+            goals={target_fats}
             labels={labels}
             info={fats_info}
             options={fatOptions}
@@ -106,10 +110,11 @@ export default function Macros() {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col direction="column" align="center">
+          <h3>Carb Ratios - Actuals vs Targets</h3>
           <LineChart
-            actuals={actual_fats}
-            goals={target_fats}
+            actuals={actual_carbs}
+            goals={target_carbs}
             labels={labels}
             info={carbs_info}
             options={carbOptions}
@@ -117,7 +122,8 @@ export default function Macros() {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col direction="column" align="center">
+          <h3>Protein Ratios - Actuals vs Targets</h3>
           <LineChart
             actuals={actual_protein}
             goals={target_protein}
@@ -133,4 +139,8 @@ export default function Macros() {
 
 const MacroWrapper = styled.div`
   margin-bottom: 8rem;
+`;
+
+const Col = styled(BS_Col)`
+  margin: 2rem 0;
 `;

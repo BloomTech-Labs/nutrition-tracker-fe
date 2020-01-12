@@ -11,6 +11,7 @@ import DailyLog from "./components/DailyLog";
 import FoodItem from "./components/FoodItem";
 // importing from global styles
 import { AppWrapper } from "./components/Global/styled";
+import theme from "./components/Global/theme";
 import withNavigation from "./components/Navigation/withNavigation";
 import Onboarding from "./components/Onboarding";
 // setting up private route to make sure only authenticated users are in our home page
@@ -39,19 +40,19 @@ const SettingsWithNav = withNavigation({
 
 const OnboardingWithNav = withNavigation({
   iconColor: "black",
-  topNavColor: "white",
+  topNavColor: theme.color.nutri_background,
   displayBottom: false
 })(Onboarding);
 
 const LoginWithNav = withNavigation({
   iconColor: "black",
-  topNavColor: "white",
+  topNavColor: theme.color.nutri_background,
   displayBottom: false
 })(Login);
 
 const RegisterWithNav = withNavigation({
   iconColor: "black",
-  topNavColor: "white",
+  topNavColor: theme.color.nutri_background,
   displayBottom: false
 })(Register);
 

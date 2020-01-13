@@ -78,10 +78,6 @@ class App extends Component {
           <Route path="/register" component={RegisterWithNav} />
           <Route path="/onboarding" component={OnboardingWithNav} />
           <PrivateRoute path="/food-item" component={FoodItemWithNav} />
-          <PrivateRoute
-            path="/update-food-item"
-            component={UpdateViewWithNav}
-          />
           <PrivateRoute path="/settings" component={SettingsWithNav} />
           <PrivateRoute
             path="/progress-reports"

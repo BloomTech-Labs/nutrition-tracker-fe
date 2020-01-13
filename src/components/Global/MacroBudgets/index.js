@@ -31,7 +31,7 @@ const MacroBudgets = props => {
 
   useFetchByDispatch(fetchDailyLog, {
     firebaseID,
-    currentDate,
+    currentDate: props.date ? props.date : currentDate,
     currentTimeZone
   });
 

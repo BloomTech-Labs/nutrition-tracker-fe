@@ -1,9 +1,3 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # NutriJournal
 
 You can find the deployed project at [getnutrijournal.com](http://www.getnutrijournal.com).
@@ -19,165 +13,153 @@ You can find the deployed project at [getnutrijournal.com](http://www.getnutrijo
 <br>
 <br>
 
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
-![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/Lambda-School-Labs/nutrition-tracker-fe/firebase)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/Lambda-School-Labs/nutrition-tracker-fe/react)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/Lambda-School-Labs/nutrition-tracker-fe/redux)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/Lambda-School-Labs/nutrition-tracker-fe/styled-components)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/Lambda-School-Labs/nutrition-tracker-fe/reactstrap)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## Project Overview
 
-[Product Canvas](https://www.notion.so/Nutrition-Tracker-43bf4b85243d48aaa56c05ab6dbfdc23)
+A web application that allows users to track the food that they consume and which provides a visualization of eating patterns and nutritional data.
 
-[Figma Prototype - Canvas 1.0 - (bootstrap, no added styles)](https://www.figma.com/file/y1CHPrRYVXDkP2PRHMdGl9/NutraJournal?node-id=2%3A78)
+### Key Features
 
-[DB Schema](https://dbdesigner.page.link/vdm7)
+- Ability to sign up with email address or Google account
+- Input info for Body Mass Index (BMI) calculation then determine their daily target caloric intake though activity level
+- A way to update user info weekly to calculate progress on user set weight goals
 
-[Trello Board](https://trello.com/c/xQH6Q8Iw/77-rc-1-technical-research)
-
-🚫 Replace lorem ipsum with a description of your project
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-### 4️⃣ Key Features
-
-- feature one
-- feature two
-- feature three
-- feature four
-- feature five
-
-## 1️⃣ Tech Stack
+## Tech Stack
 
 ### Front end built using:
 
-##### Styling:
+#### React
 
-`yarn add bootstrap`
-`yarn add reactstrap`
-Installs bootstrap css file and reactstrap components
+- Makes writing components easy
+- Ease of component reuse
+- Mature dependency, informational and community ecosystem
 
-`yarn add normalize.css`
-Installs normalize.css file to normalize css across browsers
+#### Styling
 
-`yarn add styled-components`
-Installs styled components to customize our css
+##### bootstrap
 
-##### Redux, middleware and router
+- Allowed quick prototyping
+- Various pre-built components
+- Mature ecosystem
 
-`yarn add redux react-redux redux-thunk redux-logger`
-Adding dependencies for redux and middleware
+##### reactstrap
 
-`yarn add react-router react-router-dom`
-Adding react router to the game
+- Controllable pre-built react components
 
-#### _Front end framework goes here_
+##### normalize.css
 
-🚫 Why did you choose this framework?
+- Normalize browser styles
+- Increased style consistency across different browsers
+
+##### styled-components
+
+- Allowed us to create components with applied styles and reuse them throughout the app
+- Allowed us to create extensible higher-order components to apply styling
+
+#### State management and Routing
+
+##### redux
+
+- Allowed us to manage complexity of state by keeping data in a single store as data changed throughout the app
+- Mature ecosystem, high adoption rate among react community
+
+##### redux-thunk
+
+- Allows us to write action creators that dispatch asynchronously or conditionally
+
+##### redux-logger
+
+- Makes redux actions traceable and improves debuggability
+
+##### react-router 
+
+- Allowed us to conditionally render componets based on the URL the user is visiting
+- Improved UX as it allows the app to behave in the way most websites behave and the way most users expect, i.e. as if there was a folder structure to the application
+
+### Front end deployed to Firebase
+
+- `firebase-tools` used to set up Firebase hosting and auth
+
+#### [Back end](https://github.com/Lambda-School-Labs/nutrition-tracker-be) built using:
+
+##### Express
 
 - point one
 - point two
 - point three
-- point four
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
-
-#### Front end deployed to `🚫insert service here`
-
-#### [Back end](🚫link to back end repo here) built using:
-
-#### 🚫 back end framework goes here
+##### PostgreSQL
 
 - point one
 - point two
 - point three
-
-#### `yarn add firebase-tools`
-
-- Used to set up Firebase hosting and auth
-- Frontend will be hosted on Firebase
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
 
 # APIs
 
-## 2️⃣ Authentication API here
+## Authentication
 
-🚫Replace text below with a description of the API
+We used Firebase Authentication for user authentication and account creation. We used the Email/Password capability and the Google Account login method as well.
 
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+Details on how Firebase Authentication works can be found [here](https://firebase.google.com/docs/auth/web/start).
 
-## 2️⃣ Payment API here
+## API Documentation
 
-🚫Replace text below with a description of the API
+Our app's API's are documented in Postman collections [here](https://nutrijournal.postman.co/workspaces/3f11e883-1e39-496e-ac06-063bb81be931/collections).
 
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
-
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
+    *  REACT_APP_FIREBASE_KEY - this is your Google Firebase key, which can be generated in the [Google Firebase Console](https://console.firebase.google.com)
+    *  REACT_APP_FIREBASE_DOMAIN - when you set up your Firebase project, this information will be in the dashboard
+    *  REACT_APP_FIREBASE_DATABASE - in the Firebase dashboard
+    *  REACT_APP_FIREBASE_PROJECT_ID - in the Firebase dashboard
+    *  REACT_APP_FIREBASE_STORAGE_BUCKET - in the Firebase dashboard
+    *  REACT_APP_FIREBASE_SENDER_ID - in the Firebase dashboard
+    * REACT_APP_FIREBASE_APP_ID - in the Firebase dashboard
 
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
-
-# 5️⃣ Content Licenses
-
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
+# Content Licenses
 
 | Image Filename | Source / Creator | License                                                                      |
 | -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| default-user-pic.jpeg    | Artist   | [Creative Commons](https://google.com) |
+| Back SVG    | Artist   | [Creative Commons](https://google.com) |
+| Calendar SVG    | Artist   | [Creative Commons](https://google.com) |
+| Daily Log SVG    | Artist   | [Creative Commons](https://google.com) |
+| Email SVG    | Artist   | [Creative Commons](https://google.com) |
+| Facebook SVG   | Artist   | [Creative Commons](https://google.com) |
+| Left Carot SVG   | Artist   | [Creative Commons](https://google.com) |
+| Progress SVG    | Artist   | [Creative Commons](https://google.com) |
+| Recipe SVG  | Artist   | [Creative Commons](https://google.com) |
+| Right Carot SVG    | Artist   | [Creative Commons](https://google.com) |
+| Ruler SVG   | Artist   | [Creative Commons](https://google.com) |
+| Ruler SVG   | Artist   | [Creative Commons](https://google.com) |
+| Scale SVG   | Artist   | [Creative Commons](https://google.com) |
+| Scanner SVG    | Artist   | [Creative Commons](https://google.com) |
+| Settings SVG    | Artist   | [Creative Commons](https://google.com) |
 
-# 4️⃣ Testing
 
-🚫Document what you used for testing and why
 
-# 4️⃣ Installation Instructions
+# Testing
 
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+Testing was done with [`jest`](https://jestjs.io/en) and [`enzyme`](https://airbnb.io/enzyme/), along with mutation tests using [`stryker`](https://stryker-mutator.io/). Jest and enzyme allowed us to create more dynamic tsts built around our redux framework. Stryker helped us increase the quality and depth of tests by substituting variable and functions with fake data, then checking if tests passed or failed with the substituted data.
+
+# Installation Instructions
+
+`$ yarn install`
 
 ## Other Scripts
 
-🚫replace these examples with your own
+`$ yarn start` - starts the production server
 
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+`$ yarn test` - runs Jest tests in watch mode
 
 # Contributing
 
@@ -218,4 +200,14 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-be/blob/master/README.md) for details on the backend of our project.
+
+### Additional documentation
+
+[Product Canvas](https://www.notion.so/Nutrition-Tracker-43bf4b85243d48aaa56c05ab6dbfdc23)
+
+[Figma Prototype - Canvas 1.0 - (bootstrap, no added styles)](https://www.figma.com/file/y1CHPrRYVXDkP2PRHMdGl9/NutraJournal?node-id=2%3A78)
+
+[DB Schema](https://dbdesigner.page.link/vdm7)
+
+[Trello Board](https://trello.com/c/xQH6Q8Iw/77-rc-1-technical-research)

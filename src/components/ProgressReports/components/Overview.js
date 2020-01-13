@@ -45,15 +45,15 @@ const Overview = () => {
 
   // TODO: change min and max to -5 and + 5
   const weight_min = (arr1, arr2) => {
-    const min1 = Math.round(Math.min.apply(Math, arr1) / 10) * 10 - 5;
-    const min2 = Math.round(Math.min.apply(Math, arr2) / 10) * 10 - 5;
+    const min1 = Math.round(Math.min.apply(Math, arr1) / 5) * 5 - 5;
+    const min2 = Math.round(Math.min.apply(Math, arr2) / 5) * 5 - 5;
     return min1 > min2 ? min2 : min1;
   };
   // TODO: change min and max to -5 and + 5
 
   const weight_max = (arr1, arr2) => {
-    const max1 = Math.round(Math.max.apply(Math, arr1) / 10) * 10 + 5;
-    const max2 = Math.round(Math.max.apply(Math, arr2) / 10) * 10 + 5;
+    const max1 = Math.round(Math.max.apply(Math, arr1) / 5) * 5 + 5;
+    const max2 = Math.round(Math.max.apply(Math, arr2) / 5) * 5 + 5;
     return max1 > max2 ? max1 : max2;
   };
 

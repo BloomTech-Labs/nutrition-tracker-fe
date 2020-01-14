@@ -15,3 +15,4 @@ const productionURL = `https://nutri-journal.herokuapp.com`;
 //                     REACT_APP_backendURL=http://the-backend-you-want-to-use.com
 
 export const backendURL = process.env.REACT_APP_backendURL || productionURL;
+// export const backendURL = "http://localhost:4000";

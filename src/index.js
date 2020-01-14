@@ -12,7 +12,7 @@ import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { BrowserRouter as Router } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import { createFirestoreInstance } from "redux-firestore";
-import logger from "redux-logger";
+// import logger from "redux-logger";
 import thunk from "redux-thunk";
 import App from "./App";
 import firebase from "./config/firebase";
@@ -22,7 +22,7 @@ import * as serviceWorker from "./serviceWorker";
 import rootReducer from "./store/reducers";
 
 // create our redux store and apply our middleware
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const reactReduxFirebaseConfig = {
   userProfile: "users",
@@ -41,11 +41,11 @@ const reactReduxFirebaseProps = {
 ReactDOM.render(
   // our redux provider wraps our firebase's react-redux provide which wraps our Router and then App
   <Provider store={store}>
-   <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}> 
+    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
       <Router>
         <App />
       </Router>
-   </ReactReduxFirebaseProvider>
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );
